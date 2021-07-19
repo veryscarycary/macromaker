@@ -20,3 +20,7 @@ export type DietTabParamList = {
 export type FitnessTabParamList = {
   FitnessScreen: undefined;
 };
+
+export type GenericObject = {
+  [key: string]: any;
+};

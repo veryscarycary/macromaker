@@ -53,15 +53,11 @@ const DietTabStack = createStackNavigator<DietTabParamList>();
 
 function DietTabNavigator() {
   return (
-    <DietTabStack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
+    <DietTabStack.Navigator>
       <DietTabStack.Screen
         name="DietScreen"
         component={DietScreen}
-        options={{ headerTitle: 'Diet Title' }}
+        options={{ headerTitle: 'Diet' }}
       />
     </DietTabStack.Navigator>
   );
@@ -75,7 +71,7 @@ function FitnessNavigator() {
       <FitnessTabStack.Screen
         name="FitnessScreen"
         component={FitnessScreen}
-        options={{ headerTitle: 'Fitness Title' }}
+        options={{ headerTitle: 'Fitness' }}
       />
     </FitnessTabStack.Navigator>
   );

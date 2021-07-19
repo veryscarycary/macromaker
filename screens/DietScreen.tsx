@@ -1,42 +1,32 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { StyleSheet, ImageBackground } from 'react-native';
-
-import { Text, View } from '../components/Themed';
-
-import PercentageSlider from '../components/PercentageSlider';
+// import { StyleSheet } from 'react-native';
+import DietHistoryList from '../components/DietHistoryList';
+import MacroGraph from '../components/MacroGraph';
 
 const DietScreen = () => {
   return (
-    <ImageBackground
-      source={require('../assets/images/diet-background.png')}
-      resizeMode="cover"
-      style={styles.container}
-    >
-      <Text style={styles.title}>Macros</Text>
-
-      <PercentageSlider label="Carbs" style={styles.marginTop} />
-      <PercentageSlider label="Protein" style={styles.marginTop} />
-      <PercentageSlider label="Fat" style={styles.marginTop} />
-    </ImageBackground>
+    <>
+      <MacroGraph />
+      <DietHistoryList />
+    </>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginBottom: 200,
-  },
-  title: {
-    fontSize: 32,
-    fontFamily: 'helvetica',
-    fontWeight: 'bold',
-  },
-  marginTop: {
-    marginTop: 15,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'flex-end',
+//     marginBottom: 200,
+//   },
+//   title: {
+//     fontSize: 32,
+//     fontFamily: 'helvetica',
+//     fontWeight: 'bold',
+//   },
+//   marginTop: {
+//     marginTop: 15,
+//   },
+// });
 
 export default DietScreen;
