@@ -3,6 +3,7 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
+import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -12,7 +13,14 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import DietScreen from '../screens/DietScreen';
 import FitnessScreen from '../screens/FitnessScreen';
-import { BottomTabParamList, DietTabParamList, FitnessTabParamList } from '../types';
+import {
+  BottomTabParamList,
+  DietTabParamList,
+  FitnessTabParamList,
+} from '../types';
+import { Text } from '../components/Themed';
+import AddFoodHeaderButton from '../components/AddFoodHeaderButton';
+import AddFoodScreen from '../screens/AddFoodScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -22,19 +30,24 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Diet"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+    >
       <BottomTab.Screen
         name="Diet"
         component={DietTabNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-code" color={color} />
+          ),
         }}
       />
       <BottomTab.Screen
         name="Fitness"
         component={FitnessNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-code" color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>
@@ -43,7 +56,10 @@ export default function BottomTabNavigator() {
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
-function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof Ionicons>['name'];
+  color: string;
+}) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
@@ -57,7 +73,19 @@ function DietTabNavigator() {
       <DietTabStack.Screen
         name="DietScreen"
         component={DietScreen}
-        options={{ headerTitle: 'Diet' }}
+        options={(props) => ({
+          headerTitle: 'Diet History',
+          headerRight: () => (
+            <AddFoodHeaderButton {...props} />
+          ),
+        })}
+      />
+      <DietTabStack.Screen
+        name="AddFoodScreen"
+        component={AddFoodScreen}
+        options={{
+          headerTitle: 'Add Food',
+        }}
       />
     </DietTabStack.Navigator>
   );
