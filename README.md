@@ -10,6 +10,8 @@ Serves as a way to diagram ideas before we spend time on wireframes
 
 https://lucid.app/lucidchart/dc5f10e5-3a72-486f-9086-483d465563b4/edit?page=0_0#
 
+Library that contains iPhone assets to copy over: https://www.figma.com/file/WbIBSgvsEFeqqktKwtO6YN/Mobile-Wireframe-UI-Kit-(Community)?node-id=55%3A104
+
 ### Figma
 
 Serves as a way to mock wireframes before we spend time on dev
