@@ -2,7 +2,7 @@
 
 React Native app for organizing fitness goals and managing macros.
 
-![image](https://user-images.githubusercontent.com/16945851/126695801-553d1477-e4b4-403b-a77a-0399b5a7059c.png | width=100)
+<img src="https://user-images.githubusercontent.com/16945851/126695801-553d1477-e4b4-403b-a77a-0399b5a7059c.png" width="100" />
 
 ### LucidChart
 
