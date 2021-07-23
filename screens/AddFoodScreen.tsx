@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { SearchBar } from 'react-native-elements';
 import { Text, View } from '../components/Themed';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input } from 'react-native-elements';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Spacer from '../components/Spacer';
 
-import { Picker } from '@react-native-picker/picker';
 import MacroInput from '../components/MacroInput';
 
 const AddFoodScreen = ({}) => {

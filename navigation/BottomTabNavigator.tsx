@@ -3,10 +3,10 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
@@ -18,9 +18,11 @@ import {
   DietTabParamList,
   FitnessTabParamList,
 } from '../types';
-import { Text } from '../components/Themed';
 import AddFoodHeaderButton from '../components/AddFoodHeaderButton';
 import AddFoodScreen from '../screens/AddFoodScreen';
+import MacroScreen from '../screens/MacroScreen';
+import MenuButton from '../components/MenuButton';
+import { View } from '../components/Themed';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -34,10 +36,13 @@ export default function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="Diet"
-        component={DietTabNavigator}
+        component={DietTabDrawerNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'restaurant-sharp' : 'restaurant-outline'}
+              color={color}
+            />
           ),
         }}
       />
@@ -45,8 +50,11 @@ export default function BottomTabNavigator() {
         name="Fitness"
         component={FitnessNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'fitness-sharp' : 'fitness-outline'}
+              color={color}
+            />
           ),
         }}
       />
@@ -66,27 +74,32 @@ function TabBarIcon(props: {
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const DietTabStack = createStackNavigator<DietTabParamList>();
+const Drawer = createDrawerNavigator();
+
+const DietTabDrawerNavigator = () => (
+    <Drawer.Navigator initialRouteName="DietTab">
+      <Drawer.Screen name="DietTab" component={DietTabNavigator} />
+    </Drawer.Navigator>
+);
 
 function DietTabNavigator() {
   return (
     <DietTabStack.Navigator>
-      <DietTabStack.Screen
-        name="DietScreen"
-        component={DietScreen}
-        options={(props) => ({
-          headerTitle: 'Diet History',
-          headerRight: () => (
-            <AddFoodHeaderButton {...props} />
-          ),
-        })}
-      />
-      <DietTabStack.Screen
-        name="AddFoodScreen"
-        component={AddFoodScreen}
-        options={{
-          headerTitle: 'Add Food',
-        }}
-      />
+        <DietTabStack.Screen
+          name="DietScreen"
+          component={DietScreen}
+          options={(props) => ({
+            headerTitle: 'Diet History',
+            headerRight: () => <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}><AddFoodHeaderButton {...props} /><MenuButton {...props} /></View>,
+          })}
+        />
+        <DietTabStack.Screen
+          name="AddFoodScreen"
+          component={AddFoodScreen}
+          options={{
+            headerTitle: 'Add Food',
+          }}
+        />
     </DietTabStack.Navigator>
   );
 }
