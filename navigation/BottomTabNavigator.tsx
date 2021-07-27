@@ -77,29 +77,35 @@ const DietTabStack = createStackNavigator<DietTabParamList>();
 const Drawer = createDrawerNavigator();
 
 const DietTabDrawerNavigator = () => (
-    <Drawer.Navigator initialRouteName="DietTab">
-      <Drawer.Screen name="DietTab" component={DietTabNavigator} />
-    </Drawer.Navigator>
+  <Drawer.Navigator initialRouteName="DietTab" drawerPosition="right">
+    <Drawer.Screen name="DietTab" component={DietTabNavigator} />
+    <Drawer.Screen name="MacroScreen" component={MacroScreen} />
+  </Drawer.Navigator>
 );
 
 function DietTabNavigator() {
   return (
     <DietTabStack.Navigator>
-        <DietTabStack.Screen
-          name="DietScreen"
-          component={DietScreen}
-          options={(props) => ({
-            headerTitle: 'Diet History',
-            headerRight: () => <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}><AddFoodHeaderButton {...props} /><MenuButton {...props} /></View>,
-          })}
-        />
-        <DietTabStack.Screen
-          name="AddFoodScreen"
-          component={AddFoodScreen}
-          options={{
-            headerTitle: 'Add Food',
-          }}
-        />
+      <DietTabStack.Screen
+        name="DietScreen"
+        component={DietScreen}
+        options={(props) => ({
+          headerTitle: 'Diet History',
+          headerRight: () => (
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginRight: 15 }}>
+              <AddFoodHeaderButton {...props} />
+              <MenuButton {...props} />
+            </View>
+          ),
+        })}
+      />
+      <DietTabStack.Screen
+        name="AddFoodScreen"
+        component={AddFoodScreen}
+        options={{
+          headerTitle: 'Add Food',
+        }}
+      />
     </DietTabStack.Navigator>
   );
 }

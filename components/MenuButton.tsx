@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Text } from './Themed';
 import { DietScreenNavigationProp } from '../types';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -12,7 +11,7 @@ type Props = {
 const MenuButton = ({ navigation }: Props) => (
   <TouchableOpacity
     style={styles.button}
-    onPress={() => navigation.navigate('AddFoodScreen')}
+    onPress={() => navigation.openDrawer()}
   >
     <Ionicons size={30} style={{ marginBottom: -3 }} name="reorder-three"/>
   </TouchableOpacity>
@@ -21,7 +20,7 @@ const MenuButton = ({ navigation }: Props) => (
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    paddingHorizontal: 20,
+    marginLeft: 5,
   },
   plus: { fontSize: 30 },
 });

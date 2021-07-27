@@ -11,10 +11,9 @@ const AddFoodScreen = ({}) => {
 
   const [carbs, setCarbs] = useState('');
   const [carbUnit, setCarbUnit] = useState('g');
-  
+
   const [protein, setProtein] = useState('');
   const [fat, setFat] = useState('');
-
 
   console.log('search', search);
   return (
@@ -28,12 +27,14 @@ const AddFoodScreen = ({}) => {
 
       <View style={styles.addMealForm}>
         {/* <View style={styles.fields}> */}
-          <MacroInput type="Carbs" />
-          <MacroInput type="Protein" />
-          <MacroInput type="Fat" />
+        <MacroInput type="Carbs" />
+        <MacroInput type="Protein" />
+        <MacroInput type="Fat" />
+        <View style={styles.caloriesContainer}>
           <Text style={styles.calories}>Calories:</Text>
+        </View>
         {/* </View> */}
-        <Spacer></Spacer>
+        <Spacer />
         <TouchableOpacity style={styles.addMealButton}>
           <Text style={styles.addMealText}>Add Meal</Text>
         </TouchableOpacity>
@@ -43,8 +44,16 @@ const AddFoodScreen = ({}) => {
 };
 
 const styles = StyleSheet.create({
-  calories: { fontSize: 24, marginTop: 15 },
-  marginTop: {marginTop: 5},
+  caloriesContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    padding: 10,
+    marginRight: 10,
+    borderRadius: 7,
+    backgroundColor: '#e8e8e8',
+  },
+  calories: { fontSize: 24 },
+  marginTop: { marginTop: 5 },
   addMealForm: {
     flex: 1,
     margin: 40,
@@ -55,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#7078df',
     alignItems: 'center',
     borderRadius: 5,
-    padding: 12 ,
+    padding: 12,
     marginHorizontal: 10,
     marginRight: 20,
     marginBottom: 20,
@@ -65,7 +74,7 @@ const styles = StyleSheet.create({
   },
   fields: {
     marginBottom: 40,
-  }
+  },
 });
 
 export default AddFoodScreen;
