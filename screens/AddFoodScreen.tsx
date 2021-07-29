@@ -1,19 +1,29 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { SearchBar } from 'react-native-elements';
 import { Text, View } from '../components/Themed';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Spacer from '../components/Spacer';
+import { Context as MealContext } from '../context/MealContext';
 
 import MacroInput from '../components/MacroInput';
 
-const AddFoodScreen = ({}) => {
+const AddFoodScreen = () => {
+  const {
+    calories,
+    carbs,
+    carbsUnit,
+    setCarbs,
+    setCarbsUnit,
+    protein,
+    proteinUnit,
+    setProtein,
+    setProteinUnit,
+    fat,
+    fatUnit,
+    setFat,
+    setFatUnit,
+  } = useContext(MealContext);
   const [search, setSearch] = useState('');
-
-  const [carbs, setCarbs] = useState('');
-  const [carbUnit, setCarbUnit] = useState('g');
-
-  const [protein, setProtein] = useState('');
-  const [fat, setFat] = useState('');
 
   console.log('search', search);
   return (
@@ -27,11 +37,29 @@ const AddFoodScreen = ({}) => {
 
       <View style={styles.addMealForm}>
         {/* <View style={styles.fields}> */}
-        <MacroInput type="Carbs" />
-        <MacroInput type="Protein" />
-        <MacroInput type="Fat" />
+        <MacroInput
+          type="Carbs"
+          unit={carbsUnit}
+          value={carbs}
+          setValue={setCarbs}
+          setUnit={setCarbsUnit}
+        />
+        <MacroInput
+          type="Protein"
+          unit={proteinUnit}
+          value={protein}
+          setValue={setProtein}
+          setUnit={setProteinUnit}
+        />
+        <MacroInput
+          type="Fat"
+          unit={fatUnit}
+          value={fat}
+          setValue={setFat}
+          setUnit={setFatUnit}
+        />
         <View style={styles.caloriesContainer}>
-          <Text style={styles.calories}>Calories:</Text>
+  <Text style={styles.calories}>Calories: {calories}</Text>
         </View>
         {/* </View> */}
         <Spacer />

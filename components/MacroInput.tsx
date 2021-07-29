@@ -6,11 +6,13 @@ import { Dimensions, TextInput } from 'react-native';
 
 type Props = {
   type: string;
+  value: string;
+  unit: string;
+  setValue: (value: string) => void;
+  setUnit: (unitValue: string) => void;
 };
 
-const MacroInput = ({ type }: Props) => {
-  const [value, setValue] = useState('');
-  const [unit, setUnit] = useState('g');
+const MacroInput = ({ type, value, unit, setValue, setUnit }: Props) => {
 
   return (
     <>
