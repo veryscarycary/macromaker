@@ -10,7 +10,10 @@ export type RootStackParamList = {
   NotFound: undefined;
 };
 
-export type DietScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Root'>;
+export type DietScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Root'
+>;
 
 export type BottomTabParamList = {
   Diet: undefined;
@@ -29,3 +32,8 @@ export type FitnessTabParamList = {
 export type GenericObject = {
   [key: string]: any;
 };
+
+export interface GenericAction {
+  type: string;
+  payload: any;
+}
