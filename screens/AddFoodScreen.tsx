@@ -4,34 +4,57 @@ import { Text, View } from '../components/Themed';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Spacer from '../components/Spacer';
 import { Context as MealContext } from '../context/MealContext';
-
 import MacroInput from '../components/MacroInput';
+import {
+  storeData,
+  getStoredData,
+  convertCarbsToCalories,
+  convertFatToCalories,
+  convertProteinToCalories,
+} from '../utils';
+
+const storeTest = (value: string) => async () => await storeData('Test', value);
+const getTest = async () => {
+  const test = await getStoredData('Test');
+  console.log(test);
+};
 
 const AddFoodScreen = () => {
+  // const [carbs, setCarbs] = useState(0);
+  // const [protein, setProtein] = useState(0);
+  // const [fat, setFat] = useState(0);
+  // const [carbsUnit, setCarbsUnit] = useState('g');
+  // const [proteinUnit, setProteinUnit] = useState('g');
+  // const [fatUnit, setFatUnit] = useState('g');
+  const [search, setSearch] = useState('');
   const {
-    calories,
-    carbs,
-    carbsUnit,
+    state: {
+      carbs,
+      carbsUnit,
+      protein,
+      proteinUnit,
+      fat,
+      fatUnit,
+    },
     setCarbs,
     setCarbsUnit,
-    protein,
-    proteinUnit,
     setProtein,
     setProteinUnit,
-    fat,
-    fatUnit,
     setFat,
     setFatUnit,
   } = useContext(MealContext);
-  const [search, setSearch] = useState('');
 
-  console.log('search', search);
+  const calories =
+    convertCarbsToCalories(carbs) +
+    convertProteinToCalories(protein) +
+    convertFatToCalories(fat);
+
   return (
     <>
       <SearchBar
         lightTheme={true}
         placeholder="Broccoli, pizza, etc"
-        onChangeText={setSearch}
+        onChangeText={(value: string) => setSearch(value)}
         value={search}
       />
 
@@ -59,12 +82,18 @@ const AddFoodScreen = () => {
           setUnit={setFatUnit}
         />
         <View style={styles.caloriesContainer}>
-  <Text style={styles.calories}>Calories: {calories}</Text>
+          <Text style={styles.calories}>Calories: {calories}</Text>
         </View>
         {/* </View> */}
         <Spacer />
-        <TouchableOpacity style={styles.addMealButton}>
+        <TouchableOpacity
+          style={styles.addMealButton}
+          onPress={storeTest('TEEESSTTT')}
+        >
           <Text style={styles.addMealText}>Add Meal</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.addMealButton} onPress={getTest}>
+          <Text style={styles.addMealText}>READ Meal</Text>
         </TouchableOpacity>
       </View>
     </>

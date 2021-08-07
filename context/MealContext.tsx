@@ -1,6 +1,5 @@
 import { Dispatch } from 'react';
 import { GenericAction } from '../types';
-import { convertCarbsToCalories, convertFatToCalories, convertProteinToCalories } from '../utils';
 import createDataContext from './createDataContext';
 
 const SET_CARBS = 'SET_CARBS';
@@ -9,6 +8,16 @@ const SET_PROTEIN = 'SET_PROTEIN';
 const SET_PROTEIN_UNIT = 'SET_PROTEIN_UNIT';
 const SET_FAT = 'SET_FAT';
 const SET_FAT_UNIT = 'SET_FAT_UNIT';
+const RESET_STATE = 'RESET_STATE';
+
+const defaultState = {
+  carbs: '',
+  protein: '',
+  fat: '',
+  carbsUnit: '',
+  proteinUnit: '',
+  fatUnit: '',
+};
 
 type State = {
   carbs: number;
@@ -20,42 +29,55 @@ type State = {
 };
 
 const mealReducer = (state: State, action: GenericAction) => {
-  let calories;
-  
   switch (action.type) {
     case SET_CARBS:
-      const carbs = action.payload;
-      calories = convertCarbsToCalories(carbs);
-      return { ...state, carbs, calories };
+      return { ...state, carbs: action.payload };
     case SET_CARBS_UNIT:
       return { ...state, carbsUnit: action.payload };
     case SET_PROTEIN:
-      const protein = action.payload;
-      calories = convertProteinToCalories(protein);
-      return { ...state, protein, calories };
+      return { ...state, protein: action.payload };
     case SET_PROTEIN_UNIT:
       return { ...state, proteinUnit: action.payload };
     case SET_FAT:
-      const fat = action.payload;
-      calories = convertFatToCalories(fat);
-      return { ...state, fat, calories };
+      return { ...state, fat: action.payload };
     case SET_FAT_UNIT:
       return { ...state, fatUnit: action.payload };
+    case RESET_STATE:
+      return defaultState;
     default:
       return state;
   }
 };
 
+const resetMealState = (dispatch: Dispatch<GenericAction>) => () =>
+  dispatch({ type: RESET_STATE });
+
+const setMacro = (
+  dispatch: Dispatch<GenericAction>,
+  type: string,
+  value: number | string
+) => {
+  const numericRegex = /[0-9]+/g;
+
+  console.log(value);
+  console.log(numericRegex.test(value.toString()));
+  debugger;
+  
+  if (numericRegex.test(Number(value).toString()) || value === '') {
+    dispatch({ type, payload: value });
+  }
+};
+
 const setCarbs = (dispatch: Dispatch<GenericAction>) => (carbs: number) => {
-  dispatch({ type: SET_CARBS, payload: carbs });
+  setMacro(dispatch, SET_CARBS, carbs);
 };
 
 const setProtein = (dispatch: Dispatch<GenericAction>) => (protein: number) => {
-  dispatch({ type: SET_PROTEIN, payload: protein });
+  setMacro(dispatch, SET_PROTEIN, protein);
 };
 
 const setFat = (dispatch: Dispatch<GenericAction>) => (fat: number) => {
-  dispatch({ type: SET_FAT, payload: fat });
+  setMacro(dispatch, SET_FAT, fat);
 };
 
 const setCarbsUnit = (dispatch: Dispatch<GenericAction>) => (
@@ -76,6 +98,14 @@ const setFatUnit = (dispatch: Dispatch<GenericAction>) => (fatUnit: string) => {
 
 export const { Provider, Context } = createDataContext(
   mealReducer,
-  { setCarbs, setProtein, setFat, setCarbsUnit, setProteinUnit, setFatUnit },
-  {}
+  {
+    resetMealState,
+    setCarbs,
+    setProtein,
+    setFat,
+    setCarbsUnit,
+    setProteinUnit,
+    setFatUnit,
+  },
+  defaultState,
 );

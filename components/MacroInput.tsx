@@ -6,7 +6,7 @@ import { Dimensions, TextInput } from 'react-native';
 
 type Props = {
   type: string;
-  value: string;
+  value: string | number;
   unit: string;
   setValue: (value: string) => void;
   setUnit: (unitValue: string) => void;
@@ -24,7 +24,7 @@ const MacroInput = ({ type, value, unit, setValue, setUnit }: Props) => {
           placeholder={type}
           // leftIcon={<Icon name="user" size={24} color="black" />}
           onChangeText={setValue}
-          value={value}
+          value={value.toString()}
         />
 
         {/* <View style={{ width: 50, height: 50, backgroundColor: 'red' }}></View> */}

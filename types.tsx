@@ -35,5 +35,5 @@ export type GenericObject = {
 
 export interface GenericAction {
   type: string;
-  payload: any;
+  payload?: any;
 }

@@ -1,4 +1,4 @@
-import React, { Dispatch, Reducer, ReactNode useReducer } from 'react';
+import React, { Dispatch, Reducer, ReactNode, useReducer } from 'react';
 import { GenericAction } from '../types';
 
 type Props = {
