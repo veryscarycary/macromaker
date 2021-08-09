@@ -57,13 +57,10 @@ const setMacro = (
   type: string,
   value: number | string
 ) => {
-  const numericRegex = /[0-9]+/g;
-
-  console.log(value);
-  console.log(numericRegex.test(value.toString()));
-  debugger;
+  const numericRegex = /^\d+$/;
+  const isNumber = numericRegex.test(value);
   
-  if (numericRegex.test(Number(value).toString()) || value === '') {
+  if (isNumber || value === '') {
     dispatch({ type, payload: value });
   }
 };
