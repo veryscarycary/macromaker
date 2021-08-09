@@ -23,6 +23,7 @@ import AddFoodScreen from '../screens/AddFoodScreen';
 import MacroScreen from '../screens/MacroScreen';
 import MenuButton from '../components/MenuButton';
 import { View } from '../components/Themed';
+import { Provider as MealProvider } from '../context/MealContext';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -101,7 +102,12 @@ function DietTabNavigator() {
       />
       <DietTabStack.Screen
         name="AddFoodScreen"
-        component={AddFoodScreen}
+        component={(props) => (
+          <MealProvider>
+            <AddFoodScreen {...props} />
+          </MealProvider>
+
+        )}
         options={{
           headerTitle: 'Add Food',
         }}

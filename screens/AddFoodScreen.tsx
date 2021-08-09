@@ -4,6 +4,7 @@ import { Text, View } from '../components/Themed';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Spacer from '../components/Spacer';
 import { Context as MealContext } from '../context/MealContext';
+
 import MacroInput from '../components/MacroInput';
 import {
   storeData,
