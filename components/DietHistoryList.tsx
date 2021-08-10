@@ -33,27 +33,29 @@ const mockHistoryList = [
 
 const keyExtractor = (item: any, index: number) => index.toString();
 
-const dietHistoryList = ({ item }: GenericObject) => (
+const DietHistoryListItem = ({ dietHistoryDay }: GenericObject) => (
   <ListItem bottomDivider>
-    <Avatar source={{ uri: item.avatar_url }} />
+    {/* <Avatar source={{ uri: '' }} /> */}
     <ListItem.Content>
-      <ListItem.Title>{item.day}</ListItem.Title>
-      <ListItem.Subtitle>{item.date}</ListItem.Subtitle>
+      <ListItem.Title>{dietHistoryDay.day}</ListItem.Title>
+      <ListItem.Subtitle>{dietHistoryDay.date}</ListItem.Subtitle>
     </ListItem.Content>
     <ListItem.Chevron />
   </ListItem>
 );
 
-const DietHistoryList = () => {
-  return (
-    <FlatList
-      style={styles.list}
-      keyExtractor={keyExtractor}
-      data={mockHistoryList}
-      renderItem={dietHistoryList}
-    />
-  );
-};
+const DietHistoryList = ({ dietHistory }) => (
+  <>
+    {dietHistory.length ? (
+      <FlatList
+        style={styles.list}
+        keyExtractor={keyExtractor}
+        data={dietHistory}
+        renderItem={({ item }) => <DietHistoryListItem dietHistoryDay={item} />}
+      />
+    ) : null}
+  </>
+);
 
 const styles = StyleSheet.create({
   container: {

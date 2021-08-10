@@ -1,10 +1,21 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import DietHistoryList from '../components/DietHistoryList';
 import MacroGraph from '../components/MacroGraph';
 import { Text, View } from '../components/Themed';
+import { getAllMealData } from '../context/MealContext';
 
-const DietScreen = () => {
+const DietScreen = ({ navigation }) => {
+  const [dietHistory, setDietHistory] = useState([]);
+
+  useEffect(
+    () => navigation.addListener('focus', async () => {
+      const dietHistory = await getAllMealData();
+      setDietHistory(dietHistory);
+    }),
+    []
+  );
+
   return (
     <>
       <View style={styles.titleContainer}>
@@ -14,7 +25,7 @@ const DietScreen = () => {
         <Text style={styles.data}>Calories:</Text>
       </View>
       <MacroGraph />
-      <DietHistoryList />
+      <DietHistoryList dietHistory={dietHistory} />
     </>
   );
 };

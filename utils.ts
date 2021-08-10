@@ -6,7 +6,11 @@ export const convertCarbsToCalories = (carbs: number): number => (carbs || 0) * 
 export const convertProteinToCalories = (protein: number): number => convertCarbsToCalories(protein);
 export const convertFatToCalories = (fat: number): number => (fat || 0) * 9;
 
-export const storeData = async (key: string, value: string) => {
+export const storeData = async (key: string, value: any) => {
+  if (typeof value !== 'string' && typeof value !== 'undefined') {
+    value = JSON.stringify(value);
+  }
+
   try {
     await AsyncStorage.setItem(key, value);
   } catch (e) {
@@ -20,8 +24,22 @@ export const getStoredData = async (key: string) => {
     
     if (value !== null) {
       // value previously stored
-      return value;
+      return JSON.parse(value);
     }
+
+    return value;
+  } catch(e) {
+    console.error(`Error: ${e}`);
+  }
+}
+
+export const getAllStoredData = async () => {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    const result = await AsyncStorage.multiGet(keys);
+
+    const data = result.map(tuple => typeof tuple[1] === 'string' ? [tuple[0], JSON.parse(tuple[1])] : tuple);
+    return data;
   } catch(e) {
     console.error(`Error: ${e}`);
   }

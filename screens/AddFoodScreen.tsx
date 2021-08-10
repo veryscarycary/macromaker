@@ -3,22 +3,15 @@ import { SearchBar } from 'react-native-elements';
 import { Text, View } from '../components/Themed';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Spacer from '../components/Spacer';
-import { Context as MealContext } from '../context/MealContext';
+import { Context as MealContext, storeMeal } from '../context/MealContext';
 
 import MacroInput from '../components/MacroInput';
 import {
-  storeData,
-  getStoredData,
   convertCarbsToCalories,
   convertFatToCalories,
   convertProteinToCalories,
+  getTodaysDate,
 } from '../utils';
-
-const storeTest = (value: string) => async () => await storeData('Test', value);
-const getTest = async () => {
-  const test = await getStoredData('Test');
-  console.log(test);
-};
 
 const AddFoodScreen = () => {
   // const [carbs, setCarbs] = useState(0);
@@ -29,6 +22,7 @@ const AddFoodScreen = () => {
   // const [fatUnit, setFatUnit] = useState('g');
   const [search, setSearch] = useState('');
   const {
+    state,
     state: {
       carbs,
       carbsUnit,
@@ -89,12 +83,10 @@ const AddFoodScreen = () => {
         <Spacer />
         <TouchableOpacity
           style={styles.addMealButton}
-          onPress={storeTest('TEEESSTTT')}
+          disabled={!carbs || !protein || !fat}
+          onPress={storeMeal(getTodaysDate(), { ...state, calories })}
         >
           <Text style={styles.addMealText}>Add Meal</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.addMealButton} onPress={getTest}>
-          <Text style={styles.addMealText}>READ Meal</Text>
         </TouchableOpacity>
       </View>
     </>

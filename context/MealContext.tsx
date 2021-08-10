@@ -1,6 +1,8 @@
 import { Dispatch } from 'react';
 import { GenericAction } from '../types';
+import { getAllStoredData, getStoredData, storeData } from '../utils';
 import createDataContext from './createDataContext';
+import { sortBy } from 'lodash';
 
 const SET_CARBS = 'SET_CARBS';
 const SET_CARBS_UNIT = 'SET_CARBS_UNIT';
@@ -26,6 +28,45 @@ type State = {
   proteinUnit: string;
   fat: number;
   fatUnit: string;
+};
+
+export const storeMeal = (date: string, meal: string) => async () => {
+  const mealKey = `meals@${date}`;
+  const meals = await getStoredData(mealKey);
+  const areMeals = meals !== null && meals.length;
+
+  // if already have meals stored for today
+  if (areMeals) {
+    const updatedMeals = [...meals, meal];
+
+    return await storeData(mealKey, updatedMeals);
+  }
+
+  return await storeData(mealKey, [meal]);
+};
+
+export const getAllMealData = async () => {
+  // array of tuples
+  const allStoredData = await getAllStoredData();
+
+  const mealTuples = allStoredData.filter((tuple: [string, string | null]) => {
+    const isMeal = tuple[0].includes('meals@');
+    return isMeal;
+  });
+
+  const formattedMeals = mealTuples.map((tuple) => {
+    const key = tuple[0];
+    const date = key.substring(6);
+
+    return {
+      date,
+      day: new Date(date).toLocaleDateString('en-us', { weekday: 'long' }),
+      meals: tuple[1],
+    };
+  });
+
+  const sortedFormattedMeals = sortBy(formattedMeals, ['date']);
+  return sortedFormattedMeals;
 };
 
 const mealReducer = (state: State, action: GenericAction) => {
@@ -59,7 +100,7 @@ const setMacro = (
 ) => {
   const numericRegex = /^\d+$/;
   const isNumber = numericRegex.test(value);
-  
+
   if (isNumber || value === '') {
     dispatch({ type, payload: value });
   }
@@ -104,5 +145,5 @@ export const { Provider, Context } = createDataContext(
     setProteinUnit,
     setFatUnit,
   },
-  defaultState,
+  defaultState
 );
