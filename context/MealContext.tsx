@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { GenericAction } from '../types';
+import { DietDay, GenericAction } from '../types';
 import { getAllStoredData, getStoredData, storeData } from '../utils';
 import createDataContext from './createDataContext';
 import { sortBy } from 'lodash';
@@ -45,7 +45,7 @@ export const storeMeal = (date: string, meal: string) => async () => {
   return await storeData(mealKey, [meal]);
 };
 
-export const getAllMealData = async () => {
+export const getAllMealData = async (): Promise<DietDay[]> => {
   // array of tuples
   const allStoredData = await getAllStoredData();
 
@@ -67,6 +67,13 @@ export const getAllMealData = async () => {
 
   const sortedFormattedMeals = sortBy(formattedMeals, ['date']);
   return sortedFormattedMeals;
+};
+
+export const getMealData = async (date: string): Promise<DietDay> => {
+  // if need better performance later, rewrite for single access
+  const allMealData = await getAllMealData();
+  const dietDay = allMealData.find((dietDay: DietDay) => dietDay.date === date);
+  return dietDay;
 };
 
 const mealReducer = (state: State, action: GenericAction) => {

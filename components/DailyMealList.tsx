@@ -12,30 +12,31 @@ yesterday.setDate(today.getDate() - 1);
 twoDaysAgo.setDate(today.getDate() - 2);
 threeDaysAgo.setDate(today.getDate() - 3);
 
+
 const keyExtractor = (item: any, index: number) => index.toString();
 
-const DietHistoryListItem = ({ dietHistoryDay, onPress }: GenericObject) => (
-  <ListItem bottomDivider onPress={onPress}>
+const MealListItem = ({ meal }: GenericObject) => (
+  <ListItem bottomDivider>
     {/* <Avatar source={{ uri: '' }} /> */}
     <ListItem.Content>
-      <ListItem.Title>{dietHistoryDay.day}</ListItem.Title>
-      <ListItem.Subtitle>{dietHistoryDay.date}</ListItem.Subtitle>
+      <ListItem.Title>{meal.calories}</ListItem.Title>
+      <ListItem.Subtitle>{meal.calories}</ListItem.Subtitle>
     </ListItem.Content>
     <ListItem.Chevron />
   </ListItem>
 );
 
-const DietHistoryList = ({ dietHistory, navigation }) => (
+const MealList = ({ meals, navigation }) => (
   <>
-    {dietHistory.length ? (
+    {meals.length ? (
       <FlatList
         style={styles.list}
         keyExtractor={keyExtractor}
-        data={dietHistory}
+        data={meals}
         renderItem={({ item }) => (
-          <DietHistoryListItem
-            dietHistoryDay={item}
-            onPress={() => navigation.navigate('DailyDietScreen', {
+          <MealListItem
+            meal={item}
+            onClick={() => navigation.navigate('MealDetailScreen', {
               date: item.date,
             })}
           />
@@ -57,4 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DietHistoryList;
+export default MealList;

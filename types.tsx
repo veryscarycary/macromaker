@@ -23,6 +23,8 @@ export type BottomTabParamList = {
 export type DietTabParamList = {
   DietScreen: undefined;
   AddFoodScreen: undefined;
+  DailyDietScreen: undefined;
+  MealDetailScreen: undefined;
 };
 
 export type FitnessTabParamList = {
@@ -36,4 +38,19 @@ export type GenericObject = {
 export interface GenericAction {
   type: string;
   payload?: any;
+}
+
+export interface DietDay {
+  date: string;
+  day: string;
+  meals: Meal[]
+}
+export interface Meal {
+    carbs: number;
+    carbsUnit: string;
+    protein: number;
+    proteinUnit: string;
+    fat: number;
+    fatUnit: string;
+    calories: number;
 }

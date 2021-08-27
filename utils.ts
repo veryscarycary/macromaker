@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export const getTodaysDate = (): string => new Date().toLocaleDateString('en-us');
+export const getDay = (dateString: string): string => new Date(dateString).toLocaleDateString('en-us', { weekday: 'long' });
 export const convertCarbsToCalories = (carbs: number): number => (carbs || 0) * 4;
 export const convertProteinToCalories = (protein: number): number => convertCarbsToCalories(protein);
 export const convertFatToCalories = (fat: number): number => (fat || 0) * 9;
@@ -33,14 +34,10 @@ export const getStoredData = async (key: string) => {
   }
 }
 
-export const getAllStoredData = async () => {
-  try {
+export const getAllStoredData = async (): Promise<any[]> => {
     const keys = await AsyncStorage.getAllKeys();
     const result = await AsyncStorage.multiGet(keys);
 
     const data = result.map(tuple => typeof tuple[1] === 'string' ? [tuple[0], JSON.parse(tuple[1])] : tuple);
     return data;
-  } catch(e) {
-    console.error(`Error: ${e}`);
-  }
 }
