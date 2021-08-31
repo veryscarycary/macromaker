@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import DietHistoryList from '../components/DietHistoryList';
-import MacroGraph from '../components/MacroGraph';
-import { Text, View } from '../components/Themed';
-import { getAllMealData } from '../context/MealContext';
+import MacroGraph from '../../components/MacroGraph';
+import { Text, View } from '../../components/Themed';
+import { getAllMealData } from '../../context/MealContext';
+import { getAveragesFromDietDays } from '../../utils';
+import DietHistoryList from './components/DietHistoryList';
 
 const DietScreen = ({ navigation }) => {
   const [dietHistory, setDietHistory] = useState([]);
+
+  const {
+    averageCalories,
+    averageCarbs,
+    averageProtein,
+    averageFat,
+  } = getAveragesFromDietDays(dietHistory);
 
   useEffect(
     () =>
@@ -23,9 +31,13 @@ const DietScreen = ({ navigation }) => {
         <Text style={styles.title}>7-Day Average</Text>
       </View>
       <View style={styles.otherNutrientsContainer}>
-        <Text style={styles.data}>Calories:</Text>
+  <Text style={styles.data}>Calories: {averageCalories}</Text>
       </View>
-      <MacroGraph />
+      <MacroGraph
+        carbs={averageCarbs}
+        protein={averageProtein}
+        fat={averageFat}
+      />
       <DietHistoryList dietHistory={dietHistory} navigation={navigation} />
     </>
   );

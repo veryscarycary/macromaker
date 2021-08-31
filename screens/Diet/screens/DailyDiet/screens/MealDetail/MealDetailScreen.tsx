@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import DietHistoryList from '../components/DietHistoryList';
-import MacroGraph from '../components/MacroGraph';
-import { Text, View } from '../components/Themed';
-import { getMealData } from '../context/MealContext';
-import { Context as MealContext } from '../context/MealContext';
+import MacroGraph from '../../../../../../components/MacroGraph';
+import { Text, View } from '../../../../../../components/Themed';
+import { getMealData } from '../../../../../../context/MealContext';
+import { Context as MealContext } from '../../../../../../context/MealContext';
 
 
 const MealDetailScreen = ({ route, navigation }) => {

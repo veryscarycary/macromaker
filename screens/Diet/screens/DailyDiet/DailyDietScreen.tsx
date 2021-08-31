@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import DailyMealList from '../components/DailyMealList';
-import MacroGraph from '../components/MacroGraph';
-import { Text, View } from '../components/Themed';
-import { getMealData } from '../context/MealContext';
+import MealList from './components/MealList';
+import MacroGraph from '../../../../components/MacroGraph';
+import { Text, View } from '../../../../components/Themed';
+import { getMealData } from '../../../../context/MealContext';
 // import { Context as MealContext } from '../context/MealContext';
-import { getDay, getTodaysDate } from '../utils';
-
+import { getDay, getMacrosFromMeals } from '../../../../utils';
 
 const DailyDietScreen = ({ route, navigation }) => {
   const { date } = route.params;
   const [meals, setMeals] = useState([]);
+
+  const {
+    totalCalories,
+    totalCarbs,
+    totalProtein,
+    totalFat,
+  } = getMacrosFromMeals(meals);
 
   useEffect(
     () =>
@@ -27,10 +33,10 @@ const DailyDietScreen = ({ route, navigation }) => {
         <Text style={styles.title}>{getDay(date)}</Text>
       </View>
       <View style={styles.otherNutrientsContainer}>
-        <Text style={styles.data}>Calories:</Text>
+        <Text style={styles.data}>Calories: {totalCalories}</Text>
       </View>
-      <MacroGraph />
-      <DailyMealList meals={meals} navigation={navigation} />
+      <MacroGraph carbs={totalCarbs} protein={totalProtein} fat={totalFat} />
+      <MealList meals={meals} navigation={navigation} />
     </>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 
-import { GenericObject } from '../types';
+import { GenericObject } from '../../../../../types';
 
 const today = new Date();
 const yesterday = new Date();

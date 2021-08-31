@@ -1,17 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { SearchBar } from 'react-native-elements';
-import { Text, View } from '../components/Themed';
+import { Text, View } from '../../components/Themed';
 import { TouchableOpacity, StyleSheet } from 'react-native';
-import Spacer from '../components/Spacer';
-import { Context as MealContext, storeMeal } from '../context/MealContext';
+import Spacer from '../../components/Spacer';
+import { Context as MealContext, storeMeal } from '../../context/MealContext';
 
-import MacroInput from '../components/MacroInput';
+import MacroInput from './components/MacroInput';
 import {
   convertCarbsToCalories,
   convertFatToCalories,
   convertProteinToCalories,
   getTodaysDate,
-} from '../utils';
+} from '../../utils';
 
 const AddFoodScreen = () => {
   // const [carbs, setCarbs] = useState(0);
@@ -23,14 +23,7 @@ const AddFoodScreen = () => {
   const [search, setSearch] = useState('');
   const {
     state,
-    state: {
-      carbs,
-      carbsUnit,
-      protein,
-      proteinUnit,
-      fat,
-      fatUnit,
-    },
+    state: { carbs, carbsUnit, protein, proteinUnit, fat, fatUnit },
     setCarbs,
     setCarbsUnit,
     setProtein,
@@ -38,6 +31,10 @@ const AddFoodScreen = () => {
     setFat,
     setFatUnit,
   } = useContext(MealContext);
+
+  const carbsNum = carbs ? Number(carbs) : 0;
+  const proteinNum = protein ? Number(protein) : 0;
+  const fatNum = fat ? Number(fat) : 0;
 
   const calories =
     convertCarbsToCalories(carbs) +
@@ -84,7 +81,13 @@ const AddFoodScreen = () => {
         <TouchableOpacity
           style={styles.addMealButton}
           disabled={!carbs || !protein || !fat}
-          onPress={storeMeal(getTodaysDate(), { ...state, calories })}
+          onPress={storeMeal(getTodaysDate(), {
+            ...state,
+            carbs: carbsNum,
+            protein: proteinNum,
+            fat: fatNum,
+            calories,
+          })}
         >
           <Text style={styles.addMealText}>Add Meal</Text>
         </TouchableOpacity>

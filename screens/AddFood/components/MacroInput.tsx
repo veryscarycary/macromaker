@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
-import { Text, View } from './Themed';
+import { Text, View } from '../../../components/Themed';
 import { Dimensions, TextInput } from 'react-native';
 
 type Props = {

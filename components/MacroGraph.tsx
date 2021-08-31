@@ -1,25 +1,30 @@
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
+import {
+  convertCarbsToCalories,
+  convertFatToCalories,
+  convertProteinToCalories,
+} from '../utils';
 
-const data = [
+const dataConfig = [
   {
     name: 'Carbs',
-    something: 50,
+    percentage: 50,
     color: '#2b4af5',
     legendFontColor: '#7F7F7F',
     legendFontSize: 15,
   },
   {
     name: 'Protein',
-    something: 30,
+    percentage: 30,
     color: '#bd2020',
     legendFontColor: '#7F7F7F',
     legendFontSize: 15,
   },
   {
     name: 'Fat',
-    something: 20,
+    percentage: 20,
     color: '#d7dc73',
     legendFontColor: '#7F7F7F',
     legendFontSize: 15,
@@ -40,14 +45,39 @@ const chartConfig = {
   useShadowColorFromDataset: false, // optional
 };
 
-const MacroGraph = () => {
+type Props = {
+  carbs: number;
+  protein: number;
+  fat: number;
+};
+
+const MacroGraph = ({ carbs = 0, protein = 0, fat = 0 }, props: Props) => {
+  const carbsCalories = convertCarbsToCalories(carbs);
+  const proteinCalories = convertProteinToCalories(protein);
+  const fatCalories = convertFatToCalories(fat);
+  const calories = carbsCalories + proteinCalories + fatCalories;
+  const carbsPercentage = (carbsCalories / calories) || 0;
+  const proteinPercentage = (proteinCalories / calories) || 0;
+  const fatPercentage = (fatCalories / calories) || 0;
+
+  const data = dataConfig.map((config) => {
+    switch (config.name) {
+      case 'Carbs':
+        return { ...config, percentage: carbsPercentage };
+      case 'Protein':
+        return { ...config, percentage: proteinPercentage };
+      case 'Fat':
+        return { ...config, percentage: fatPercentage };
+    }
+  });
+
   return (
     <PieChart
       data={data}
       width={screenWidth}
       height={220}
       chartConfig={chartConfig}
-      accessor={'something'}
+      accessor={'percentage'}
       backgroundColor={'transparent'}
       paddingLeft={'0'}
     />

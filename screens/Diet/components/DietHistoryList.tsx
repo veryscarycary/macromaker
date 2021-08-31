@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
+import { DietDay, DietScreenNavigationProp } from '../../../types';
 
 import { GenericObject } from '../types';
 
@@ -25,7 +26,12 @@ const DietHistoryListItem = ({ dietHistoryDay, onPress }: GenericObject) => (
   </ListItem>
 );
 
-const DietHistoryList = ({ dietHistory, navigation }) => (
+type Props = {
+  dietHistory: DietDay[],
+  navigation: DietScreenNavigationProp;
+}
+
+const DietHistoryList = ({ dietHistory, navigation }: Props) => (
   <>
     {dietHistory.length ? (
       <FlatList

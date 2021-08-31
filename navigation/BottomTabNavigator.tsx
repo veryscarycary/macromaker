@@ -11,21 +11,21 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import DietScreen from '../screens/DietScreen';
+import DietScreen from '../screens/Diet/DietScreen';
 import FitnessScreen from '../screens/FitnessScreen';
 import {
   BottomTabParamList,
   DietTabParamList,
   FitnessTabParamList,
 } from '../types';
-import AddFoodHeaderButton from '../components/AddFoodHeaderButton';
-import AddFoodScreen from '../screens/AddFoodScreen';
+import AddFoodHeaderButton from '../screens/Diet/components/AddFoodHeaderButton';
+import AddFoodScreen from '../screens/AddFood/AddFoodScreen';
 import MacroScreen from '../screens/MacroScreen';
 import MenuButton from '../components/MenuButton';
 import { Text, View } from '../components/Themed';
 import { Provider as MealProvider } from '../context/MealContext';
-import DailyDietScreen from '../screens/DailyDietScreen';
-import MealDetailScreen from '../screens/MealDetailScreen';
+import DailyDietScreen from '../screens/Diet/screens/DailyDiet/DailyDietScreen';
+import MealDetailScreen from '../screens/Diet/screens/DailyDiet/screens/MealDetail/MealDetailScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
