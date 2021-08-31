@@ -127,18 +127,18 @@ const setFat = (dispatch: Dispatch<GenericAction>) => (fat: number) => {
 
 const setCarbsUnit = (dispatch: Dispatch<GenericAction>) => (
   carbsUnit: string
-) => {
-  dispatch({ type: SET_CARBS, payload: carbsUnit });
+  ) => {
+  dispatch({ type: SET_CARBS_UNIT, payload: carbsUnit });
 };
 
 const setProteinUnit = (dispatch: Dispatch<GenericAction>) => (
   proteinUnit: string
 ) => {
-  dispatch({ type: SET_PROTEIN, payload: proteinUnit });
+  dispatch({ type: SET_PROTEIN_UNIT, payload: proteinUnit });
 };
 
 const setFatUnit = (dispatch: Dispatch<GenericAction>) => (fatUnit: string) => {
-  dispatch({ type: SET_FAT, payload: fatUnit });
+  dispatch({ type: SET_FAT_UNIT, payload: fatUnit });
 };
 
 export const { Provider, Context } = createDataContext(
