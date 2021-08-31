@@ -19,6 +19,7 @@ const MealList = ({ meals, navigation }: Props) => {
               mealName={'MealName'}
               meal={meal}
               navigation={navigation}
+              key={i+1}
             />
           );
         })}

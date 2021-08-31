@@ -12,8 +12,13 @@ import {
   convertProteinToCalories,
   getTodaysDate,
 } from '../../utils';
+import { DietScreenNavigationProp } from '../../types';
 
-const AddFoodScreen = () => {
+type Props = {
+  navigation: DietScreenNavigationProp;
+};
+
+const AddFoodScreen = ({ navigation }: Props) => {
   // const [carbs, setCarbs] = useState(0);
   // const [protein, setProtein] = useState(0);
   // const [fat, setFat] = useState(0);
@@ -81,13 +86,21 @@ const AddFoodScreen = () => {
         <TouchableOpacity
           style={styles.addMealButton}
           disabled={!carbs || !protein || !fat}
-          onPress={storeMeal(getTodaysDate(), {
-            ...state,
-            carbs: carbsNum,
-            protein: proteinNum,
-            fat: fatNum,
-            calories,
-          })}
+          onPress={async () => {
+            try {
+              await storeMeal(getTodaysDate(), {
+                ...state,
+                carbs: carbsNum,
+                protein: proteinNum,
+                fat: fatNum,
+                calories,
+              });
+              navigation.pop();
+            } catch(e) {
+              console.error(`Error: ${e}. Could not store meal!`);
+            }
+        }
+        }
         >
           <Text style={styles.addMealText}>Add Meal</Text>
         </TouchableOpacity>

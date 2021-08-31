@@ -21,11 +21,11 @@ import {
 import AddFoodHeaderButton from '../screens/Diet/components/AddFoodHeaderButton';
 import AddFoodScreen from '../screens/AddFood/AddFoodScreen';
 import MacroScreen from '../screens/MacroScreen';
-import MenuButton from '../components/MenuButton';
-import { Text, View } from '../components/Themed';
+import MenuButton from '../screens/Diet/components/MenuButton';
+import { View } from '../components/Themed';
 import { Provider as MealProvider } from '../context/MealContext';
 import DailyDietScreen from '../screens/Diet/screens/DailyDiet/DailyDietScreen';
-import MealDetailScreen from '../screens/Diet/screens/DailyDiet/screens/MealDetail/MealDetailScreen';
+import withProvider from '../components/withProvider';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -110,22 +110,14 @@ function DietTabNavigator() {
       />
       <DietTabStack.Screen
         name="AddFoodScreen"
-        component={(props) => (
-          <MealProvider>
-            <AddFoodScreen {...props} />
-          </MealProvider>
-        )}
+        component={withProvider(AddFoodScreen, MealProvider)}
         options={{
           headerTitle: 'Add Food',
         }}
       />
       <DietTabStack.Screen
         name="DailyDietScreen"
-        component={(props) => <DailyDietScreen {...props} />}
-      />
-      <DietTabStack.Screen
-        name="MealDetailScreen"
-        component={(props) => <MealDetailScreen {...props} />}
+        component={DailyDietScreen}
       />
     </DietTabStack.Navigator>
   );

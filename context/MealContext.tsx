@@ -30,7 +30,7 @@ type State = {
   fatUnit: string;
 };
 
-export const storeMeal = (date: string, meal: string) => async () => {
+export const storeMeal = async (date: string, meal: string) => {
   const mealKey = `meals@${date}`;
   const meals = await getStoredData(mealKey);
   const areMeals = meals !== null && meals.length;

@@ -24,7 +24,6 @@ export type DietTabParamList = {
   DietScreen: undefined;
   AddFoodScreen: undefined;
   DailyDietScreen: undefined;
-  MealDetailScreen: undefined;
 };
 
 export type FitnessTabParamList = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { DietScreenNavigationProp } from '../types';
 import { Ionicons } from '@expo/vector-icons';
+import { DietScreenNavigationProp } from '../../../types';
 
 
 type Props = {
