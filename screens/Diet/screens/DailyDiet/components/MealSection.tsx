@@ -3,6 +3,7 @@ import { Input } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
 import { Text, View } from '../../../../../components/Themed';
 import { Feather, FontAwesome } from '@expo/vector-icons';
+import { deleteMeal, getMealData } from '../../../../../context/MealContext';
 
 import {
   Dimensions,
@@ -13,14 +14,22 @@ import {
 import { DietScreenNavigationProp, Meal } from '../../../../../types';
 
 type Props = {
+  date: string;
   meal: Meal;
   mealName: string;
   mealNumber: number;
   navigation: DietScreenNavigationProp;
+  setMeals: (meals: Meal[]) => void,
 };
 
-const MealSection = ({ mealName, mealNumber, meal, navigation }: Props) => {
-  const { calories, carbs, protein, fat } = meal;
+const MealSection = ({
+  date,
+  mealNumber,
+  meal,
+  navigation,
+  setMeals,
+}: Props) => {
+  const { calories, carbs, protein, fat, id } = meal;
   return (
     <View style={styles.container}>
       <View style={styles.mealData}>
@@ -60,7 +69,20 @@ const MealSection = ({ mealName, mealNumber, meal, navigation }: Props) => {
         >
           <Feather name="edit" size={24} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.deleteButton]}>
+        <TouchableOpacity
+          style={[styles.button, styles.deleteButton]}
+          onPress={async () => {
+            console.log('DELETING MEAL');
+            await deleteMeal(id, date);
+            const dietDay = await getMealData(date);
+            if (dietDay) {
+              setMeals(dietDay.meals)
+            } else {
+              setMeals([]);
+            }
+            navigation.pop();
+          }}
+        >
           <FontAwesome name="remove" size={26} color="black" />
         </TouchableOpacity>
       </View>

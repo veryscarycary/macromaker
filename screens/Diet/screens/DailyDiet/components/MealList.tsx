@@ -5,10 +5,12 @@ import { ScrollView, StyleSheet } from 'react-native';
 
 type Props = {
   meals: Meal[];
+  setMeals: (meals: Meal[]) => void;
+  date: string;
   navigation: DietScreenNavigationProp;
 };
 
-const MealList = ({ meals, navigation }: Props) => {
+const MealList = ({ date, meals, setMeals, navigation }: Props) => {
   return (
     <>
       <ScrollView style={styles.list}>
@@ -20,6 +22,8 @@ const MealList = ({ meals, navigation }: Props) => {
               meal={meal}
               navigation={navigation}
               key={i+1}
+              date={date}
+              setMeals={setMeals}
             />
           );
         })}

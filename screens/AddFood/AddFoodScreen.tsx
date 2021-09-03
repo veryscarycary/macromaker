@@ -4,6 +4,8 @@ import { Text, View } from '../../components/Themed';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Spacer from '../../components/Spacer';
 import { Context as MealContext, storeMeal } from '../../context/MealContext';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 import MacroInput from './components/MacroInput';
 import {
@@ -94,6 +96,7 @@ const AddFoodScreen = ({ navigation }: Props) => {
                 protein: proteinNum,
                 fat: fatNum,
                 calories,
+                id: uuidv4(),
               });
               navigation.pop();
             } catch(e) {

@@ -38,6 +38,19 @@ export const getStoredData = async (key: string) => {
   }
 };
 
+export const removeStoredData = async (key: string) => {
+  debugger;
+  const removedItem = await AsyncStorage.removeItem(key, (error) => {
+    if (error) {
+      console.error(
+        `Error: Encountered an error while removing an item from AsyncStorage: ${error}`
+      );
+    }
+  });
+
+  return removedItem;
+};
+
 export const getAllStoredData = async (): Promise<any[]> => {
   const keys = await AsyncStorage.getAllKeys();
   const result = await AsyncStorage.multiGet(keys);

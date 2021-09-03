@@ -71,6 +71,8 @@ const MacroGraph = ({ carbs = 0, protein = 0, fat = 0 }, props: Props) => {
     }
   });
 
+  console.log('DATA', JSON.stringify(data));
+
   return (
     <PieChart
       data={data}

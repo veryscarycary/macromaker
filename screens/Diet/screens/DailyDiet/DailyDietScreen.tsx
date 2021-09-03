@@ -36,7 +36,7 @@ const DailyDietScreen = ({ route, navigation }) => {
         <Text style={styles.data}>Calories: {totalCalories}</Text>
       </View>
       <MacroGraph carbs={totalCarbs} protein={totalProtein} fat={totalFat} />
-      <MealList meals={meals} navigation={navigation} />
+      <MealList date={date} setMeals={setMeals} meals={meals} navigation={navigation} />
     </>
   );
 };

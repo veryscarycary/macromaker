@@ -1,8 +1,14 @@
 import { Dispatch } from 'react';
-import { DietDay, GenericAction } from '../types';
-import { getAllStoredData, getStoredData, storeData } from '../utils';
+import { DietDay, GenericAction, Meal } from '../types';
+import {
+  getAllStoredData,
+  getStoredData,
+  removeStoredData,
+  storeData,
+} from '../utils';
 import createDataContext from './createDataContext';
 import { sortBy } from 'lodash';
+import { uuid } from 'uuid';
 
 const SET_CARBS = 'SET_CARBS';
 const SET_CARBS_UNIT = 'SET_CARBS_UNIT';
@@ -22,15 +28,15 @@ const defaultState = {
 };
 
 type State = {
-  carbs: number;
+  carbs: string;
   carbsUnit: string;
-  protein: number;
+  protein: string;
   proteinUnit: string;
-  fat: number;
+  fat: string;
   fatUnit: string;
 };
 
-export const storeMeal = async (date: string, meal: string) => {
+export const storeMeal = async (date: string, meal: Meal) => {
   const mealKey = `meals@${date}`;
   const meals = await getStoredData(mealKey);
   const areMeals = meals !== null && meals.length;
@@ -43,6 +49,41 @@ export const storeMeal = async (date: string, meal: string) => {
   }
 
   return await storeData(mealKey, [meal]);
+};
+
+const updateMeals = async (date: string, meals: Meal[]) => {
+  const mealKey = `meals@${date}`;
+
+  return await storeData(mealKey, meals);
+};
+
+export const deleteMeal = async (id: string, date: string): Promise<Meal|undefined> => {
+  const dietDay = await getMealData(date);
+debugger;
+  if (dietDay) {
+    const mealToDelete = dietDay.meals.find((meal: Meal) => meal.id === id);
+    if (mealToDelete) {
+      const mealToDeleteIndex = dietDay.meals.indexOf(mealToDelete);
+      const newMeals = [...dietDay.meals];
+      newMeals.splice(mealToDeleteIndex, 1);
+
+      if (newMeals.length) {
+        console.log('update meal only');
+        await updateMeals(date, newMeals);
+      } else {
+        console.log('detlete diet day');
+        await deleteDietDay(date);
+      }
+
+      return mealToDelete;
+    }
+  }
+};
+
+const deleteDietDay = async (date: string) => {
+  const mealKey = `meals@${date}`;
+
+  return await removeStoredData(mealKey);
 };
 
 export const getAllMealData = async (): Promise<DietDay[]> => {
@@ -69,7 +110,9 @@ export const getAllMealData = async (): Promise<DietDay[]> => {
   return sortedFormattedMeals;
 };
 
-export const getMealData = async (date: string): Promise<DietDay> => {
+export const getMealData = async (
+  date: string
+): Promise<DietDay | undefined> => {
   // if need better performance later, rewrite for single access
   const allMealData = await getAllMealData();
   const dietDay = allMealData.find((dietDay: DietDay) => dietDay.date === date);
@@ -103,7 +146,7 @@ const resetMealState = (dispatch: Dispatch<GenericAction>) => () =>
 const setMacro = (
   dispatch: Dispatch<GenericAction>,
   type: string,
-  value: number | string
+  value: string
 ) => {
   const numericRegex = /^\d+$/;
   const isNumber = numericRegex.test(value);
@@ -113,29 +156,27 @@ const setMacro = (
   }
 };
 
-const setCarbs = (dispatch: Dispatch<GenericAction>) => (carbs: number) => {
+const setCarbs = (dispatch: Dispatch<GenericAction>) => (carbs: string) => {
   setMacro(dispatch, SET_CARBS, carbs);
 };
 
-const setProtein = (dispatch: Dispatch<GenericAction>) => (protein: number) => {
+const setProtein = (dispatch: Dispatch<GenericAction>) => (protein: string) => {
   setMacro(dispatch, SET_PROTEIN, protein);
 };
 
-const setFat = (dispatch: Dispatch<GenericAction>) => (fat: number) => {
+const setFat = (dispatch: Dispatch<GenericAction>) => (fat: string) => {
   setMacro(dispatch, SET_FAT, fat);
 };
 
-const setCarbsUnit = (dispatch: Dispatch<GenericAction>) => (
-  carbsUnit: string
-  ) => {
-  dispatch({ type: SET_CARBS_UNIT, payload: carbsUnit });
-};
+const setCarbsUnit =
+  (dispatch: Dispatch<GenericAction>) => (carbsUnit: string) => {
+    dispatch({ type: SET_CARBS_UNIT, payload: carbsUnit });
+  };
 
-const setProteinUnit = (dispatch: Dispatch<GenericAction>) => (
-  proteinUnit: string
-) => {
-  dispatch({ type: SET_PROTEIN_UNIT, payload: proteinUnit });
-};
+const setProteinUnit =
+  (dispatch: Dispatch<GenericAction>) => (proteinUnit: string) => {
+    dispatch({ type: SET_PROTEIN_UNIT, payload: proteinUnit });
+  };
 
 const setFatUnit = (dispatch: Dispatch<GenericAction>) => (fatUnit: string) => {
   dispatch({ type: SET_FAT_UNIT, payload: fatUnit });
