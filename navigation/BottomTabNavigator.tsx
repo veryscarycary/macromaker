@@ -116,6 +116,13 @@ function DietTabNavigator() {
         }}
       />
       <DietTabStack.Screen
+        name="EditFoodScreen"
+        component={withProvider(AddFoodScreen, MealProvider)}
+        options={{
+          headerTitle: 'Edit Food',
+        }}
+      />
+      <DietTabStack.Screen
         name="DailyDietScreen"
         component={DailyDietScreen}
       />

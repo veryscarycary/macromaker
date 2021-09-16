@@ -65,7 +65,7 @@ const MealSection = ({
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[styles.button, styles.editButton]}
-          onPress={() => navigation.navigate('AddFoodScreen')}
+          onPress={() => navigation.navigate('EditFoodScreen')}
         >
           <Feather name="edit" size={24} color="black" />
         </TouchableOpacity>

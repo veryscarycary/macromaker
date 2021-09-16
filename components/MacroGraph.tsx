@@ -10,21 +10,21 @@ import {
 const dataConfig = [
   {
     name: 'Carbs',
-    percentage: 50,
+    percentage: 0,
     color: '#2b4af5',
     legendFontColor: '#7F7F7F',
     legendFontSize: 15,
   },
   {
     name: 'Protein',
-    percentage: 30,
+    percentage: 0,
     color: '#bd2020',
     legendFontColor: '#7F7F7F',
     legendFontSize: 15,
   },
   {
     name: 'Fat',
-    percentage: 20,
+    percentage: 0,
     color: '#d7dc73',
     legendFontColor: '#7F7F7F',
     legendFontSize: 15,

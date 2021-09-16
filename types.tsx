@@ -23,6 +23,7 @@ export type BottomTabParamList = {
 export type DietTabParamList = {
   DietScreen: undefined;
   AddFoodScreen: undefined;
+  EditFoodScreen: undefined;
   DailyDietScreen: undefined;
 };
 
