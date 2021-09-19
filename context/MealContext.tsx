@@ -19,21 +19,21 @@ const SET_FAT_UNIT = 'SET_FAT_UNIT';
 const RESET_STATE = 'RESET_STATE';
 
 const defaultState = {
-  carbs: '',
-  protein: '',
-  fat: '',
-  carbsUnit: '',
-  proteinUnit: '',
-  fatUnit: '',
+  carbs: undefined,
+  protein: undefined,
+  fat: undefined,
+  carbsUnit: undefined,
+  proteinUnit: undefined,
+  fatUnit: undefined,
 };
 
 type State = {
-  carbs: string;
-  carbsUnit: string;
-  protein: string;
-  proteinUnit: string;
-  fat: string;
-  fatUnit: string;
+  carbs:  | undefined;
+  carbsUnit:  | undefined;
+  protein:  | undefined;
+  proteinUnit:  | undefined;
+  fat:  | undefined;
+  fatUnit:  | undefined;
 };
 
 export const storeMeal = async (date: string, meal: Meal) => {
@@ -49,6 +49,25 @@ export const storeMeal = async (date: string, meal: Meal) => {
   }
 
   return await storeData(mealKey, [meal]);
+};
+
+export const updateMeal = async (date: string, updatedMeal: Meal) => {
+  const mealKey = `meals@${date}`;
+  const meals = await getStoredData(mealKey);
+  const areMeals = meals !== null && meals.length;
+
+  // should have meals stored already
+  if (areMeals) {
+    const meal = meals.find((meal: Meal) => meal.id === updatedMeal.id);
+    const mealIndex = meals.indexOf(meal);
+    const updatedMeals = [...meals];
+    
+    updatedMeals.splice(mealIndex, 1, updatedMeal);
+
+    return await storeData(mealKey, updatedMeals);
+  } else {
+    throw new Error('Cannot update a meal that does not exist yet!');
+  }
 };
 
 const updateMeals = async (date: string, meals: Meal[]) => {

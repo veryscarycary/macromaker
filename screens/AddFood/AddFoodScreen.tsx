@@ -3,9 +3,17 @@ import { SearchBar } from 'react-native-elements';
 import { Text, View } from '../../components/Themed';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Spacer from '../../components/Spacer';
-import { Context as MealContext, storeMeal } from '../../context/MealContext';
+import {
+  Context as MealContext,
+  storeMeal,
+  updateMeal,
+} from '../../context/MealContext';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+import withProvider from '../../components/withProvider';
+import { Provider as MealProvider } from '../../context/MealContext';
+import { RouteProp } from '@react-navigation/native';
+import { get } from 'lodash';
 
 import MacroInput from './components/MacroInput';
 import {
@@ -14,23 +22,31 @@ import {
   convertProteinToCalories,
   getTodaysDate,
 } from '../../utils';
-import { DietScreenNavigationProp } from '../../types';
+import { DietScreenNavigationProp, Meal } from '../../types';
 
 type Props = {
   navigation: DietScreenNavigationProp;
+  route: RouteProp<{ params: { meal: Meal } }, 'params'>;
 };
 
-const AddFoodScreen = ({ navigation }: Props) => {
-  // const [carbs, setCarbs] = useState(0);
-  // const [protein, setProtein] = useState(0);
-  // const [fat, setFat] = useState(0);
-  // const [carbsUnit, setCarbsUnit] = useState('g');
-  // const [proteinUnit, setProteinUnit] = useState('g');
-  // const [fatUnit, setFatUnit] = useState('g');
+const AddFoodScreen = ({ route, navigation }: Props) => {
+  const meal = get(route, 'params.meal');
+
+  if (meal) {
+    var {
+      carbs: defaultCarbs,
+      carbsUnit: defaultCarbsUnit,
+      protein: defaultProtein,
+      proteinUnit: defaultProteinUnit,
+      fat: defaultFat,
+      fatUnit: defaultFatUnit,
+      id,
+    } = meal;
+  }
   const [search, setSearch] = useState('');
   const {
-    state,
     state: { carbs, carbsUnit, protein, proteinUnit, fat, fatUnit },
+    state,
     setCarbs,
     setCarbsUnit,
     setProtein,
@@ -38,6 +54,13 @@ const AddFoodScreen = ({ navigation }: Props) => {
     setFat,
     setFatUnit,
   } = useContext(MealContext);
+
+  // const [carbs, setCarbs] = useState(0);
+  // const [protein, setProtein] = useState(0);
+  // const [fat, setFat] = useState(0);
+  // const [carbsUnit, setCarbsUnit] = useState('g');
+  // const [proteinUnit, setProteinUnit] = useState('g');
+  // const [fatUnit, setFatUnit] = useState('g');
 
   const carbsNum = carbs ? Number(carbs) : 0;
   const proteinNum = protein ? Number(protein) : 0;
@@ -62,21 +85,27 @@ const AddFoodScreen = ({ navigation }: Props) => {
         <MacroInput
           type="Carbs"
           unit={carbsUnit}
+          defaultUnit={defaultCarbsUnit}
           value={carbs}
+          defaultValue={defaultCarbs}
           setValue={setCarbs}
           setUnit={setCarbsUnit}
         />
         <MacroInput
           type="Protein"
           unit={proteinUnit}
+          defaultUnit={defaultProteinUnit}
           value={protein}
+          defaultValue={defaultProtein}
           setValue={setProtein}
           setUnit={setProteinUnit}
         />
         <MacroInput
           type="Fat"
           unit={fatUnit}
+          defaultUnit={defaultFatUnit}
           value={fat}
+          defaultValue={defaultFat}
           setValue={setFat}
           setUnit={setFatUnit}
         />
@@ -89,23 +118,39 @@ const AddFoodScreen = ({ navigation }: Props) => {
           style={styles.addMealButton}
           disabled={!carbs || !protein || !fat}
           onPress={async () => {
-            try {
-              await storeMeal(getTodaysDate(), {
-                ...state,
-                carbs: carbsNum,
-                protein: proteinNum,
-                fat: fatNum,
-                calories,
-                id: uuidv4(),
-              });
-              navigation.pop();
-            } catch(e) {
-              console.error(`Error: ${e}. Could not store meal!`);
+            if (id) {
+              try {
+                updateMeal(getTodaysDate(), {
+                  ...state,
+                  carbs: carbsNum,
+                  protein: proteinNum,
+                  fat: fatNum,
+                  calories,
+                  id,
+                });
+              } catch (e) {
+                console.error(
+                  `Error: ${e}. Could not update meal of id ${id}!`
+                );
+              }
+            } else {
+              try {
+                await storeMeal(getTodaysDate(), {
+                  ...state,
+                  carbs: carbsNum,
+                  protein: proteinNum,
+                  fat: fatNum,
+                  calories,
+                  id: uuidv4(),
+                });
+              } catch (e) {
+                console.error(`Error: ${e}. Could not store meal!`);
+              }
             }
-        }
-        }
+            navigation.pop();
+          }}
         >
-          <Text style={styles.addMealText}>Add Meal</Text>
+          <Text style={styles.addMealText}>{id ? 'Edit' : 'Add'} Meal</Text>
         </TouchableOpacity>
       </View>
     </>
@@ -146,4 +191,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddFoodScreen;
+export default withProvider(AddFoodScreen, MealProvider);

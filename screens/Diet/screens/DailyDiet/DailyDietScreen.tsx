@@ -6,8 +6,15 @@ import { Text, View } from '../../../../components/Themed';
 import { getMealData } from '../../../../context/MealContext';
 // import { Context as MealContext } from '../context/MealContext';
 import { getDay, getMacrosFromMeals } from '../../../../utils';
+import { DietScreenNavigationProp } from '../../../../types';
+import { RouteProp } from '@react-navigation/native';
 
-const DailyDietScreen = ({ route, navigation }) => {
+type Props = {
+  route: RouteProp<{ params: { date: string } }, 'params'>;
+  navigation: DietScreenNavigationProp;
+};
+
+const DailyDietScreen = ({ route, navigation }: Props) => {
   const { date } = route.params;
   const [meals, setMeals] = useState([]);
 

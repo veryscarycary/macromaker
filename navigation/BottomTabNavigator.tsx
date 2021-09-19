@@ -110,22 +110,19 @@ function DietTabNavigator() {
       />
       <DietTabStack.Screen
         name="AddFoodScreen"
-        component={withProvider(AddFoodScreen, MealProvider)}
+        component={(props) => <AddFoodScreen {...props} />}
         options={{
           headerTitle: 'Add Food',
         }}
       />
       <DietTabStack.Screen
         name="EditFoodScreen"
-        component={withProvider(AddFoodScreen, MealProvider)}
+        component={(props) => <AddFoodScreen {...props} />}
         options={{
           headerTitle: 'Edit Food',
         }}
       />
-      <DietTabStack.Screen
-        name="DailyDietScreen"
-        component={DailyDietScreen}
-      />
+      <DietTabStack.Screen name="DailyDietScreen" component={DailyDietScreen} />
     </DietTabStack.Navigator>
   );
 }

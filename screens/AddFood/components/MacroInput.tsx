@@ -8,11 +8,13 @@ type Props = {
   type: string;
   value: string | number;
   unit: string;
+  defaultValue: string | number;
+  defaultUnit: string;
   setValue: (value: string) => void;
   setUnit: (unitValue: string) => void;
 };
 
-const MacroInput = ({ type, value, unit, setValue, setUnit }: Props) => {
+const MacroInput = ({ type, value, defaultValue, unit, defaultUnit, setValue, setUnit }: Props) => {
 
   return (
     <>
@@ -24,7 +26,8 @@ const MacroInput = ({ type, value, unit, setValue, setUnit }: Props) => {
           placeholder={type}
           // leftIcon={<Icon name="user" size={24} color="black" />}
           onChangeText={setValue}
-          value={value.toString()}
+          value={value === undefined ? undefined : value.toString()}
+          defaultValue={defaultValue === undefined ? undefined : defaultValue.toString()}
         />
 
         {/* <View style={{ width: 50, height: 50, backgroundColor: 'red' }}></View> */}
@@ -32,7 +35,7 @@ const MacroInput = ({ type, value, unit, setValue, setUnit }: Props) => {
         <Picker
           style={styles.picker}
           itemStyle={styles.pickerItem}
-          selectedValue={unit}
+          selectedValue={unit || defaultUnit}
           onValueChange={setUnit}
         >
           <Picker.Item label="g" value="g" />
