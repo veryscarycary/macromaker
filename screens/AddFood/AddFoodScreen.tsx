@@ -44,32 +44,32 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
     } = meal;
   }
   const [search, setSearch] = useState('');
-  const {
-    state: { carbs, carbsUnit, protein, proteinUnit, fat, fatUnit },
-    state,
-    setCarbs,
-    setCarbsUnit,
-    setProtein,
-    setProteinUnit,
-    setFat,
-    setFatUnit,
-  } = useContext(MealContext);
+  // const {
+  //   state: { carbs, carbsUnit, protein, proteinUnit, fat, fatUnit },
+  //   state,
+  //   setCarbs,
+  //   setCarbsUnit,
+  //   setProtein,
+  //   setProteinUnit,
+  //   setFat,
+  //   setFatUnit,
+  // } = useContext(MealContext);
 
-  // const [carbs, setCarbs] = useState(0);
-  // const [protein, setProtein] = useState(0);
-  // const [fat, setFat] = useState(0);
-  // const [carbsUnit, setCarbsUnit] = useState('g');
-  // const [proteinUnit, setProteinUnit] = useState('g');
-  // const [fatUnit, setFatUnit] = useState('g');
+  const [carbs, setCarbs] = useState('');
+  const [protein, setProtein] = useState('');
+  const [fat, setFat] = useState('');
+  const [carbsUnit, setCarbsUnit] = useState('g');
+  const [proteinUnit, setProteinUnit] = useState('g');
+  const [fatUnit, setFatUnit] = useState('g');
 
   const carbsNum = carbs ? Number(carbs) : 0;
   const proteinNum = protein ? Number(protein) : 0;
   const fatNum = fat ? Number(fat) : 0;
 
   const calories =
-    convertCarbsToCalories(carbs) +
-    convertProteinToCalories(protein) +
-    convertFatToCalories(fat);
+    convertCarbsToCalories(carbsNum) +
+    convertProteinToCalories(proteinNum) +
+    convertFatToCalories(fatNum);
 
   return (
     <>
@@ -121,7 +121,9 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
             if (id) {
               try {
                 updateMeal(getTodaysDate(), {
-                  ...state,
+                  carbsUnit,
+                  proteinUnit,
+                  fatUnit,
                   carbs: carbsNum,
                   protein: proteinNum,
                   fat: fatNum,
@@ -136,7 +138,9 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
             } else {
               try {
                 await storeMeal(getTodaysDate(), {
-                  ...state,
+                  carbsUnit,
+                  proteinUnit,
+                  fatUnit,
                   carbs: carbsNum,
                   protein: proteinNum,
                   fat: fatNum,

@@ -3,6 +3,7 @@ import { Input } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
 import { Text, View } from '../../../components/Themed';
 import { Dimensions, TextInput } from 'react-native';
+import DismissKeyboardView from '../../../components/DismissKeyboardView';
 
 type Props = {
   type: string;
@@ -18,7 +19,7 @@ const MacroInput = ({ type, value, defaultValue, unit, defaultUnit, setValue, se
 
   return (
     <>
-      <View style={styles.container}>
+      <DismissKeyboardView style={styles.container}>
         <Input
           containerStyle={styles.input}
           inputContainerStyle={styles.inputContainer}
@@ -28,6 +29,7 @@ const MacroInput = ({ type, value, defaultValue, unit, defaultUnit, setValue, se
           onChangeText={setValue}
           value={value === undefined ? undefined : value.toString()}
           defaultValue={defaultValue === undefined ? undefined : defaultValue.toString()}
+          keyboardType="numeric"
         />
 
         {/* <View style={{ width: 50, height: 50, backgroundColor: 'red' }}></View> */}
@@ -41,7 +43,7 @@ const MacroInput = ({ type, value, defaultValue, unit, defaultUnit, setValue, se
           <Picker.Item label="g" value="g" />
           <Picker.Item label="oz" value="oz" />
         </Picker>
-      </View>
+      </DismissKeyboardView>
     </>
   );
 };

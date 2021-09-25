@@ -8,7 +8,6 @@ import {
 } from '../utils';
 import createDataContext from './createDataContext';
 import { sortBy } from 'lodash';
-import { uuid } from 'uuid';
 
 const SET_CARBS = 'SET_CARBS';
 const SET_CARBS_UNIT = 'SET_CARBS_UNIT';
@@ -61,7 +60,7 @@ export const updateMeal = async (date: string, updatedMeal: Meal) => {
     const meal = meals.find((meal: Meal) => meal.id === updatedMeal.id);
     const mealIndex = meals.indexOf(meal);
     const updatedMeals = [...meals];
-    
+
     updatedMeals.splice(mealIndex, 1, updatedMeal);
 
     return await storeData(mealKey, updatedMeals);
