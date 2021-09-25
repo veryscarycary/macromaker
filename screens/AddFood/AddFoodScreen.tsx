@@ -33,17 +33,6 @@ type Props = {
 const AddFoodScreen = ({ route, navigation }: Props) => {
   const meal = get(route, 'params.meal');
 
-  if (meal) {
-    var {
-      carbs: defaultCarbs,
-      carbsUnit: defaultCarbsUnit,
-      protein: defaultProtein,
-      proteinUnit: defaultProteinUnit,
-      fat: defaultFat,
-      fatUnit: defaultFatUnit,
-      id,
-    } = meal;
-  }
   const [search, setSearch] = useState('');
   // const {
   //   state: { carbs, carbsUnit, protein, proteinUnit, fat, fatUnit },
@@ -56,12 +45,12 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
   //   setFatUnit,
   // } = useContext(MealContext);
 
-  const [carbs, setCarbs] = useState('');
-  const [protein, setProtein] = useState('');
-  const [fat, setFat] = useState('');
-  const [carbsUnit, setCarbsUnit] = useState('g');
-  const [proteinUnit, setProteinUnit] = useState('g');
-  const [fatUnit, setFatUnit] = useState('g');
+  const [carbs, setCarbs] = useState(get(meal, 'carbs') || '');
+  const [protein, setProtein] = useState(get(meal, 'protein') || '');
+  const [fat, setFat] = useState(get(meal, 'fat') || '');
+  const [carbsUnit, setCarbsUnit] = useState(get(meal, 'carbsUnit') || 'g');
+  const [proteinUnit, setProteinUnit] = useState(get(meal, 'proteinUnit') || 'g');
+  const [fatUnit, setFatUnit] = useState(get(meal, 'fatUnit') || 'g');
 
   const carbsNum = carbs ? Number(carbs) : 0;
   const proteinNum = protein ? Number(protein) : 0;
@@ -86,27 +75,21 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
         <MacroInput
           type="Carbs"
           unit={carbsUnit}
-          defaultUnit={defaultCarbsUnit}
           value={carbs}
-          defaultValue={defaultCarbs}
           setValue={setCarbs}
           setUnit={setCarbsUnit}
         />
         <MacroInput
           type="Protein"
           unit={proteinUnit}
-          defaultUnit={defaultProteinUnit}
           value={protein}
-          defaultValue={defaultProtein}
           setValue={setProtein}
           setUnit={setProteinUnit}
         />
         <MacroInput
           type="Fat"
           unit={fatUnit}
-          defaultUnit={defaultFatUnit}
           value={fat}
-          defaultValue={defaultFat}
           setValue={setFat}
           setUnit={setFatUnit}
         />
@@ -119,7 +102,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
           style={styles.addMealButton}
           disabled={!carbs || !protein || !fat}
           onPress={async () => {
-            if (id) {
+            if (get(meal, 'id')) {
               try {
                 updateMeal(getTodaysDate(), {
                   carbsUnit,
@@ -129,7 +112,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
                   protein: proteinNum,
                   fat: fatNum,
                   calories,
-                  id,
+                  id: get(meal, 'id'),
                 });
               } catch (e) {
                 console.error(
@@ -155,7 +138,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
             navigation.pop();
           }}
         >
-          <Text style={styles.addMealText}>{id ? 'Edit' : 'Add'} Meal</Text>
+          <Text style={styles.addMealText}>{get(meal, 'id') ? 'Edit' : 'Add'} Meal</Text>
         </TouchableOpacity>
       </DismissKeyboardView>
     </>
@@ -196,4 +179,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withProvider(AddFoodScreen, MealProvider);
+export default AddFoodScreen;

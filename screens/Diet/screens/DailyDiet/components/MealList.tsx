@@ -2,6 +2,7 @@ import React from 'react';
 import MealSection from './MealSection';
 import { DietScreenNavigationProp, Meal } from '../../../../../types';
 import { ScrollView, StyleSheet } from 'react-native';
+import AddMealSectionButton from './AddMealSectionButton';
 
 type Props = {
   meals: Meal[];
@@ -21,12 +22,13 @@ const MealList = ({ date, meals, setMeals, navigation }: Props) => {
               mealName={'MealName'}
               meal={meal}
               navigation={navigation}
-              key={i+1}
+              key={i + 1}
               date={date}
               setMeals={setMeals}
             />
           );
         })}
+        <AddMealSectionButton navigation={navigation} />
       </ScrollView>
     </>
   );

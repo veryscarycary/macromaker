@@ -27,7 +27,6 @@ const MacroInput = ({ type, value, defaultValue, unit, defaultUnit, setValue, se
           // leftIcon={<Icon name="user" size={24} color="black" />}
           onChangeText={setValue}
           value={value === undefined ? undefined : value.toString()}
-          defaultValue={defaultValue === undefined ? undefined : defaultValue.toString()}
           keyboardType="numeric"
         />
 
@@ -36,7 +35,7 @@ const MacroInput = ({ type, value, defaultValue, unit, defaultUnit, setValue, se
         <Picker
           style={styles.picker}
           itemStyle={styles.pickerItem}
-          selectedValue={unit || defaultUnit}
+          selectedValue={unit}
           onValueChange={setUnit}
         >
           <Picker.Item label="g" value="g" />
