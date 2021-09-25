@@ -10,8 +10,6 @@ import {
 } from '../../context/MealContext';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
-import withProvider from '../../components/withProvider';
-import { Provider as MealProvider } from '../../context/MealContext';
 import { RouteProp } from '@react-navigation/native';
 import { get } from 'lodash';
 
@@ -29,6 +27,10 @@ type Props = {
   navigation: DietScreenNavigationProp;
   route: RouteProp<{ params: { meal: Meal } }, 'params'>;
 };
+
+const areFieldsValid = (carbs: string, protein: string, fat: string) => {
+  return ![carbs,protein,fat].some((field: string) => field === '' || field === '.');
+}
 
 const AddFoodScreen = ({ route, navigation }: Props) => {
   const meal = get(route, 'params.meal');
@@ -61,6 +63,8 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
     convertCarbsToCalories(carbsNum, carbsUnit) +
     convertProteinToCalories(proteinNum, proteinUnit) +
     convertFatToCalories(fatNum, fatUnit);
+
+  const isDisabled = !areFieldsValid(carbs, protein, fat);
 
   return (
     <>
@@ -95,13 +99,13 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
           setUnit={setFatUnit}
         />
         <View style={styles.caloriesContainer}>
-          <Text style={styles.calories}>Calories: {calories}</Text>
+          <Text style={styles.calories}>Calories: {Math.round(calories)}</Text>
         </View>
         {/* </View> */}
         <Spacer />
         <TouchableOpacity
-          style={styles.addMealButton}
-          disabled={!carbs || !protein || !fat}
+          style={[styles.addMealButton, isDisabled && styles.disabledAddMealButton]}
+          disabled={isDisabled}
           onPress={async () => {
             if (get(meal, 'id')) {
               try {
@@ -139,7 +143,9 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
             navigation.pop();
           }}
         >
-          <Text style={styles.addMealText}>{get(meal, 'id') ? 'Edit' : 'Add'} Meal</Text>
+          <Text style={[styles.addMealText, isDisabled && styles.disabledAddMealText]}>
+            {get(meal, 'id') ? 'Edit' : 'Add'} Meal
+          </Text>
         </TouchableOpacity>
       </DismissKeyboardView>
     </>
@@ -172,8 +178,14 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginBottom: 20,
   },
+  disabledAddMealButton: {
+    backgroundColor: '#c6c6c6',
+  },
   addMealText: {
     fontSize: 20,
+  },
+  disabledAddMealText: {
+    color: '#989898',
   },
   fields: {
     marginBottom: 40,

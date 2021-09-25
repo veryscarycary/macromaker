@@ -40,7 +40,7 @@ const DailyDietScreen = ({ route, navigation }: Props) => {
         <Text style={styles.title}>{getDay(date)}</Text>
       </View>
       <View style={styles.otherNutrientsContainer}>
-        <Text style={styles.data}>Calories: {totalCalories}</Text>
+        <Text style={styles.data}>Calories: {Math.round(totalCalories)}</Text>
       </View>
       <MacroGraph carbs={totalCarbs} protein={totalProtein} fat={totalFat} />
       <MealList date={date} setMeals={setMeals} meals={meals} navigation={navigation} />

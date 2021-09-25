@@ -6,6 +6,7 @@ import { getAllMealData } from '../../context/MealContext';
 import { DietScreenNavigationProp } from '../../types';
 import { getAveragesFromDietDays } from '../../utils';
 import DietHistoryList from './components/DietHistoryList';
+import NoDataMacroGraph from './components/NoDataMacroGraph';
 
 type Props = {
   navigation: DietScreenNavigationProp;
@@ -36,13 +37,16 @@ const DietScreen = ({ navigation }: Props) => {
         <Text style={styles.title}>7-Day Average</Text>
       </View>
       <View style={styles.otherNutrientsContainer}>
-  <Text style={styles.data}>Calories: {averageCalories}</Text>
+  <Text style={styles.data}>Calories: {Math.round(averageCalories) || 0}</Text>
       </View>
-      <MacroGraph
-        carbs={averageCarbs}
-        protein={averageProtein}
-        fat={averageFat}
-      />
+      <View style={styles.graphContainer}>
+        <MacroGraph
+          carbs={averageCarbs}
+          protein={averageProtein}
+          fat={averageFat}
+        />
+        {!averageCalories ? <NoDataMacroGraph/> : null}
+      </View>
       <DietHistoryList dietHistory={dietHistory} navigation={navigation} />
     </>
   );
@@ -69,6 +73,11 @@ const styles = StyleSheet.create({
   data: {
     color: '#808080',
     fontSize: 16,
+  },
+  graphContainer: {
+    position: 'relative',
+    backgroundColor: 'transparent',
+    left: 20,
   },
 });
 

@@ -43,7 +43,7 @@ const MealSection = ({
 
         <View style={[styles.row, styles.marginBottom8]}>
           <Text style={styles.bold}>Calories:</Text>
-          <Text style={styles.value}>{calories}</Text>
+          <Text style={styles.value}>{Math.round(calories)}</Text>
         </View>
 
         <View style={[styles.row, styles.spaceBetween]}>
