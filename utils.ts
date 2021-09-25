@@ -1,3 +1,4 @@
+import { CALORIES_PER_MACRO_UNIT_MAPPING } from './constants';
 import { DietDay, Meal } from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -5,11 +6,18 @@ export const getTodaysDate = (): string =>
   new Date().toLocaleDateString('en-us');
 export const getDay = (dateString: string): string =>
   new Date(dateString).toLocaleDateString('en-us', { weekday: 'long' });
-export const convertCarbsToCalories = (carbs: number): number =>
-  (carbs || 0) * 4;
-export const convertProteinToCalories = (protein: number): number =>
-  convertCarbsToCalories(protein);
-export const convertFatToCalories = (fat: number): number => (fat || 0) * 9;
+export const convertCarbsToCalories = (
+  carbs: number,
+  carbsUnit: string = 'g'
+): number => (carbs || 0) * CALORIES_PER_MACRO_UNIT_MAPPING.carbs[carbsUnit];
+export const convertProteinToCalories = (
+  protein: number,
+  proteinUnit: string = 'g'
+): number => convertCarbsToCalories(protein, proteinUnit);
+export const convertFatToCalories = (
+  fat: number,
+  fatUnit: string = 'g'
+): number => (fat || 0) * CALORIES_PER_MACRO_UNIT_MAPPING.fat[fatUnit];
 
 export const storeData = async (key: string, value: any) => {
   if (typeof value !== 'string' && typeof value !== 'undefined') {

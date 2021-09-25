@@ -58,9 +58,9 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
   const fatNum = fat ? Number(fat) : 0;
 
   const calories =
-    convertCarbsToCalories(carbsNum) +
-    convertProteinToCalories(proteinNum) +
-    convertFatToCalories(fatNum);
+    convertCarbsToCalories(carbsNum, carbsUnit) +
+    convertProteinToCalories(proteinNum, proteinUnit) +
+    convertFatToCalories(fatNum, fatUnit);
 
   return (
     <>

@@ -29,7 +29,7 @@ const MealSection = ({
   navigation,
   setMeals,
 }: Props) => {
-  const { calories, carbs, protein, fat, id } = meal;
+  const { calories, carbs, protein, fat, id, carbsUnit, proteinUnit, fatUnit } = meal;
   return (
     <View style={styles.container}>
       <View style={styles.mealData}>
@@ -49,15 +49,15 @@ const MealSection = ({
         <View style={[styles.row, styles.spaceBetween]}>
           <View style={styles.row}>
             <Text style={styles.bold}>Carbs:</Text>
-            <Text style={styles.value}>{carbs}</Text>
+            <Text style={styles.value}>{carbs}{carbsUnit}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.bold}>Protein:</Text>
-            <Text style={styles.value}>{protein}</Text>
+            <Text style={styles.value}>{protein}{proteinUnit}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.bold}>Fat:</Text>
-            <Text style={styles.value}>{fat}</Text>
+            <Text style={styles.value}>{fat}{fatUnit}</Text>
           </View>
         </View>
       </View>

@@ -51,14 +51,24 @@ type Props = {
   fat: number;
 };
 
-const MacroGraph = ({ carbs = 0, protein = 0, fat = 0 }, props: Props) => {
-  const carbsCalories = convertCarbsToCalories(carbs);
-  const proteinCalories = convertProteinToCalories(protein);
-  const fatCalories = convertFatToCalories(fat);
+const MacroGraph = (
+  {
+    carbs = 0,
+    protein = 0,
+    fat = 0,
+    carbsUnit = 'g',
+    proteinUnit = 'g',
+    fatUnit = 'g',
+  },
+  props: Props
+) => {
+  const carbsCalories = convertCarbsToCalories(carbs, carbsUnit);
+  const proteinCalories = convertProteinToCalories(protein, proteinUnit);
+  const fatCalories = convertFatToCalories(fat, fatUnit);
   const calories = carbsCalories + proteinCalories + fatCalories;
-  const carbsPercentage = (carbsCalories / calories) || 0;
-  const proteinPercentage = (proteinCalories / calories) || 0;
-  const fatPercentage = (fatCalories / calories) || 0;
+  const carbsPercentage = carbsCalories / calories || 0;
+  const proteinPercentage = proteinCalories / calories || 0;
+  const fatPercentage = fatCalories / calories || 0;
 
   const data = dataConfig.map((config) => {
     switch (config.name) {
@@ -70,8 +80,6 @@ const MacroGraph = ({ carbs = 0, protein = 0, fat = 0 }, props: Props) => {
         return { ...config, percentage: fatPercentage };
     }
   });
-
-  console.log('DATA', JSON.stringify(data));
 
   return (
     <PieChart
