@@ -23,6 +23,7 @@ import {
   getTodaysDate,
 } from '../../utils';
 import { DietScreenNavigationProp, Meal } from '../../types';
+import DismissKeyboardView from '../../components/DismissKeyboardView';
 
 type Props = {
   navigation: DietScreenNavigationProp;
@@ -80,7 +81,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
         value={search}
       />
 
-      <View style={styles.addMealForm}>
+      <DismissKeyboardView style={styles.addMealForm}>
         {/* <View style={styles.fields}> */}
         <MacroInput
           type="Carbs"
@@ -156,7 +157,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
         >
           <Text style={styles.addMealText}>{id ? 'Edit' : 'Add'} Meal</Text>
         </TouchableOpacity>
-      </View>
+      </DismissKeyboardView>
     </>
   );
 };

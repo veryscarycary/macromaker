@@ -3,10 +3,15 @@ import { StyleSheet } from 'react-native';
 import MacroGraph from '../../components/MacroGraph';
 import { Text, View } from '../../components/Themed';
 import { getAllMealData } from '../../context/MealContext';
+import { DietScreenNavigationProp } from '../../types';
 import { getAveragesFromDietDays } from '../../utils';
 import DietHistoryList from './components/DietHistoryList';
 
-const DietScreen = ({ navigation }) => {
+type Props = {
+  navigation: DietScreenNavigationProp;
+};
+
+const DietScreen = ({ navigation }: Props) => {
   const [dietHistory, setDietHistory] = useState([]);
 
   const {

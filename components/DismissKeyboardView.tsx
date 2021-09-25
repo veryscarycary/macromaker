@@ -1,12 +1,14 @@
 
-import React from 'react';
-import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
+import React, { ComponentType } from 'react';
+import { TouchableWithoutFeedback, Keyboard, StyleProp } from 'react-native';
+import { View } from './Themed';
 
 type Props = {
-  children: any
+  children: JSX.Element[];
+  style: StyleProp<Record<string, any>>
 };
 
-const DismissKeyboardHOC = (Component: any) => {
+const DismissKeyboardHOC = (Component: ComponentType) => {
   return ({ children, ...props }: Props) => (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <Component {...props}>{children}</Component>
