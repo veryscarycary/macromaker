@@ -32,6 +32,7 @@ type Props = {
 
 const AddFoodScreen = ({ route, navigation }: Props) => {
   const meal = get(route, 'params.meal');
+  const date = get(route, 'params.date');
 
   const [search, setSearch] = useState('');
   // const {
@@ -121,7 +122,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
               }
             } else {
               try {
-                await storeMeal(getTodaysDate(), {
+                await storeMeal(date || getTodaysDate(), {
                   carbsUnit,
                   proteinUnit,
                   fatUnit,

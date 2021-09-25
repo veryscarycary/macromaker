@@ -28,7 +28,7 @@ const MealList = ({ date, meals, setMeals, navigation }: Props) => {
             />
           );
         })}
-        <AddMealSectionButton navigation={navigation} />
+        <AddMealSectionButton navigation={navigation} date={date} />
       </ScrollView>
     </>
   );

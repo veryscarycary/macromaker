@@ -10,15 +10,17 @@ import { DietScreenNavigationProp } from '../../../../../types';
 
 type Props = {
   navigation: DietScreenNavigationProp;
+  date: string;
 };
 
 const AddMealSectionButton = ({
+  date,
   navigation,
 }: Props) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate('AddFoodScreen')}
+      onPress={() => navigation.navigate('AddFoodScreen', { date })}
     >
       <Ionicons size={32} name="add-outline" />
       <Text style={styles.label}>Meal</Text>
