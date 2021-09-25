@@ -47,6 +47,7 @@ export interface DietDay {
 }
 export interface Meal {
     id: string;
+    mealName: string;
     carbs: number;
     carbsUnit: string;
     protein: number;

@@ -7,13 +7,11 @@ type Props = {
   type: string;
   value: string | number;
   unit: string;
-  defaultValue: string | number;
-  defaultUnit: string;
   setValue: (value: string) => void;
   setUnit: (unitValue: string) => void;
 };
 
-const MacroInput = ({ type, value, defaultValue, unit, defaultUnit, setValue, setUnit }: Props) => {
+const MacroInput = ({ type, value, unit, setValue, setUnit }: Props) => {
 
   return (
     <>

@@ -42,7 +42,9 @@ const DailyDietScreen = ({ route, navigation }: Props) => {
       <View style={styles.otherNutrientsContainer}>
         <Text style={styles.data}>Calories: {Math.round(totalCalories)}</Text>
       </View>
-      <MacroGraph carbs={totalCarbs} protein={totalProtein} fat={totalFat} />
+      <View style={styles.graphContainer}>
+        <MacroGraph carbs={totalCarbs} protein={totalProtein} fat={totalFat} />
+      </View>
       <MealList date={date} setMeals={setMeals} meals={meals} navigation={navigation} />
     </>
   );
@@ -69,6 +71,11 @@ const styles = StyleSheet.create({
   data: {
     color: '#808080',
     fontSize: 16,
+  },
+  graphContainer: {
+    position: 'relative',
+    backgroundColor: 'transparent',
+    left: 20,
   },
 });
 

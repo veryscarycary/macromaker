@@ -22,6 +22,7 @@ import {
 } from '../../utils';
 import { DietScreenNavigationProp, Meal } from '../../types';
 import DismissKeyboardView from '../../components/DismissKeyboardView';
+import { Input } from 'react-native-elements';
 
 type Props = {
   navigation: DietScreenNavigationProp;
@@ -54,6 +55,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
   const [carbsUnit, setCarbsUnit] = useState(get(meal, 'carbsUnit') || 'g');
   const [proteinUnit, setProteinUnit] = useState(get(meal, 'proteinUnit') || 'g');
   const [fatUnit, setFatUnit] = useState(get(meal, 'fatUnit') || 'g');
+  const [mealName, setMealName] = useState(get(meal, 'mealName') || '');
 
   const carbsNum = carbs ? Number(carbs) : 0;
   const proteinNum = protein ? Number(protein) : 0;
@@ -77,6 +79,13 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
 
       <DismissKeyboardView style={styles.addMealForm}>
         {/* <View style={styles.fields}> */}
+        <Input
+          containerStyle={styles.input}
+          onChangeText={setMealName}
+          value={mealName}
+          placeholder="Meal Name"
+        />
+
         <MacroInput
           type="Carbs"
           unit={carbsUnit}
@@ -104,12 +113,16 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
         {/* </View> */}
         <Spacer />
         <TouchableOpacity
-          style={[styles.addMealButton, isDisabled && styles.disabledAddMealButton]}
+          style={[
+            styles.addMealButton,
+            isDisabled && styles.disabledAddMealButton,
+          ]}
           disabled={isDisabled}
           onPress={async () => {
             if (get(meal, 'id')) {
               try {
                 updateMeal(getTodaysDate(), {
+                  mealName,
                   carbsUnit,
                   proteinUnit,
                   fatUnit,
@@ -121,12 +134,13 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
                 });
               } catch (e) {
                 console.error(
-                  `Error: ${e}. Could not update meal of id ${id}!`
+                  `Error: ${e}. Could not update meal of id ${get(meal, 'id')}!`
                 );
               }
             } else {
               try {
                 await storeMeal(date || getTodaysDate(), {
+                  mealName,
                   carbsUnit,
                   proteinUnit,
                   fatUnit,
@@ -143,7 +157,12 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
             navigation.pop();
           }}
         >
-          <Text style={[styles.addMealText, isDisabled && styles.disabledAddMealText]}>
+          <Text
+            style={[
+              styles.addMealText,
+              isDisabled && styles.disabledAddMealText,
+            ]}
+          >
             {get(meal, 'id') ? 'Edit' : 'Add'} Meal
           </Text>
         </TouchableOpacity>
@@ -189,6 +208,10 @@ const styles = StyleSheet.create({
   },
   fields: {
     marginBottom: 40,
+  },
+  input: {
+    width: '84%',
+    paddingHorizontal: 0,
   },
 });
 

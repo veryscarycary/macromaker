@@ -29,7 +29,7 @@ const MealSection = ({
   navigation,
   setMeals,
 }: Props) => {
-  const { calories, carbs, protein, fat, id, carbsUnit, proteinUnit, fatUnit } = meal;
+  const { mealName, calories, carbs, protein, fat, id, carbsUnit, proteinUnit, fatUnit } = meal;
   return (
     <View style={styles.container}>
       <View style={styles.mealData}>
@@ -38,7 +38,7 @@ const MealSection = ({
           <Text style={[styles.bold, styles.mealTitle]}>
             Meal #{mealNumber}:
           </Text>
-          <Text style={styles.value}>Lunch</Text>
+          <Text style={styles.value}>{mealName}</Text>
         </View>
 
         <View style={[styles.row, styles.marginBottom8]}>
