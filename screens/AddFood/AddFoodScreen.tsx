@@ -33,9 +33,19 @@ const areFieldsValid = (carbs: string, protein: string, fat: string) => {
   return ![carbs,protein,fat].some((field: string) => field === '' || field === '.');
 }
 
+const getDefaultMacroState = (state: string | number) => !state && typeof state !== 'number' ? '' : state;
+
 const AddFoodScreen = ({ route, navigation }: Props) => {
   const meal = get(route, 'params.meal');
   const date = get(route, 'params.date');
+
+  const defaultCarbs = get(meal, 'carbs');
+  const defaultProtein = get(meal, 'protein');
+  const defaultFat = get(meal, 'fat');
+  const defaultCarbsUnit = get(meal, 'carbsUnit');
+  const defaultProteinUnit = get(meal, 'proteinUnit');
+  const defaultFatUnit = get(meal, 'fatUnit');
+  const defaultMealName = get(meal, 'mealName');
 
   const [search, setSearch] = useState('');
   // const {
@@ -49,13 +59,13 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
   //   setFatUnit,
   // } = useContext(MealContext);
 
-  const [carbs, setCarbs] = useState(get(meal, 'carbs') || '');
-  const [protein, setProtein] = useState(get(meal, 'protein') || '');
-  const [fat, setFat] = useState(get(meal, 'fat') || '');
-  const [carbsUnit, setCarbsUnit] = useState(get(meal, 'carbsUnit') || 'g');
-  const [proteinUnit, setProteinUnit] = useState(get(meal, 'proteinUnit') || 'g');
-  const [fatUnit, setFatUnit] = useState(get(meal, 'fatUnit') || 'g');
-  const [mealName, setMealName] = useState(get(meal, 'mealName') || '');
+  const [carbs, setCarbs] = useState(getDefaultMacroState(defaultCarbs));
+  const [protein, setProtein] = useState(getDefaultMacroState(defaultProtein));
+  const [fat, setFat] = useState(getDefaultMacroState(defaultFat));
+  const [carbsUnit, setCarbsUnit] = useState(defaultCarbsUnit || 'g');
+  const [proteinUnit, setProteinUnit] = useState(defaultProteinUnit || 'g');
+  const [fatUnit, setFatUnit] = useState(defaultFatUnit || 'g');
+  const [mealName, setMealName] = useState(defaultMealName || '');
 
   const carbsNum = carbs ? Number(carbs) : 0;
   const proteinNum = protein ? Number(protein) : 0;
