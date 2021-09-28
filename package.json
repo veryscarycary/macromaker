@@ -11,6 +11,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@babel/parser": "^7.15.3",
     "@expo/vector-icons": "^12.0.0",
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/art": "^1.2.0",
@@ -21,6 +22,8 @@
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "~5.8.10",
     "@react-navigation/stack": "~5.12.8",
+    "d3": "^5.15.1",
+    "d3-scale": "^3.2.1",
     "expo": "~42.0.1",
     "expo-asset": "~8.3.2",
     "expo-constants": "~11.0.1",
@@ -31,6 +34,7 @@
     "expo-updates": "~0.8.1",
     "expo-web-browser": "~9.2.0",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "~0.63.4",
@@ -47,7 +51,8 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.15.5",
+    "@types/d3-scale": "^4.0.1",
     "@types/jest": "^27.0.2",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",

@@ -15,12 +15,8 @@ type Props = {
 const DietScreen = ({ navigation }: Props) => {
   const [dietHistory, setDietHistory] = useState([]);
 
-  const {
-    averageCalories,
-    averageCarbs,
-    averageProtein,
-    averageFat,
-  } = getAveragesFromDietDays(dietHistory);
+  const { averageCalories, averageCarbs, averageProtein, averageFat } =
+    getAveragesFromDietDays(dietHistory);
 
   useEffect(
     () =>
@@ -37,7 +33,9 @@ const DietScreen = ({ navigation }: Props) => {
         <Text style={styles.title}>7-Day Average</Text>
       </View>
       <View style={styles.otherNutrientsContainer}>
-  <Text style={styles.data}>Calories: {Math.round(averageCalories) || 0}</Text>
+        <Text style={styles.data}>
+          Calories: {Math.round(averageCalories) || 0}
+        </Text>
       </View>
       <View style={styles.graphContainer}>
         <MacroGraph
@@ -45,7 +43,7 @@ const DietScreen = ({ navigation }: Props) => {
           protein={averageProtein}
           fat={averageFat}
         />
-        {!averageCalories ? <NoDataMacroGraph/> : null}
+        {!averageCalories ? <NoDataMacroGraph /> : null}
       </View>
       <DietHistoryList dietHistory={dietHistory} navigation={navigation} />
     </>

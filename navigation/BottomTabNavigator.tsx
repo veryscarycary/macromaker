@@ -26,6 +26,7 @@ import { View } from '../components/Themed';
 import { Provider as MealProvider } from '../context/MealContext';
 import DailyDietScreen from '../screens/Diet/screens/DailyDiet/DailyDietScreen';
 import withProvider from '../components/withProvider';
+import DietTodayScreen from '../components/DietTodayScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -89,6 +90,13 @@ const DietTabDrawerNavigator = () => (
 function DietTabNavigator() {
   return (
     <DietTabStack.Navigator>
+      <DietTabStack.Screen
+        name="DietTodayScreen"
+        component={(props) => <DietTodayScreen {...props} />}
+        options={{
+          headerTitle: 'Today',
+        }}
+      />
       <DietTabStack.Screen
         name="DietScreen"
         component={DietScreen}
