@@ -1,15 +1,18 @@
 import React from 'react';
 // @ts-ignore
-import { Group, Shape, Path, Surface } from '@react-native-community/art';
+import { Shape, Path } from '@react-native-community/art';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { BarGraphData } from '../types';
+import { DAILY_RECOMMENDED_CALORIES } from '../../../constants';
 
 const createX = (width: number) => {
-  return scaleLinear().domain([0, 16]).range([0, width]);
+  return scaleLinear()
+    .domain([0, DAILY_RECOMMENDED_CALORIES * 0.8])
+    .range([0, width]);
 };
 
 const createY = (height: number) => {
-  return scaleBand().rangeRound([20, height - 75]);
+  return scaleBand().rangeRound([0, height]);
 };
 
 type Props = {
@@ -44,7 +47,7 @@ const D3Shape = ({ index, width, data, height, color, thickness, type }: Props) 
   const startingXPos = barLength;
 
   if (type === 'top') {
-    barLength = 23; 
+    barLength = thickness/4; 
   }
 
   // Draw path (x and y originate from the top-left corner)

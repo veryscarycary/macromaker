@@ -7,20 +7,19 @@ import XAxis from './XAxis';
 import YAxis from './YAxis';
 import { BarGraphData } from './types';
 
-type Props = {
-  color: string;
-};
 
-const BarGraph = ({ color }: Props) => {
-  let width = Dimensions.get('screen').width;
+const BarGraph = () => {
+  const width = Dimensions.get('screen').width;
+  const height = Dimensions.get('screen').height;
   let xAxisHeight = 325;
   let yAxisHeight = 30;
-  let barsWidth = width;
+  let barsWidth = width - 10;
+  let barsHeight = height/4;
 
   const data: BarGraphData[] = [
-    { columnId: 0, amount: 4 },
-    { columnId: 1, amount: 7 },
-    { columnId: 2, amount: 6 },
+    { columnId: 0, amount: 400 },
+    { columnId: 1, amount: 800 },
+    { columnId: 2, amount: 450 },
   ];
 
   return (
@@ -29,9 +28,8 @@ const BarGraph = ({ color }: Props) => {
 
       <HorizontalBars
         data={data}
-        width={width - 10}
-        height={barsWidth}
-        color={color}
+        width={barsWidth}
+        height={barsHeight}
         thickness={22}
       />
 

@@ -2,6 +2,8 @@ interface CalorieToUnitMapping {
   [unit: string]: number;
 }
 
+export const DAILY_RECOMMENDED_CALORIES = 2000;
+
 export const GRAMS_PER_OUNCE = 28.3495;
 export const CALORIES_PER_MACRO_UNIT_MAPPING: Record<string, CalorieToUnitMapping> = {
   carbs: {
