@@ -1,71 +1,65 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { scaleLinear } from 'd3-scale';
-import { Surface, Shape, Group, Path, Text } from '@react-native-community/art';
+import { Surface, Group, Text } from '@react-native-community/art';
 
-const generateGridPoints = (amount) => {
-  let points = [];
-  Array(amount)
-    .fill()
-    .forEach((i, index) => {
-      let pos = (100 / amount) * index;
-      points.push(pos);
-    });
-  points.shift();
-  points.push(100);
+import { scaleBand } from 'd3-scale';
+import moment from 'moment';
 
-  return points;
+const generateValues = () => {
+  const data = [];
+
 };
 
-const getScaleTicks = (index, gridPoints, width, height) => {
-  let y = scaleLinear()
-    .domain([0, 100])
-    .range([0, height - 10]);
-  let position = y(gridPoints[index]);
-  return new Path().moveTo(0, position).line(width, 0);
+const getValuePosition = (index, values, width) => {
+  let x = scaleBand().rangeRound([20, width - 75]);
+  x.domain(
+    values.map((d) => {
+      return d;
+    })
+  );
+  return x(values[index]);
 };
 
-const getScalePosition = (index, gridPoints, height) => {
-  let y = scaleLinear()
-    .domain([0, 100])
-    .range([-10, height - 20]);
-  return y(gridPoints[index]);
+type Props = {
+  width: number;
+  height: number;
 };
 
-export default function yAxis({ width, height, isNap }) {
-  let yValues = ['14', '12', '10', '8', '6', '4', '2', '0'];
-  let gridPoints = generateGridPoints(yValues.length);
+const YAxis = ({ width, height }: Props) => {
+  let axisValues = generateValues();
 
   return (
-    <Surface style={styles.yAxis} width={width} height={height}>
-      {gridPoints.map((point, index) => (
-        <Group key={index} x={0} y={-20}>
-          <Shape
-            d={getScaleTicks(index, gridPoints, width, height)}
-            fill="#121212"
-            stroke="#121212"
-            strokeWidth={1}
-          />
+    <Surface width={width} height={height}>
+      {/* <Group x={69}>
+        {axisValues.days.map((item, index) => (
+          <Text
+            key={index}
+            fill="#fff"
+            x={getValuePosition(index, axisValues.days, width)}
+            y={0}
+            font={`12px Arial`}
+            alignment="center"
+            opacity={index === 6 ? 1 : 0.6}
+          >
+            {item}
+          </Text>
+        ))}
 
-          <Group x={10}>
-            <Text
-              fill="#717171"
-              x={40}
-              y={getScalePosition(index, gridPoints, height)}
-              font={`14px Arial`}
-              alignment="right"
-            >
-              {yValues[index]}
-            </Text>
-          </Group>
-        </Group>
-      ))}
+        {axisValues.nums.map((item, index) => (
+          <Text
+            key={index}
+            fill="#fff"
+            x={getValuePosition(index, axisValues.nums, width)}
+            y={15}
+            font={`12px Arial`}
+            alignment="center"
+            opacity={index === 6 ? 1 : 0.6}
+          >
+            {item}
+          </Text>
+        ))}
+      </Group> */}
     </Surface>
   );
 }
 
-const styles = StyleSheet.create({
-  yAxis: {
-    position: 'absolute',
-  },
-});
+export default YAxis;
