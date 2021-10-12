@@ -17,9 +17,9 @@ const BarGraph = () => {
   let barsHeight = height/4;
 
   const data: BarGraphData[] = [
-    { columnId: 0, amount: 400 },
-    { columnId: 1, amount: 800 },
-    { columnId: 2, amount: 450 },
+    { label: 'Carbs', amount: 400 },
+    { label: 'Protein', amount: 800 },
+    { label: 'Fat', amount: 450 },
   ];
 
   return (

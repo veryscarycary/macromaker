@@ -31,13 +31,13 @@ const D3Shape = ({ index, width, data, height, color, thickness, type }: Props) 
 
   // lays out the entire data index range
   y.domain(
-    data.map((d: BarGraphData) => {
-      return d.columnId.toString();
+    data.map((d: BarGraphData, i: number) => {
+      return i.toString();
     })
   );
 
   // finds the position of THIS bar in that range
-  const startingYPos = y(data[index].columnId.toString());
+  const startingYPos = y(index.toString());
 
   // set X
   const x = createX(width);

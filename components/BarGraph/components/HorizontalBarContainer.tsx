@@ -1,35 +1,97 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Text, View } from '../../Themed';
+import PropTypes from 'prop-types';
+// @ts-ignore
+import { Shape, Group, Path } from '@react-native-community/art';
 
-const HorizontalBarContainer = ({ label }: { label: string }) => {
+type Props = {
+  width: number;
+  height: number;
+  fill: string;
+  stroke: string;
+  x?: number;
+  y?: number;
+  topLeftRadius?: number;
+  topRightRadius?: number;
+  bottomRightRadius?: number;
+  bottomLeftRadius?: number;
+  borderRadius?: number;
+};
+
+const Rect = ({
+  fill,
+  stroke,
+  x,
+  y,
+  borderRadius,
+  width,
+  height,
+  topLeftRadius,
+  topRightRadius,
+  bottomRightRadius,
+  bottomLeftRadius,
+  ...rest
+}: Props) => {
+  const startX = 0;
+  const startY = 0;
+  const smallDimension = width > height ? height : width;
+  let tlr = topLeftRadius !== null ? topLeftRadius : borderRadius;
+  tlr = tlr > smallDimension / 2 ? smallDimension / 2 : tlr;
+  let trr = topRightRadius !== null ? topRightRadius : borderRadius;
+  trr = trr > smallDimension / 2 ? smallDimension / 2 : trr;
+  let brr = bottomRightRadius !== null ? bottomRightRadius : borderRadius;
+  brr = brr > smallDimension / 2 ? smallDimension / 2 : brr;
+  let blr = bottomLeftRadius !== null ? bottomLeftRadius : borderRadius;
+  blr = blr > smallDimension / 2 ? smallDimension / 2 : blr;
+  const d = Path()
+    .move(startX, startY)
+    .move(startX, tlr)
+    .arc(tlr, startY - tlr, tlr, tlr, false, false) // top left
+    .lineTo(width - trr, startY)
+    .arc(trr, startX + trr, trr, trr, false, false) // top right
+    .lineTo(width, startY + (height - brr))
+    .arc(startX - brr, brr, brr, brr, false, false) // bottom right
+    .lineTo(startX + blr, height)
+    .arc(startX - blr, startY - blr, blr, blr, false, false) // bottom right
+    .close();
+
   return (
-    <View style={styles.container}>
-      <View style={styles.macroLabel}>
-        <Text style={styles.title}>{label}</Text>
-      </View>
-    </View>
+    <Group x={x} y={y}>
+      <Shape
+        {...rest}
+        fill={fill}
+        stroke={stroke}
+        strokeWidth={2}
+        strokeDash={[10, 5]}
+        d={d}
+      />
+    </Group>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    marginHorizontal: 10,
-    marginVertical: 10,
-    paddingVertical: 40,
-    backgroundColor: '#bbb',
-  },
-  title: {
-    fontSize: 20,
-    fontFamily: 'Helvetica',
-    fontWeight: 'bold',
-  },
-  macroLabel: {
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-});
+Rect.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  x: PropTypes.number,
+  y: PropTypes.number,
+  fill: PropTypes.string,
+  stroke: PropTypes.string,
+  topLeftRadius: PropTypes.number,
+  topRightRadius: PropTypes.number,
+  bottomRightRadius: PropTypes.number,
+  bottomLeftRadius: PropTypes.number,
+  borderRadius: PropTypes.number,
+};
 
-export default HorizontalBarContainer;
+Rect.defaultProps = {
+  rc: 20,
+  x: 0,
+  y: 0,
+  fill: 'transparent',
+  stroke: 'red',
+  topLeftRadius: null,
+  topRightRadius: null,
+  bottomRightRadius: null,
+  bottomLeftRadius: null,
+};
+
+export default Rect;

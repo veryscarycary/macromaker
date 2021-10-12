@@ -1,4 +1,4 @@
 export interface BarGraphData {
-  columnId: number;
+  label: string;
   amount: number;
 };
