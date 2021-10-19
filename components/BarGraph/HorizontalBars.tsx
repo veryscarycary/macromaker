@@ -5,6 +5,7 @@ import { BarGraphData } from './types';
 import HorizontalBar from './components/HorizontalBar';
 import HorizontalBarTop from './components/HorizontalBarTop';
 import HorizontalBarContainer from './components/HorizontalBarContainer';
+import HorizontalBarWithHook from './components/HorizontalBarWithHook';
 
 type Props = {
   data: BarGraphData[];
@@ -32,13 +33,24 @@ const Bars = ({ data, width, height, thickness }: Props) => {
               y={-22 + (height / data.length) * index}
             />
 
+            <HorizontalBarWithHook
+              data={data}
+              index={index}
+              width={width}
+              height={height}
+              thickness={4}
+              color="#fa8e00"
+              hookDirection="bottom"
+              y={-10}
+            />
+
             <HorizontalBar
               data={data}
               index={index}
               width={width}
               height={height}
               thickness={thickness}
-              color="#353535"
+              color={item.color}
             />
 
             <HorizontalBarTop
@@ -51,7 +63,7 @@ const Bars = ({ data, width, height, thickness }: Props) => {
             />
 
             <Group key={index} x={width * 0.1} y={0}>
-              <Text
+              {/* <Text
                 // @ts-ignore
                 font={{
                   fontFamily: 'Helvetica, Neue Helvetica, Arial',
@@ -62,7 +74,22 @@ const Bars = ({ data, width, height, thickness }: Props) => {
                 fill="#acacac"
                 alignment="left"
                 x={-40}
-                y={21 + (height / data.length) * index}
+                y={20 + (height / data.length) * index}
+              >
+                {height}
+              </Text> */}
+              <Text
+                // @ts-ignore
+                font={{
+                  fontFamily: 'Helvetica, Neue Helvetica, Arial',
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  fontStyle: 'italic',
+                }}
+                fill="#939393"
+                alignment="left"
+                x={-40}
+                y={40 + (height / data.length) * index}
               >
                 {item.label}
               </Text>

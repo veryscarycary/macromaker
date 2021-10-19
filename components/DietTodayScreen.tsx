@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { View } from '../components/Themed';
 import { DietScreenNavigationProp } from '../types';
 import BarGraph from './BarGraph';
+import TotalCaloriesGraph from './TotalCaloriesGraph';
 
 type Props = {
   navigation: DietScreenNavigationProp;
@@ -27,6 +28,7 @@ const DietTodayScreen = ({ navigation }: Props) => {
     <>
       <View>
         <BarGraph />
+        <TotalCaloriesGraph />
       </View>
     </>
   );

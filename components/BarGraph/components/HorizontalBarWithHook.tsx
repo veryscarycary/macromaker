@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarGraphData } from '../types';
-import D3Rectangle from './D3Rectangle';
+import D3RectangleHook from './D3RectangleHook';
 
 type Props = {
   data: BarGraphData[];
@@ -9,27 +9,35 @@ type Props = {
   height: number;
   color: string;
   thickness: number;
+  hookDirection: string;
+  x?: number;
+  y?: number;
 };
 
-const HorizontalBarTop = ({
+const HorizontalBarWithHook = ({
   index,
   width,
   data,
   height,
   color,
   thickness,
+  hookDirection,
+  x,
+  y,
 }: Props) => {
   return (
-    <D3Rectangle
+    <D3RectangleHook
       index={index}
       width={width}
       data={data}
       height={height}
       color={color}
       thickness={thickness}
-      type="top"
+      hookDirection={hookDirection}
+      x={x}
+      y={y}
     />
   );
 };
 
-export default HorizontalBarTop;
+export default HorizontalBarWithHook;
