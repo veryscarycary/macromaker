@@ -45,7 +45,7 @@ const TotalCaloriesGraph = () => {
 
 const styles = StyleSheet.create({
   main: {
-    marginVertical: 25,
+    marginTop: 10,
     marginHorizontal: 0,
   },
   totalCalories: {

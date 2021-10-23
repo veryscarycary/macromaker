@@ -40,7 +40,7 @@ const BarGraph = () => {
 
 const styles = StyleSheet.create({
   main: {
-    marginVertical: 25,
+    paddingVertical: 25,
     marginHorizontal: 0,
   },
 });

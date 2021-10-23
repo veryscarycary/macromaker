@@ -26,10 +26,8 @@ const DietTodayScreen = ({ navigation }: Props) => {
 
   return (
     <>
-      <View>
-        <BarGraph />
-        <TotalCaloriesGraph />
-      </View>
+      <BarGraph />
+      <TotalCaloriesGraph />
     </>
   );
 };
