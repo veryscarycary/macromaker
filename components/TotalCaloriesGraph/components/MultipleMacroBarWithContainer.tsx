@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-import { Shape, Path, Group, Surface } from '@react-native-community/art';
+import { Shape, Path, Group, Surface, Text } from '@react-native-community/art';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { BarGraphData } from '../../BarGraph/types';
 import { DAILY_RECOMMENDED_CALORIES } from '../../../constants';
@@ -19,6 +19,7 @@ type Props = {
   data: BarGraphData[];
   width: number;
   height: number;
+  barWidth: number;
   color1: string;
   color2: string;
   color3: string;
@@ -29,8 +30,9 @@ type Props = {
 
 const MultipleMacroBarWithContainer = ({
   width,
-  data,
   height,
+  barWidth,
+  data,
   color1,
   color2,
   color3,
@@ -45,7 +47,7 @@ const MultipleMacroBarWithContainer = ({
 
   const ratioCalToTargetCal = currentCalories / targetCalories;
 
-  const currentCaloriesLength = ratioCalToTargetCal * width;
+  const currentCaloriesLength = ratioCalToTargetCal * barWidth;
 
   const firstPercentage = data[0].amount / currentCalories;
   const secondPercentage = data[1].amount / currentCalories;
@@ -60,9 +62,9 @@ const MultipleMacroBarWithContainer = ({
   // start at top of bar, left, down, then right. Autocloses back at finish
   const container = new Path()
     .moveTo(startingXPos, startingYPos)
-    .line(width, 0)
+    .line(barWidth, 0)
     .line(0, thickness)
-    .line(-width, 0)
+    .line(-barWidth, 0)
     .line(0, -thickness);
 
   const first = new Path()
@@ -89,10 +91,22 @@ const MultipleMacroBarWithContainer = ({
   return (
     <Surface width={width} height={height}>
       <Group x={x} y={y}>
-        <Shape d={container} stroke="#000000" strokeWidth={2} />
+        <Shape d={container} stroke="#000000" strokeWidth={3} />
         <Shape d={first} fill={color1} stroke="#000000" />
         <Shape d={second} fill={color2} stroke="#000000" />
         <Shape d={third} fill={color3} stroke="#000000" />
+      </Group>
+
+      <Group x={x} y={y + 35}>
+        <Text
+          fill="#717171"
+          x={barWidth + 10}
+          y={0}
+          font={`14px Arial`}
+          alignment="right"
+        >
+          {targetCalories.toString()}
+        </Text>
       </Group>
     </Surface>
   );
