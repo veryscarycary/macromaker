@@ -14,7 +14,7 @@ export default {
         screens: {
           DietTab: {
             screens: {
-              DietScreen: 'one',
+              DietHistoryScreen: 'one',
             },
           },
           FitnessTab: {

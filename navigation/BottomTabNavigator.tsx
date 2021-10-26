@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import DietScreen from '../screens/Diet/DietScreen';
+import DietHistoryScreen from '../screens/Diet/DietHistoryScreen';
 import FitnessScreen from '../screens/FitnessScreen';
 import {
   BottomTabParamList,
@@ -40,7 +40,7 @@ export default function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="Diet"
-        component={DietTabDrawerNavigator}
+        component={DietNavigator}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
@@ -78,42 +78,37 @@ function TabBarIcon(props: {
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const DietTabStack = createStackNavigator<DietTabParamList>();
-const Drawer = createDrawerNavigator();
 
-const DietTabDrawerNavigator = () => (
-  <Drawer.Navigator initialRouteName="DietTab" drawerPosition="right">
-    <Drawer.Screen name="DietTab" component={DietTabNavigator} />
-    <Drawer.Screen name="MacroScreen" component={MacroScreen} />
-  </Drawer.Navigator>
-);
-
-function DietTabNavigator() {
+function DietNavigator() {
   return (
-    <DietTabStack.Navigator>
+    <DietTabStack.Navigator
+      screenOptions={(props) => ({
+        headerRight: () => (
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              marginRight: 15,
+            }}
+          >
+            <AddFoodHeaderButton {...props} />
+            <MenuButton {...props} />
+          </View>
+        ),
+      })}
+    >
       <DietTabStack.Screen
         name="DietTodayScreen"
         component={(props) => <DietTodayScreen {...props} />}
-        options={{
+        options={(props) => ({
           headerTitle: 'Today',
-        }}
+        })}
       />
       <DietTabStack.Screen
-        name="DietScreen"
-        component={DietScreen}
+        name="DietHistoryScreen"
+        component={DietHistoryScreen}
         options={(props) => ({
           headerTitle: 'Diet History',
-          headerRight: () => (
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-                marginRight: 15,
-              }}
-            >
-              <AddFoodHeaderButton {...props} />
-              <MenuButton {...props} />
-            </View>
-          ),
         })}
       />
       <DietTabStack.Screen

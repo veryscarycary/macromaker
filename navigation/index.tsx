@@ -8,9 +8,10 @@ import {
   DefaultTheme,
   DarkTheme,
 } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { ColorSchemeName } from 'react-native';
+import { ColorSchemeName, Dimensions, TouchableOpacity } from 'react-native';
+import { Text, View } from '../components/Themed';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
@@ -36,12 +37,47 @@ export default function Navigation({
 // Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator<RootStackParamList>();
 
+const screenHeight = Dimensions.get('window').height;
+
+function ModalScreen({ navigation }) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: 'transparent',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+      }}
+    >
+      <View
+        style={{
+          height: '50%',
+          width: '100%',
+          backgroundColor: '#bf0000',
+          justifyContent: 'center',
+        }}
+      >
+        <Text>Testing a modal with transparent background</Text>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text>Dismiss</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
 function RootNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        gestureEnabled: false,
+        cardStyle: { backgroundColor: 'transparent' },
+        cardOverlayEnabled: true,
+        gestureDirection: 'vertical',
+        cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS
       }}
+      mode="modal"
     >
       <Stack.Screen name="Root" component={BottomTabNavigator} />
       <Stack.Screen
@@ -49,6 +85,10 @@ function RootNavigator() {
         component={NotFoundScreen}
         options={{ title: 'Oops!' }}
       />
+      <Stack.Screen name="Modal" component={ModalScreen} options={{
+        gestureDirection: 'vertical',
+        gestureEnabled: true
+      }} />
     </Stack.Navigator>
   );
 }

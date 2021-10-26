@@ -3,16 +3,16 @@ import { StyleSheet } from 'react-native';
 import MacroGraph from '../../components/MacroGraph';
 import { Text, View } from '../../components/Themed';
 import { getAllMealData } from '../../context/MealContext';
-import { DietScreenNavigationProp } from '../../types';
+import { DietHistoryScreenNavigationProp } from '../../types';
 import { getAveragesFromDietDays } from '../../utils';
 import DietHistoryList from './components/DietHistoryList';
 import NoDataMacroGraph from './components/NoDataMacroGraph';
 
 type Props = {
-  navigation: DietScreenNavigationProp;
+  navigation: DietHistoryScreenNavigationProp;
 };
 
-const DietScreen = ({ navigation }: Props) => {
+const DietHistoryScreen = ({ navigation }: Props) => {
   const [dietHistory, setDietHistory] = useState([]);
 
   const { averageCalories, averageCarbs, averageProtein, averageFat } =
@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DietScreen;
+export default DietHistoryScreen;

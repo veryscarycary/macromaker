@@ -8,6 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
+  Modal: undefined;
 };
 
 export type DietScreenNavigationProp = StackNavigationProp<
@@ -21,7 +22,8 @@ export type BottomTabParamList = {
 };
 
 export type DietTabParamList = {
-  DietScreen: undefined;
+  DietHistoryScreen: undefined;
+  DietTodayScreen: undefined;
   AddFoodScreen: undefined;
   EditFoodScreen: undefined;
   DailyDietScreen: undefined;

@@ -11,7 +11,7 @@ type Props = {
 const MenuButton = ({ navigation }: Props) => (
   <TouchableOpacity
     style={styles.button}
-    onPress={() => navigation.openDrawer()}
+    onPress={() => navigation.navigate('Modal')}
   >
     <Ionicons size={30} style={{ marginBottom: -3 }} name="reorder-three"/>
   </TouchableOpacity>
