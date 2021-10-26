@@ -10,18 +10,21 @@ type Props = {
   children: string;
   icon: React.ComponentProps<typeof Ionicons>['name'];
   hasBottomBorder?: boolean;
+  onPress: () => void
 };
 
 const ModalButton = ({
   children,
   icon,
   hasBottomBorder = true,
+  onPress,
 }: // navigation,
 Props) => {
   return (
     <>
       <TouchableOpacity
         style={styles.container}
+        onPress={onPress}
         // onPress={() => navigation.navigate('AddFoodScreen', { date })}
       >
         <Ionicons size={32} name={icon} />

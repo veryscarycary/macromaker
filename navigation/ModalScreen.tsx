@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { View } from '../components/Themed';
+import { DietHistoryScreenNavigationProp } from '../types';
 import ModalButton from './components/ModalButton';
 
 const TopNotch = () => (
@@ -9,7 +10,11 @@ const TopNotch = () => (
   </View>
 );
 
-const ModalScreen = ({ navigation }) => {
+type Props = {
+  navigation: DietHistoryScreenNavigationProp;
+};
+
+const ModalScreen = ({ navigation }: Props) => {
   const [isBorder] = useState(false);
   return (
     <View
@@ -20,6 +25,7 @@ const ModalScreen = ({ navigation }) => {
         justifyContent: 'flex-end',
       }}
     >
+      {/* this is where the modal actually starts */}
       <View
         style={{
           backgroundColor: '#dfdfdf',
@@ -30,7 +36,7 @@ const ModalScreen = ({ navigation }) => {
         }}
       >
         <TopNotch />
-        <ModalButton icon="time">History</ModalButton>
+        <ModalButton icon="time" onPress={() => navigation.navigate('DietHistoryScreen')}>History</ModalButton>
         <ModalButton icon="settings" hasBottomBorder={false}>
           Settings
         </ModalButton>

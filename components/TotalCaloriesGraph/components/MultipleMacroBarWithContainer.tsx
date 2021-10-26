@@ -91,10 +91,10 @@ const MultipleMacroBarWithContainer = ({
   return (
     <Surface width={width} height={height}>
       <Group x={x} y={y}>
-        <Shape d={container} stroke="#000000" strokeWidth={3} />
         <Shape d={first} fill={color1} stroke="#000000" />
         <Shape d={second} fill={color2} stroke="#000000" />
         <Shape d={third} fill={color3} stroke="#000000" />
+        <Shape d={container} stroke="#000000" strokeWidth={3} />
       </Group>
 
       <Group x={x} y={y + 35}>
