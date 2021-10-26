@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { DietScreenNavigationProp } from '../../../types';
+import { DietHistoryScreenNavigationProp } from '../../../types';
 
 
 type Props = {
-  navigation: DietScreenNavigationProp,
+  navigation: DietHistoryScreenNavigationProp;
 };
 
 const MenuButton = ({ navigation }: Props) => (

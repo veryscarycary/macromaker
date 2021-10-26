@@ -11,7 +11,7 @@ export type RootStackParamList = {
   Modal: undefined;
 };
 
-export type DietScreenNavigationProp = StackNavigationProp<
+export type DietHistoryScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Root'
 >;

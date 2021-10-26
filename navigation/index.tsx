@@ -10,13 +10,13 @@ import {
 } from '@react-navigation/native';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { ColorSchemeName, Dimensions, TouchableOpacity } from 'react-native';
-import { Text, View } from '../components/Themed';
+import { ColorSchemeName, Dimensions } from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import ModalScreen from './ModalScreen';
 
 export default function Navigation({
   colorScheme,
@@ -39,33 +39,6 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const screenHeight = Dimensions.get('window').height;
 
-function ModalScreen({ navigation }) {
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'transparent',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-      }}
-    >
-      <View
-        style={{
-          height: '50%',
-          width: '100%',
-          backgroundColor: '#bf0000',
-          justifyContent: 'center',
-        }}
-      >
-        <Text>Testing a modal with transparent background</Text>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text>Dismiss</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-}
-
 function RootNavigator() {
   return (
     <Stack.Navigator
@@ -87,7 +60,12 @@ function RootNavigator() {
       />
       <Stack.Screen name="Modal" component={ModalScreen} options={{
         gestureDirection: 'vertical',
-        gestureEnabled: true
+        gestureEnabled: true,
+        /**
+         * Distance from top to register swipe to dismiss modal gesture. Default (135)
+         * https://reactnavigation.org/docs/en/stack-navigator.html#gestureresponsedistance
+         */
+        gestureResponseDistance: { vertical: 1000 }, // default is 135 },
       }} />
     </Stack.Navigator>
   );
