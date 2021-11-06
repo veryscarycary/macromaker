@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet } from 'react-native';
-import { Text, View } from '../components/Themed';
-import { ModalStackParamList, Navigation } from '../types';
+import { Text, View } from '../../../components/Themed';
+import { ModalStackParamList, Navigation } from '../../../types';
 import { createStackNavigator } from '@react-navigation/stack';
 
 type Props = {

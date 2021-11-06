@@ -17,7 +17,7 @@ import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import MenuModalScreen from './MenuModalScreen';
-import ModalScreen from './ModalScreen';
+import ModalScreen from '../screens/InfoModal/ModalScreen';
 
 export default function Navigation({
   colorScheme,
