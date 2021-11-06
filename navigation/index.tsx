@@ -16,6 +16,7 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import MenuModalScreen from './MenuModalScreen';
 import ModalScreen from './ModalScreen';
 
 export default function Navigation({
@@ -48,7 +49,7 @@ function RootNavigator() {
         cardStyle: { backgroundColor: 'transparent' },
         cardOverlayEnabled: true,
         gestureDirection: 'vertical',
-        cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS
+        // cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
       }}
       mode="modal"
     >
@@ -58,15 +59,32 @@ function RootNavigator() {
         component={NotFoundScreen}
         options={{ title: 'Oops!' }}
       />
-      <Stack.Screen name="Modal" component={ModalScreen} options={{
-        gestureDirection: 'vertical',
-        gestureEnabled: true,
-        /**
-         * Distance from top to register swipe to dismiss modal gesture. Default (135)
-         * https://reactnavigation.org/docs/en/stack-navigator.html#gestureresponsedistance
-         */
-        gestureResponseDistance: { vertical: 1000 }, // default is 135 },
-      }} />
+      <Stack.Screen
+        name="Modal"
+        component={ModalScreen}
+        options={{
+          gestureDirection: 'vertical',
+          gestureEnabled: true,
+          /**
+           * Distance from top to register swipe to dismiss modal gesture. Default (135)
+           * https://reactnavigation.org/docs/en/stack-navigator.html#gestureresponsedistance
+           */
+          gestureResponseDistance: { vertical: 1000 }, // default is 135 },
+        }}
+      />
+      <Stack.Screen
+        name="MenuModal"
+        component={MenuModalScreen}
+        options={{
+          gestureDirection: 'vertical',
+          gestureEnabled: true,
+          /**
+           * Distance from top to register swipe to dismiss modal gesture. Default (135)
+           * https://reactnavigation.org/docs/en/stack-navigator.html#gestureresponsedistance
+           */
+          gestureResponseDistance: { vertical: 1000 }, // default is 135 },
+        }}
+      />
     </Stack.Navigator>
   );
 }

@@ -1,17 +1,17 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { DietHistoryScreenNavigationProp } from '../../../types';
+import { Navigation } from '../../../types';
 
 
 type Props = {
-  navigation: DietHistoryScreenNavigationProp;
+  navigation: Navigation;
 };
 
 const MenuButton = ({ navigation }: Props) => (
   <TouchableOpacity
     style={styles.button}
-    onPress={() => navigation.navigate('Modal')}
+    onPress={() => navigation.navigate('MenuModal')}
   >
     <Ionicons size={30} style={{ marginBottom: -3 }} name="reorder-three"/>
   </TouchableOpacity>

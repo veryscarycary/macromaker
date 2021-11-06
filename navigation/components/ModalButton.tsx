@@ -10,7 +10,7 @@ type Props = {
   children: string;
   icon: React.ComponentProps<typeof Ionicons>['name'];
   hasBottomBorder?: boolean;
-  onPress: () => void
+  onPress: () => void;
 };
 
 const ModalButton = ({

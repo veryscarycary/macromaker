@@ -6,8 +6,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -17,6 +16,7 @@ import {
   BottomTabParamList,
   DietTabParamList,
   FitnessTabParamList,
+  Navigation,
 } from '../types';
 import AddFoodHeaderButton from '../screens/Diet/components/AddFoodHeaderButton';
 import AddFoodScreen from '../screens/AddFood/AddFoodScreen';
@@ -30,8 +30,20 @@ import DietTodayScreen from '../components/DietTodayScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-export default function BottomTabNavigator() {
+type Props = {
+  navigation: Navigation
+};
+
+export default function BottomTabNavigator({ navigation }: Props) {
   const colorScheme = useColorScheme();
+  
+  
+  // temporary until we collect user info from modal
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  if (isModalOpen) {
+    navigation.navigate('Modal');
+    setIsModalOpen(false);
+  }
 
   return (
     <BottomTab.Navigator

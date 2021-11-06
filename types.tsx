@@ -8,10 +8,16 @@ import { StackNavigationProp } from '@react-navigation/stack';
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
+  MenuModal: undefined;
   Modal: undefined;
 };
 
-export type DietHistoryScreenNavigationProp = StackNavigationProp<
+export type ModalStackParamList = {
+  BasicInfo: undefined;
+  MoreInfo: undefined;
+};
+
+export type Navigation = StackNavigationProp<
   RootStackParamList,
   'Root'
 >;

@@ -3,13 +3,13 @@ import { StyleSheet } from 'react-native';
 import MacroGraph from '../../components/MacroGraph';
 import { Text, View } from '../../components/Themed';
 import { getAllMealData } from '../../context/MealContext';
-import { DietHistoryScreenNavigationProp } from '../../types';
+import { Navigation } from '../../types';
 import { getAveragesFromDietDays } from '../../utils';
 import DietHistoryList from './components/DietHistoryList';
 import NoDataMacroGraph from './components/NoDataMacroGraph';
 
 type Props = {
-  navigation: DietHistoryScreenNavigationProp;
+  navigation: Navigation;
 };
 
 const DietHistoryScreen = ({ navigation }: Props) => {
