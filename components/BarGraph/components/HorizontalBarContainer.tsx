@@ -61,7 +61,7 @@ const Rect = ({
         fill={fill}
         stroke={stroke}
         strokeWidth={2}
-        strokeDash={[10, 5]}
+        // strokeDash={[10, 5]}
         d={d}
       />
     </Group>

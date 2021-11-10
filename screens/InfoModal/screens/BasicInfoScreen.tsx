@@ -12,8 +12,6 @@ type Props = {
   navigation: Navigation;
 };
 
-const ModalStack = createStackNavigator<ModalStackParamList>();
-
 const BasicInfoScreen = ({ navigation }: Props) => {
 
   const [name, setName] = useState('');

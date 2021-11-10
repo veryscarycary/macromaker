@@ -13,6 +13,7 @@ export type RootStackParamList = {
 };
 
 export type ModalStackParamList = {
+  Welcome: undefined;
   BasicInfo: undefined;
   MoreInfo: undefined;
 };
