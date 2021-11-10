@@ -44,11 +44,10 @@ function RootNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
-        gestureEnabled: false,
         cardStyle: { backgroundColor: 'transparent' },
         cardOverlayEnabled: true,
         gestureDirection: 'vertical',
+        headerShown: false,
         // cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
       }}
       mode="modal"
@@ -62,15 +61,7 @@ function RootNavigator() {
       <Stack.Screen
         name="Modal"
         component={ModalScreen}
-        options={{
-          gestureDirection: 'vertical',
-          gestureEnabled: true,
-          /**
-           * Distance from top to register swipe to dismiss modal gesture. Default (135)
-           * https://reactnavigation.org/docs/en/stack-navigator.html#gestureresponsedistance
-           */
-          gestureResponseDistance: { vertical: 1000 }, // default is 135 },
-        }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="MenuModal"

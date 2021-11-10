@@ -14,13 +14,14 @@ const ModalStack = createStackNavigator<ModalStackParamList>();
 
 const ModalScreen = ({ navigation }: Props) => {
   return (
-    <ModalStack.Navigator>
+    <ModalStack.Navigator style={styles.marginTop} screenOptions={{ headerShown: false }}>
       <ModalStack.Screen name="BasicInfo" component={BasicInfoScreen} />
       <ModalStack.Screen name="MoreInfo" component={MoreInfoScreen} />
     </ModalStack.Navigator>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+});
 
 export default ModalScreen;

@@ -33,33 +33,37 @@ const BasicInfoScreen = ({ navigation }: Props) => {
         />
       </View>
       {/* <View style={styles.fields}> */}
-      <Input
-        containerStyle={styles.input}
-        inputContainerStyle={styles.inputContainer}
-        inputStyle={styles.inputContainer}
-        onChangeText={setName}
-        value={name}
-        placeholder="Your Name"
-      />
-      <Input
-        containerStyle={styles.input}
-        inputContainerStyle={styles.inputContainer}
-        inputStyle={styles.inputContainer}
-        onChangeText={setAge}
-        value={age}
-        placeholder="Your Age"
-        keyboardType="numeric"
-      />
 
-      <Input
-        containerStyle={styles.input}
-        inputContainerStyle={styles.inputContainer}
-        inputStyle={styles.inputContainer}
-        onChangeText={setWeight}
-        value={weight}
-        placeholder="Your Weight"
-        keyboardType="numeric"
-      />
+      <View>
+        <Input
+          containerStyle={styles.input}
+          inputContainerStyle={styles.inputContainer}
+          inputStyle={styles.inputContainer}
+          onChangeText={setName}
+          value={name}
+          placeholder="Your Name"
+        />
+
+        <Input
+          containerStyle={styles.input}
+          inputContainerStyle={styles.inputContainer}
+          inputStyle={styles.inputContainer}
+          onChangeText={setAge}
+          value={age}
+          placeholder="Your Age"
+          keyboardType="numeric"
+        />
+
+        <Input
+          containerStyle={styles.input}
+          inputContainerStyle={styles.inputContainer}
+          inputStyle={styles.inputContainer}
+          onChangeText={setWeight}
+          value={weight}
+          placeholder="Your Weight"
+          keyboardType="numeric"
+        />
+      </View>
 
       <View style={styles.pickerContainer}>
         <Text style={styles.pickerLabel}>Height</Text>
@@ -153,13 +157,13 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
+    marginTop: 64,
     margin: 40,
     paddingLeft: 10,
     paddingTop: 5,
   },
   input: {
     width: 'auto',
-    flex: 1,
     paddingHorizontal: 0,
     margin: 0,
   },
@@ -173,7 +177,7 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
-    marginBottom: 32,
+    marginBottom: 72,
   },
   pickerContainer: {
     flexDirection: 'row',
