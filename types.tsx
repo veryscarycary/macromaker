@@ -65,3 +65,13 @@ export interface Meal {
     fatUnit: string;
     calories: number;
 }
+
+export interface Info {
+  name: string;
+  age: number;
+  weight: number;
+  heightFeet: number;
+  heightInches: number;
+  gender: string;
+  activityLevel: string;
+}

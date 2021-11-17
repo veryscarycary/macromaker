@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Text, View } from '../../../components/Themed';
@@ -7,20 +7,25 @@ import { createStackNavigator } from '@react-navigation/stack';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
 import { Input } from 'react-native-elements';
 import Spacer from '../../../components/Spacer';
+import { Context as InfoContext } from '../../../context/InfoContext';
 
 type Props = {
   navigation: Navigation;
 };
 
 const BasicInfoScreen = ({ navigation }: Props) => {
-
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [weight, setWeight] = useState('');
-  const [heightFeet, setHeightFeet] = useState(5);
-  const [heightInches, setHeightInches] = useState(1);
-  const [gender, setGender] = useState('male');
-  const [activityLevel, setActivityLevel] = useState('active');
+  const {
+    state: {
+      name,
+      age,
+      gender,
+      heightFeet,
+      heightInches,
+      weight,
+      activityLevel,
+    },
+    setInfoState,
+  } = useContext(InfoContext);
 
   return (
     <DismissKeyboardView style={styles.form}>
@@ -37,7 +42,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
           containerStyle={styles.input}
           inputContainerStyle={styles.inputContainer}
           inputStyle={styles.inputContainer}
-          onChangeText={setName}
+          onChangeText={(name: string) => setInfoState({ name })}
           value={name}
           placeholder="Your Name"
         />
@@ -46,7 +51,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
           containerStyle={styles.input}
           inputContainerStyle={styles.inputContainer}
           inputStyle={styles.inputContainer}
-          onChangeText={setAge}
+          onChangeText={(age: string) => setInfoState({ age: Number(age) })}
           value={age}
           placeholder="Your Age"
           keyboardType="numeric"
@@ -56,7 +61,9 @@ const BasicInfoScreen = ({ navigation }: Props) => {
           containerStyle={styles.input}
           inputContainerStyle={styles.inputContainer}
           inputStyle={styles.inputContainer}
-          onChangeText={setWeight}
+          onChangeText={(weight: string) =>
+            setInfoState({ weight: Number(weight) })
+          }
           value={weight}
           placeholder="Your Weight"
           keyboardType="numeric"
@@ -71,7 +78,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
             style={styles.heightPicker}
             itemStyle={styles.heightPickerItem}
             selectedValue={heightFeet}
-            onValueChange={setHeightFeet}
+            onValueChange={(heightFeet: number) => setInfoState({ heightFeet })}
           >
             <Picker.Item label="3" value={3} />
             <Picker.Item label="4" value={4} />
@@ -84,7 +91,9 @@ const BasicInfoScreen = ({ navigation }: Props) => {
             style={styles.heightPicker}
             itemStyle={styles.heightPickerItem}
             selectedValue={heightInches}
-            onValueChange={setHeightInches}
+            onValueChange={(heightInches: string) =>
+              setInfoState({ heightInches: Number(heightInches) })
+            }
           >
             <Picker.Item label="1" value={1} />
             <Picker.Item label="2" value={2} />
@@ -107,7 +116,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
           style={styles.picker}
           itemStyle={styles.pickerItem}
           selectedValue={gender}
-          onValueChange={setGender}
+          onValueChange={(gender) => setInfoState({ gender })}
         >
           <Picker.Item label="Male" value="male" />
           <Picker.Item label="Female" value="female" />
@@ -120,7 +129,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
           style={styles.picker}
           itemStyle={styles.pickerItem}
           selectedValue={activityLevel}
-          onValueChange={setActivityLevel}
+          onValueChange={(activityLevel) => setInfoState({ activityLevel })}
         >
           <Picker.Item label="Active" value="active" />
           <Picker.Item label="Low Active" value="lowActive" />
