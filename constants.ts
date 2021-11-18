@@ -4,6 +4,9 @@ interface CalorieToUnitMapping {
 
 export const DAILY_RECOMMENDED_CALORIES = 2000;
 
+export const KG_PER_POUND = 0.453592;
+export const CM_PER_INCH = 2.54;
+
 export const GRAMS_PER_OUNCE = 28.3495;
 export const CALORIES_PER_MACRO_UNIT_MAPPING: Record<string, CalorieToUnitMapping> = {
   carbs: {
@@ -19,3 +22,12 @@ export const CALORIES_PER_MACRO_UNIT_MAPPING: Record<string, CalorieToUnitMappin
     oz: 9 * GRAMS_PER_OUNCE,
   },
 };
+
+export const BMR_MALE_BASE = 88.362;
+export const BMR_MALE_WEIGHT_MODIFIER = 13.397;
+export const BMR_MALE_HEIGHT_MODIFIER = 4.799;
+export const BMR_MALE_AGE_MODIFIER = 5.677;
+export const BMR_FEMALE_BASE = 447.593;
+export const BMR_FEMALE_WEIGHT_MODIFIER = 9.247;
+export const BMR_FEMALE_HEIGHT_MODIFIER = 3.098;
+export const BMR_FEMALE_AGE_MODIFIER = 4.330;

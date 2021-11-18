@@ -25,6 +25,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
       activityLevel,
     },
     setInfoState,
+    setBMR,
   } = useContext(InfoContext);
 
   return (
@@ -132,7 +133,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
           onValueChange={(activityLevel) => setInfoState({ activityLevel })}
         >
           <Picker.Item label="Active" value="active" />
-          <Picker.Item label="Low Active" value="lowActive" />
+          <Picker.Item label="Moderate" value="moderate" />
           <Picker.Item label="Sedentary" value="sendentary" />
         </Picker>
       </View>
@@ -141,7 +142,10 @@ const BasicInfoScreen = ({ navigation }: Props) => {
       <Spacer />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('MoreInfo')}
+        onPress={async () => {
+          setBMR();
+          navigation.navigate('MoreInfo')
+        }}
       >
         <Text>Calculate BMI</Text>
       </TouchableOpacity>

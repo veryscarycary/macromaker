@@ -1,6 +1,11 @@
-import { CALORIES_PER_MACRO_UNIT_MAPPING } from './constants';
+import {
+  CALORIES_PER_MACRO_UNIT_MAPPING,
+  KG_PER_POUND,
+  CM_PER_INCH,
+} from './constants';
 import { DietDay, Meal } from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as CONSTANTS from './constants';
 
 export const getTodaysDate = (): string =>
   new Date().toLocaleDateString('en-us');
@@ -18,6 +23,24 @@ export const convertFatToCalories = (
   fat: number,
   fatUnit: string = 'g'
 ): number => (fat || 0) * CALORIES_PER_MACRO_UNIT_MAPPING.fat[fatUnit];
+
+export const calculateBMR = (
+  gender: string,
+  weight: number,
+  height: number,
+  age: number
+) => {
+  const genderUpperCase = gender.toUpperCase();
+  const weightInKg = weight * KG_PER_POUND;
+  const heightInCm = height * CM_PER_INCH;
+
+  return (
+    CONSTANTS[`BMR_${genderUpperCase}_BASE`] +
+    CONSTANTS[`BMR_${genderUpperCase}_WEIGHT_MODIFIER`] * weightInKg +
+    CONSTANTS[`BMR_${genderUpperCase}_HEIGHT_MODIFIER`] * heightInCm -
+    CONSTANTS[`BMR_${genderUpperCase}_AGE_MODIFIER`] * age
+  );
+};
 
 export const storeData = async (key: string, value: any) => {
   if (typeof value !== 'string' && typeof value !== 'undefined') {

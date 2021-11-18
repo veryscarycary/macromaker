@@ -74,4 +74,7 @@ export interface Info {
   heightInches: number;
   gender: string;
   activityLevel: string;
+  bmi: number;
+  bmr: number;
+  tdee: number;
 }
