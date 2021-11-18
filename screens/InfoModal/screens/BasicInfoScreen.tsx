@@ -25,7 +25,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
       activityLevel,
     },
     setInfoState,
-    setBMR,
+    setBasicInfoCalculations,
   } = useContext(InfoContext);
 
   return (
@@ -132,9 +132,11 @@ const BasicInfoScreen = ({ navigation }: Props) => {
           selectedValue={activityLevel}
           onValueChange={(activityLevel) => setInfoState({ activityLevel })}
         >
-          <Picker.Item label="Active" value="active" />
-          <Picker.Item label="Moderate" value="moderate" />
-          <Picker.Item label="Sedentary" value="sendentary" />
+          <Picker.Item label="Active" value="5" />
+          <Picker.Item label="Extremely Active" value="4" />
+          <Picker.Item label="Very Active" value="3" />
+          <Picker.Item label="Moderate" value="2" />
+          <Picker.Item label="Sedentary" value="1" />
         </Picker>
       </View>
 
@@ -143,7 +145,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
       <TouchableOpacity
         style={styles.button}
         onPress={async () => {
-          setBMR();
+          setBasicInfoCalculations();
           navigation.navigate('MoreInfo')
         }}
       >

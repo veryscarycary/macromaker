@@ -2,6 +2,7 @@ import {
   CALORIES_PER_MACRO_UNIT_MAPPING,
   KG_PER_POUND,
   CM_PER_INCH,
+  M_PER_INCH,
 } from './constants';
 import { DietDay, Meal } from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -40,6 +41,12 @@ export const calculateBMR = (
     CONSTANTS[`BMR_${genderUpperCase}_HEIGHT_MODIFIER`] * heightInCm -
     CONSTANTS[`BMR_${genderUpperCase}_AGE_MODIFIER`] * age
   );
+};
+
+export const calculateBMI = (weight: number, heightInInches: number) => {
+  const heightInMeters = M_PER_INCH * heightInInches;
+  const bmi = (KG_PER_POUND * weight) / Math.pow(heightInMeters, 2);
+  return bmi;
 };
 
 export const storeData = async (key: string, value: any) => {

@@ -1,10 +1,11 @@
 import { Dispatch } from 'react';
 import { GenericAction, Info } from '../types';
-import { calculateBMR } from '../utils';
+import { calculateBMI, calculateBMR } from '../utils';
+import * as CONSTANTS from '../constants';
 import createDataContext from './createDataContext';
 
 const SET_STATE = 'SET_STATE';
-const SET_BMR = 'SET_BMR';
+const SET_BASIC_INFO_CALCULATIONS = 'SET_BASIC_INFO_CALCULATIONS';
 
 const defaultValues: Info = {
   name: '',
@@ -13,7 +14,7 @@ const defaultValues: Info = {
   heightFeet: 0,
   heightInches: 0,
   gender: 'male',
-  activityLevel: 'moderate',
+  activityLevel: 2,
   bmi: 0,
   bmr: 0,
   tdee: 0,
@@ -23,13 +24,14 @@ const infoReducer = (state: Info, action: GenericAction) => {
   switch (action.type) {
     case SET_STATE:
       return { ...state, ...action.payload };
-    case SET_BMR:
-      debugger;
-      const { gender, weight, heightFeet, heightInches, age } = state;
+    case SET_BASIC_INFO_CALCULATIONS:
+      const { gender, weight, heightFeet, heightInches, age, activityLevel } = state;
       const totalHeightInches = (heightFeet * 12) + heightInches;
       const bmr = calculateBMR(gender, weight, totalHeightInches, age);
+      const tdee = bmr * CONSTANTS[`TDEE_LEVEL_${activityLevel}`];
+      const bmi = calculateBMI(weight, (heightFeet * 12) + heightInches);
 
-      return { ...state, bmr };
+      return { ...state, bmr, tdee, bmi };
     default:
       return history;
   }
@@ -39,12 +41,13 @@ const setInfoState = (dispatch: Dispatch<GenericAction>) => (state: Info) => {
   dispatch({ type: SET_STATE, payload: state });
 };
 
-const setBMR = (dispatch: Dispatch<GenericAction>) => () => {
-  dispatch({ type: SET_BMR });
-};
+const setBasicInfoCalculations =
+  (dispatch: Dispatch<GenericAction>) => () => {
+    dispatch({ type: SET_BASIC_INFO_CALCULATIONS });
+  };
 
 export const { Provider, Context } = createDataContext(
   infoReducer,
-  { setInfoState, setBMR },
+  { setInfoState, setBasicInfoCalculations },
   defaultValues
 );

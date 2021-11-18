@@ -22,6 +22,8 @@ const MoreInfoScreen = ({ navigation }: Props) => {
       weight,
       activityLevel,
       bmr,
+      bmi,
+      tdee,
     },
   } = useContext(InfoContext);
   return (
@@ -34,6 +36,8 @@ const MoreInfoScreen = ({ navigation }: Props) => {
       <Text>weight: {weight}</Text>
       <Text>activityLevel: {activityLevel}</Text>
       <Text>BMR: {bmr}</Text>
+      <Text>TDEE: {tdee}</Text>
+      <Text>BMI: {bmi}</Text>
       <Text style={{ fontSize: 30 }}>More Info!</Text>
       <Button onPress={() => navigation.navigate('Root')} title="Dismiss" />
     </View>
