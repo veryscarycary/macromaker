@@ -77,4 +77,7 @@ export interface Info {
   bmi: number;
   bmr: number;
   tdee: number;
+  targetProteinPercentage: number;
+  targetCarbsPercentage: number;
+  targetFatPercentage: number;
 }

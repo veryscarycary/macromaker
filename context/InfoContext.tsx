@@ -18,6 +18,9 @@ const defaultValues: Info = {
   bmi: 0,
   bmr: 0,
   tdee: 0,
+  targetProteinPercentage: 0.3,
+  targetCarbsPercentage: 0.5,
+  targetFatPercentage: 0.2,
 };
 
 const infoReducer = (state: Info, action: GenericAction) => {

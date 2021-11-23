@@ -1,11 +1,11 @@
 
 import React, { ComponentType } from 'react';
-import { TouchableWithoutFeedback, Keyboard, StyleProp } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, ViewStyle } from 'react-native';
 import { View } from './Themed';
 
 type Props = {
   children: JSX.Element[];
-  style: StyleProp<Record<string, any>>
+  style: ViewStyle
 };
 
 const DismissKeyboardHOC = (Component: ComponentType) => {
