@@ -1,33 +1,70 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { View } from '../components/Themed';
-import { DietScreenNavigationProp } from '../types';
+import { defaultValues as defaultBasicInfo } from '../context/InfoContext';
+import { getMealData } from '../context/MealContext';
+import { DietDay, Info, Navigation, Meal } from '../types';
+import { convertCarbsToCalories, convertFatToCalories, convertProteinToCalories, getMacrosFromMeals, getStoredData, getTodaysDate } from '../utils';
 import BarGraph from './BarGraph';
+import { BarGraphData } from './BarGraph/types';
 import TotalCaloriesGraph from './TotalCaloriesGraph';
 
 type Props = {
-  navigation: DietScreenNavigationProp;
+  navigation: Navigation;
 };
 
 const DietTodayScreen = ({ navigation }: Props) => {
-  // const [dietHistory, setDietHistory] = useState([]);
+  const [basicInfo, setBasicInfo] = useState<Info>(defaultBasicInfo);
+  const [todaysMeals, setTodaysMeals] = useState<Meal[]>([]);
+  const {
+    tdee,
+    targetProteinPercentage,
+    targetCarbsPercentage,
+    targetFatPercentage,
+  } = basicInfo;
 
-  // const { averageCalories, averageCarbs, averageProtein, averageFat } =
-  //   getAveragesFromDietDays(dietHistory);
+  const targetProteinCalories = targetProteinPercentage * tdee;
+  const targetCarbsCalories = targetCarbsPercentage * tdee;
+  const targetFatCalories = targetFatPercentage * tdee;
 
-  // useEffect(
-  //   () =>
-  //     navigation.addListener('focus', async () => {
-  //       const dietHistory = await getAllMealData();
-  //       setDietHistory(dietHistory);
-  //     }),
-  //   []
-  // );
+  const { totalCarbs, totalProtein, totalFat } =
+    getMacrosFromMeals(todaysMeals);
+  
+  useEffect(
+    () =>
+      navigation.addListener('focus', async () => {
+        const basicInfo = (await getStoredData('basicInfo')) as Info;
+        const dietDay = await getMealData(getTodaysDate()) as DietDay;
+        if (basicInfo) setBasicInfo(basicInfo);
+        if (dietDay) setTodaysMeals(dietDay.meals);
+      }),
+    []
+  );
+
+  const data: BarGraphData[] = [
+    {
+      label: 'Carbs',
+      amount: convertCarbsToCalories(totalCarbs),
+      targetAmount: targetCarbsCalories,
+      color: '#1854bd',
+    },
+    {
+      label: 'Protein',
+      amount: convertProteinToCalories(totalProtein),
+      targetAmount: targetProteinCalories,
+      color: '#982f2f',
+    },
+    {
+      label: 'Fat',
+      amount: convertFatToCalories(totalFat),
+      targetAmount: targetFatCalories,
+      color: '#b59b46',
+    },
+  ];
 
   return (
     <>
-      <BarGraph />
-      <TotalCaloriesGraph />
+      <BarGraph data={data} />
+      <TotalCaloriesGraph data={data} />
     </>
   );
 };

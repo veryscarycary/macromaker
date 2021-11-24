@@ -7,6 +7,7 @@ import { Context as InfoContext } from '../../../context/InfoContext';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
 import Spacer from '../../../components/Spacer';
 import PercentageSlider from '../../../components/PercentageSlider';
+import { storeBasicInfo } from '../../../context/InfoContext';
 
 type Props = {
   navigation: Navigation;
@@ -24,6 +25,7 @@ const MoreInfoScreen = ({ navigation }: Props) => {
       targetCarbsPercentage,
       targetFatPercentage,
     },
+    state,
     setInfoState,
   } = useContext(InfoContext);
   return (
@@ -75,7 +77,10 @@ const MoreInfoScreen = ({ navigation }: Props) => {
       <Spacer />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Root')}
+        onPress={async () => {
+          await storeBasicInfo(state);
+          navigation.navigate('Root');
+        }}
         title="Dismiss"
       >
         <Text>Finish</Text>

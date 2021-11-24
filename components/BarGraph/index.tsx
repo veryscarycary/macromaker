@@ -7,20 +7,19 @@ import XAxis from './XAxis';
 import YAxis from './YAxis';
 import { BarGraphData } from './types';
 
+type Props = {
+  data: BarGraphData[],
+};
 
-const BarGraph = () => {
+const BarGraph = ({
+  data,
+}: Props) => {
   const width = Dimensions.get('screen').width;
   const height = Dimensions.get('screen').height;
   let xAxisHeight = 325;
   let yAxisHeight = 30;
   let barsWidth = width - 10;
-  let barsHeight = height/3;
-
-  const data: BarGraphData[] = [
-    { label: 'Carbs', amount: 400, targetAmount: 900, color: '#1854bd' },
-    { label: 'Protein', amount: 800, targetAmount: 900, color: '#982f2f' },
-    { label: 'Fat', amount: 450, targetAmount: 900, color: '#b59b46' },
-  ];
+  let barsHeight = height / 3;
 
   return (
     <View style={styles.main}>
@@ -36,7 +35,7 @@ const BarGraph = () => {
       {/* <XAxis width={width - 10} height={xAxisHeight} /> */}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   main: {

@@ -16,17 +16,16 @@ import {
   BottomTabParamList,
   DietTabParamList,
   FitnessTabParamList,
+  Info,
   Navigation,
 } from '../types';
 import AddFoodHeaderButton from '../screens/Diet/components/AddFoodHeaderButton';
 import AddFoodScreen from '../screens/AddFood/AddFoodScreen';
-import MacroScreen from '../screens/MacroScreen';
 import MenuButton from '../screens/Diet/components/MenuButton';
 import { View } from '../components/Themed';
-import { Provider as MealProvider } from '../context/MealContext';
 import DailyDietScreen from '../screens/Diet/screens/DailyDiet/DailyDietScreen';
-import withProvider from '../components/withProvider';
 import DietTodayScreen from '../components/DietTodayScreen';
+import { getStoredData, removeStoredData } from '../utils';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -36,14 +35,17 @@ type Props = {
 
 export default function BottomTabNavigator({ navigation }: Props) {
   const colorScheme = useColorScheme();
-  
-  
-  // temporary until we collect user info from modal
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  if (isModalOpen) {
-    navigation.navigate('Modal');
-    setIsModalOpen(false);
-  }
+
+  // I wonder there is a better way to check for info
+  // launch the modal if info is not found
+  useEffect(
+    () =>
+      navigation.addListener('focus', async () => {
+        const basicInfo = (await getStoredData('basicInfo')) as Info;
+        if (!basicInfo) navigation.navigate('Modal');
+      }),
+    []
+  );
 
   return (
     <BottomTab.Navigator

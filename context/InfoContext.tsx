@@ -3,11 +3,20 @@ import { GenericAction, Info } from '../types';
 import { calculateBMI, calculateBMR } from '../utils';
 import * as CONSTANTS from '../constants';
 import createDataContext from './createDataContext';
+import {
+  storeData,
+} from '../utils';
+
+export const storeBasicInfo = async (basicInfo: Info) => {
+  const key = 'basicInfo';
+
+  return await storeData(key, basicInfo);
+};
 
 const SET_STATE = 'SET_STATE';
 const SET_BASIC_INFO_CALCULATIONS = 'SET_BASIC_INFO_CALCULATIONS';
 
-const defaultValues: Info = {
+export const defaultValues: Info = {
   name: '',
   age: 0,
   weight: 0,

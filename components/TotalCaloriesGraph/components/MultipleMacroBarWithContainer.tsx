@@ -40,18 +40,30 @@ const MultipleMacroBarWithContainer = ({
   x,
   y,
 }: Props) => {
-  const targetCalories = data.reduce((acc, curr) => acc + curr.targetAmount, 0);
-  const currentCalories = data.reduce((acc, curr) => acc + curr.amount, 0);
+  const targetCalories = Math.round(
+    data.reduce((acc, curr) => acc + curr.targetAmount, 0)
+  );
+  const currentCalories = Math.round(
+    data.reduce((acc, curr) => acc + curr.amount, 0)
+  );
   const startingXPos = 0;
   const startingYPos = 0;
 
-  const ratioCalToTargetCal = currentCalories / targetCalories;
+  const ratioCalToTargetCal = Number.isFinite(currentCalories / targetCalories)
+    ? currentCalories / targetCalories
+    : 0;
 
   const currentCaloriesLength = ratioCalToTargetCal * barWidth;
 
-  const firstPercentage = data[0].amount / currentCalories;
-  const secondPercentage = data[1].amount / currentCalories;
-  const thirdPercentage = data[2].amount / currentCalories;
+  const firstPercentage = Number.isFinite(data[0].amount / currentCalories)
+    ? data[0].amount / currentCalories
+    : 0;
+  const secondPercentage = Number.isFinite(data[1].amount / currentCalories)
+    ? data[1].amount / currentCalories
+    : 0;
+  const thirdPercentage = Number.isFinite(data[2].amount / currentCalories)
+    ? data[2].amount / currentCalories
+    : 0;
 
   const startingXFirst = startingXPos;
   const firstLength = currentCaloriesLength * firstPercentage;

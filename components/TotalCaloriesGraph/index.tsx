@@ -7,18 +7,16 @@ import YAxis from './YAxis';
 import MultipleMacroBarWithContainer from './components/MultipleMacroBarWithContainer';
 import { BarGraphData } from '../BarGraph/types';
 
-const TotalCaloriesGraph = () => {
+type Props = {
+  data: BarGraphData[];
+};
+
+const TotalCaloriesGraph = ({ data }: Props) => {
   const width = Dimensions.get('screen').width;
   const height = Dimensions.get('screen').height;
   let xAxisHeight = 325;
   let yAxisHeight = 30;
-  let barWidth = width * 0.80;
-
-  const data: BarGraphData[] = [
-    { label: 'Carbs', amount: 400, targetAmount: 900, color: '#1854bd' },
-    { label: 'Protein', amount: 800, targetAmount: 900, color: '#982f2f' },
-    { label: 'Fat', amount: 450, targetAmount: 900, color: '#b59b46' },
-  ];
+  let barWidth = width * 0.8;
 
   return (
     <View style={styles.main}>
@@ -29,7 +27,7 @@ const TotalCaloriesGraph = () => {
         data={data}
         width={width}
         height={height}
-        barWidth={barWidth * .9}
+        barWidth={barWidth * 0.9}
         thickness={28}
         color1={data[0].color}
         color2={data[1].color}
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     textAlign: 'center',
     color: '#6a6a6a',
-    padding: 18
+    padding: 18,
   },
 });
 
