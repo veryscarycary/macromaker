@@ -3,12 +3,9 @@ import React from 'react';
 import { Shape, Path, Group } from '@react-native-community/art';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { BarGraphData } from '../types';
-import { DAILY_RECOMMENDED_CALORIES } from '../../../constants';
 
-const createX = (width: number) => {
-  return scaleLinear()
-    .domain([0, DAILY_RECOMMENDED_CALORIES * 0.8])
-    .range([0, width]);
+const createX = (tdee: number, width: number) => {
+  return scaleLinear().domain([0, tdee]).range([0, width]);
 };
 
 const createY = (height: number) => {
@@ -39,6 +36,14 @@ const D3RectangleHook = ({
   y,
   hookDirection = 'bottom',
 }: Props) => {
+  const targetTotalCalories = data.reduce(
+    (acc, curr) => acc + curr.targetAmount,
+    0
+  );
+  const targetMacroCalories = data[index].targetAmount;
+  let getXScaleOutput;
+  let barLength;
+
   // set Y
   const yAxis = createY(height);
 
@@ -49,14 +54,30 @@ const D3RectangleHook = ({
     })
   );
 
+  // necessary so we can keep all 3 graphs in same scale when we scale down
+  const hasAnyMacroCalorieExceededTDEE = data.some(macro => macro.amount > targetTotalCalories);
+
+  // set starting x position
+  if (hasAnyMacroCalorieExceededTDEE) {
+    const ratioData = data.map((data) => ({
+      amount: data.amount,
+      ratio: data.amount / targetTotalCalories,
+    }));
+    const highestRatio = Math.max(...ratioData.map(datum => datum.ratio));
+    const highestMacroCalorieThatExceededTDEE = ratioData.find(datum => datum.ratio === highestRatio).amount;
+
+    // fill container and scale our graph down
+    getXScaleOutput = createX(highestMacroCalorieThatExceededTDEE, width);
+    barLength = getXScaleOutput(targetMacroCalories);
+  } else {
+    getXScaleOutput = createX(targetTotalCalories, width);
+    barLength = getXScaleOutput(targetMacroCalories);
+  }
+
   // finds the position of THIS bar in that range
   const startingYPos = yAxis(index.toString());
 
-  // set X
-  const xAxis = createX(width);
-
   // set starting x position
-  let barLength = xAxis(data[index].targetAmount);
   const startingXPos = barLength;
 
   // Draw path (x and y originate from the top-left corner)

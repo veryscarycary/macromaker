@@ -36,7 +36,7 @@ const Bars = ({ data, width, height, thickness }: Props) => {
             <HorizontalBarWithHook
               data={data}
               index={index}
-              width={width}
+              width={width * 0.83}
               height={height}
               thickness={4}
               color="#fa8e00"
@@ -47,7 +47,7 @@ const Bars = ({ data, width, height, thickness }: Props) => {
             <HorizontalBar
               data={data}
               index={index}
-              width={width}
+              width={width * 0.83}
               height={height}
               thickness={thickness}
               color={item.color}
@@ -56,7 +56,7 @@ const Bars = ({ data, width, height, thickness }: Props) => {
             <HorizontalBarTop
               data={data}
               index={index}
-              width={width}
+              width={width * 0.84}
               height={height}
               thickness={thickness}
               color="#FFC77D"

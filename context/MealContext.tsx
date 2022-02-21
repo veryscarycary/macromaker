@@ -86,10 +86,8 @@ debugger;
       newMeals.splice(mealToDeleteIndex, 1);
 
       if (newMeals.length) {
-        console.log('update meal only');
         await updateMeals(date, newMeals);
       } else {
-        console.log('detlete diet day');
         await deleteDietDay(date);
       }
 

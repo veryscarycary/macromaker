@@ -72,7 +72,6 @@ const MealSection = ({
         <TouchableOpacity
           style={[styles.button, styles.deleteButton]}
           onPress={async () => {
-            console.log('DELETING MEAL');
             await deleteMeal(id, date);
             const dietDay = await getMealData(date);
             if (dietDay) {

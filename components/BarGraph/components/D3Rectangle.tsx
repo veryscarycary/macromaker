@@ -5,10 +5,8 @@ import { scaleBand, scaleLinear } from 'd3-scale';
 import { BarGraphData } from '../types';
 import { DAILY_RECOMMENDED_CALORIES } from '../../../constants';
 
-const createX = (width: number) => {
-  return scaleLinear()
-    .domain([0, DAILY_RECOMMENDED_CALORIES * 0.8])
-    .range([0, width]);
+const createX = (tdee: number, width: number) => {
+  return scaleLinear().domain([0, tdee]).range([0, width]);
 };
 
 const createY = (height: number) => {
@@ -38,6 +36,13 @@ const D3Rectangle = ({
   x,
   y,
 }: Props) => {
+  const targetTotalCalories = data.reduce(
+    (acc, curr) => acc + curr.targetAmount,
+    0
+  );
+  const currentMacroCalories = data[index].amount;
+  let getXScaleOutput;
+
   // set Y
   const yAxis = createY(height);
 
@@ -48,14 +53,18 @@ const D3Rectangle = ({
     })
   );
 
+  // set starting x position
+  if (currentMacroCalories > targetTotalCalories) {
+    getXScaleOutput = createX(currentMacroCalories, width);
+  } else {
+    getXScaleOutput = createX(targetTotalCalories, width);
+  }
+
   // finds the position of THIS bar in that range
   const startingYPos = yAxis(index.toString());
 
-  // set X
-  const xAxis = createX(width);
-
   // set starting x position
-  let barLength = xAxis(data[index].amount);
+  let barLength = getXScaleOutput(currentMacroCalories);
   const startingXPos = barLength;
 
   if (type === 'top') {
