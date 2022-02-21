@@ -38,7 +38,7 @@ export default function Navigation({
 // Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator<RootStackParamList>();
 
-const screenHeight = Dimensions.get('window').height;
+// console.disableYellowBox = true;
 
 function RootNavigator() {
   return (

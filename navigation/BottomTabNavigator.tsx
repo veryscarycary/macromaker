@@ -24,8 +24,8 @@ import AddFoodScreen from '../screens/AddFood/AddFoodScreen';
 import MenuButton from '../screens/Diet/components/MenuButton';
 import { View } from '../components/Themed';
 import DailyDietScreen from '../screens/Diet/screens/DailyDiet/DailyDietScreen';
-import DietTodayScreen from '../components/DietTodayScreen';
-import { getStoredData, removeStoredData } from '../utils';
+import DietTodayScreen from '../screens/Diet/screens/Today/DietTodayScreen';
+import { getStoredData } from '../utils';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 

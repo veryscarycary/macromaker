@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { defaultValues as defaultBasicInfo } from '../context/InfoContext';
-import { getMealData } from '../context/MealContext';
-import { DietDay, Info, Navigation, Meal } from '../types';
-import { convertCarbsToCalories, convertFatToCalories, convertProteinToCalories, getMacrosFromMeals, getStoredData, getTodaysDate } from '../utils';
-import BarGraph from './BarGraph';
-import { BarGraphData } from './BarGraph/types';
-import TotalCaloriesGraph from './TotalCaloriesGraph';
+import { defaultValues as defaultBasicInfo } from '../../../../context/InfoContext';
+import { getMealData } from '../../../../context/MealContext';
+import { DietDay, Info, Navigation, Meal } from '../../../../types';
+import { convertCarbsToCalories, convertFatToCalories, convertProteinToCalories, getMacrosFromMeals, getStoredData, getTodaysDate } from '../../../../utils';
+import BarGraph from '../../../../components/BarGraph';
+import { BarGraphData } from '../../../../components/BarGraph/types';
+import TotalCaloriesGraph from '../../../../components/TotalCaloriesGraph';
 
 type Props = {
   navigation: Navigation;
@@ -43,7 +43,7 @@ const DietTodayScreen = ({ navigation }: Props) => {
   const data: BarGraphData[] = [
     {
       label: 'Carbs',
-      amount: convertCarbsToCalories(totalCarbs),
+      amount: convertCarbsToCalories(9999),
       targetAmount: targetCarbsCalories,
       color: '#1854bd',
     },
