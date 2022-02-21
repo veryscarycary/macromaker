@@ -43,7 +43,7 @@ const DietTodayScreen = ({ navigation }: Props) => {
   const data: BarGraphData[] = [
     {
       label: 'Carbs',
-      amount: convertCarbsToCalories(9999),
+      amount: convertCarbsToCalories(totalCarbs),
       targetAmount: targetCarbsCalories,
       color: '#1854bd',
     },

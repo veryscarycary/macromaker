@@ -5,10 +5,8 @@ import { scaleBand, scaleLinear } from 'd3-scale';
 import { BarGraphData } from '../../BarGraph/types';
 import { DAILY_RECOMMENDED_CALORIES } from '../../../constants';
 
-const createX = (width: number) => {
-  return scaleLinear()
-    .domain([0, DAILY_RECOMMENDED_CALORIES * 0.8])
-    .range([0, width]);
+const createX = (calories: number, width: number) => {
+  return scaleLinear().domain([0, calories]).range([0, width]);
 };
 
 const createY = (height: number) => {
@@ -40,35 +38,31 @@ const MultipleMacroBarWithContainer = ({
   x,
   y,
 }: Props) => {
+  const startingXPos = 0;
+  const startingYPos = 0;
+  let targetCaloriesLabelXPos;
+  let getScaleOutput;
+
   const targetCalories = Math.round(
     data.reduce((acc, curr) => acc + curr.targetAmount, 0)
   );
   const currentCalories = Math.round(
     data.reduce((acc, curr) => acc + curr.amount, 0)
   );
-  const startingXPos = 0;
-  const startingYPos = 0;
 
-  const ratioCalToTargetCal = Number.isFinite(currentCalories / targetCalories)
-    ? currentCalories / targetCalories
-    : 0;
-
-  const currentCaloriesLength = ratioCalToTargetCal * barWidth;
-
-  const firstPercentage = Number.isFinite(data[0].amount / currentCalories)
-    ? data[0].amount / currentCalories
-    : 0;
-  const secondPercentage = Number.isFinite(data[1].amount / currentCalories)
-    ? data[1].amount / currentCalories
-    : 0;
-  const thirdPercentage = Number.isFinite(data[2].amount / currentCalories)
-    ? data[2].amount / currentCalories
-    : 0;
+  if (currentCalories > targetCalories) {
+    getScaleOutput = createX(currentCalories, barWidth);
+    targetCaloriesLabelXPos = getScaleOutput(targetCalories);
+  } else {
+    getScaleOutput = createX(targetCalories, barWidth);
+    targetCaloriesLabelXPos = barWidth + 10;
+  }
 
   const startingXFirst = startingXPos;
-  const firstLength = currentCaloriesLength * firstPercentage;
-  const secondLength = currentCaloriesLength * secondPercentage;
-  const thirdLength = currentCaloriesLength * thirdPercentage;
+
+  const firstLength = getScaleOutput(data[0].amount);
+  const secondLength = getScaleOutput(data[1].amount);
+  const thirdLength = getScaleOutput(data[2].amount);
 
   // Draw path (x and y originate from the top-left corner)
   // start at top of bar, left, down, then right. Autocloses back at finish
@@ -100,19 +94,24 @@ const MultipleMacroBarWithContainer = ({
     .line(-thirdLength, 0)
     .line(0, -thickness);
 
+  const targetCaloriesLine = new Path()
+    .moveTo(targetCaloriesLabelXPos - 15, startingYPos - 2)
+    .line(0, -thickness - 9);
+
   return (
     <Surface width={width} height={height}>
-      <Group x={x} y={y}>
+      <Group x={x} y={y + 10}>
         <Shape d={first} fill={color1} stroke="#000000" />
         <Shape d={second} fill={color2} stroke="#000000" />
         <Shape d={third} fill={color3} stroke="#000000" />
         <Shape d={container} stroke="#000000" strokeWidth={3} />
       </Group>
 
-      <Group x={x} y={y + 35}>
+      <Group x={x} y={y + 45}>
+        <Shape d={targetCaloriesLine} stroke="#ffb85b" strokeWidth={5} />
         <Text
           fill="#717171"
-          x={barWidth + 10}
+          x={targetCaloriesLabelXPos}
           y={0}
           font={`14px Arial`}
           alignment="right"
@@ -120,6 +119,20 @@ const MultipleMacroBarWithContainer = ({
           {targetCalories.toString()}
         </Text>
       </Group>
+
+      {currentCalories > targetCalories && (
+        <Group x={x} y={y + 45}>
+          <Text
+            fill="#db0000"
+            x={barWidth + 10}
+            y={0}
+            font={`14px Arial`}
+            alignment="right"
+          >
+            {currentCalories.toString()}
+          </Text>
+        </Group>
+      )}
     </Surface>
   );
 };
