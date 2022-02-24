@@ -3,10 +3,19 @@ import { StyleSheet } from 'react-native';
 import { defaultValues as defaultBasicInfo } from '../../../../context/InfoContext';
 import { getMealData } from '../../../../context/MealContext';
 import { DietDay, Info, Navigation, Meal } from '../../../../types';
-import { convertCarbsToCalories, convertFatToCalories, convertProteinToCalories, getMacrosFromMeals, getStoredData, getTodaysDate } from '../../../../utils';
+import {
+  convertCarbsToCalories,
+  convertFatToCalories,
+  convertProteinToCalories,
+  getMacrosFromMeals,
+  getStoredData,
+  getTodaysDate,
+} from '../../../../utils';
 import BarGraph from '../../../../components/BarGraph';
 import { BarGraphData } from '../../../../components/BarGraph/types';
 import TotalCaloriesGraph from '../../../../components/TotalCaloriesGraph';
+import D3Rectangle from '../../../../components/MealTimeGraph/components/D3Rectangle';
+import MealTimeGraph from '../../../../components/MealTimeGraph';
 
 type Props = {
   navigation: Navigation;
@@ -28,12 +37,12 @@ const DietTodayScreen = ({ navigation }: Props) => {
 
   const { totalCarbs, totalProtein, totalFat } =
     getMacrosFromMeals(todaysMeals);
-  
+
   useEffect(
     () =>
       navigation.addListener('focus', async () => {
         const basicInfo = (await getStoredData('basicInfo')) as Info;
-        const dietDay = await getMealData(getTodaysDate()) as DietDay;
+        const dietDay = (await getMealData(getTodaysDate())) as DietDay;
         if (basicInfo) setBasicInfo(basicInfo);
         if (dietDay) setTodaysMeals(dietDay.meals);
       }),
@@ -63,6 +72,7 @@ const DietTodayScreen = ({ navigation }: Props) => {
 
   return (
     <>
+      <MealTimeGraph />
       <BarGraph data={data} />
       <TotalCaloriesGraph data={data} />
     </>
