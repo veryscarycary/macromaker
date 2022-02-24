@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarGraphData } from '../types';
-import D3Rectangle from './D3Rectangle';
+import D3HorizontalBar from './D3HorizontalBar';
 
 type Props = {
   data: BarGraphData[];
@@ -20,7 +20,7 @@ const HorizontalBar = ({
   thickness,
 }: Props) => {
   return (
-    <D3Rectangle
+    <D3HorizontalBar
       index={index}
       width={width}
       data={data}

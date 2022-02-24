@@ -25,7 +25,7 @@ type Props = {
   y?: number;
 };
 
-const D3Rectangle = ({
+const D3HorizontalBar = ({
   index,
   width,
   data,
@@ -86,4 +86,4 @@ const D3Rectangle = ({
   );
 };
 
-export default D3Rectangle;
+export default D3HorizontalBar;
