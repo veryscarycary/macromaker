@@ -5,6 +5,7 @@ import { Group, Shape, Surface } from '@react-native-community/art';
 // import { BarGraphData } from './types';
 import D3Rectangle from './components/D3Rectangle';
 import DaytimeGradient from './components/DaytimeGradient';
+import TimeXAxis from './components/TimeXAxis';
 
 
 type Props = {
@@ -14,29 +15,36 @@ type Props = {
 };
 
 const MealTimeGraph = () => {
-  const width = Dimensions.get('screen').width;
-  const height = 225;
-
+  const screenWidth = Dimensions.get('screen').width;
+  const startingXPos = 0.08 * screenWidth;
+  const endingXPos = 0.92 * screenWidth;
+  const width = 0.84 * screenWidth;
+  const surfaceHeight = 250;
+  const height = surfaceHeight - 25;
+  
   // let barsWidth = width - 10;
   // let barsHeight = height / 3;
 
   return (
     <View style={styles.main}>
-      <Surface width={width} height={height}>
+      <Surface width={screenWidth} height={surfaceHeight}>
         <DaytimeGradient
-          startingXPos={0.08 * width}
+          startingXPos={startingXPos}
           startingYPos={0}
-          endingXPos={0.92 * width}
-          height={height - 2}
-          width={0.84 * width}
+          endingXPos={endingXPos}
+          height={height}
+          width={width}
         />
+        {/* bottom line */}
         <D3Rectangle
-          startingXPos={0.08 * width}
+          startingXPos={0.08 * screenWidth}
           startingYPos={height - 2}
           height={2}
-          width={0.84 * width}
+          width={width}
           color="#a0a0a0"
         />
+
+        <TimeXAxis startingXPos={startingXPos} startingYPos={height} width={width} />
       </Surface>
     </View>
   );
