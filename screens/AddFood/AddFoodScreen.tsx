@@ -40,7 +40,7 @@ const getDefaultMacroState = (state: string | number) =>
 
 const AddFoodScreen = ({ route, navigation }: Props) => {
   const meal = get(route, 'params.meal');
-  const date = get(route, 'params.date');
+  const shortDate = get(route, 'params.date');
 
   const defaultCarbs = get(meal, 'carbs');
   const defaultProtein = get(meal, 'protein');
@@ -49,6 +49,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
   const defaultProteinUnit = get(meal, 'proteinUnit');
   const defaultFatUnit = get(meal, 'fatUnit');
   const defaultMealName = get(meal, 'mealName');
+  const defaultDate = get(meal, 'date');
 
   const [search, setSearch] = useState('');
   // const {
@@ -79,6 +80,8 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
   const fatCalories = convertFatToCalories(fatNum, fatUnit);
 
   const calories = carbsCalories + proteinCalories + fatCalories;
+
+  const date = defaultDate || new Date();
 
   const isDisabled = !areFieldsValid(carbs, protein, fat);
 
@@ -147,6 +150,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
                   proteinCalories,
                   fatCalories,
                   calories,
+                  date: defaultDate,
                   id: get(meal, 'id'),
                 });
               } catch (e) {
@@ -156,7 +160,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
               }
             } else {
               try {
-                await storeMeal(date || getTodaysDate(), {
+                await storeMeal(shortDate || getTodaysDate(), {
                   mealName,
                   carbsUnit,
                   proteinUnit,
@@ -168,6 +172,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
                   proteinCalories,
                   fatCalories,
                   calories,
+                  date,
                   id: uuidv4(),
                 });
               } catch (e) {

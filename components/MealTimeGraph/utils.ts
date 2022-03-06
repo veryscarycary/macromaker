@@ -1,3 +1,4 @@
+import { scaleLinear } from 'd3-scale';
 import { Meal } from '../../types';
 import { MEAL_COLOR_MAP } from './constants';
 import { MealTimeMeal } from './types';
@@ -13,3 +14,11 @@ export const getMealTimeMealsWithColor = (mealTimeMeals: Meal[]): MealTimeMeal[]
     return {...mealTimeMeal, color: mealColor };
   });
 };
+
+export const getCircleRadius = (calories: number, tdee: number) => {
+    const scaleRadius = scaleLinear()
+    .domain([0, tdee/2])
+    .range([3, 30]);
+    const radius = scaleRadius(calories);
+    return radius;
+}

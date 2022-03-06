@@ -1,5 +1,5 @@
 export const MEAL_COLOR_MAP: Record<string, string> = {
-  carbs: 'blue',
-  protein: 'red',
-  fat: 'yellow',
+  carbs: '#1854bd',
+  protein: '#982f2f',
+  fat: '#b59b46',
 };

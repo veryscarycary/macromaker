@@ -71,6 +71,8 @@ const DietTodayScreen = ({ navigation }: Props) => {
     },
   ];
 
+  console.log('todays meals', todaysMeals);
+
   const mealTimeData = {
     meals: getMealTimeMealsWithColor(todaysMeals),
     tdee,

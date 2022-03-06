@@ -19,11 +19,9 @@ const D3Circle = ({
   color,
   radius,
 }: Props) => {
-  // Draw path (x and y originate from the top-left corner)
-  // start at top of bar, left, down, then right. Autocloses back at finish
+  // circle "startingXPos/startingYPos" is radius centerpoint
   const d = new Path()
-    .moveTo(startingXPos, startingYPos)
-    .move(radius, 0)
+    .moveTo(startingXPos, startingYPos - radius)
     .arc(0, radius * 2, radius)
     .arc(0, radius * -2, radius)
 
