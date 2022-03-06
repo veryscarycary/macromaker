@@ -16,6 +16,7 @@ import { BarGraphData } from '../../../../components/BarGraph/types';
 import TotalCaloriesGraph from '../../../../components/TotalCaloriesGraph';
 import D3Rectangle from '../../../../components/MealTimeGraph/components/D3Rectangle';
 import MealTimeGraph from '../../../../components/MealTimeGraph';
+import { getMealTimeMealsWithColor } from '../../../../components/MealTimeGraph/utils';
 
 type Props = {
   navigation: Navigation;
@@ -70,9 +71,14 @@ const DietTodayScreen = ({ navigation }: Props) => {
     },
   ];
 
+  const mealTimeData = {
+    meals: getMealTimeMealsWithColor(todaysMeals),
+    tdee,
+  };
+
   return (
     <>
-      <MealTimeGraph />
+      <MealTimeGraph data={mealTimeData} />
       <BarGraph data={data} />
       <TotalCaloriesGraph data={data} />
     </>

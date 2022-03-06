@@ -59,10 +59,13 @@ export interface Meal {
     mealName: string;
     carbs: number;
     carbsUnit: string;
+    carbsCalories: number;
     protein: number;
     proteinUnit: string;
+    proteinCalories: number;
     fat: number;
     fatUnit: string;
+    fatCalories: number;
     calories: number;
 }
 

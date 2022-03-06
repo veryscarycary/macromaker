@@ -6,15 +6,15 @@ import { Group, Shape, Surface } from '@react-native-community/art';
 import D3Rectangle from './components/D3Rectangle';
 import DaytimeGradient from './components/DaytimeGradient';
 import TimeXAxis from './components/TimeXAxis';
+import D3Circle from './components/D3Circle';
+import { MealTimeData } from './types';
 
 
 type Props = {
-  width: number;
-  height: number;
-  thickness: number;
+  data: MealTimeData;
 };
 
-const MealTimeGraph = () => {
+const MealTimeGraph = ({ data }: Props) => {
   const screenWidth = Dimensions.get('screen').width;
   const startingXPos = 0.08 * screenWidth;
   const endingXPos = 0.92 * screenWidth;
@@ -28,6 +28,7 @@ const MealTimeGraph = () => {
   return (
     <View style={styles.main}>
       <Surface width={screenWidth} height={surfaceHeight}>
+        {/* graph background */}
         <DaytimeGradient
           startingXPos={startingXPos}
           startingYPos={0}
@@ -43,6 +44,7 @@ const MealTimeGraph = () => {
           width={width}
           color="#a0a0a0"
         />
+        <D3Circle startingXPos={startingXPos} startingYPos={0} color="black" radius={15} />
 
         <TimeXAxis startingXPos={startingXPos} startingYPos={height} width={width} />
       </Surface>

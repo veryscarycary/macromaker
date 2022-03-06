@@ -30,10 +30,13 @@ type Props = {
 };
 
 const areFieldsValid = (carbs: string, protein: string, fat: string) => {
-  return ![carbs,protein,fat].some((field: string) => field === '' || field === '.');
-}
+  return ![carbs, protein, fat].some(
+    (field: string) => field === '' || field === '.'
+  );
+};
 
-const getDefaultMacroState = (state: string | number) => !state && typeof state !== 'number' ? '' : state;
+const getDefaultMacroState = (state: string | number) =>
+  !state && typeof state !== 'number' ? '' : state;
 
 const AddFoodScreen = ({ route, navigation }: Props) => {
   const meal = get(route, 'params.meal');
@@ -71,10 +74,11 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
   const proteinNum = protein ? Number(protein) : 0;
   const fatNum = fat ? Number(fat) : 0;
 
-  const calories =
-    convertCarbsToCalories(carbsNum, carbsUnit) +
-    convertProteinToCalories(proteinNum, proteinUnit) +
-    convertFatToCalories(fatNum, fatUnit);
+  const carbsCalories = convertCarbsToCalories(carbsNum, carbsUnit);
+  const proteinCalories = convertProteinToCalories(proteinNum, proteinUnit);
+  const fatCalories = convertFatToCalories(fatNum, fatUnit);
+
+  const calories = carbsCalories + proteinCalories + fatCalories;
 
   const isDisabled = !areFieldsValid(carbs, protein, fat);
 
@@ -139,6 +143,9 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
                   carbs: carbsNum,
                   protein: proteinNum,
                   fat: fatNum,
+                  carbsCalories,
+                  proteinCalories,
+                  fatCalories,
                   calories,
                   id: get(meal, 'id'),
                 });
@@ -157,6 +164,9 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
                   carbs: carbsNum,
                   protein: proteinNum,
                   fat: fatNum,
+                  carbsCalories,
+                  proteinCalories,
+                  fatCalories,
                   calories,
                   id: uuidv4(),
                 });
