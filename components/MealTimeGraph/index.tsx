@@ -10,7 +10,6 @@ import D3Circle from './components/D3Circle';
 import { MealTimeData } from './types';
 import CaloriesYAxis from './components/CaloriesYAxis';
 import { getCircleRadius } from './utils';
-import MealSection from '../../screens/Diet/screens/DailyDiet/components/MealSection';
 
 type Props = {
   data: MealTimeData;

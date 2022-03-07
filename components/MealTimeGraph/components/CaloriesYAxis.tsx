@@ -2,6 +2,7 @@ import React from 'react';
 // @ts-ignore
 import { Shape, Path, Group, Text } from '@react-native-community/art';
 import VerticalTick from './VerticalTick';
+import { getYPos } from '../utils';
 
 type Props = {
   startingXPos: number;
@@ -12,9 +13,9 @@ type Props = {
 };
 
 const CaloriesYAxis = ({ startingXPos, startingYPos, height, tdee, interval = 500 }: Props) => {
+  const centerTextOffset = 7;
   const tdeeToNearest500 = Math.round(tdee / interval) * interval;
   const numIntervals = tdeeToNearest500 / interval;
-  const heightBetweenTicks = height / (numIntervals);
 
   return (
     <>
@@ -24,11 +25,11 @@ const CaloriesYAxis = ({ startingXPos, startingYPos, height, tdee, interval = 50
             <Text
               fill="#717171"
               x={0}
-              y={height - (heightBetweenTicks * (i + 1))}
+              y={height - getYPos(interval * (i + 1), tdee, height) - centerTextOffset}
               font={`12px Arial`}
               alignment="right"
             >
-              {`${(i + 1) * interval}`}
+              {`${interval * (i + 1)}`}
             </Text>
           </>
         ))}

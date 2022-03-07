@@ -21,4 +21,11 @@ export const getCircleRadius = (calories: number, tdee: number) => {
     .range([3, 30]);
     const radius = scaleRadius(calories);
     return radius;
-}
+};
+
+// on MealTimeGraph
+export const getYPos = (calories: number, tdee: number, height: number) => {
+  const scaleCalories = scaleLinear().domain([0, tdee]).range([0, height]);
+  const yPos = scaleCalories(calories);
+  return yPos;
+};
