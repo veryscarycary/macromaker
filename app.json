@@ -1,38 +1,4 @@
 {
-  "expo": {
-    "name": "macromaker",
-    "slug": "macromaker",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.carymeskell.macrotracker",
-      "buildNumber": "1.0.0"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.carymeskell.macrotracker",
-      "versionCode": 1
-    },
-    "web": {
-      "favicon": "./assets/images/favicon.png"
-    }
-  }
+  "name": "main",
+  "displayName": "macromaker"
 }

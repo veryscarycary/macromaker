@@ -53,7 +53,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
           inputContainerStyle={styles.inputContainer}
           inputStyle={styles.inputContainer}
           onChangeText={(age: string) => setInfoState({ age: Number(age) })}
-          value={age}
+          value={String(age)}
           placeholder="Your Age"
           keyboardType="numeric"
         />
@@ -65,7 +65,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
           onChangeText={(weight: string) =>
             setInfoState({ weight: Number(weight) })
           }
-          value={weight}
+          value={String(weight)}
           placeholder="Your Weight"
           keyboardType="numeric"
         />

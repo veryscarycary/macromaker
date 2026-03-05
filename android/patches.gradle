@@ -1,0 +1,17 @@
+subprojects { subproject ->
+    afterEvaluate {
+        if (project.plugins.hasPlugin("com.android.library") || project.plugins.hasPlugin("com.android.application")) {
+            android {
+                // Force compileSdkVersion on any module missing it
+                if (!android.hasProperty("compileSdkVersion")) {
+                    compileSdkVersion rootProject.ext.compileSdkVersion
+                }
+            }
+        }
+
+        // Remove deprecated 'maven' plugin if present
+        if (project.plugins.hasPlugin("maven")) {
+            project.plugins.removePlugin("maven")
+        }
+    }
+}
