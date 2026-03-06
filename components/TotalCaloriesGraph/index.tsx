@@ -2,8 +2,6 @@ import React from 'react';
 import { Text, View } from '../Themed';
 import { StyleSheet, Dimensions } from 'react-native';
 
-import XAxis from './XAxis';
-import YAxis from './YAxis';
 import MultipleMacroBarWithContainer from './components/MultipleMacroBarWithContainer';
 import { BarGraphData } from '../BarGraph/types';
 
@@ -14,8 +12,6 @@ type Props = {
 const TotalCaloriesGraph = ({ data }: Props) => {
   const width = Dimensions.get('screen').width;
   const height = Dimensions.get('screen').height;
-  let xAxisHeight = 325;
-  let yAxisHeight = 30;
   let barWidth = width * 0.8;
 
   return (

@@ -36,8 +36,8 @@ const MenuModalScreen = ({ navigation }: Props) => {
         }}
       >
         <TopNotch />
-        <ModalButton icon="time" onPress={() => navigation.navigate('DietHistoryScreen')}>History</ModalButton>
-        <ModalButton icon="settings" hasBottomBorder={false}>
+        <ModalButton icon="time" onPress={() => { (navigation as any).navigate('Root', { screen: 'Diet', params: { screen: 'DietHistoryScreen' } }); }}>History</ModalButton>
+        <ModalButton icon="settings" hasBottomBorder={false} onPress={() => {}}>
           Settings
         </ModalButton>
       </View>

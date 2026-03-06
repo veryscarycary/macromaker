@@ -35,11 +35,12 @@ export const calculateBMR = (
   const weightInKg = weight * KG_PER_POUND;
   const heightInCm = height * CM_PER_INCH;
 
+  const C = CONSTANTS as unknown as Record<string, number>;
   return (
-    CONSTANTS[`BMR_${genderUpperCase}_BASE`] +
-    CONSTANTS[`BMR_${genderUpperCase}_WEIGHT_MODIFIER`] * weightInKg +
-    CONSTANTS[`BMR_${genderUpperCase}_HEIGHT_MODIFIER`] * heightInCm -
-    CONSTANTS[`BMR_${genderUpperCase}_AGE_MODIFIER`] * age
+    C[`BMR_${genderUpperCase}_BASE`] +
+    C[`BMR_${genderUpperCase}_WEIGHT_MODIFIER`] * weightInKg +
+    C[`BMR_${genderUpperCase}_HEIGHT_MODIFIER`] * heightInCm -
+    C[`BMR_${genderUpperCase}_AGE_MODIFIER`] * age
   );
 };
 
@@ -77,7 +78,6 @@ export const getStoredData = async (key: string) => {
 };
 
 export const removeStoredData = async (key: string) => {
-  debugger;
   const removedItem = await AsyncStorage.removeItem(key, (error) => {
     if (error) {
       console.error(

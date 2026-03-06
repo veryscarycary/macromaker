@@ -1,16 +1,13 @@
 import React from 'react';
-// @ts-ignore
-import { Shape, Path, Group } from '@react-native-community/art';
+import { G, Path } from 'react-native-svg';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { BarGraphData } from '../types';
 
-const createX = (tdee: number, width: number) => {
-  return scaleLinear().domain([0, tdee]).range([0, width]);
-};
+const createX = (tdee: number, width: number) =>
+  scaleLinear().domain([0, tdee]).range([0, width]);
 
-const createY = (height: number) => {
-  return scaleBand().rangeRound([0, height]);
-};
+const createY = (height: number) =>
+  scaleBand().rangeRound([0, height]);
 
 type Props = {
   data: BarGraphData[];
@@ -19,8 +16,8 @@ type Props = {
   height: number;
   color: string;
   thickness: number;
-  type: string;
-  hookDirection: string;
+  type?: string;
+  hookDirection?: string;
   x?: number;
   y?: number;
 };
@@ -32,74 +29,43 @@ const HorizontalBarWithHook = ({
   height,
   color,
   thickness,
-  x,
-  y,
+  x = 0,
+  y = 0,
   hookDirection = 'bottom',
 }: Props) => {
-  const targetTotalCalories = data.reduce(
-    (acc, curr) => acc + curr.targetAmount,
-    0
-  );
+  const targetTotalCalories = data.reduce((acc, curr) => acc + curr.targetAmount, 0);
   const targetMacroCalories = data[index].targetAmount;
-  let getXScaleOutput;
-  let barLength;
 
-  // set Y
   const yAxis = createY(height);
+  yAxis.domain(data.map((_d, i) => i.toString()));
 
-  // lays out the entire data index range
-  yAxis.domain(
-    data.map((d: BarGraphData, i: number) => {
-      return i.toString();
-    })
-  );
-
-  // necessary so we can keep all 3 graphs in same scale when we scale down
   const hasAnyMacroCalorieExceededTDEE = data.some(macro => macro.amount > targetTotalCalories);
+  let getXScaleOutput;
 
-  // set starting x position
   if (hasAnyMacroCalorieExceededTDEE) {
-    const ratioData = data.map((data) => ({
-      amount: data.amount,
-      ratio: data.amount / targetTotalCalories,
-    }));
-    const highestRatio = Math.max(...ratioData.map(datum => datum.ratio));
-    const highestMacroCalorieThatExceededTDEE = ratioData.find(datum => datum.ratio === highestRatio).amount;
-
-    // fill container and scale our graph down
-    getXScaleOutput = createX(highestMacroCalorieThatExceededTDEE, width);
-    barLength = getXScaleOutput(targetMacroCalories);
+    const ratioData = data.map(d => ({ amount: d.amount, ratio: d.amount / targetTotalCalories }));
+    const highestRatio = Math.max(...ratioData.map(d => d.ratio));
+    const highest = ratioData.find(d => d.ratio === highestRatio)!.amount;
+    getXScaleOutput = createX(highest, width);
   } else {
     getXScaleOutput = createX(targetTotalCalories, width);
-    barLength = getXScaleOutput(targetMacroCalories);
   }
 
-  // finds the position of THIS bar in that range
   const startingYPos = yAxis(index.toString());
-
-  // set starting x position
+  const barLength = getXScaleOutput(targetMacroCalories);
   const startingXPos = barLength;
 
-  // Draw path (x and y originate from the top-left corner)
-  // start at top of bar, left, down, then right. Autocloses back at finish
-  const d = new Path()
-    .moveTo(startingXPos, startingYPos)
-    .line(-barLength, 0)
-    .line(0, thickness)
-    .line(barLength, 0);
-
+  let dStr: string;
   if (hookDirection === 'top') {
-    d.line(0, -thickness)
-      .line(-thickness, -thickness)
-      .line(0, thickness * 2);
+    dStr = `M ${startingXPos} ${startingYPos} l ${-barLength} 0 l 0 ${thickness} l ${barLength} 0 l 0 ${-thickness} l ${-thickness} ${-thickness} l 0 ${thickness * 2} Z`;
   } else {
-    d.line(thickness, thickness).line(0, -thickness * 2);
+    dStr = `M ${startingXPos} ${startingYPos} l ${-barLength} 0 l 0 ${thickness} l ${barLength} 0 l ${thickness} ${thickness} l 0 ${-thickness * 2} Z`;
   }
 
   return (
-    <Group x={x} y={y}>
-      <Shape d={d} fill={color} />
-    </Group>
+    <G x={x} y={y}>
+      <Path d={dStr} fill={color} />
+    </G>
   );
 };
 

@@ -1,4 +1,4 @@
-import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'react-native';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -15,12 +15,14 @@ export default function App() {
     return null;
   } else {
     return (
-      <SafeAreaProvider>
-        <HistoryProvider>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
-        </HistoryProvider>
-      </SafeAreaProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaProvider>
+          <HistoryProvider>
+            <Navigation colorScheme={colorScheme} />
+            <StatusBar />
+          </HistoryProvider>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
     );
   }
 }

@@ -1,7 +1,5 @@
 import React from 'react';
-// @ts-ignore
-import { Shape, Path, Group, Text } from '@react-native-community/art';
-import VerticalTick from './VerticalTick';
+import { G, Text } from 'react-native-svg';
 import { getYPos } from '../utils';
 
 type Props = {
@@ -18,23 +16,21 @@ const CaloriesYAxis = ({ startingXPos, startingYPos, height, tdee, interval = 50
   const numIntervals = tdeeToNearest500 / interval;
 
   return (
-    <>
-      <Group x={startingXPos} y={startingYPos}>
-        {Array.from(Array(numIntervals)).map((_, i) => (
-          <>
-            <Text
-              fill="#717171"
-              x={0}
-              y={height - getYPos(interval * (i + 1), tdee, height) - centerTextOffset}
-              font={`12px Arial`}
-              alignment="right"
-            >
-              {`${interval * (i + 1)}`}
-            </Text>
-          </>
-        ))}
-      </Group>
-    </>
+    <G x={startingXPos} y={startingYPos}>
+      {Array.from(Array(numIntervals)).map((_, i) => (
+        <Text
+          key={i}
+          fill="#717171"
+          x={0}
+          y={height - getYPos(interval * (i + 1), tdee, height) - centerTextOffset}
+          fontSize={12}
+          fontFamily="Arial"
+          textAnchor="end"
+        >
+          {`${interval * (i + 1)}`}
+        </Text>
+      ))}
+    </G>
   );
 };
 

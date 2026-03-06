@@ -1,17 +1,13 @@
 import React from 'react';
-// @ts-ignore
-import { Shape, Path, Group } from '@react-native-community/art';
+import { G, Rect } from 'react-native-svg';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { BarGraphData } from '../types';
-import { DAILY_RECOMMENDED_CALORIES } from '../../../constants';
 
-const createX = (tdee: number, width: number) => {
-  return scaleLinear().domain([0, tdee]).range([0, width]);
-};
+const createX = (tdee: number, width: number) =>
+  scaleLinear().domain([0, tdee]).range([0, width]);
 
-const createY = (height: number) => {
-  return scaleBand().rangeRound([0, height]);
-};
+const createY = (height: number) =>
+  scaleBand().rangeRound([0, height]);
 
 type Props = {
   data: BarGraphData[];
@@ -33,37 +29,23 @@ const D3HorizontalBar = ({
   color,
   thickness,
   type,
-  x,
-  y,
+  x = 0,
+  y = 0,
 }: Props) => {
-  const targetTotalCalories = data.reduce(
-    (acc, curr) => acc + curr.targetAmount,
-    0
-  );
+  const targetTotalCalories = data.reduce((acc, curr) => acc + curr.targetAmount, 0);
   const currentMacroCalories = data[index].amount;
-  let getXScaleOutput;
 
-  // set Y
   const yAxis = createY(height);
+  yAxis.domain(data.map((_d, i) => i.toString()));
 
-  // lays out the entire data index range
-  yAxis.domain(
-    data.map((d: BarGraphData, i: number) => {
-      return i.toString();
-    })
-  );
-
-  // set starting x position
+  let getXScaleOutput;
   if (currentMacroCalories > targetTotalCalories) {
     getXScaleOutput = createX(currentMacroCalories, width);
   } else {
     getXScaleOutput = createX(targetTotalCalories, width);
   }
 
-  // finds the position of THIS bar in that range
   const startingYPos = yAxis(index.toString());
-
-  // set starting x position
   let barLength = getXScaleOutput(currentMacroCalories);
   const startingXPos = barLength;
 
@@ -71,18 +53,16 @@ const D3HorizontalBar = ({
     barLength = thickness / 4;
   }
 
-  // Draw path (x and y originate from the top-left corner)
-  // start at top of bar, left, down, then right. Autocloses back at finish
-  const d = new Path()
-    .moveTo(startingXPos, startingYPos)
-    .line(-barLength, 0)
-    .line(0, thickness)
-    .line(barLength, 0);
-
   return (
-    <Group x={x} y={y}>
-      <Shape d={d} fill={color} />
-    </Group>
+    <G x={x} y={y}>
+      <Rect
+        x={startingXPos - barLength}
+        y={startingYPos}
+        width={barLength}
+        height={thickness}
+        fill={color}
+      />
+    </G>
   );
 };
 

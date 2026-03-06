@@ -23,6 +23,8 @@ export type Navigation = StackNavigationProp<
   'Root'
 >;
 
+export type ModalStackNavigationProp = StackNavigationProp<ModalStackParamList>;
+
 export type BottomTabParamList = {
   Diet: undefined;
   Fitness: undefined;
@@ -31,14 +33,16 @@ export type BottomTabParamList = {
 export type DietTabParamList = {
   DietHistoryScreen: undefined;
   DietTodayScreen: undefined;
-  AddFoodScreen: undefined;
-  EditFoodScreen: undefined;
-  DailyDietScreen: undefined;
+  AddFoodScreen: { date?: string; meal?: Meal } | undefined;
+  EditFoodScreen: { meal: Meal } | undefined;
+  DailyDietScreen: { date: string };
 };
 
 export type FitnessTabParamList = {
   FitnessScreen: undefined;
 };
+
+export type DietScreenNavigationProp = StackNavigationProp<DietTabParamList>;
 
 export type GenericObject = {
   [key: string]: any;

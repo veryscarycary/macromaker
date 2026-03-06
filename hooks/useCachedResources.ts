@@ -1,6 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
-import { Platform } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 
 export default function useCachedResources() {

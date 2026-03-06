@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { Navigation } from '../../../types';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { DietScreenNavigationProp } from '../../../types';
 
 type Props = {
-  navigation: Navigation,
+  navigation: DietScreenNavigationProp;
 };
 
 const AddFoodHeaderButton = ({ navigation }: Props) => (
@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
   },
-  plus: { fontSize: 30 },
 });
 
 export default AddFoodHeaderButton;

@@ -1,11 +1,5 @@
 import React from 'react';
-// @ts-ignore
-import {
-  Shape,
-  Path,
-  Group,
-  LinearGradient,
-} from '@react-native-community/art';
+import { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
 
 type Props = {
   startingXPos: number;
@@ -15,39 +9,32 @@ type Props = {
   height: number;
 };
 
-const DaytimeGradient = ({
-  startingXPos,
-  startingYPos,
-  endingXPos,
-  width,
-  height,
-}: Props) => {
-  // Draw path (x and y originate from the top-left corner)
-  // start at top of bar, left, down, then right. Autocloses back at finish
-  const d = new Path()
-    .moveTo(startingXPos, startingYPos)
-    .line(width, 0)
-    .line(0, height)
-    .line(-width, 0);
-
-  const colors = ['blue', 'white', 'blue'];
-  const linearGradient = new LinearGradient(
-    {
-      '0': '#002d8d',
-      '.3': 'white',
-      '.7': 'white',
-      '1': '#002d8d',
-    },
-    startingXPos,
-    startingYPos,
-    endingXPos,
-    0,
-  );
-
+const DaytimeGradient = ({ startingXPos, startingYPos, endingXPos, width, height }: Props) => {
   return (
-    <Group x={0} y={0}>
-      <Shape d={d} fill={linearGradient} />
-    </Group>
+    <>
+      <Defs>
+        <LinearGradient
+          id="daytimeGrad"
+          x1={startingXPos}
+          y1="0"
+          x2={endingXPos}
+          y2="0"
+          gradientUnits="userSpaceOnUse"
+        >
+          <Stop offset="0" stopColor="#002d8d" />
+          <Stop offset="0.3" stopColor="white" />
+          <Stop offset="0.7" stopColor="white" />
+          <Stop offset="1" stopColor="#002d8d" />
+        </LinearGradient>
+      </Defs>
+      <Rect
+        x={startingXPos}
+        y={startingYPos}
+        width={width}
+        height={height}
+        fill="url(#daytimeGrad)"
+      />
+    </>
   );
 };
 

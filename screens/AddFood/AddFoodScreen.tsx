@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar } from '@rneui/themed';
 import { Text, View } from '../../components/Themed';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Spacer from '../../components/Spacer';
@@ -20,13 +20,13 @@ import {
   convertProteinToCalories,
   getTodaysDate,
 } from '../../utils';
-import { DietScreenNavigationProp, Meal } from '../../types';
+import { DietScreenNavigationProp, DietTabParamList, Meal } from '../../types';
 import DismissKeyboardView from '../../components/DismissKeyboardView';
-import { Input } from 'react-native-elements';
+import { Input } from '@rneui/themed';
 
 type Props = {
   navigation: DietScreenNavigationProp;
-  route: RouteProp<{ params: { meal: Meal } }, 'params'>;
+  route: RouteProp<DietTabParamList, 'AddFoodScreen'>;
 };
 
 const areFieldsValid = (carbs: string, protein: string, fat: string) => {
@@ -35,8 +35,8 @@ const areFieldsValid = (carbs: string, protein: string, fat: string) => {
   );
 };
 
-const getDefaultMacroState = (state: string | number) =>
-  !state && typeof state !== 'number' ? '' : state;
+const getDefaultMacroState = (state: string | number | undefined): string | number =>
+  !state && typeof state !== 'number' ? '' : state!;
 
 const AddFoodScreen = ({ route, navigation }: Props) => {
   const meal = get(route, 'params.meal');
@@ -83,7 +83,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
 
   const date = defaultDate || new Date();
 
-  const isDisabled = !areFieldsValid(carbs, protein, fat);
+  const isDisabled = !areFieldsValid(String(carbs), String(protein), String(fat));
 
   return (
     <>
@@ -150,8 +150,8 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
                   proteinCalories,
                   fatCalories,
                   calories,
-                  date: defaultDate,
-                  id: get(meal, 'id'),
+                  date: defaultDate!,
+                  id: get(meal, 'id') as string,
                 });
               } catch (e) {
                 console.error(

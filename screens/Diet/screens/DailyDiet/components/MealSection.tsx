@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import { Input } from 'react-native-elements';
+import React from 'react';
 import { Picker } from '@react-native-picker/picker';
 import { Text, View } from '../../../../../components/Themed';
-import { Feather, FontAwesome } from '@expo/vector-icons';
+import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { deleteMeal, getMealData } from '../../../../../context/MealContext';
 
 import {
-  Dimensions,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
 } from 'react-native';
 import { DietScreenNavigationProp, Meal } from '../../../../../types';
@@ -19,7 +17,7 @@ type Props = {
   mealName: string;
   mealNumber: number;
   navigation: DietScreenNavigationProp;
-  setMeals: (meals: Meal[]) => void,
+  setMeals: (meals: Meal[]) => void;
 };
 
 const MealSection = ({
@@ -33,11 +31,8 @@ const MealSection = ({
   return (
     <View style={styles.container}>
       <View style={styles.mealData}>
-        {/* Meal Title */}
         <View style={[styles.row, styles.marginBottom8]}>
-          <Text style={[styles.bold, styles.mealTitle]}>
-            Meal #{mealNumber}:
-          </Text>
+          <Text style={[styles.bold, styles.mealTitle]}>Meal #{mealNumber}:</Text>
           <Text style={styles.value}>{mealName}</Text>
         </View>
 
@@ -75,7 +70,7 @@ const MealSection = ({
             await deleteMeal(id, date);
             const dietDay = await getMealData(date);
             if (dietDay) {
-              setMeals(dietDay.meals)
+              setMeals(dietDay.meals);
             } else {
               setMeals([]);
             }
@@ -110,9 +105,6 @@ const styles = StyleSheet.create({
   },
   marginBottom8: {
     marginBottom: 20,
-  },
-  marginBottom4: {
-    marginBottom: 4,
   },
   row: {
     flexDirection: 'row',

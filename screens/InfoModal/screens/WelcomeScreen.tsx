@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '../../../components/Themed';
-import { ModalStackParamList, Navigation } from '../../../types';
-import { createStackNavigator } from '@react-navigation/stack';
+import { ModalStackNavigationProp } from '../../../types';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
 import Spacer from '../../../components/Spacer';
 
 type Props = {
-  navigation: Navigation;
+  navigation: ModalStackNavigationProp;
 };
 
 const WelcomeScreen = ({ navigation }: Props) => {

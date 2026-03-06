@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '../../../components/Themed';
-import { ModalStackParamList, Navigation } from '../../../types';
-import { createStackNavigator } from '@react-navigation/stack';
+import { ModalStackNavigationProp } from '../../../types';
 import { Context as InfoContext } from '../../../context/InfoContext';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
 import Spacer from '../../../components/Spacer';
@@ -10,10 +9,8 @@ import PercentageSlider from '../../../components/PercentageSlider';
 import { storeBasicInfo } from '../../../context/InfoContext';
 
 type Props = {
-  navigation: Navigation;
+  navigation: ModalStackNavigationProp;
 };
-
-const ModalStack = createStackNavigator<ModalStackParamList>();
 
 const MoreInfoScreen = ({ navigation }: Props) => {
   const {
@@ -79,9 +76,8 @@ const MoreInfoScreen = ({ navigation }: Props) => {
         style={styles.button}
         onPress={async () => {
           await storeBasicInfo(state);
-          navigation.navigate('Root');
+          (navigation as any).navigate('Root');
         }}
-        title="Dismiss"
       >
         <Text>Finish</Text>
       </TouchableOpacity>

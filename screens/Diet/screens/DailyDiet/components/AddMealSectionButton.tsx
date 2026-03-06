@@ -1,11 +1,8 @@
 import React from 'react';
 import { Text } from '../../../../../components/Themed';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { DietScreenNavigationProp } from '../../../../../types';
 
 type Props = {
@@ -13,10 +10,7 @@ type Props = {
   date: string;
 };
 
-const AddMealSectionButton = ({
-  date,
-  navigation,
-}: Props) => {
+const AddMealSectionButton = ({ date, navigation }: Props) => {
   return (
     <TouchableOpacity
       style={styles.container}
@@ -42,7 +36,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 20,
-  }
+  },
 });
 
 export default AddMealSectionButton;

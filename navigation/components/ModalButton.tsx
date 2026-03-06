@@ -1,14 +1,12 @@
 import React from 'react';
 import { Text, View } from '../../components/Themed';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { StyleSheet, TouchableOpacity } from 'react-native';
-// import { DietScreenNavigationProp } from '../types';
 
 type Props = {
-  // navigation: DietScreenNavigationProp;
   children: string;
-  icon: React.ComponentProps<typeof Ionicons>['name'];
+  icon: string;
   hasBottomBorder?: boolean;
   onPress: () => void;
 };
@@ -18,20 +16,14 @@ const ModalButton = ({
   icon,
   hasBottomBorder = true,
   onPress,
-}: // navigation,
-Props) => {
+}: Props) => {
   return (
     <>
-      <TouchableOpacity
-        style={styles.container}
-        onPress={onPress}
-        // onPress={() => navigation.navigate('AddFoodScreen', { date })}
-      >
+      <TouchableOpacity style={styles.container} onPress={onPress}>
         <Ionicons size={32} name={icon} />
         <Text style={styles.label}>{children}</Text>
       </TouchableOpacity>
 
-      {/* bottom border */}
       {hasBottomBorder ? (
         <View style={styles.bottomBorderContainer}>
           <View style={styles.bottomBorder}></View>

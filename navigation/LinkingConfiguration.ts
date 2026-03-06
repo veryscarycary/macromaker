@@ -1,19 +1,21 @@
 import { LinkingOptions } from '@react-navigation/native';
+import { RootStackParamList } from '../types';
 
-export default {
+const linking: LinkingOptions<RootStackParamList> = {
   prefixes: ['macromaker://'],
   config: {
     screens: {
       Root: {
         screens: {
-          DietTab: {
+          Diet: {
             screens: {
-              DietHistoryScreen: 'one',
+              DietHistoryScreen: 'history',
+              DietTodayScreen: 'today',
             },
           },
-          FitnessTab: {
+          Fitness: {
             screens: {
-              FitnessScreen: 'two',
+              FitnessScreen: 'fitness',
             },
           },
         },
@@ -22,3 +24,5 @@ export default {
     },
   },
 };
+
+export default linking;

@@ -1,8 +1,7 @@
 import React from 'react';
 import { View } from '../Themed';
 import { StyleSheet, Dimensions } from 'react-native';
-import { Group, Shape, Surface } from '@react-native-community/art';
-// import { BarGraphData } from './types';
+import Svg from 'react-native-svg';
 import D3Rectangle from './components/D3Rectangle';
 import DaytimeGradient from './components/DaytimeGradient';
 import TimeXAxis from './components/TimeXAxis';
@@ -23,13 +22,9 @@ const MealTimeGraph = ({ data }: Props) => {
   const surfaceHeight = 250;
   const height = surfaceHeight - 25;
 
-  // let barsWidth = width - 10;
-  // let barsHeight = height / 3;
-
   return (
     <View style={styles.main}>
-      <Surface width={screenWidth} height={surfaceHeight}>
-        {/* graph background */}
+      <Svg width={screenWidth} height={surfaceHeight}>
         <DaytimeGradient
           startingXPos={startingXPos}
           startingYPos={0}
@@ -37,7 +32,6 @@ const MealTimeGraph = ({ data }: Props) => {
           height={height}
           width={width}
         />
-        {/* bottom line */}
         <D3Rectangle
           startingXPos={0.08 * screenWidth}
           startingYPos={height - 2}
@@ -56,27 +50,24 @@ const MealTimeGraph = ({ data }: Props) => {
           height={height}
           tdee={data.tdee}
         />
-
         {data.meals.map((meal, i) => {
-          debugger;
           const date = new Date(meal.date);
           const hours = date.getHours();
           const minutes = date.getMinutes();
           const hoursFraction = hours + minutes / 60;
           const dayFraction = hoursFraction / 24;
-          // climbing calorie total throughout the day
           const caloriesAdditive = data.meals.reduce(
             (acc, curr, j) => (j > i ? acc : curr.calories + acc),
             0
           );
           const caloriesAdditiveFraction = caloriesAdditive / data.tdee;
           const xPos = startingXPos + width * dayFraction;
-          // height starts from the top of the screen, not bottom, so we need to flip it
           const yPos = height - height * caloriesAdditiveFraction;
           const radius = getCircleRadius(meal.calories, data.tdee);
 
           return (
             <D3Circle
+              key={i}
               startingXPos={xPos}
               startingYPos={yPos}
               color={meal.color}
@@ -84,7 +75,7 @@ const MealTimeGraph = ({ data }: Props) => {
             />
           );
         })}
-      </Surface>
+      </Svg>
     </View>
   );
 };

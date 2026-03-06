@@ -2,15 +2,14 @@ import React, { useState, useContext } from 'react';
 import { Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Text, View } from '../../../components/Themed';
-import { ModalStackParamList, Navigation } from '../../../types';
-import { createStackNavigator } from '@react-navigation/stack';
+import { ModalStackNavigationProp } from '../../../types';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
-import { Input } from 'react-native-elements';
+import { Input } from '@rneui/themed';
 import Spacer from '../../../components/Spacer';
 import { Context as InfoContext } from '../../../context/InfoContext';
 
 type Props = {
-  navigation: Navigation;
+  navigation: ModalStackNavigationProp;
 };
 
 const BasicInfoScreen = ({ navigation }: Props) => {

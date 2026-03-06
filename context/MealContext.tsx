@@ -77,9 +77,9 @@ const updateMeals = async (date: string, meals: Meal[]) => {
 
 export const deleteMeal = async (id: string, date: string): Promise<Meal|undefined> => {
   const dietDay = await getMealData(date);
-debugger;
   if (dietDay) {
     const mealToDelete = dietDay.meals.find((meal: Meal) => meal.id === id);
+
     if (mealToDelete) {
       const mealToDeleteIndex = dietDay.meals.indexOf(mealToDelete);
       const newMeals = [...dietDay.meals];

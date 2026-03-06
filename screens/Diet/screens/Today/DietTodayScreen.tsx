@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { defaultValues as defaultBasicInfo } from '../../../../context/InfoContext';
 import { getMealData } from '../../../../context/MealContext';
-import { DietDay, Info, Navigation, Meal } from '../../../../types';
+import { DietDay, DietScreenNavigationProp, Info, Meal } from '../../../../types';
 import {
   convertCarbsToCalories,
   convertFatToCalories,
@@ -19,7 +19,7 @@ import MealTimeGraph from '../../../../components/MealTimeGraph';
 import { getMealTimeMealsWithColor } from '../../../../components/MealTimeGraph/utils';
 
 type Props = {
-  navigation: Navigation;
+  navigation: DietScreenNavigationProp;
 };
 
 const DietTodayScreen = ({ navigation }: Props) => {

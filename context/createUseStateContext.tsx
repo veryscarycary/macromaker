@@ -5,7 +5,7 @@ type Props = {
 };
 
 const createUseStateContext = (defaultValue: any) => {
-  const Context = React.createContext();
+  const Context = React.createContext<any>(undefined);
 
   const Provider = ({ children }: Props) => {
     const [state, setState] = useState(defaultValue);

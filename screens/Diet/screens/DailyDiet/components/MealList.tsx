@@ -1,6 +1,6 @@
 import React from 'react';
 import MealSection from './MealSection';
-import { Navigation, Meal } from '../../../../../types';
+import { DietScreenNavigationProp, Meal } from '../../../../../types';
 import { ScrollView, StyleSheet } from 'react-native';
 import AddMealSectionButton from './AddMealSectionButton';
 
@@ -8,7 +8,7 @@ type Props = {
   meals: Meal[];
   setMeals: (meals: Meal[]) => void;
   date: string;
-  navigation: Navigation;
+  navigation: DietScreenNavigationProp;
 };
 
 const MealList = ({ date, meals, setMeals, navigation }: Props) => {

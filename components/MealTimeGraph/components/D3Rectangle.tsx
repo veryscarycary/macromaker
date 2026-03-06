@@ -1,6 +1,5 @@
 import React from 'react';
-// @ts-ignore
-import { Shape, Path, Group } from '@react-native-community/art';
+import { Rect } from 'react-native-svg';
 
 type Props = {
   startingXPos: number;
@@ -10,26 +9,8 @@ type Props = {
   color: string;
 };
 
-const D3Rectangle = ({
-  startingXPos,
-  startingYPos,
-  width,
-  height,
-  color,
-}: Props) => {
-  // Draw path (x and y originate from the top-left corner)
-  // start at top of bar, left, down, then right. Autocloses back at finish
-  const d = new Path()
-    .moveTo(startingXPos, startingYPos)
-    .line(width, 0)
-    .line(0, height)
-    .line(-width, 0);
-
-  return (
-    <Group x={0} y={0}>
-      <Shape d={d} fill={color} />
-    </Group>
-  );
+const D3Rectangle = ({ startingXPos, startingYPos, width, height, color }: Props) => {
+  return <Rect x={startingXPos} y={startingYPos} width={width} height={height} fill={color} />;
 };
 
 export default D3Rectangle;

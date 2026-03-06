@@ -1,5 +1,6 @@
 import React from 'react';
-import { Input } from 'react-native-elements';
+import { StyleSheet } from 'react-native';
+import { Input } from '@rneui/themed';
 import { Picker } from '@react-native-picker/picker';
 import { View } from '../../../components/Themed';
 
@@ -43,12 +44,11 @@ const MacroInput = ({ type, value, unit, setValue, setUnit }: Props) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
   },
   input: {
-    width: 'auto',
     flex: 1,
     paddingHorizontal: 0,
     margin: 0,
@@ -62,7 +62,7 @@ const styles = {
   },
   pickerItem: {
     height: 50,
-  }
-};
+  },
+});
 
 export default MacroInput;
