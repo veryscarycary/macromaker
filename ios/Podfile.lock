@@ -1029,7 +1029,7 @@ PODS:
     - React-Core
   - RNCPicker (2.11.4):
     - React-Core
-  - RNGestureHandler (2.30.0):
+  - RNGestureHandler (2.14.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1038,9 +1038,7 @@ PODS:
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
     - ReactCommon/turbomodule/core
-  - RNScreens (3.37.0):
-    - glog
-    - RCT-Folly (= 2022.05.16.00)
+  - RNScreens (3.23.0):
     - React-Core
     - React-RCTImage
   - RNSVG (15.15.3):
@@ -1291,9 +1289,9 @@ SPEC CHECKSUMS:
   ReactCommon: 2ac9ca8094ebce1227cde40b4d8cac9234bed855
   RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
   RNCPicker: 0ce5d66262fe7f79e95664bae9447b0d7ed857da
-  RNGestureHandler: d4bbdbacc1c338732d7dc4cf0f2436af9eedab73
+  RNGestureHandler: a4c4561307e67f2942f5a4fe1526ff78cf3f5280
   RNReanimated: f6b02d8f5eaa2830296411d4ec3b8ef5442dd13d
-  RNScreens: 0df9081bbc17690268fdeeb62017f48b4a8479f5
+  RNScreens: 6a8a3c6b808aa48dca1780df7b73ea524f602c63
   RNSVG: 8771483a71509122424c2d63e6c66bdf46e1d583
   RNVectorIcons: 48c158e45647a2072579db62f704c09b1dd4ca0f
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
