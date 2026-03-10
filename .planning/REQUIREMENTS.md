@@ -93,22 +93,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NATV-04 | Phase 2 | Pending |
 | NATV-05 | Phase 2 | Pending |
 | NATV-06 | Phase 2 | Pending |
-| JSDP-01 | Phase 3 | Pending |
-| JSDP-02 | Phase 3 | Pending |
-| JSDP-03 | Phase 3 | Pending |
-| JSDP-04 | Phase 3 | Pending |
-| JSDP-05 | Phase 3 | Pending |
-| JSDP-06 | Phase 3 | Pending |
-| RNUP-01 | Phase 4 | Pending |
-| RNUP-02 | Phase 4 | Pending |
-| RNUP-03 | Phase 4 | Pending |
-| RNUP-04 | Phase 4 | Pending |
-| RNUP-05 | Phase 4 | Pending |
-| ONBR-01 | Phase 5 | Pending |
-| ONBR-02 | Phase 5 | Pending |
-| ONBR-03 | Phase 5 | Pending |
-| ONBR-04 | Phase 5 | Pending |
-| ONBR-05 | Phase 5 | Pending |
+| JSDP-01 | Phase 2 | Pending |
+| JSDP-02 | Phase 2 | Pending |
+| JSDP-03 | Phase 2 | Pending |
+| JSDP-04 | Phase 2 | Pending |
+| JSDP-05 | Phase 2 | Pending |
+| JSDP-06 | Phase 2 | Pending |
+| RNUP-01 | Phase 3 | Pending |
+| RNUP-02 | Phase 3 | Pending |
+| RNUP-03 | Phase 3 | Pending |
+| RNUP-04 | Phase 3 | Pending |
+| RNUP-05 | Phase 3 | Pending |
+| ONBR-01 | Phase 4 | Pending |
+| ONBR-02 | Phase 4 | Pending |
+| ONBR-03 | Phase 4 | Pending |
+| ONBR-04 | Phase 4 | Pending |
+| ONBR-05 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 25 total
@@ -117,4 +117,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-10*
-*Last updated: 2026-03-10 after initial definition*
+*Last updated: 2026-03-10 after roadmap creation (compressed to 4 phases per coarse granularity)*
