@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-infrastructure-upgrade 02-02-PLAN.md
-last_updated: "2026-03-11T18:56:11.622Z"
+stopped_at: Completed 02-infrastructure-upgrade-01-PLAN.md
+last_updated: "2026-03-11T19:02:41.140Z"
 last_activity: 2026-03-10 — Roadmap created
 progress:
   total_phases: 4
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-dependency-audit P02 | 65 | 3 tasks | 27 files |
 | Phase 02-infrastructure-upgrade P03 | 2 | 2 tasks | 3 files |
 | Phase 02-infrastructure-upgrade P02 | 2 | 2 tasks | 4 files |
+| Phase 02-infrastructure-upgrade P01 | 15 | 1 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,8 @@ Recent decisions affecting current work:
 - [Phase 02-infrastructure-upgrade]: kotlinVersion set to 1.9.24 (not 2.0): RN 0.76 template ships with 1.9.24; Kotlin 2.0 compat only confirmed for RN 0.84+
 - [Phase 02-infrastructure-upgrade]: AppDelegate.mm (.mm extension): Obj-C++ required for New Architecture C++ headers; old .m file deleted
 - [Phase 02-infrastructure-upgrade]: UIAppFonts trimmed to 3: only Ionicons, Feather, FontAwesome are imported in codebase — removes 12 unused font file declarations
+- [Phase 02-infrastructure-upgrade]: AsyncStorage v3 manual mock created at __mocks__ — v3.0.1 removed jest/async-storage-mock.js from v1.x
+- [Phase 02-infrastructure-upgrade]: jest installed as devDependency for local binary test execution to avoid npx cache inconsistencies
 
 ### Pending Todos
 
@@ -89,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T18:56:11.617Z
-Stopped at: Completed 02-infrastructure-upgrade 02-02-PLAN.md
+Last session: 2026-03-11T19:02:41.134Z
+Stopped at: Completed 02-infrastructure-upgrade-01-PLAN.md
 Resume file: None
