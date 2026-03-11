@@ -1,5 +1,4 @@
 import * as React from 'react';
-import SplashScreen from 'react-native-splash-screen';
 
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
@@ -12,7 +11,6 @@ export default function useCachedResources() {
         console.warn(e);
       } finally {
         setLoadingComplete(true);
-        SplashScreen.hide();
       }
     }
     loadResourcesAndDataAsync();
