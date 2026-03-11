@@ -1,12 +1,11 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '13.4'
+platform :ios, '15.1'
 
 target 'macromaker' do
   use_native_modules!
   use_react_native!(
-    :path => "../node_modules/react-native",
-    :hermes_enabled => false
+    :path => "../node_modules/react-native"
   )
 end
