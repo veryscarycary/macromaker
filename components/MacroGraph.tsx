@@ -1,108 +1,130 @@
 import React from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
-import { PieChart } from 'react-native-chart-kit';
+import { View, StyleSheet, Dimensions, Text } from 'react-native';
+import Svg, { Path, G } from 'react-native-svg';
+import { pie as d3pie, arc as d3arc } from 'd3';
 import {
   convertCarbsToCalories,
   convertFatToCalories,
   convertProteinToCalories,
 } from '../utils';
 
-const dataConfig = [
-  {
-    name: 'Carbs',
-    percentage: 0,
-    color: '#2b4af5',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
-  {
-    name: 'Protein',
-    percentage: 0,
-    color: '#bd2020',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
-  {
-    name: 'Fat',
-    percentage: 0,
-    color: '#d7dc73',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  },
+const screenWidth = Dimensions.get('window').width;
+const PIE_RADIUS = 90;
+
+const MACRO_CONFIG = [
+  { name: 'Carbs', color: '#2b4af5' },
+  { name: 'Protein', color: '#bd2020' },
+  { name: 'Fat', color: '#d7dc73' },
 ];
 
-// Retrieve initial screen's width
-const screenWidth = Dimensions.get('window').width;
-
-const chartConfig = {
-  backgroundGradientFrom: '#1E2923',
-  backgroundGradientFromOpacity: 0,
-  backgroundGradientTo: '#08130D',
-  backgroundGradientToOpacity: 0.5,
-  color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-  strokeWidth: 2, // optional, default 3
-  barPercentage: 0.5,
-  useShadowColorFromDataset: false, // optional
-};
-
 type Props = {
-  carbs: number;
-  protein: number;
-  fat: number;
+  carbs?: number;
+  protein?: number;
+  fat?: number;
+  carbsUnit?: string;
+  proteinUnit?: string;
+  fatUnit?: string;
 };
 
-const MacroGraph = (
-  {
-    carbs = 0,
-    protein = 0,
-    fat = 0,
-    carbsUnit = 'g',
-    proteinUnit = 'g',
-    fatUnit = 'g',
-  },
-  props: Props
-) => {
+const MacroGraph = ({
+  carbs = 0,
+  protein = 0,
+  fat = 0,
+  carbsUnit = 'g',
+  proteinUnit = 'g',
+  fatUnit = 'g',
+}: Props) => {
   const carbsCalories = convertCarbsToCalories(carbs, carbsUnit);
   const proteinCalories = convertProteinToCalories(protein, proteinUnit);
   const fatCalories = convertFatToCalories(fat, fatUnit);
-  const calories = carbsCalories + proteinCalories + fatCalories;
-  const carbsPercentage = carbsCalories / calories || 0;
-  const proteinPercentage = proteinCalories / calories || 0;
-  const fatPercentage = fatCalories / calories || 0;
+  const totalCalories = carbsCalories + proteinCalories + fatCalories;
 
-  const data = dataConfig.map((config) => {
-    switch (config.name) {
-      case 'Carbs':
-        return { ...config, percentage: carbsPercentage };
-      case 'Protein':
-        return { ...config, percentage: proteinPercentage };
-      case 'Fat':
-        return { ...config, percentage: fatPercentage };
-    }
-  });
+  const carbsPercentage = totalCalories > 0 ? carbsCalories / totalCalories : 0;
+  const proteinPercentage = totalCalories > 0 ? proteinCalories / totalCalories : 0;
+  const fatPercentage = totalCalories > 0 ? fatCalories / totalCalories : 0;
+
+  const pieData = [
+    { name: 'Carbs', percentage: carbsPercentage, color: '#2b4af5' },
+    { name: 'Protein', percentage: proteinPercentage, color: '#bd2020' },
+    { name: 'Fat', percentage: fatPercentage, color: '#d7dc73' },
+  ];
+
+  const pieGenerator = d3pie<{ name: string; percentage: number; color: string }>()
+    .value((d) => (totalCalories > 0 ? d.percentage : 1 / 3))
+    .sort(null);
+
+  const arcGenerator = d3arc<any>()
+    .innerRadius(0)
+    .outerRadius(PIE_RADIUS);
+
+  const arcs = pieGenerator(totalCalories > 0 ? pieData : pieData);
+
+  const cx = screenWidth / 2;
+  const cy = 110;
 
   return (
-    <PieChart
-      data={data}
-      width={screenWidth}
-      height={220}
-      chartConfig={chartConfig}
-      accessor={'percentage'}
-      backgroundColor={'transparent'}
-      paddingLeft={'0'}
-    />
+    <View style={styles.container}>
+      <Svg width={screenWidth} height={220}>
+        <G transform={`translate(${cx}, ${cy})`}>
+          {arcs.map((arc, index) => {
+            const pathData = totalCalories > 0 ? arcGenerator(arc) : arcGenerator(arc);
+            const config = pieData[index];
+            return (
+              <Path
+                key={config.name}
+                d={pathData || ''}
+                fill={totalCalories > 0 ? config.color : '#e0e0e0'}
+              />
+            );
+          })}
+        </G>
+      </Svg>
+      <View style={styles.legend}>
+        {MACRO_CONFIG.map((config, index) => {
+          const pct = pieData[index].percentage;
+          const pctString = totalCalories > 0 ? `${Math.round(pct * 100)}%` : '0%';
+          return (
+            <View key={config.name} style={styles.legendRow}>
+              <View style={[styles.legendDot, { backgroundColor: config.color }]} />
+              <Text style={styles.legendText}>
+                {config.name}: {pctString}
+              </Text>
+            </View>
+          );
+        })}
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    paddingHorizontal: 40,
+    alignItems: 'center',
     backgroundColor: 'transparent',
   },
-  list: {
-    flex: 1,
-    width: '100%',
+  legend: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    paddingHorizontal: 16,
+    marginTop: 8,
+  },
+  legendRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 8,
+    marginVertical: 4,
+  },
+  legendDot: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    marginRight: 4,
+  },
+  legendText: {
+    color: '#7F7F7F',
+    fontSize: 13,
   },
 });
 
