@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Input } from '@rneui/themed';
+import { TextInput } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import { View } from '../../../components/Themed';
 
@@ -17,16 +17,15 @@ const MacroInput = ({ type, value, unit, setValue, setUnit }: Props) => {
   return (
     <>
       <View style={styles.container}>
-        <Input
-          containerStyle={styles.input}
-          inputContainerStyle={styles.inputContainer}
-          inputStyle={styles.inputContainer}
-          placeholder={type}
-          // leftIcon={<Icon name="user" size={24} color="black" />}
-          onChangeText={setValue}
-          value={value === undefined ? undefined : value.toString()}
-          keyboardType="numeric"
-        />
+        <View style={styles.input}>
+          <TextInput
+            mode="flat"
+            placeholder={type}
+            onChangeText={setValue}
+            value={value === undefined ? undefined : value.toString()}
+            keyboardType="numeric"
+          />
+        </View>
 
         {/* <View style={{ width: 50, height: 50, backgroundColor: 'red' }}></View> */}
 

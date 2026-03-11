@@ -7,6 +7,7 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import BootSplash from 'react-native-bootsplash';
+import { MD3DarkTheme, MD3LightTheme, PaperProvider } from 'react-native-paper';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -16,17 +17,21 @@ export default function App() {
     BootSplash.hide({ fade: true });
   }, []);
 
+  const paperTheme = colorScheme === 'dark' ? MD3DarkTheme : MD3LightTheme;
+
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <SafeAreaProvider>
-          <HistoryProvider>
-            <Navigation colorScheme={colorScheme} />
-            <StatusBar />
-          </HistoryProvider>
-        </SafeAreaProvider>
+        <PaperProvider theme={paperTheme}>
+          <SafeAreaProvider>
+            <HistoryProvider>
+              <Navigation colorScheme={colorScheme} />
+              <StatusBar />
+            </HistoryProvider>
+          </SafeAreaProvider>
+        </PaperProvider>
       </GestureHandlerRootView>
     );
   }

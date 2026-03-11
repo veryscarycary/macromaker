@@ -4,7 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { Text, View } from '../../../components/Themed';
 import { ModalStackNavigationProp } from '../../../types';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
-import { Input } from '@rneui/themed';
+import { TextInput } from 'react-native-paper';
 import Spacer from '../../../components/Spacer';
 import { Context as InfoContext } from '../../../context/InfoContext';
 
@@ -38,36 +38,36 @@ const BasicInfoScreen = ({ navigation }: Props) => {
       {/* <View style={styles.fields}> */}
 
       <View>
-        <Input
-          containerStyle={styles.input}
-          inputContainerStyle={styles.inputContainer}
-          inputStyle={styles.inputContainer}
-          onChangeText={(name: string) => setInfoState({ name })}
-          value={name}
-          placeholder="Your Name"
-        />
+        <View style={styles.input}>
+          <TextInput
+            mode="flat"
+            onChangeText={(name: string) => setInfoState({ name })}
+            value={name}
+            placeholder="Your Name"
+          />
+        </View>
 
-        <Input
-          containerStyle={styles.input}
-          inputContainerStyle={styles.inputContainer}
-          inputStyle={styles.inputContainer}
-          onChangeText={(age: string) => setInfoState({ age: Number(age) })}
-          value={String(age)}
-          placeholder="Your Age"
-          keyboardType="numeric"
-        />
+        <View style={styles.input}>
+          <TextInput
+            mode="flat"
+            onChangeText={(age: string) => setInfoState({ age: Number(age) })}
+            value={String(age)}
+            placeholder="Your Age"
+            keyboardType="numeric"
+          />
+        </View>
 
-        <Input
-          containerStyle={styles.input}
-          inputContainerStyle={styles.inputContainer}
-          inputStyle={styles.inputContainer}
-          onChangeText={(weight: string) =>
-            setInfoState({ weight: Number(weight) })
-          }
-          value={String(weight)}
-          placeholder="Your Weight"
-          keyboardType="numeric"
-        />
+        <View style={styles.input}>
+          <TextInput
+            mode="flat"
+            onChangeText={(weight: string) =>
+              setInfoState({ weight: Number(weight) })
+            }
+            value={String(weight)}
+            placeholder="Your Weight"
+            keyboardType="numeric"
+          />
+        </View>
       </View>
 
       <View style={styles.pickerContainer}>
