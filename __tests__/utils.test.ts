@@ -125,7 +125,7 @@ describe('utils', () => {
       const key = 'meals@01/01/2025';
       const spy = jest.spyOn(AsyncStorage, 'removeItem');
       await removeStoredData(key);
-      expect(spy).toHaveBeenCalledWith(key, expect.any(Function));
+      expect(spy).toHaveBeenCalledWith(key);
       spy.mockRestore();
     });
 
