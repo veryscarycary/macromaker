@@ -27,7 +27,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. Every npm dependency has a confirmed compatible version for New Architecture (Fabric/TurboModules)
   2. react-native-splash-screen is removed and react-native-bootsplash@7.1.0 installs without conflicts
   3. Target versions for all libraries are written down and locked before any RN version bump begins
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Audit all dependencies and produce DEPS-MATRIX.md
+- [ ] 01-02-PLAN.md — Replace react-native-splash-screen with bootsplash and rewrite MacroGraph SVG pie
 
 ### Phase 2: Infrastructure Upgrade
 **Goal**: App builds and launches on both iOS and Android with New Architecture enabled, all JS dependencies at target versions
@@ -71,7 +75,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Dependency Audit | 0/TBD | Not started | - |
+| 1. Dependency Audit | 0/2 | In progress | - |
 | 2. Infrastructure Upgrade | 0/TBD | Not started | - |
 | 3. RN 0.84.1 Final Upgrade | 0/TBD | Not started | - |
 | 4. Onboarding UX Polish | 0/TBD | Not started | - |
