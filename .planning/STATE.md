@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-infrastructure-upgrade-03-PLAN.md
-last_updated: "2026-03-11T18:55:31.128Z"
+stopped_at: Completed 02-infrastructure-upgrade 02-02-PLAN.md
+last_updated: "2026-03-11T18:56:11.622Z"
 last_activity: 2026-03-10 — Roadmap created
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 8
-  completed_plans: 4
+  completed_plans: 5
   percent: 0
 ---
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-dependency-audit P02 | 6 | 2 tasks | 22 files |
 | Phase 01-dependency-audit P02 | 65 | 3 tasks | 27 files |
 | Phase 02-infrastructure-upgrade P03 | 2 | 2 tasks | 3 files |
+| Phase 02-infrastructure-upgrade P02 | 2 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,8 @@ Recent decisions affecting current work:
 - [Phase 01-dependency-audit]: All-zeros pie chart renders equal gray slices (safe divide-by-zero fallback) in MacroGraph SVG
 - [Phase 01-dependency-audit]: Import pie/arc from d3-shape (not d3 bundle) — Metro cannot resolve full d3 ES module bundle; matches pattern of all other graph components
 - [Phase 02-infrastructure-upgrade]: kotlinVersion set to 1.9.24 (not 2.0): RN 0.76 template ships with 1.9.24; Kotlin 2.0 compat only confirmed for RN 0.84+
+- [Phase 02-infrastructure-upgrade]: AppDelegate.mm (.mm extension): Obj-C++ required for New Architecture C++ headers; old .m file deleted
+- [Phase 02-infrastructure-upgrade]: UIAppFonts trimmed to 3: only Ionicons, Feather, FontAwesome are imported in codebase — removes 12 unused font file declarations
 
 ### Pending Todos
 
@@ -86,6 +89,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T18:55:31.123Z
-Stopped at: Completed 02-infrastructure-upgrade-03-PLAN.md
+Last session: 2026-03-11T18:56:11.617Z
+Stopped at: Completed 02-infrastructure-upgrade 02-02-PLAN.md
 Resume file: None
