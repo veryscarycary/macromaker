@@ -1,5 +1,6 @@
-import { getTodaysDate, getDay, convertCarbsToCalories, convertProteinToCalories, convertFatToCalories } from './../utils';
+import { getTodaysDate, getDay, convertCarbsToCalories, convertProteinToCalories, convertFatToCalories, removeStoredData } from './../utils';
 import { CALORIES_PER_MACRO_UNIT_MAPPING } from './../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 describe('utils', () => {
   describe('getTodaysDate', () => {
@@ -116,6 +117,20 @@ describe('utils', () => {
       const actual = convertFatToCalories(grams);
 
       expect(actual).toEqual(grams * caloriesPerCarbGram);
+    });
+  });
+
+  describe('removeStoredData', () => {
+    it('should call AsyncStorage.removeItem with the correct key', async () => {
+      const key = 'meals@01/01/2025';
+      const spy = jest.spyOn(AsyncStorage, 'removeItem');
+      await removeStoredData(key);
+      expect(spy).toHaveBeenCalledWith(key, expect.any(Function));
+      spy.mockRestore();
+    });
+
+    it('should complete without throwing on successful remove', async () => {
+      await expect(removeStoredData('meals@01/01/2025')).resolves.not.toThrow();
     });
   });
 });
