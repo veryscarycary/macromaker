@@ -50,7 +50,7 @@
 
 | Library | Current | Target | New Arch | Phase | Action | Notes |
 |---------|---------|--------|----------|-------|--------|-------|
-| react-native-svg | 15.15.3 | 15.15.3 | YES | — | No change | Already latest; monitor for RCTImage observer API change before executing Phase 3 (RN 0.84) |
+| react-native-svg | 15.15.3 | 15.15.3 | YES | 2 | No version change needed | **Android build currently broken** — v15.x uses `BaseReactPackage` which is not present in RN 0.73 Android API; was working at v14.2.0 before dep modernization commit. Will resolve automatically when Phase 2 upgrades RN to 0.76+ (which includes `BaseReactPackage`). Do not downgrade — iOS works fine and Phase 2 fixes the root cause. |
 | react-native-chart-kit | 6.12.0 | REMOVED | NO | 1 | REPLACE NOW | Unmaintained (4+ years); confirmed not New Arch compatible (RN Directory); active use in `components/MacroGraph.tsx` line 3 — `import { PieChart } from 'react-native-chart-kit'` — PieChart renders carbs/protein/fat percentages; replacement: custom SVG PieChart using react-native-svg + D3 (Plan 01-02) |
 
 ---
