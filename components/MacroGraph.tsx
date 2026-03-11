@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import Svg, { Path, G } from 'react-native-svg';
-import { pie as d3pie, arc as d3arc } from 'd3';
+import { pie as d3pie, arc as d3arc } from 'd3-shape';
 import {
   convertCarbsToCalories,
   convertFatToCalories,
