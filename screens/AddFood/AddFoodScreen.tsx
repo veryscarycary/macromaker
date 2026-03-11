@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { SearchBar } from '@rneui/themed';
+import { Searchbar, TextInput } from 'react-native-paper';
 import { Text, View } from '../../components/Themed';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Spacer from '../../components/Spacer';
@@ -22,7 +22,6 @@ import {
 } from '../../utils';
 import { DietScreenNavigationProp, DietTabParamList, Meal } from '../../types';
 import DismissKeyboardView from '../../components/DismissKeyboardView';
-import { Input } from '@rneui/themed';
 
 type Props = {
   navigation: DietScreenNavigationProp;
@@ -87,8 +86,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
 
   return (
     <>
-      <SearchBar
-        lightTheme={true}
+      <Searchbar
         placeholder="Broccoli, pizza, etc"
         onChangeText={(value: string) => setSearch(value)}
         value={search}
@@ -96,12 +94,14 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
 
       <DismissKeyboardView style={styles.addMealForm}>
         {/* <View style={styles.fields}> */}
-        <Input
-          containerStyle={styles.input}
-          onChangeText={setMealName}
-          value={mealName}
-          placeholder="Meal Name"
-        />
+        <View style={styles.input}>
+          <TextInput
+            mode="flat"
+            onChangeText={setMealName}
+            value={mealName}
+            placeholder="Meal Name"
+          />
+        </View>
 
         <MacroInput
           type="Carbs"

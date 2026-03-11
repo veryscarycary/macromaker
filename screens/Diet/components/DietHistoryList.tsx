@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
-import { ListItem } from '@rneui/themed';
+import { List, Divider } from 'react-native-paper';
 import { DietDay, DietScreenNavigationProp, GenericObject } from '../../../types';
 
 const today = new Date();
@@ -14,14 +14,15 @@ threeDaysAgo.setDate(today.getDate() - 3);
 const keyExtractor = (item: any, index: number) => index.toString();
 
 const DietHistoryListItem = ({ dietHistoryDay, onPress }: GenericObject) => (
-  <ListItem bottomDivider onPress={onPress}>
-    {/* <Avatar source={{ uri: '' }} /> */}
-    <ListItem.Content>
-      <ListItem.Title>{dietHistoryDay.day}</ListItem.Title>
-      <ListItem.Subtitle>{dietHistoryDay.date}</ListItem.Subtitle>
-    </ListItem.Content>
-    <ListItem.Chevron />
-  </ListItem>
+  <>
+    <List.Item
+      title={dietHistoryDay.day}
+      description={dietHistoryDay.date}
+      right={props => <List.Icon {...props} icon="chevron-right" />}
+      onPress={onPress}
+    />
+    <Divider />
+  </>
 );
 
 type Props = {
