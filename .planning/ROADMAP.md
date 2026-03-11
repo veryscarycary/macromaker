@@ -43,7 +43,15 @@ Plans:
   3. New Architecture is enabled (newArchEnabled=true) and no bridge-mode warnings appear at startup
   4. All existing animated and gesture interactions (graphs, navigation transitions) work correctly after Reanimated 4 migration
   5. React Navigation v7, AsyncStorage 3.x, and all updated libraries are installed with no peer dependency errors
-**Plans**: TBD
+**Plans**: 6 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Add removeStoredData unit tests (Wave 0 test scaffold)
+- [ ] 02-02-PLAN.md — iOS native infra: AppDelegate.mm rewrite + Podfile iOS 15.1 + Info.plist font trim
+- [ ] 02-03-PLAN.md — Android native infra: SoLoader OpenSourceMergedSoMapping + minSdk 24 + newArchEnabled
+- [ ] 02-04-PLAN.md — RN 0.76 bump + all JS dependency upgrades + utils.ts callback fix + babel plugin
+- [ ] 02-05-PLAN.md — Replace @rneui/themed with react-native-paper across 5 files + PaperProvider
+- [ ] 02-06-PLAN.md — pod install, iOS build + launch, human verification checkpoint
 
 ### Phase 3: RN 0.84.1 Final Upgrade
 **Goal**: App runs on React Native 0.84.1 on iOS and Android with all existing features working correctly
@@ -76,6 +84,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Dependency Audit | 2/2 | Complete    | 2026-03-11 |
-| 2. Infrastructure Upgrade | 0/TBD | Not started | - |
+| 2. Infrastructure Upgrade | 0/6 | Not started | - |
 | 3. RN 0.84.1 Final Upgrade | 0/TBD | Not started | - |
 | 4. Onboarding UX Polish | 0/TBD | Not started | - |
