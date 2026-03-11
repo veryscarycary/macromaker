@@ -25,7 +25,7 @@ Rewrite native layers (iOS AppDelegate.mm using RCTAppDelegate, Android MainAppl
 - iOS: Rewrite AppDelegate.mm inheriting from RCTAppDelegate (per NATV-01)
 - iOS: Update Podfile to platform iOS 15.1 using RN 0.76 template (per NATV-02)
 - Android: Update MainApplication SoLoader init to OpenSourceMergedSoMapping (per NATV-03)
-- Android: Update build.gradle — minSdk 24, Kotlin 2.0, updated Gradle (per NATV-04)
+- Android: Update build.gradle — minSdk 24, Kotlin 1.9.24 (NOT 2.0 — deferred to Phase 3; RN 0.76 template ships 1.9.24; Kotlin 2.0 compat only confirmed for RN 0.84+), updated Gradle (per NATV-04)
 - Enable `newArchEnabled=true` in gradle.properties (per NATV-05)
 - Note: Bootsplash customizeRootView hook currently uses Obj-C; replace with Swift in AppDelegate.mm rewrite
 
@@ -73,7 +73,7 @@ Rewrite native layers (iOS AppDelegate.mm using RCTAppDelegate, Android MainAppl
 - `ios/macromaker/AppDelegate.mm` — full rewrite needed; currently uses Obj-C customizeRootView hook for bootsplash; migrate to Swift pattern
 - `ios/Podfile` — update platform target to iOS 15.1
 - `android/gradle.properties` — set `newArchEnabled=true`
-- `android/app/build.gradle` — minSdk 24, Kotlin 2.0
+- `android/app/build.gradle` — minSdk 24, Kotlin 1.9.24
 - `android/app/src/main/java/.../MainApplication` — SoLoader init change
 
 ### Known Issue to Monitor
