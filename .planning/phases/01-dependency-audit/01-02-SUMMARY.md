@@ -1,0 +1,155 @@
+---
+phase: 01-dependency-audit
+plan: 02
+subsystem: ui
+tags: [react-native-bootsplash, react-native-svg, d3, splash-screen, pie-chart, dependency-removal]
+
+# Dependency graph
+requires:
+  - phase: 01-dependency-audit plan 01
+    provides: "Confirmed list of blocking/removable libraries: react-native-splash-screen, react-native-chart-kit, execa"
+provides:
+  - "react-native-splash-screen removed from package.json and native files"
+  - "react-native-chart-kit removed from package.json"
+  - "react-native-bootsplash@7.1.0 installed with iOS/Android native wiring and JS-layer dismiss"
+  - "MacroGraph.tsx custom SVG pie chart using D3 + react-native-svg (no chart-kit)"
+  - "execa removed from production deps"
+  - "AsyncStorage jest mock configured in package.json (fixes test infrastructure)"
+affects:
+  - phase-2-version-upgrade
+  - phase-3-new-architecture
+
+# Tech tracking
+tech-stack:
+  added:
+    - react-native-bootsplash@7.1.0 (replaces react-native-splash-screen)
+  patterns:
+    - D3 pie/arc generators + react-native-svg for charts (established in BarGraph, now also MacroGraph)
+    - BootSplash.hide({ fade: true }) in App.tsx root useEffect for JS-layer dismiss
+    - RNBootSplash.initWithStoryboard in AppDelegate.m customizeRootView for iOS native hook
+
+key-files:
+  created:
+    - __tests__/MacroGraph.test.tsx
+    - ios/macromaker/BootSplash.storyboard
+    - ios/macromaker/Colors.xcassets/BootSplashBackground-ea7b4e.colorset/Contents.json
+    - ios/macromaker/Images.xcassets/BootSplashLogo-ea7b4e.imageset/Contents.json
+    - android/app/src/main/res/values/styles.xml (BootTheme)
+    - assets/bootsplash/manifest.json
+  modified:
+    - components/MacroGraph.tsx (SVG pie chart, no chart-kit)
+    - App.tsx (BootSplash.hide useEffect)
+    - ios/macromaker/AppDelegate.m (RNBootSplash import + customizeRootView)
+    - ios/macromaker/Info.plist (UILaunchStoryboardName: BootSplash)
+    - android/app/src/main/java/com/carymeskell/macrotracker/MainActivity.java (RNBootSplash.init)
+    - package.json (removed 3 packages, added bootsplash, added AsyncStorage jest mock)
+
+key-decisions:
+  - "Used customizeRootView Obj-C hook in AppDelegate.m for bootsplash init — AppDelegate.m is legacy Obj-C (will be replaced in Phase 2)"
+  - "JS dismiss placed in App.tsx root component useEffect (empty deps) — fires once on mount, after resources loaded"
+  - "All-zeros pie chart state renders equal gray slices instead of crashing on divide-by-zero"
+  - "AsyncStorage jest mock added to package.json jest config — fixes pre-existing broken test infrastructure (Rule 2)"
+
+patterns-established:
+  - "Pie chart pattern: d3pie/d3arc generators with PIE_RADIUS=90, centered G transform, Path per slice"
+  - "TDD pattern: write failing test first (chart-kit import causes fail), rewrite component, confirm green"
+
+requirements-completed:
+  - DEPS-02
+
+# Metrics
+duration: 6min
+completed: 2026-03-11
+---
+
+# Phase 01 Plan 02: Dependency Replacement Summary
+
+**Replaced react-native-splash-screen with react-native-bootsplash@7.1.0 (iOS/Android native + JS dismiss) and rewrote MacroGraph as a D3+SVG pie chart — both blocking libraries removed before RN version bump**
+
+## Performance
+
+- **Duration:** 6 min
+- **Started:** 2026-03-11T04:45:00Z
+- **Completed:** 2026-03-11T04:51:14Z
+- **Tasks:** 2 of 3 completed (Task 3 is human-verify checkpoint)
+- **Files modified:** 22
+
+## Accomplishments
+
+- Removed react-native-splash-screen, react-native-chart-kit, and execa from package.json
+- Installed react-native-bootsplash@7.1.0 with full iOS native wiring (AppDelegate.m, Info.plist, BootSplash.storyboard) and Android wiring (MainActivity.java, BootTheme styles)
+- Added JS-layer dismiss (BootSplash.hide with fade) in App.tsx root useEffect
+- Rewrote MacroGraph.tsx as custom D3 + react-native-svg pie chart — zero chart-kit imports
+- Generated bootsplash assets for both platforms from existing app logo
+- Fixed pre-existing broken jest infrastructure (AsyncStorage mock) while adding MacroGraph tests
+
+## Task Commits
+
+Each task was committed atomically:
+
+1. **TDD RED — MacroGraph failing test** - `073b2e3` (test)
+2. **TDD GREEN — MacroGraph SVG pie chart** - `21ddc85` (feat)
+3. **Task 2 — Remove blocking deps, install bootsplash, wire native + JS** - `453836c` (feat)
+
+_Note: Task 1 (TDD) produced two commits: RED test, then GREEN implementation._
+
+## Files Created/Modified
+
+- `components/MacroGraph.tsx` - Custom SVG pie chart using d3pie/d3arc + react-native-svg, 3-macro legend
+- `__tests__/MacroGraph.test.tsx` - TDD test suite verifying no chart-kit dependency, percentage math
+- `App.tsx` - Added BootSplash import and hide({ fade: true }) useEffect
+- `ios/macromaker/AppDelegate.m` - Added RNBootSplash.h import and customizeRootView hook
+- `ios/macromaker/Info.plist` - UILaunchStoryboardName changed from SplashScreen to BootSplash
+- `ios/macromaker/BootSplash.storyboard` - Generated by bootsplash CLI
+- `android/app/src/main/java/com/carymeskell/macrotracker/MainActivity.java` - Added RNBootSplash.init before super.onCreate
+- `android/app/src/main/res/values/styles.xml` - BootTheme for Android splash
+- `package.json` - Removed 3 packages, added bootsplash, added AsyncStorage jest mock config
+- `assets/bootsplash/` - Generated logo assets at multiple densities
+
+## Decisions Made
+
+- Used `customizeRootView` Obj-C hook pattern for iOS since AppDelegate is legacy Obj-C (will be replaced with Swift in Phase 2 when upgrading to RN 0.76+)
+- Placed JS dismiss in App.tsx root useEffect (not in useCachedResources hook) so it fires regardless of loading state
+- All-zeros pie state shows equal gray slices instead of error or crash — safe fallback
+- AsyncStorage jest mock added to package.json jest config (fixes pre-existing broken test infra — Rule 2 auto-fix)
+
+## Deviations from Plan
+
+### Auto-fixed Issues
+
+**1. [Rule 2 - Missing Critical] Added AsyncStorage jest mock to package.json**
+- **Found during:** Task 1 (MacroGraph TDD test setup)
+- **Issue:** Jest suite failed with "Cannot find module" on AsyncStorage native code — pre-existing infrastructure broken, affects all current and future tests
+- **Fix:** Added `moduleNameMapper` to package.json jest config pointing to `@react-native-async-storage/async-storage/jest/async-storage-mock` (built-in mock provided by the library)
+- **Files modified:** package.json
+- **Verification:** `npm run test` shows utils.test.ts now passes (12 tests); was previously 0 tests run
+- **Committed in:** `073b2e3` (TDD RED commit)
+
+---
+
+**Total deviations:** 1 auto-fixed (1 missing critical — test infrastructure)
+**Impact on plan:** Auto-fix necessary for correct test operation. No scope creep.
+
+## Issues Encountered
+
+- **pod install fails:** `react-native-safe-area-context` podspec calls `visionos` method not supported by installed CocoaPods version. Pre-existing issue — unrelated to bootsplash changes. Bootsplash iOS native linking is handled via Xcode project file (updated by `bootsplash generate` CLI). Note logged to deferred-items.
+
+## User Setup Required
+
+**Task 3 (human-verify checkpoint) requires:**
+1. Run the iOS app: `npm run ios`
+2. Observe cold start: splash screen shows app logo on white background, then dismisses
+3. Navigate to DailyDietScreen with meal data — confirm MacroGraph pie chart renders colored slices
+4. (Optional) Run `npm run android` for Android splash verification
+5. Confirm no red screen errors from chart-kit or splash-screen imports
+
+## Next Phase Readiness
+
+- All confirmed-blocking libraries removed from JS dependency tree
+- react-native-bootsplash wired and ready; pod install needed after CocoaPods version resolved
+- MacroGraph using only New Architecture-compatible libraries (react-native-svg + D3)
+- Package.json is clean for Phase 2 version upgrade work
+
+---
+*Phase: 01-dependency-audit*
+*Completed: 2026-03-11*

@@ -9,9 +9,9 @@ Requirements for this milestone: upgrade to RN 0.84.1 + onboarding UX polish.
 
 ### Dependency Audit
 
-- [ ] **DEPS-01**: All npm dependencies audited for New Architecture (Fabric/TurboModules) compatibility
-- [ ] **DEPS-02**: `react-native-splash-screen` replaced with `react-native-bootsplash@7.1.0`
-- [ ] **DEPS-03**: Target versions locked for all libraries before any RN version bump begins
+- [x] **DEPS-01**: All npm dependencies audited for New Architecture (Fabric/TurboModules) compatibility
+- [x] **DEPS-02**: `react-native-splash-screen` replaced with `react-native-bootsplash@7.1.0`
+- [x] **DEPS-03**: Target versions locked for all libraries before any RN version bump begins
 
 ### Native Infrastructure
 
@@ -84,9 +84,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DEPS-01 | Phase 1 | Pending |
-| DEPS-02 | Phase 1 | Pending |
-| DEPS-03 | Phase 1 | Pending |
+| DEPS-01 | Phase 1 | Complete |
+| DEPS-02 | Phase 1 | Complete |
+| DEPS-03 | Phase 1 | Complete |
 | NATV-01 | Phase 2 | Pending |
 | NATV-02 | Phase 2 | Pending |
 | NATV-03 | Phase 2 | Pending |

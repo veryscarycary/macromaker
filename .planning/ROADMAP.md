@@ -12,7 +12,7 @@ This milestone upgrades macromaker from React Native 0.73.6 to 0.84.1 and polish
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Dependency Audit** - Identify and replace incompatible dependencies before any version bump begins
+- [x] **Phase 1: Dependency Audit** - Identify and replace incompatible dependencies before any version bump begins (completed 2026-03-11)
 - [ ] **Phase 2: Infrastructure Upgrade** - Rewrite native layers and upgrade JS dependencies to New Architecture targets
 - [ ] **Phase 3: RN 0.84.1 Final Upgrade** - Complete the version hop and verify all features on both platforms
 - [ ] **Phase 4: Onboarding UX Polish** - Fix six identified UX gaps in the first-launch onboarding flow
@@ -75,7 +75,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Dependency Audit | 1/2 | In Progress|  |
+| 1. Dependency Audit | 2/2 | Complete   | 2026-03-11 |
 | 2. Infrastructure Upgrade | 0/TBD | Not started | - |
 | 3. RN 0.84.1 Final Upgrade | 0/TBD | Not started | - |
 | 4. Onboarding UX Polish | 0/TBD | Not started | - |
