@@ -17,9 +17,9 @@ Requirements for this milestone: upgrade to RN 0.84.1 + onboarding UX polish.
 
 - [ ] **NATV-01**: iOS AppDelegate.m fully rewritten to AppDelegate.mm inheriting from RCTAppDelegate
 - [ ] **NATV-02**: iOS Podfile updated to platform iOS 15.1 using new RN 0.76 template
-- [ ] **NATV-03**: Android MainApplication SoLoader init updated to OpenSourceMergedSoMapping
-- [ ] **NATV-04**: Android build.gradle updated (minSdk 24, Kotlin 2.0, updated Gradle)
-- [ ] **NATV-05**: New Architecture enabled (`newArchEnabled=true` in gradle.properties)
+- [x] **NATV-03**: Android MainApplication SoLoader init updated to OpenSourceMergedSoMapping
+- [x] **NATV-04**: Android build.gradle updated (minSdk 24, Kotlin 2.0, updated Gradle)
+- [x] **NATV-05**: New Architecture enabled (`newArchEnabled=true` in gradle.properties)
 - [ ] **NATV-06**: App builds and launches on iOS and Android at RN 0.76.x
 
 ### JavaScript Dependencies
@@ -89,9 +89,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DEPS-03 | Phase 1 | Complete |
 | NATV-01 | Phase 2 | Pending |
 | NATV-02 | Phase 2 | Pending |
-| NATV-03 | Phase 2 | Pending |
-| NATV-04 | Phase 2 | Pending |
-| NATV-05 | Phase 2 | Pending |
+| NATV-03 | Phase 2 | Complete |
+| NATV-04 | Phase 2 | Complete |
+| NATV-05 | Phase 2 | Complete |
 | NATV-06 | Phase 2 | Pending |
 | JSDP-01 | Phase 2 | Pending |
 | JSDP-02 | Phase 2 | Pending |

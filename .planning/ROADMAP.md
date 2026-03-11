@@ -84,6 +84,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Dependency Audit | 2/2 | Complete    | 2026-03-11 |
-| 2. Infrastructure Upgrade | 0/6 | Not started | - |
+| 2. Infrastructure Upgrade | 2/6 | In Progress|  |
 | 3. RN 0.84.1 Final Upgrade | 0/TBD | Not started | - |
 | 4. Onboarding UX Polish | 0/TBD | Not started | - |
