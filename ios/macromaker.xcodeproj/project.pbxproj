@@ -15,6 +15,8 @@
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		79D2183300304C98BAF77AA6 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105ACB705DBA40649D5B2B38 /* noop-file.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		92F599647A7B46F5B2BE28E0 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8320FD2A9ABE4E75B565CED7 /* BootSplash.storyboard */; };
+		98F88589525A42A0BC00FAC9 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C7E0BED83A245BCA2633C8C /* Colors.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		E3A26403855460A56958E9CB /* Pods-macromaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macromaker.release.xcconfig"; path = "Target Support Files/Pods-macromaker/Pods-macromaker.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		8320FD2A9ABE4E75B565CED7 /* BootSplash.storyboard */ = {isa = PBXFileReference; name = "BootSplash.storyboard"; path = "macromaker/BootSplash.storyboard"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8C7E0BED83A245BCA2633C8C /* Colors.xcassets */ = {isa = PBXFileReference; name = "Colors.xcassets"; path = "macromaker/Colors.xcassets"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = folder.assetcatalog; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
 				105ACB705DBA40649D5B2B38 /* noop-file.swift */,
 				0A6EEE9A87EF41898E595BCE /* macromaker-Bridging-Header.h */,
+				8320FD2A9ABE4E75B565CED7 /* BootSplash.storyboard */,
+				8C7E0BED83A245BCA2633C8C /* Colors.xcassets */,
 			);
 			name = macromaker;
 			sourceTree = "<group>";
@@ -190,6 +196,8 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
+				92F599647A7B46F5B2BE28E0 /* BootSplash.storyboard in Resources */,
+				98F88589525A42A0BC00FAC9 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
