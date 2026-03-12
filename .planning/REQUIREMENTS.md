@@ -20,16 +20,16 @@ Requirements for this milestone: upgrade to RN 0.84.1 + onboarding UX polish.
 - [x] **NATV-03**: Android MainApplication SoLoader init updated to OpenSourceMergedSoMapping
 - [x] **NATV-04**: Android build.gradle updated (minSdk 24, Kotlin 2.0, updated Gradle)
 - [x] **NATV-05**: New Architecture enabled (`newArchEnabled=true` in gradle.properties)
-- [ ] **NATV-06**: App builds and launches on iOS and Android at RN 0.76.x
+- [x] **NATV-06**: App builds and launches on iOS and Android at RN 0.76.x
 
 ### JavaScript Dependencies
 
-- [ ] **JSDP-01**: React Navigation upgraded to v7 bundle (@react-navigation/native, stack, bottom-tabs all v7)
-- [ ] **JSDP-02**: react-native-screens upgraded to v4 and react-native-safe-area-context to v5 (required with Nav v7)
-- [ ] **JSDP-03**: react-native-reanimated upgraded from 3.x to 4.x with react-native-worklets peer dependency
-- [ ] **JSDP-04**: Reanimated Babel plugin updated from `react-native-reanimated/plugin` to `react-native-worklets/plugin`
+- [x] **JSDP-01**: React Navigation upgraded to v7 bundle (@react-navigation/native, stack, bottom-tabs all v7)
+- [x] **JSDP-02**: react-native-screens upgraded to v4 and react-native-safe-area-context to v5 (required with Nav v7)
+- [x] **JSDP-03**: react-native-reanimated upgraded from 3.x to 4.x with react-native-worklets peer dependency
+- [x] **JSDP-04**: Reanimated Babel plugin updated from `react-native-reanimated/plugin` to `react-native-worklets/plugin`
 - [x] **JSDP-05**: @react-native-async-storage/async-storage upgraded from 1.x to 3.x with API compatibility verified
-- [ ] **JSDP-06**: All existing animated/gesture code verified working after Reanimated 4 migration
+- [x] **JSDP-06**: All existing animated/gesture code verified working after Reanimated 4 migration
 
 ### RN Version Upgrade
 
@@ -92,13 +92,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NATV-03 | Phase 2 | Complete |
 | NATV-04 | Phase 2 | Complete |
 | NATV-05 | Phase 2 | Complete |
-| NATV-06 | Phase 2 | Pending |
-| JSDP-01 | Phase 2 | Pending |
-| JSDP-02 | Phase 2 | Pending |
-| JSDP-03 | Phase 2 | Pending |
-| JSDP-04 | Phase 2 | Pending |
+| NATV-06 | Phase 2 | Complete |
+| JSDP-01 | Phase 2 | Complete |
+| JSDP-02 | Phase 2 | Complete |
+| JSDP-03 | Phase 2 | Complete |
+| JSDP-04 | Phase 2 | Complete |
 | JSDP-05 | Phase 2 | Complete |
-| JSDP-06 | Phase 2 | Pending |
+| JSDP-06 | Phase 2 | Complete |
 | RNUP-01 | Phase 3 | Pending |
 | RNUP-02 | Phase 3 | Pending |
 | RNUP-03 | Phase 3 | Pending |
