@@ -35,11 +35,7 @@ function RootNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        cardStyle: { backgroundColor: 'transparent' },
-        cardOverlayEnabled: true,
-        gestureDirection: 'vertical',
         headerShown: false,
-        presentation: 'modal',
       }}
     >
       <Stack.Screen name="Root" component={BottomTabNavigator} />
@@ -51,15 +47,15 @@ function RootNavigator() {
       <Stack.Screen
         name="Modal"
         component={ModalScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="MenuModal"
         component={MenuModalScreen}
         options={{
-          gestureDirection: 'vertical',
-          gestureEnabled: true,
-          gestureResponseDistance: 1000,
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
