@@ -9,8 +9,10 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactHost;
 import com.facebook.react.defaults.DefaultReactNativeHost;
+import com.facebook.react.runtime.hermes.HermesInstance;
 import com.facebook.soloader.SoLoader;
 import com.facebook.react.soloader.OpenSourceMergedSoMapping;
+import java.io.IOException;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -39,7 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
         }
 
         @Override
-        protected Boolean isHermesEnabled() {
+        protected boolean isHermesEnabled() {
           return BuildConfig.IS_HERMES_ENABLED;
         }
       };
@@ -51,13 +53,18 @@ public class MainApplication extends Application implements ReactApplication {
 
   @Override
   public ReactHost getReactHost() {
-    return DefaultReactHost.getDefaultReactHost(this.getApplicationContext(), mReactNativeHost);
+    return DefaultReactHost.getDefaultReactHost(
+        this.getApplicationContext(), mReactNativeHost, new HermesInstance());
   }
 
   @Override
   public void onCreate() {
     super.onCreate();
-    SoLoader.init(this, new OpenSourceMergedSoMapping());
+    try {
+      SoLoader.init(this, OpenSourceMergedSoMapping.INSTANCE);
+    } catch (IOException error) {
+      throw new RuntimeException(error);
+    }
     if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
       DefaultNewArchitectureEntryPoint.load();
     }
