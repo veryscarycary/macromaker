@@ -8,3 +8,60 @@ target 'macromaker' do
     :path => "../node_modules/react-native"
   )
 end
+
+post_install do |installer|
+  react_native_post_install(
+    installer,
+    "../node_modules/react-native",
+    :mac_catalyst_enabled => false
+  )
+
+  # Fix: CocoaPods 1.16.x collapses all Props.cpp (and other same-named files) from
+  # different codegen subdirectories into a single PBXFileReference, causing only one
+  # to be compiled. Patch the ReactCodegen Sources build phase to add unique file
+  # references for each namespace's generated Fabric component sources.
+  installer.pods_project.targets.each do |target|
+    if target.name == 'ReactCodegen'
+      sources_phase = target.build_phases.find { |p| p.is_a?(Xcodeproj::Project::Object::PBXSourcesBuildPhase) }
+      next unless sources_phase
+
+      # Find duplicate file references (same path, different parent groups)
+      seen_paths = {}
+      sources_phase.files.each do |build_file|
+        next unless build_file.file_ref
+        path = build_file.file_ref.path
+        parent_path = build_file.file_ref.real_path.to_s rescue nil
+        seen_paths[path] ||= []
+        seen_paths[path] << { build_file: build_file, real_path: parent_path }
+      end
+
+      # For files with duplicates, remove extra entries and add unique refs
+      duplicate_basenames = %w[Props.cpp ShadowNodes.cpp ComponentDescriptors.cpp EventEmitters.cpp States.cpp]
+
+      duplicate_basenames.each do |basename|
+        # Find all actual files with this basename in codegen output
+        codegen_dir = File.join(installer.sandbox.root, '..', 'build', 'generated', 'ios', 'react', 'renderer', 'components')
+        next unless Dir.exist?(codegen_dir)
+
+        actual_files = Dir.glob(File.join(codegen_dir, '**', basename))
+        next if actual_files.length <= 1
+
+        # Remove existing (collapsed) build file entries for this basename
+        existing_build_files = sources_phase.files.select { |bf|
+          bf.file_ref && bf.file_ref.path == basename
+        }
+        existing_build_files.each { |bf| sources_phase.remove_build_file(bf) }
+
+        # Add unique file references for each actual file
+        compiler_flags = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_CFG_NO_COROUTINES=1 -DFOLLY_HAVE_CLOCK_GETTIME=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation -Wno-nullability-completeness -std=c++20"
+        actual_files.each do |file_path|
+          file_ref = installer.pods_project.new_file(file_path)
+          build_file = sources_phase.add_file_reference(file_ref)
+          build_file.settings = { 'COMPILER_FLAGS' => compiler_flags }
+        end
+      end
+
+      installer.pods_project.save
+    end
+  end
+end
