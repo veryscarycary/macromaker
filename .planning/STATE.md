@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: "Checkpoint: Task 3 human-verify in 02-infrastructure-upgrade/02-06-PLAN.md"
-last_updated: "2026-03-12T00:59:23.691Z"
+stopped_at: Completed 03-rn-0-84-1-final-upgrade/03-02-PLAN.md
+last_updated: "2026-03-12T08:15:39.949Z"
 last_activity: 2026-03-10 — Roadmap created
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 8
-  completed_plans: 8
+  total_plans: 11
+  completed_plans: 10
   percent: 0
 ---
 
@@ -59,6 +59,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-infrastructure-upgrade P04 | 15 | 2 tasks | 5 files |
 | Phase 02-infrastructure-upgrade P05 | 3 | 2 tasks | 6 files |
 | Phase 02-infrastructure-upgrade P06 | 180 | 2 tasks | 7 files |
+| Phase 03-rn-0-84-1-final-upgrade P02 | 40 | 3 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -90,6 +91,10 @@ Recent decisions affecting current work:
 - [Phase 02-infrastructure-upgrade]: Podfile post_install hook with react_native_post_install: mandatory in RN 0.76.x for REACT_NATIVE_PATH build setting
 - [Phase 02-infrastructure-upgrade]: CocoaPods 1.16.x Props.cpp deduplication fix: post_install patches Pods.xcodeproj to add unique PBXFileReferences for same-named codegen files
 - [Phase 02-infrastructure-upgrade]: react-native-svg StyleSizeLength->StyleLength: node_modules patch for Yoga 3.x rename in RN 0.76; needs patch-package follow-up
+- [Phase 03-rn-0-84-1-final-upgrade]: RCT_USE_PREBUILT_RNCORE=0 in Podfile: prevents prebuilt React.framework duplicate symbol crash with static pods in RN 0.84.1
+- [Phase 03-rn-0-84-1-final-upgrade]: CocoaPods deduplication workaround codegen path updated to ReactCodegen/ prefix (RN 0.84.1 layout change); workaround itself remains valid
+- [Phase 03-rn-0-84-1-final-upgrade]: enableScreens(false) at index.js: react-native-screens 4.x + New Architecture bridge crash workaround; not a temporary patch, intentional disablement of native screens integration
+- [Phase 03-rn-0-84-1-final-upgrade]: Android: Kotlin 1.9.24->2.1.20, AGP 8.6->8.12, Gradle 8.8->8.13 aligned to exact RN 0.84.1 version catalog expectations
 
 ### Pending Todos
 
@@ -103,6 +108,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-12T00:59:23.686Z
-Stopped at: Checkpoint: Task 3 human-verify in 02-infrastructure-upgrade/02-06-PLAN.md
+Last session: 2026-03-12T08:15:39.944Z
+Stopped at: Completed 03-rn-0-84-1-final-upgrade/03-02-PLAN.md
 Resume file: None
