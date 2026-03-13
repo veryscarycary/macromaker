@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -26,14 +26,23 @@ const MoreInfoScreen = ({ navigation }: Props) => {
     state,
     setInfoState,
   } = useContext(InfoContext);
+  const [macroError, setMacroError] = useState(false);
   const infoWithCalculatedMetrics = getInfoWithCalculatedMetrics(state);
   const {
     bmr: calculatedBmr,
     bmi: calculatedBmi,
     tdee: calculatedTdee,
   } = infoWithCalculatedMetrics;
+
+  const macroSum = Math.round((targetProteinPercentage + targetCarbsPercentage + targetFatPercentage) * 100);
+
+  const handleSliderChange = (setter: (v: number) => void) => (value: number) => {
+    setMacroError(false);
+    setter(value);
+  };
+
   return (
-    <SafeAreaView style={styles.safeArea} edges={['bottom']}>
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <StepIndicator totalSteps={3} currentStep={3} />
       <DismissKeyboardView style={styles.form}>
         <ScrollView
@@ -63,36 +72,45 @@ const MoreInfoScreen = ({ navigation }: Props) => {
               goal. If you'd like to adjust them, you can do so now.
             </Text>
           </View>
-          <View style={[styles.sliderSection, isCompact ? styles.sliderSectionCompact : null]}>
+          <View style={[styles.sliderSection, isCompact ? styles.sliderSectionCompact : null, macroError ? styles.sliderSectionError : null]}>
             <PercentageSlider
               label="Protein"
-              setValue={(value: number) =>
+              setValue={handleSliderChange((value: number) =>
                 setInfoState({ targetProteinPercentage: value })
-              }
+              )}
               value={targetProteinPercentage}
             />
             <PercentageSlider
               label="Carbs"
               style={styles.sliderSpacing}
-              setValue={(value: number) =>
+              setValue={handleSliderChange((value: number) =>
                 setInfoState({ targetCarbsPercentage: value })
-              }
+              )}
               value={targetCarbsPercentage}
             />
             <PercentageSlider
               label="Fat"
               style={styles.sliderSpacing}
-              setValue={(value: number) =>
+              setValue={handleSliderChange((value: number) =>
                 setInfoState({ targetFatPercentage: value })
-              }
+              )}
               value={targetFatPercentage}
             />
+            {macroError && (
+              <Text style={styles.macroErrorText}>
+                Percentages must add up to 100% (currently {macroSum}%)
+              </Text>
+            )}
           </View>
         </ScrollView>
         <View style={styles.footer}>
           <TouchableOpacity
             style={styles.button}
             onPress={async () => {
+              if (macroSum !== 100) {
+                setMacroError(true);
+                return;
+              }
               await storeBasicInfo(infoWithCalculatedMetrics);
               navigation.getParent()?.dispatch(
                 CommonActions.reset({ index: 0, routes: [{ name: 'Root' }] })
@@ -174,6 +192,18 @@ const styles = StyleSheet.create({
   },
   sliderSpacing: {
     marginTop: 10,
+  },
+  sliderSectionError: {
+    borderWidth: 1.5,
+    borderColor: '#e53e3e',
+    borderRadius: 8,
+    padding: 10,
+  },
+  macroErrorText: {
+    color: '#e53e3e',
+    fontSize: 12,
+    marginTop: 8,
+    textAlign: 'center',
   },
   titleCompact: {
     fontSize: 16,
