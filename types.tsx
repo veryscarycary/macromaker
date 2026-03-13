@@ -28,6 +28,7 @@ export type ModalStackNavigationProp = StackNavigationProp<ModalStackParamList>;
 export type BottomTabParamList = {
   Diet: undefined;
   Fitness: undefined;
+  Settings: undefined;
 };
 
 export type DietTabParamList = {
