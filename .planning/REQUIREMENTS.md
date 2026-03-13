@@ -34,7 +34,7 @@ Requirements for this milestone: upgrade to RN 0.84.1 + onboarding UX polish.
 ### RN Version Upgrade
 
 - [x] **RNUP-01**: React Native upgraded to 0.84.1 with React and Hermes at matching versions
-- [ ] **RNUP-02**: Node.js 22.11+ and Xcode 16.1+ confirmed as build environment
+- [x] **RNUP-02**: Node.js 22.11+ and Xcode 16.1+ confirmed as build environment
 - [x] **RNUP-03**: App runs on iOS simulator and physical device without crashes
 - [x] **RNUP-04**: App runs on Android emulator and physical device without crashes
 - [x] **RNUP-05**: All existing features (meal entry, history, graphs, tabs) work correctly on 0.84.1
@@ -100,7 +100,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | JSDP-05 | Phase 2 | Complete |
 | JSDP-06 | Phase 2 | Complete |
 | RNUP-01 | Phase 3 | Complete |
-| RNUP-02 | Phase 3 | Pending |
+| RNUP-02 | Phase 3 | Complete |
 | RNUP-03 | Phase 3 | Complete |
 | RNUP-04 | Phase 3 | Complete |
 | RNUP-05 | Phase 3 | Complete |
