@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, Text } from 'react-native';
-import Svg, { Path, G } from 'react-native-svg';
+import { View, StyleSheet, Text } from 'react-native';
+import Svg, { Circle, Path, G, Text as SvgText } from 'react-native-svg';
 import { pie as d3pie, arc as d3arc } from 'd3-shape';
 import {
   convertCarbsToCalories,
@@ -8,7 +8,6 @@ import {
   convertProteinToCalories,
 } from '../utils';
 
-const screenWidth = Dimensions.get('window').width;
 const PIE_RADIUS = 90;
 
 const MACRO_CONFIG = [
@@ -50,33 +49,47 @@ const MacroGraph = ({
   ];
 
   const pieGenerator = d3pie<{ name: string; percentage: number; color: string }>()
-    .value((d) => (totalCalories > 0 ? d.percentage : 1 / 3))
+    .value((d) => d.percentage)
     .sort(null);
 
   const arcGenerator = d3arc<any>()
     .innerRadius(0)
     .outerRadius(PIE_RADIUS);
 
-  const arcs = pieGenerator(totalCalories > 0 ? pieData : pieData);
+  const arcs = pieGenerator(pieData);
 
-  const cx = screenWidth / 2;
-  const cy = 110;
+  const svgSize = PIE_RADIUS * 2 + 20;
+  const center = svgSize / 2;
 
   return (
     <View style={styles.container}>
-      <Svg width={screenWidth} height={220}>
-        <G transform={`translate(${cx}, ${cy})`}>
-          {arcs.map((arc, index) => {
-            const pathData = totalCalories > 0 ? arcGenerator(arc) : arcGenerator(arc);
-            const config = pieData[index];
-            return (
-              <Path
-                key={config.name}
-                d={pathData || ''}
-                fill={totalCalories > 0 ? config.color : '#e0e0e0'}
-              />
-            );
-          })}
+      <Svg width={svgSize} height={svgSize}>
+        <G transform={`translate(${center}, ${center})`}>
+          {totalCalories === 0 ? (
+            <>
+              <Circle r={PIE_RADIUS} fill="#e0e0e0" />
+              <SvgText
+                x={0}
+                y={5}
+                textAnchor="middle"
+                fill="#888"
+                fontSize={14}
+              >
+                No Data
+              </SvgText>
+            </>
+          ) : (
+            arcs.map((arc, index) => {
+              const config = pieData[index];
+              return (
+                <Path
+                  key={config.name}
+                  d={arcGenerator(arc) || ''}
+                  fill={config.color}
+                />
+              );
+            })
+          )}
         </G>
       </Svg>
       <View style={styles.legend}>

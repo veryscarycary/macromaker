@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import MacroGraph from '../../components/MacroGraph';
 import { Text, View } from '../../components/Themed';
 import { getAllMealData } from '../../context/MealContext';
 import { DietDay, DietScreenNavigationProp } from '../../types';
 import { getAveragesFromDietDays } from '../../utils';
 import DietHistoryList from './components/DietHistoryList';
-import NoDataMacroGraph from './components/NoDataMacroGraph';
 
 type Props = {
   navigation: DietScreenNavigationProp;
@@ -18,13 +18,24 @@ const DietHistoryScreen = ({ navigation }: Props) => {
   const { averageCalories, averageCarbs, averageProtein, averageFat } =
     getAveragesFromDietDays(dietHistory);
 
-  useEffect(
-    () =>
-      navigation.addListener('focus', async () => {
-        const dietHistory = await getAllMealData();
-        setDietHistory(dietHistory);
-      }),
-    []
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
+
+      const loadHistory = async () => {
+        const history = await getAllMealData();
+
+        if (isActive) {
+          setDietHistory(history);
+        }
+      };
+
+      loadHistory();
+
+      return () => {
+        isActive = false;
+      };
+    }, [])
   );
 
   return (
@@ -43,7 +54,6 @@ const DietHistoryScreen = ({ navigation }: Props) => {
           protein={averageProtein}
           fat={averageFat}
         />
-        {!averageCalories ? <NoDataMacroGraph /> : null}
       </View>
       <DietHistoryList dietHistory={dietHistory} navigation={navigation} />
     </>
@@ -73,9 +83,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   graphContainer: {
-    position: 'relative',
     backgroundColor: 'transparent',
-    left: 20,
+    alignItems: 'center',
   },
 });
 

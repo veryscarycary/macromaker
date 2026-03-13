@@ -2,6 +2,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
+import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -48,19 +49,22 @@ export default function BottomTabNavigator({ navigation }: Props) {
       <BottomTab.Screen
         name="Diet"
         component={DietNavigator}
-        options={{
+        options={({ route }) => ({
+          headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? 'restaurant-sharp' : 'restaurant-outline'}
               color={color}
             />
           ),
-        }}
+          tabBarStyle: getDietTabBarStyle(route),
+        })}
       />
       <BottomTab.Screen
         name="Fitness"
         component={FitnessNavigator}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? 'fitness-sharp' : 'fitness-outline'}
@@ -76,6 +80,13 @@ export default function BottomTabNavigator({ navigation }: Props) {
 function TabBarIcon(props: { name: string; color: string }) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
+
+const getDietTabBarStyle = (
+  route: RouteProp<BottomTabParamList, 'Diet'>
+) => {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'DietTodayScreen';
+  return routeName === 'DietTodayScreen' ? undefined : { display: 'none' as const };
+};
 
 const DietTabStack = createStackNavigator<DietTabParamList>();
 
@@ -100,7 +111,7 @@ function DietNavigator() {
       <DietTabStack.Screen
         name="DietTodayScreen"
         component={DietTodayScreen as any}
-        options={{ headerTitle: 'Today' }}
+        options={{ headerTitle: "Today's Macros" }}
       />
       <DietTabStack.Screen
         name="DietHistoryScreen"
