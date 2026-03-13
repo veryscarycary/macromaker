@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 04-onboarding-ux-polish-01-PLAN.md
-last_updated: "2026-03-13T21:10:14.275Z"
+stopped_at: Completed 04-onboarding-ux-polish-02-PLAN.md
+last_updated: "2026-03-13T21:13:47.512Z"
 last_activity: 2026-03-10 — Roadmap created
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 17
-  completed_plans: 13
+  completed_plans: 14
   percent: 0
 ---
 
@@ -63,6 +63,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-rn-0-84-1-final-upgrade P03 | 5 | 2 tasks | 0 files |
 | Phase 03-rn-0-84-1-final-upgrade P04 | 5 | 3 tasks | 3 files |
 | Phase 04-onboarding-ux-polish P01 | 3 | 3 tasks | 5 files |
+| Phase 04-onboarding-ux-polish P02 | 93 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -104,6 +105,8 @@ Recent decisions affecting current work:
 - [Phase 03-rn-0-84-1-final-upgrade]: newArchEnabled=false is the intentional final posture for 0.84.1; bridge-compat mode accepted pending react-native-screens 4.x NativeModule bridge fix (squash commit e7530d3, 12/12 verification pass)
 - [Phase 04-onboarding-ux-polish]: jest.mock factory must use require('react') not React ref — jest hoists mock calls above imports, React is undefined at mock time
 - [Phase 04-onboarding-ux-polish]: @testing-library/react-native requires react-test-renderer peer dep installed at matching React version (19.2.3)
+- [Phase 04-onboarding-ux-polish]: StepIndicator uses accessibilityLabel='filled'/'empty' on each dot View for both a11y and test targeting
+- [Phase 04-onboarding-ux-polish]: Brand purple #6068d0 for filled dots — slightly darker than existing #7078df for WCAG AA contrast per CONTEXT.md discretion
 
 ### Pending Todos
 
@@ -117,6 +120,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-13T21:10:14.269Z
-Stopped at: Completed 04-onboarding-ux-polish-01-PLAN.md
+Last session: 2026-03-13T21:13:47.507Z
+Stopped at: Completed 04-onboarding-ux-polish-02-PLAN.md
 Resume file: None
