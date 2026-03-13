@@ -31,10 +31,10 @@ export const getInfoWithCalculatedMetrics = (info: Info): Info => {
 
 export const defaultValues: Info = {
   name: '',
-  age: 0,
-  weight: 0,
+  age: 30,
+  weight: 150,
   heightFeet: 5,
-  heightInches: 6,
+  heightInches: 10,
   gender: 'male',
   activityLevel: 2,
   bmi: 0,
