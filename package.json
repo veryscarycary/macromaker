@@ -42,6 +42,7 @@
     "@react-native-community/cli-platform-android": "20.1.2",
     "@react-native-community/cli-platform-ios": "20.1.2",
     "@react-native/metro-config": "0.84.1",
+    "@testing-library/react-native": "^13.3.3",
     "@types/d3-scale": "4.0.1",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.24",
