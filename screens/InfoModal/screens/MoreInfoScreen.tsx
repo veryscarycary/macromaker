@@ -3,6 +3,7 @@ import { Image, ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions } 
 import { CommonActions } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, View } from '../../../components/Themed';
+import StepIndicator from '../components/StepIndicator';
 import { ModalStackNavigationProp } from '../../../types';
 import { Context as InfoContext } from '../../../context/InfoContext';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
@@ -33,6 +34,7 @@ const MoreInfoScreen = ({ navigation }: Props) => {
   } = infoWithCalculatedMetrics;
   return (
     <SafeAreaView style={styles.safeArea} edges={['bottom']}>
+      <StepIndicator totalSteps={3} currentStep={3} />
       <DismissKeyboardView style={styles.form}>
         <ScrollView
           bounces={false}
@@ -97,7 +99,7 @@ const MoreInfoScreen = ({ navigation }: Props) => {
               );
             }}
           >
-            <Text>Finish</Text>
+            <Text style={styles.buttonText}>Get Started</Text>
           </TouchableOpacity>
         </View>
       </DismissKeyboardView>
@@ -192,6 +194,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingVertical: 10,
     marginTop: 6,
+  },
+  buttonText: {
+    color: '#ffffff',
   },
 });
 
