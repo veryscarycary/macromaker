@@ -28,6 +28,14 @@ const AsyncStorage = {
   getAllKeys: jest.fn(() => {
     return Promise.resolve(Object.keys(store));
   }),
+  getMany: jest.fn((keys) => {
+    return Promise.resolve(
+      keys.reduce((entries, key) => {
+        entries[key] = store[key] !== undefined ? store[key] : null;
+        return entries;
+      }, {})
+    );
+  }),
   multiGet: jest.fn((keys) => {
     return Promise.resolve(keys.map((key) => [key, store[key] !== undefined ? store[key] : null]));
   }),

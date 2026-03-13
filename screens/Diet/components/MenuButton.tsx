@@ -5,10 +5,24 @@ import { useNavigation } from '@react-navigation/native';
 
 const MenuButton = () => {
   const navigation = useNavigation();
+  const rootNavigation = navigation.getParent();
+
+  const toggleMenu = () => {
+    const rootState = rootNavigation?.getState();
+    const currentRootRoute = rootState?.routes[rootState.index ?? 0];
+
+    if (currentRootRoute?.name === 'MenuModal') {
+      rootNavigation?.goBack();
+      return;
+    }
+
+    rootNavigation?.navigate('MenuModal' as never);
+  };
+
   return (
     <TouchableOpacity
       style={styles.button}
-      onPress={() => navigation.getParent()?.navigate('MenuModal' as never)}
+      onPress={toggleMenu}
     >
       <Ionicons size={30} style={{ marginBottom: -3 }} name="reorder-three" />
     </TouchableOpacity>

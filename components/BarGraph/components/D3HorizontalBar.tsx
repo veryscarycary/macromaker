@@ -34,19 +34,19 @@ const D3HorizontalBar = ({
 }: Props) => {
   const targetTotalCalories = data.reduce((acc, curr) => acc + curr.targetAmount, 0);
   const currentMacroCalories = data[index].amount;
+  const scaleMax = targetTotalCalories > 0 ? targetTotalCalories : currentMacroCalories;
+  const hasScaleRange = scaleMax > 0;
 
   const yAxis = createY(height);
   yAxis.domain(data.map((_d, i) => i.toString()));
 
-  let getXScaleOutput;
-  if (currentMacroCalories > targetTotalCalories) {
-    getXScaleOutput = createX(currentMacroCalories, width);
-  } else {
-    getXScaleOutput = createX(targetTotalCalories, width);
+  let barLength = 0;
+  if (hasScaleRange) {
+    const getXScaleOutput = createX(scaleMax, width);
+    barLength = Math.min(getXScaleOutput(currentMacroCalories), width);
   }
 
   const startingYPos = yAxis(index.toString());
-  let barLength = getXScaleOutput(currentMacroCalories);
   const startingXPos = barLength;
 
   if (type === 'top') {

@@ -2,6 +2,7 @@ import { Dispatch } from 'react';
 import { DietDay, GenericAction, Meal } from '../types';
 import {
   getAllStoredData,
+  getDay,
   getStoredData,
   removeStoredData,
   storeData,
@@ -117,7 +118,7 @@ export const getAllMealData = async (): Promise<DietDay[]> => {
 
     return {
       date,
-      day: new Date(date).toLocaleDateString('en-us', { weekday: 'long' }),
+      day: getDay(date),
       meals: tuple[1],
     };
   });

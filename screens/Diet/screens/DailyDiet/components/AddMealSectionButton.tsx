@@ -16,7 +16,7 @@ const AddMealSectionButton = ({ date, navigation }: Props) => {
       style={styles.container}
       onPress={() => navigation.navigate('AddFoodScreen', { date })}
     >
-      <Ionicons size={32} name="add-outline" />
+      <Ionicons size={32} name="add-circle-outline" />
       <Text style={styles.label}>Meal</Text>
     </TouchableOpacity>
   );

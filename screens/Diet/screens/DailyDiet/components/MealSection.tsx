@@ -1,5 +1,4 @@
 import React from 'react';
-import { Picker } from '@react-native-picker/picker';
 import { Text, View } from '../../../../../components/Themed';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { List, Divider } from 'react-native-paper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { DietDay, DietScreenNavigationProp, GenericObject } from '../../../types';
 
 const today = new Date();
@@ -18,7 +19,14 @@ const DietHistoryListItem = ({ dietHistoryDay, onPress }: GenericObject) => (
     <List.Item
       title={dietHistoryDay.day}
       description={dietHistoryDay.date}
-      right={props => <List.Icon {...props} icon="chevron-right" />}
+      right={() => (
+        <Ionicons
+          size={22}
+          color="#8a8a8a"
+          name="chevron-forward"
+          style={styles.chevron}
+        />
+      )}
       onPress={onPress}
     />
     <Divider />
@@ -59,6 +67,10 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     width: '100%',
+  },
+  chevron: {
+    alignSelf: 'center',
+    marginVertical: 'auto',
   },
 });
 

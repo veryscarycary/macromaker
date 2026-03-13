@@ -1,8 +1,13 @@
-import { getTodaysDate, getDay, convertCarbsToCalories, convertProteinToCalories, convertFatToCalories, removeStoredData } from './../utils';
+import { getTodaysDate, getDay, convertCarbsToCalories, convertProteinToCalories, convertFatToCalories, getAllStoredData, removeStoredData, storeData } from './../utils';
 import { CALORIES_PER_MACRO_UNIT_MAPPING } from './../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 describe('utils', () => {
+  beforeEach(async () => {
+    jest.clearAllMocks();
+    await AsyncStorage.clear();
+  });
+
   describe('getTodaysDate', () => {
     it("should get today's date in MM/DD/YYYY string format", () => {
       const today = new Date().toLocaleDateString('en-us');
@@ -23,13 +28,13 @@ describe('utils', () => {
 
       expect(actual).toEqual('Tuesday');
     });
-    
-    it("should get today's day of the week", () => {
-      const date = '10/31/2000';
+
+    it('should parse single-digit month/day stored dates reliably', () => {
+      const date = '3/12/2026';
 
       const actual = getDay(date);
 
-      expect(actual).toEqual('Tuesday');
+      expect(actual).toEqual('Thursday');
     });
   });
 
@@ -131,6 +136,23 @@ describe('utils', () => {
 
     it('should complete without throwing on successful remove', async () => {
       await expect(removeStoredData('meals@01/01/2025')).resolves.not.toThrow();
+    });
+  });
+
+  describe('getAllStoredData', () => {
+    it('should read all stored entries through AsyncStorage.getMany', async () => {
+      await storeData('meals@01/01/2025', [{ mealName: 'Breakfast', calories: 100 }]);
+      await storeData('basicInfo', { tdee: 2000 });
+
+      const data = await getAllStoredData();
+
+      expect(AsyncStorage.getMany).toHaveBeenCalled();
+      expect(data).toEqual(
+        expect.arrayContaining([
+          ['meals@01/01/2025', [{ mealName: 'Breakfast', calories: 100 }]],
+          ['basicInfo', { tdee: 2000 }],
+        ])
+      );
     });
   });
 });

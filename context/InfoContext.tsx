@@ -19,12 +19,22 @@ const TDEE_LEVELS: Record<number, number> = {
   5: 1.9,
 };
 
+export const getInfoWithCalculatedMetrics = (info: Info): Info => {
+  const { gender, weight, heightFeet, heightInches, age, activityLevel } = info;
+  const totalHeightInches = (heightFeet * 12) + heightInches;
+  const bmr = calculateBMR(gender, weight, totalHeightInches, age);
+  const tdee = bmr * (TDEE_LEVELS[activityLevel] ?? 1.2);
+  const bmi = calculateBMI(weight, totalHeightInches);
+
+  return { ...info, bmr, tdee, bmi };
+};
+
 export const defaultValues: Info = {
   name: '',
   age: 0,
   weight: 0,
-  heightFeet: 0,
-  heightInches: 0,
+  heightFeet: 5,
+  heightInches: 6,
   gender: 'male',
   activityLevel: 2,
   bmi: 0,
@@ -40,12 +50,7 @@ const infoReducer = (state: Info, action: GenericAction): Info => {
     case SET_STATE:
       return { ...state, ...action.payload };
     case SET_BASIC_INFO_CALCULATIONS: {
-      const { gender, weight, heightFeet, heightInches, age, activityLevel } = state;
-      const totalHeightInches = (heightFeet * 12) + heightInches;
-      const bmr = calculateBMR(gender, weight, totalHeightInches, age);
-      const tdee = bmr * (TDEE_LEVELS[activityLevel] ?? 1.2);
-      const bmi = calculateBMI(weight, totalHeightInches);
-      return { ...state, bmr, tdee, bmi };
+      return getInfoWithCalculatedMetrics(state);
     }
     default:
       return state;

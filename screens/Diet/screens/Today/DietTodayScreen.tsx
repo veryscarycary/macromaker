@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { defaultValues as defaultBasicInfo } from '../../../../context/InfoContext';
 import { getMealData } from '../../../../context/MealContext';
 import { DietDay, DietScreenNavigationProp, Info, Meal } from '../../../../types';
@@ -22,7 +23,7 @@ type Props = {
   navigation: DietScreenNavigationProp;
 };
 
-const DietTodayScreen = ({ navigation }: Props) => {
+const DietTodayScreen = ({}: Props) => {
   const [basicInfo, setBasicInfo] = useState<Info>(defaultBasicInfo);
   const [todaysMeals, setTodaysMeals] = useState<Meal[]>([]);
   const {
@@ -39,15 +40,31 @@ const DietTodayScreen = ({ navigation }: Props) => {
   const { totalCarbs, totalProtein, totalFat } =
     getMacrosFromMeals(todaysMeals);
 
-  useEffect(
-    () =>
-      navigation.addListener('focus', async () => {
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
+
+      const loadToday = async () => {
         const basicInfo = (await getStoredData('basicInfo')) as Info;
         const dietDay = (await getMealData(getTodaysDate())) as DietDay;
-        if (basicInfo) setBasicInfo(basicInfo);
-        if (dietDay) setTodaysMeals(dietDay.meals);
-      }),
-    []
+
+        if (!isActive) {
+          return;
+        }
+
+        if (basicInfo) {
+          setBasicInfo(basicInfo);
+        }
+
+        setTodaysMeals(dietDay ? dietDay.meals : []);
+      };
+
+      loadToday();
+
+      return () => {
+        isActive = false;
+      };
+    }, [])
   );
 
   const data: BarGraphData[] = [
@@ -70,9 +87,6 @@ const DietTodayScreen = ({ navigation }: Props) => {
       color: '#b59b46',
     },
   ];
-
-  console.log('todays meals', todaysMeals);
-
   const mealTimeData = {
     meals: getMealTimeMealsWithColor(todaysMeals),
     tdee,

@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Searchbar, TextInput } from 'react-native-paper';
 import { Text, View } from '../../components/Themed';
 import { TouchableOpacity, StyleSheet } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Spacer from '../../components/Spacer';
 import {
   Context as MealContext,
@@ -87,6 +88,9 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
   return (
     <>
       <Searchbar
+        icon={({ size, color }) => (
+          <Ionicons name="search-outline" size={size} color={color} />
+        )}
         placeholder="Broccoli, pizza, etc"
         onChangeText={(value: string) => setSearch(value)}
         value={search}

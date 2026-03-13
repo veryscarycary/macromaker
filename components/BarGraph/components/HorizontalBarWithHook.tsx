@@ -35,24 +35,20 @@ const HorizontalBarWithHook = ({
 }: Props) => {
   const targetTotalCalories = data.reduce((acc, curr) => acc + curr.targetAmount, 0);
   const targetMacroCalories = data[index].targetAmount;
+  const currentMax = Math.max(...data.map((macro) => macro.amount), 0);
+  const scaleMax = targetTotalCalories > 0 ? targetTotalCalories : currentMax;
+  const hasScaleRange = scaleMax > 0;
 
   const yAxis = createY(height);
   yAxis.domain(data.map((_d, i) => i.toString()));
 
-  const hasAnyMacroCalorieExceededTDEE = data.some(macro => macro.amount > targetTotalCalories);
-  let getXScaleOutput;
-
-  if (hasAnyMacroCalorieExceededTDEE) {
-    const ratioData = data.map(d => ({ amount: d.amount, ratio: d.amount / targetTotalCalories }));
-    const highestRatio = Math.max(...ratioData.map(d => d.ratio));
-    const highest = ratioData.find(d => d.ratio === highestRatio)!.amount;
-    getXScaleOutput = createX(highest, width);
-  } else {
-    getXScaleOutput = createX(targetTotalCalories, width);
+  let barLength = 0;
+  if (hasScaleRange) {
+    const getXScaleOutput = createX(scaleMax, width);
+    barLength = Math.min(getXScaleOutput(targetMacroCalories), width);
   }
 
   const startingYPos = yAxis(index.toString());
-  const barLength = getXScaleOutput(targetMacroCalories);
   const startingXPos = barLength;
 
   let dStr: string;

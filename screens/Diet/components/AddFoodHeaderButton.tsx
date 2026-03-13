@@ -12,7 +12,7 @@ const AddFoodHeaderButton = ({ navigation }: Props) => (
     style={styles.button}
     onPress={() => navigation.navigate('AddFoodScreen')}
   >
-    <Ionicons size={30} style={{ marginBottom: -3 }} name="add-outline" />
+    <Ionicons size={30} style={{ marginBottom: -3 }} name="add-circle-outline" />
   </TouchableOpacity>
 );
 

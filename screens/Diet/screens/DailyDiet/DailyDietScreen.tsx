@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import MealList from './components/MealList';
 import MacroGraph from '../../../../components/MacroGraph';
@@ -7,7 +7,7 @@ import { getMealData } from '../../../../context/MealContext';
 // import { Context as MealContext } from '../context/MealContext';
 import { getDay, getMacrosFromMeals } from '../../../../utils';
 import { DietScreenNavigationProp, DietTabParamList, Meal } from '../../../../types';
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useFocusEffect } from '@react-navigation/native';
 
 type Props = {
   route: RouteProp<DietTabParamList, 'DailyDietScreen'>;
@@ -25,13 +25,24 @@ const DailyDietScreen = ({ route, navigation }: Props) => {
     totalFat,
   } = getMacrosFromMeals(meals);
 
-  useEffect(
-    () =>
-      navigation.addListener('focus', async () => {
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
+
+      const loadMeals = async () => {
         const dietDay = await getMealData(date);
-        if (dietDay) setMeals(dietDay.meals);
-      }),
-    []
+
+        if (isActive) {
+          setMeals(dietDay ? dietDay.meals : []);
+        }
+      };
+
+      loadMeals();
+
+      return () => {
+        isActive = false;
+      };
+    }, [date])
   );
 
   return (

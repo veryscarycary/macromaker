@@ -10,8 +10,14 @@ import * as CONSTANTS from './constants';
 
 export const getTodaysDate = (): string =>
   new Date().toLocaleDateString('en-us');
+
+export const parseStoredDate = (dateString: string): Date => {
+  const [month, day, year] = dateString.split('/').map(Number);
+  return new Date(year, month - 1, day);
+};
+
 export const getDay = (dateString: string): string =>
-  new Date(dateString).toLocaleDateString('en-us', { weekday: 'long' });
+  parseStoredDate(dateString).toLocaleDateString('en-us', { weekday: 'long' });
 export const convertCarbsToCalories = (
   carbs: number,
   carbsUnit: string = 'g'
@@ -89,7 +95,13 @@ export const removeStoredData = async (key: string) => {
 
 export const getAllStoredData = async (): Promise<any[]> => {
   const keys = await AsyncStorage.getAllKeys();
-  const result = await AsyncStorage.multiGet(keys);
+
+  if (!keys.length) {
+    return [];
+  }
+
+  const entries = await AsyncStorage.getMany(keys);
+  const result = keys.map((key) => [key, entries[key] ?? null]);
 
   const data = result.map((tuple) =>
     typeof tuple[1] === 'string' ? [tuple[0], JSON.parse(tuple[1])] : tuple

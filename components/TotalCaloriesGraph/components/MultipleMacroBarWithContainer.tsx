@@ -32,22 +32,26 @@ const MultipleMacroBarWithContainer = ({
   y = 0,
 }: Props) => {
   let targetCaloriesLabelXPos: number;
-  let getScaleOutput;
+  let getScaleOutput = createX(1, barWidth);
 
   const targetCalories = Math.round(data.reduce((acc, curr) => acc + curr.targetAmount, 0));
   const currentCalories = Math.round(data.reduce((acc, curr) => acc + curr.amount, 0));
+  const hasScaleRange = targetCalories > 0 || currentCalories > 0;
+  const scaleMax = targetCalories > 0 ? targetCalories : currentCalories;
 
-  if (currentCalories > targetCalories) {
-    getScaleOutput = createX(currentCalories, barWidth);
-    targetCaloriesLabelXPos = getScaleOutput(targetCalories);
+  if (!hasScaleRange) {
+    targetCaloriesLabelXPos = 10;
   } else {
-    getScaleOutput = createX(targetCalories, barWidth);
+    getScaleOutput = createX(scaleMax, barWidth);
     targetCaloriesLabelXPos = barWidth + 10;
   }
 
-  const firstLength = getScaleOutput(data[0].amount);
-  const secondLength = getScaleOutput(data[1].amount);
-  const thirdLength = getScaleOutput(data[2].amount);
+  const firstLength = Math.min(getScaleOutput(data[0].amount), barWidth);
+  const secondLength = Math.min(getScaleOutput(data[1].amount), barWidth - firstLength);
+  const thirdLength = Math.min(
+    getScaleOutput(data[2].amount),
+    barWidth - firstLength - secondLength
+  );
   const targetLineX = targetCaloriesLabelXPos - 15;
 
   return (
@@ -62,18 +66,20 @@ const MultipleMacroBarWithContainer = ({
       </G>
 
       <G x={x} y={y + 45}>
-        <Line
-          x1={targetLineX}
-          y1={-2}
-          x2={targetLineX}
-          y2={-thickness - 9}
-          stroke="#ffb85b"
-          strokeWidth={5}
-        />
+        {hasScaleRange && (
+          <Line
+            x1={targetLineX}
+            y1={-2}
+            x2={targetLineX}
+            y2={-thickness - 9}
+            stroke="#ffb85b"
+            strokeWidth={5}
+          />
+        )}
         <Text fill="#717171" x={targetCaloriesLabelXPos} y={0} fontSize={14} fontFamily="Arial" textAnchor="end">
           {targetCalories.toString()}
         </Text>
-        {currentCalories > targetCalories && (
+        {currentCalories > targetCalories && targetCalories > 0 && (
           <Text fill="#db0000" x={barWidth + 10} y={0} fontSize={14} fontFamily="Arial" textAnchor="end">
             {currentCalories.toString()}
           </Text>

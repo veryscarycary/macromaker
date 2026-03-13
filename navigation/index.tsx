@@ -36,6 +36,7 @@ function RootNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        detachPreviousScreen: false,
       }}
     >
       <Stack.Screen name="Root" component={BottomTabNavigator} />
@@ -56,6 +57,8 @@ function RootNavigator() {
         component={MenuModalScreen}
         options={{
           headerShown: false,
+          presentation: 'transparentModal',
+          cardStyle: { backgroundColor: 'transparent' },
         }}
       />
     </Stack.Navigator>

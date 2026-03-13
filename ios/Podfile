@@ -8,8 +8,11 @@ ENV['RCT_USE_PREBUILT_RNCORE'] = '0'
 
 target 'macromaker' do
   use_native_modules!
+  pod 'RNBootSplash', :path => '../node_modules/react-native-bootsplash', :modular_headers => true
   use_react_native!(
-    :path => "../node_modules/react-native"
+    :path => "../node_modules/react-native",
+    :fabric_enabled => false,
+    :hermes_enabled => true
   )
 end
 
