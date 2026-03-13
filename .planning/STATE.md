@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 04-onboarding-ux-polish-02-PLAN.md
-last_updated: "2026-03-13T21:13:47.512Z"
+stopped_at: Completed 04-onboarding-ux-polish-03-PLAN.md
+last_updated: "2026-03-13T21:16:58.634Z"
 last_activity: 2026-03-10 — Roadmap created
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 17
-  completed_plans: 14
+  completed_plans: 16
   percent: 0
 ---
 
@@ -64,6 +64,8 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-rn-0-84-1-final-upgrade P04 | 5 | 3 tasks | 3 files |
 | Phase 04-onboarding-ux-polish P01 | 3 | 3 tasks | 5 files |
 | Phase 04-onboarding-ux-polish P02 | 93 | 2 tasks | 2 files |
+| Phase 04-onboarding-ux-polish P04 | 2 | 2 tasks | 2 files |
+| Phase 04-onboarding-ux-polish P03 | 2 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -107,6 +109,10 @@ Recent decisions affecting current work:
 - [Phase 04-onboarding-ux-polish]: @testing-library/react-native requires react-test-renderer peer dep installed at matching React version (19.2.3)
 - [Phase 04-onboarding-ux-polish]: StepIndicator uses accessibilityLabel='filled'/'empty' on each dot View for both a11y and test targeting
 - [Phase 04-onboarding-ux-polish]: Brand purple #6068d0 for filled dots — slightly darker than existing #7078df for WCAG AA contrast per CONTEXT.md discretion
+- [Phase 04-onboarding-ux-polish]: No structural redesign on WelcomeScreen: marginTop:64 on form style left unchanged, SafeAreaView is purely additive wrapper
+- [Phase 04-onboarding-ux-polish]: MoreInfoScreen SafeAreaView edges=['bottom'] unchanged — StepIndicator placed inside safe area correctly without top edge
+- [Phase 04-onboarding-ux-polish]: KeyboardAvoidingView placed inside SafeAreaView wrapping DismissKeyboardView — not outside SafeAreaView
+- [Phase 04-onboarding-ux-polish]: nameError clears reactively when user types non-empty name via onChangeText callback
 
 ### Pending Todos
 
@@ -120,6 +126,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-13T21:13:47.507Z
-Stopped at: Completed 04-onboarding-ux-polish-02-PLAN.md
+Last session: 2026-03-13T21:16:58.629Z
+Stopped at: Completed 04-onboarding-ux-polish-03-PLAN.md
 Resume file: None

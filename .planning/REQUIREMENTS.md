@@ -42,7 +42,7 @@ Requirements for this milestone: upgrade to RN 0.84.1 + onboarding UX polish.
 ### Onboarding UX
 
 - [x] **ONBR-01**: Progress step indicator visible on all 3 onboarding screens (Welcome, BasicInfo, MoreInfo)
-- [ ] **ONBR-02**: CTA button on BasicInfo screen reads "Next" or "Continue" (not "Calculate BMI")
+- [x] **ONBR-02**: CTA button on BasicInfo screen reads "Next" or "Continue" (not "Calculate BMI")
 - [x] **ONBR-03**: BasicInfoScreen uses KeyboardAvoidingView so inputs remain visible when keyboard is open
 - [x] **ONBR-04**: All numeric input fields show unit labels ("lbs", "ft", "in") in placeholder or suffix
 - [x] **ONBR-05**: Numeric input fields have sensible non-zero defaults (e.g., weight 150 lbs, height 5'10")
@@ -105,7 +105,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RNUP-04 | Phase 3 | Complete |
 | RNUP-05 | Phase 3 | Complete |
 | ONBR-01 | Phase 4 | Complete |
-| ONBR-02 | Phase 4 | Pending |
+| ONBR-02 | Phase 4 | Complete |
 | ONBR-03 | Phase 4 | Complete |
 | ONBR-04 | Phase 4 | Complete |
 | ONBR-05 | Phase 4 | Complete |
