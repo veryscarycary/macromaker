@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
-import { Image, ScrollView, StyleSheet, TextInput, TouchableOpacity, useWindowDimensions } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, View } from '../../../components/Themed';
 import { ModalStackNavigationProp } from '../../../types';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
 import { Context as InfoContext } from '../../../context/InfoContext';
+import StepIndicator from '../components/StepIndicator';
 
 type Props = {
   navigation: ModalStackNavigationProp;
@@ -27,6 +28,7 @@ const ACTIVITY_LEVEL_OPTIONS = [
 const getRequiredNumberValue = (value: number) => (value > 0 ? String(value) : '');
 
 const BasicInfoScreen = ({ navigation }: Props) => {
+  const [nameError, setNameError] = useState(false);
   const { height } = useWindowDimensions();
   const isCompact = height < 760;
   const {
@@ -72,126 +74,147 @@ const BasicInfoScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
-      <DismissKeyboardView style={styles.form}>
-        <ScrollView
-          bounces={false}
-          contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={[styles.imageContainer, isCompact ? styles.imageContainerCompact : null]}>
-            <Image
-              style={[styles.image, isCompact ? styles.imageCompact : null]}
-              source={require('../../../assets/images/yoga-girl.png')}
-            />
-          </View>
-          <View style={styles.content}>
-            <View style={styles.inputSection}>
-              <View style={styles.input}>
-                <Text style={styles.pickerLabel}>Name</Text>
-                <TextInput
-                  style={styles.textInput}
-                  onChangeText={(val: string) => setInfoState({ name: val })}
-                  value={name}
-                  placeholder="Enter your name"
-                  placeholderTextColor="#aaa"
-                />
-              </View>
-
-              <View style={styles.input}>
-                <Text style={styles.pickerLabel}>Age</Text>
-                <TextInput
-                  style={styles.textInput}
-                  onChangeText={(val: string) =>
-                    setInfoState({ age: val === '' ? 0 : Number(val) })
-                  }
-                  value={getRequiredNumberValue(age)}
-                  placeholder="Enter your age"
-                  placeholderTextColor="#aaa"
-                  keyboardType="numeric"
-                />
-              </View>
-
-              <View style={styles.input}>
-                <Text style={styles.pickerLabel}>Weight</Text>
-                <TextInput
-                  style={styles.textInput}
-                  onChangeText={(val: string) =>
-                    setInfoState({ weight: val === '' ? 0 : Number(val) })
-                  }
-                  value={getRequiredNumberValue(weight)}
-                  placeholder="Enter your weight"
-                  placeholderTextColor="#aaa"
-                  keyboardType="numeric"
-                />
-              </View>
-            </View>
-
-            <View style={[styles.inputSection, styles.pickerSection]}>
-              <Text style={styles.pickerLabel}>Height</Text>
-
-              <View style={styles.heightSelector}>
-                <View style={styles.optionGroup}>
-                  <Text style={styles.optionGroupLabel}>Feet</Text>
-                  <View style={styles.optionRow}>
-                    {HEIGHT_FEET_OPTIONS.map((value) =>
-                      renderOptionButton(`${value}`, value, heightFeet, (nextValue) =>
-                        setInfoState({ heightFeet: nextValue })
-                      )
-                    )}
-                  </View>
-                </View>
-                <View style={styles.optionGroup}>
-                  <Text style={styles.optionGroupLabel}>Inches</Text>
-                  <View style={styles.optionRow}>
-                    {HEIGHT_INCH_OPTIONS.map((value) =>
-                      renderOptionButton(`${value}`, value, heightInches, (nextValue) =>
-                        setInfoState({ heightInches: nextValue })
-                      )
-                    )}
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            <View style={[styles.inputSection, styles.pickerSection]}>
-              <Text style={styles.pickerLabel}>Gender</Text>
-              <View style={styles.optionSelector}>
-                {GENDER_OPTIONS.map(({ label, value }) =>
-                  renderOptionButton(label, value, gender, (nextValue) =>
-                    setInfoState({ gender: nextValue })
-                  )
-                )}
-              </View>
-            </View>
-
-            <View style={[styles.inputSection, styles.pickerSection]}>
-              <Text style={styles.pickerLabel}>Activity Level</Text>
-              <View style={styles.optionSelector}>
-                {ACTIVITY_LEVEL_OPTIONS.map(({ label, value }) =>
-                  renderOptionButton(label, value, activityLevel, (nextValue) =>
-                    setInfoState({ activityLevel: nextValue })
-                  )
-                )}
-              </View>
-            </View>
-          </View>
-        </ScrollView>
-        <View style={styles.footer}>
-          <TouchableOpacity
-            style={[styles.button, !isBasicInfoComplete ? styles.buttonDisabled : null]}
-            disabled={!isBasicInfoComplete}
-            onPress={async () => {
-              setBasicInfoCalculations();
-              navigation.navigate('MoreInfo')
-            }}
+      <StepIndicator totalSteps={3} currentStep={2} />
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <DismissKeyboardView style={styles.form}>
+          <ScrollView
+            bounces={false}
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
           >
-            <Text style={!isBasicInfoComplete ? styles.buttonTextDisabled : styles.buttonText}>
-              Calculate BMI
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </DismissKeyboardView>
+            <View style={[styles.imageContainer, isCompact ? styles.imageContainerCompact : null]}>
+              <Image
+                style={[styles.image, isCompact ? styles.imageCompact : null]}
+                source={require('../../../assets/images/yoga-girl.png')}
+              />
+            </View>
+            <View style={styles.content}>
+              <View style={styles.inputSection}>
+                <View style={styles.input}>
+                  <Text style={styles.pickerLabel}>Name</Text>
+                  <TextInput
+                    style={[styles.textInput, nameError ? styles.textInputError : null]}
+                    onChangeText={(val: string) => {
+                      setInfoState({ name: val });
+                      if (nameError && val.trim().length > 0) setNameError(false);
+                    }}
+                    value={name}
+                    placeholder="Enter your name"
+                    placeholderTextColor="#aaa"
+                  />
+                  {nameError && (
+                    <Text style={styles.errorText}>Name is required</Text>
+                  )}
+                </View>
+
+                <View style={styles.input}>
+                  <Text style={styles.pickerLabel}>Age</Text>
+                  <TextInput
+                    style={styles.textInput}
+                    onChangeText={(val: string) =>
+                      setInfoState({ age: val === '' ? 0 : Number(val) })
+                    }
+                    value={getRequiredNumberValue(age)}
+                    placeholder="Enter your age"
+                    placeholderTextColor="#aaa"
+                    keyboardType="numeric"
+                  />
+                </View>
+
+                <View style={styles.input}>
+                  <Text style={styles.pickerLabel}>Weight</Text>
+                  <View style={styles.inputRow}>
+                    <TextInput
+                      style={[styles.textInput, styles.textInputWithSuffix]}
+                      onChangeText={(val: string) =>
+                        setInfoState({ weight: val === '' ? 0 : Number(val) })
+                      }
+                      value={getRequiredNumberValue(weight)}
+                      placeholder="150"
+                      placeholderTextColor="#aaa"
+                      keyboardType="numeric"
+                    />
+                    <View style={styles.suffixContainer}>
+                      <Text style={styles.suffixText}>lbs</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              <View style={[styles.inputSection, styles.pickerSection]}>
+                <Text style={styles.pickerLabel}>Height</Text>
+
+                <View style={styles.heightSelector}>
+                  <View style={styles.optionGroup}>
+                    <Text style={styles.optionGroupLabel}>Feet</Text>
+                    <View style={styles.optionRow}>
+                      {HEIGHT_FEET_OPTIONS.map((value) =>
+                        renderOptionButton(`${value}`, value, heightFeet, (nextValue) =>
+                          setInfoState({ heightFeet: nextValue })
+                        )
+                      )}
+                    </View>
+                  </View>
+                  <View style={styles.optionGroup}>
+                    <Text style={styles.optionGroupLabel}>Inches</Text>
+                    <View style={styles.optionRow}>
+                      {HEIGHT_INCH_OPTIONS.map((value) =>
+                        renderOptionButton(`${value}`, value, heightInches, (nextValue) =>
+                          setInfoState({ heightInches: nextValue })
+                        )
+                      )}
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              <View style={[styles.inputSection, styles.pickerSection]}>
+                <Text style={styles.pickerLabel}>Gender</Text>
+                <View style={styles.optionSelector}>
+                  {GENDER_OPTIONS.map(({ label, value }) =>
+                    renderOptionButton(label, value, gender, (nextValue) =>
+                      setInfoState({ gender: nextValue })
+                    )
+                  )}
+                </View>
+              </View>
+
+              <View style={[styles.inputSection, styles.pickerSection]}>
+                <Text style={styles.pickerLabel}>Activity Level</Text>
+                <View style={styles.optionSelector}>
+                  {ACTIVITY_LEVEL_OPTIONS.map(({ label, value }) =>
+                    renderOptionButton(label, value, activityLevel, (nextValue) =>
+                      setInfoState({ activityLevel: nextValue })
+                    )
+                  )}
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+          <View style={styles.footer}>
+            <TouchableOpacity
+              style={[styles.button, !isBasicInfoComplete ? styles.buttonDisabled : null]}
+              onPress={() => {
+                if (!isBasicInfoComplete) {
+                  setNameError(true);
+                  return;
+                }
+                setNameError(false);
+                setBasicInfoCalculations();
+                navigation.navigate('MoreInfo');
+              }}
+            >
+              <Text style={!isBasicInfoComplete ? styles.buttonTextDisabled : styles.buttonText}>
+                Continue
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </DismissKeyboardView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -316,6 +339,40 @@ const styles = StyleSheet.create({
   footer: {
     paddingTop: 6,
     paddingBottom: 12,
+  },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  textInputWithSuffix: {
+    flex: 1,
+    marginTop: 0,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+  },
+  suffixContainer: {
+    borderWidth: 1,
+    borderColor: '#c7c7c7',
+    borderLeftWidth: 0,
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    backgroundColor: '#f5f5f5',
+    justifyContent: 'center',
+  },
+  suffixText: {
+    fontSize: 12,
+    color: '#1e1e1e',
+  },
+  textInputError: {
+    borderColor: '#d32f2f',
+  },
+  errorText: {
+    color: '#d32f2f',
+    fontSize: 11,
+    marginTop: 2,
   },
 });
 
