@@ -80,7 +80,14 @@ Plans:
   3. Opening the keyboard on BasicInfo does not hide any input fields (keyboard-aware layout in effect)
   4. All numeric input fields show unit context ("lbs", "ft", "in") in placeholder text or as inline suffix labels
   5. Numeric fields open with sensible non-zero defaults (e.g., weight 150, height 5'10") so the form does not feel broken on first view
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — Wave 0 test scaffolds (InfoContext, StepIndicator, BasicInfoScreen)
+- [ ] 04-02-PLAN.md — Foundation: InfoContext defaults + shared StepIndicator component
+- [ ] 04-03-PLAN.md — BasicInfoScreen: KAV + lbs suffix + name validation + button relabel
+- [ ] 04-04-PLAN.md — WelcomeScreen + MoreInfoScreen: dots + button text color + label fixes
+- [ ] 04-05-PLAN.md — Full test suite + human verification checkpoint
 
 ## Progress
 
@@ -92,4 +99,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Dependency Audit | 2/2 | Complete    | 2026-03-11 |
 | 2. Infrastructure Upgrade | 6/6 | Complete   | 2026-03-12 |
 | 3. RN 0.84.1 Final Upgrade | 4/4 | Complete   | 2026-03-13 |
-| 4. Onboarding UX Polish | 0/TBD | Not started | - |
+| 4. Onboarding UX Polish | 0/5 | Not started | - |
