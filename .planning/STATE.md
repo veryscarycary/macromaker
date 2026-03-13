@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 4 context gathered
-last_updated: "2026-03-13T19:01:00.434Z"
+stopped_at: Completed 04-onboarding-ux-polish-01-PLAN.md
+last_updated: "2026-03-13T21:10:14.275Z"
 last_activity: 2026-03-10 — Roadmap created
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 12
-  completed_plans: 12
+  total_plans: 17
+  completed_plans: 13
   percent: 0
 ---
 
@@ -62,6 +62,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-rn-0-84-1-final-upgrade P02 | 40 | 3 tasks | 13 files |
 | Phase 03-rn-0-84-1-final-upgrade P03 | 5 | 2 tasks | 0 files |
 | Phase 03-rn-0-84-1-final-upgrade P04 | 5 | 3 tasks | 3 files |
+| Phase 04-onboarding-ux-polish P01 | 3 | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -101,6 +102,8 @@ Recent decisions affecting current work:
 - [Phase 03-rn-0-84-1-final-upgrade]: newArchEnabled=false (bridge-compat mode) is the intentional final state for the 0.84.1 deployment. During native reconciliation, setting newArchEnabled=true caused launch instability (enableScreens(false) workaround was required). The squash commit e7530d3 disabled New Architecture on both platforms (android/gradle.properties and ios/Podfile fabric_enabled) and removed the enableScreens workaround. The app passed all 12 human verification checks in this configuration. Bridge-compat mode is accepted as the stable deployment posture for this milestone; enabling New Architecture is deferred to a future phase once react-native-screens ships a 4.x NativeModule bridge fix or is replaced.
 - [Phase 03-rn-0-84-1-final-upgrade]: RNUP-02 marked complete: Node 23.7.0 (exceeds 22.11 minimum) and Xcode 26.3 (exceeds 16.1 minimum) confirmed during Phase 3; status was never updated after verification
 - [Phase 03-rn-0-84-1-final-upgrade]: newArchEnabled=false is the intentional final posture for 0.84.1; bridge-compat mode accepted pending react-native-screens 4.x NativeModule bridge fix (squash commit e7530d3, 12/12 verification pass)
+- [Phase 04-onboarding-ux-polish]: jest.mock factory must use require('react') not React ref — jest hoists mock calls above imports, React is undefined at mock time
+- [Phase 04-onboarding-ux-polish]: @testing-library/react-native requires react-test-renderer peer dep installed at matching React version (19.2.3)
 
 ### Pending Todos
 
@@ -114,6 +117,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-13T19:01:00.429Z
-Stopped at: Phase 4 context gathered
-Resume file: .planning/phases/04-onboarding-ux-polish/04-CONTEXT.md
+Last session: 2026-03-13T21:10:14.269Z
+Stopped at: Completed 04-onboarding-ux-polish-01-PLAN.md
+Resume file: None
