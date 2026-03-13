@@ -58,7 +58,11 @@ const MenuModalScreen = ({ navigation }: Props) => {
           >
             History
           </ModalButton>
-          <ModalButton icon="settings" hasBottomBorder={false} onPress={() => {}}>
+          <ModalButton
+            icon="settings"
+            hasBottomBorder={false}
+            onPress={() => navigation.replace('Modal')}
+          >
             Settings
           </ModalButton>
         </View>

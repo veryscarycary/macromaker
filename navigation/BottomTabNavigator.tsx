@@ -73,25 +73,6 @@ export default function BottomTabNavigator({ navigation }: Props) {
           ),
         }}
       />
-      <BottomTab.Screen
-        name="Settings"
-        component={FitnessNavigator}
-        listeners={{
-          tabPress: (e) => {
-            e.preventDefault();
-            navigation.navigate('Modal');
-          },
-        }}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? 'settings-sharp' : 'settings-outline'}
-              color={color}
-            />
-          ),
-        }}
-      />
     </BottomTab.Navigator>
   );
 }
