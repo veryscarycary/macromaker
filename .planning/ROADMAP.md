@@ -62,7 +62,13 @@ Plans:
   2. App launches and runs on iOS simulator and a physical iOS device without crashes
   3. App launches and runs on Android emulator and a physical Android device without crashes
   4. All existing features work correctly: meal entry, meal editing/deletion, diet history, macro graphs, tab navigation, and onboarding modal trigger
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Environment gate + dependency alignment for RN 0.84.1
+- [ ] 03-02-PLAN.md — iOS and Android native reconciliation + build stabilization
+- [ ] 03-03-PLAN.md — Manual verification and evidence capture (human checkpoint)
+- [ ] 03-04-PLAN.md — Gap closure: RNUP-02 traceability, newArchEnabled decision record, enableScreens SUMMARY correction
 
 ### Phase 4: Onboarding UX Polish
 **Goal**: First-launch onboarding feels intentional and guides the user through setup without friction
@@ -85,5 +91,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Dependency Audit | 2/2 | Complete    | 2026-03-11 |
 | 2. Infrastructure Upgrade | 6/6 | Complete   | 2026-03-12 |
-| 3. RN 0.84.1 Final Upgrade | 0/TBD | Not started | - |
+| 3. RN 0.84.1 Final Upgrade | 3/4 | In progress | - |
 | 4. Onboarding UX Polish | 0/TBD | Not started | - |
