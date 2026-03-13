@@ -97,6 +97,7 @@ Recent decisions affecting current work:
 - [Phase 03-rn-0-84-1-final-upgrade]: enableScreens(false) at index.js: react-native-screens 4.x + New Architecture bridge crash workaround; not a temporary patch, intentional disablement of native screens integration
 - [Phase 03-rn-0-84-1-final-upgrade]: Android: Kotlin 1.9.24->2.1.20, AGP 8.6->8.12, Gradle 8.8->8.13 aligned to exact RN 0.84.1 version catalog expectations
 - [Phase 03-rn-0-84-1-final-upgrade]: No code changes required during plan 03-03: native reconciliation in 03-02 was sufficient for all verification targets to pass
+- [Phase 03-rn-0-84-1-final-upgrade]: newArchEnabled=false (bridge-compat mode) is the intentional final state for the 0.84.1 deployment. During native reconciliation, setting newArchEnabled=true caused launch instability (enableScreens(false) workaround was required). The squash commit e7530d3 disabled New Architecture on both platforms (android/gradle.properties and ios/Podfile fabric_enabled) and removed the enableScreens workaround. The app passed all 12 human verification checks in this configuration. Bridge-compat mode is accepted as the stable deployment posture for this milestone; enabling New Architecture is deferred to a future phase once react-native-screens ships a 4.x NativeModule bridge fix or is replaced.
 
 ### Pending Todos
 
