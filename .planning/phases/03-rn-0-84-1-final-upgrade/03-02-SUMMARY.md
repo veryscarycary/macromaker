@@ -25,7 +25,7 @@ tech-stack:
     - "RN 0.84.1 Android: settings.gradle uses pluginManagement/ReactSettingsExtension pattern, not old cli-platform-android native_modules.gradle"
     - "RN 0.84.1 Android: autolinkLibrariesWithApp() replaces CLI apply-from autolink"
     - "RN 0.84.1 Android: MainApplication getReactHost requires HermesInstance argument; SoLoader.init takes INSTANCE singleton; isHermesEnabled uses primitive boolean"
-    - "react-native-screens 4.x + New Architecture: enableScreens(false) required at index.js entry point to prevent startup bridge crash"
+    - "react-native-screens 4.x + New Architecture: enableScreens(false) was added during Task 3 to prevent startup bridge crash, then removed in squash commit e7530d3 when newArchEnabled was set to false — the crash condition no longer applies without New Architecture"
 
 key-files:
   created:
@@ -41,7 +41,7 @@ key-files:
     - android/gradle/wrapper/gradle-wrapper.properties
     - android/settings.gradle
     - android/app/src/main/java/com/carymeskell/macrotracker/MainApplication.java
-    - index.js
+    - index.js (enableScreens(false) added then removed in e7530d3 — final state: no enableScreens call)
     - navigation/index.tsx
 
 key-decisions:
@@ -105,7 +105,7 @@ Each task was committed atomically:
 ## Decisions Made
 - `RCT_USE_PREBUILT_RNCORE=0`: prevents a duplicate symbol crash when the prebuilt `React.framework` re-links RCTSwiftUI classes already compiled as static pods in this project configuration
 - Kept CocoaPods deduplication workaround from Phase 2 but updated the codegen path — RN 0.84.1 changed the codegen directory from `react/renderer/components` root to `ReactCodegen/react/renderer/components`; the workaround itself remains necessary
-- `enableScreens(false)`: react-native-screens 4.x broke the New Architecture bridge initialization in certain launch sequences; disabling screens native integration at the entry point is the correct interim fix and is not a permanent temporary patch (the library's native bridge is now bypassed, not broken)
+- `enableScreens(false)`: react-native-screens 4.x broke the New Architecture bridge initialization in certain launch sequences; disabling screens native integration at the entry point is the correct interim fix and is not a permanent temporary patch (the library's native bridge is now bypassed, not broken). NOTE: enableScreens(false) was subsequently removed in squash commit e7530d3 when newArchEnabled was set to false on both platforms. The crash condition (react-native-screens 4.x + New Architecture bridge) no longer applies in bridge-compat mode. See STATE.md for the architectural decision record.
 
 ## Deviations from Plan
 
