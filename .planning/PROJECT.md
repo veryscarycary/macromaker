@@ -22,13 +22,12 @@ A fast, offline-first macro tracker where adding a meal and seeing your day's in
 - ✓ User can view macro graphs (bar chart, meal-time scatter plot, stacked calorie chart) — existing
 - ✓ App navigates via bottom tabs (Diet / Fitness) with modal-first root stack — existing
 - ✓ App uses TypeScript throughout with strict mode — existing
+- ✓ React Native upgraded to 0.84.1 with all compatible dependencies — v1.0
+- ✓ Onboarding flow polished: progress dots, keyboard avoidance, unit labels, sensible defaults — v1.0
 
 ### Active
 
-- [ ] Upgrade React Native from 0.73.6 to latest stable (0.78.x) with all compatible dependencies
-- [ ] Upgrade all other dependencies to latest compatible versions
-- [ ] Rework onboarding flow (Welcome → BasicInfo → MoreInfo) to feel less clunky and more polished
-- [ ] Running average view — 7-day macro/calorie average display
+- [ ] Running average view — 7-day macro/calorie average display (HIST-01/02 from v2 requirements)
 
 ### Out of Scope
 
@@ -39,15 +38,21 @@ A fast, offline-first macro tracker where adding a meal and seeing your day's in
 
 ## Context
 
-Previously an Expo project, now fully ejected (bare React Native). Last major dependency update brought it to RN 0.73.6. The upgrade to latest RN is a prerequisite for everything else — newer APIs, better performance, and access to current ecosystem tooling.
+**Current state (v1.0 shipped 2026-03-13):** ~4,437 TypeScript LOC. Running React Native 0.84.1 in bridge-compat mode (`newArchEnabled=false`) — New Architecture deferred to v2 pending react-native-screens 4.x NativeModule bridge fix. All 5 core E2E flows verified on iOS + Android (simulator + physical device).
 
-Onboarding (the modal flow on first launch) is identified as the roughest UX area. It uses a `basicInfo` AsyncStorage check to decide whether to show the onboarding modal at startup.
+Previously an Expo project, now fully ejected (bare React Native). Upgraded from RN 0.73.6 → 0.76.x → 0.84.1 across v1.0 milestone.
 
 Key files:
 - `navigation/` — RootNavigator, BottomTabNavigator, DietNavigator
 - `context/` — HistoryContext, MealContext, InfoContext
 - `utils.ts` — all storage helpers and macro/BMR calculations
 - `types.tsx` — Meal, DietDay, Info types
+- `components/StepIndicator.tsx` — shared onboarding progress dots (added v1.0)
+
+**Tech debt from v1.0:**
+- `newArchEnabled=false`: bridge-compat posture; enable when react-native-screens bridge issue resolved
+- Reanimated worklets Babel plugin not wired (no worklet code yet)
+- d3-shape now explicitly declared in package.json (was transitive)
 
 ## Constraints
 
@@ -63,7 +68,12 @@ Key files:
 | Eject from Expo → bare RN | More control over native code and dependencies | ✓ Good |
 | AsyncStorage for all persistence | Offline-first, no backend needed for MVP | ✓ Good |
 | Custom createDataContext factory | Reduces useReducer boilerplate across contexts | ✓ Good |
-| Upgrade RN before new features | Avoid building on outdated tooling | — Pending |
+| Upgrade RN before new features | Avoid building on outdated tooling | ✓ Good — shipped 0.84.1 |
+| Two-hop upgrade strategy (0.73.6 → 0.76 → 0.84.1) | Reduces native surface area per hop | ✓ Good |
+| bridge-compat mode (`newArchEnabled=false`) | react-native-screens 4.x crashes with New Arch on; enableScreens(false) workaround insufficient | ⚠ Revisit in v2 |
+| react-native-paper replacing @rneui/themed | @rneui unknown New Arch status, peer dep conflicts with Nav v7 | ✓ Good |
+| Custom D3/SVG chart replacing react-native-chart-kit | Reuses react-native-svg already installed; avoids new dep | ✓ Good |
+| Import d3-shape directly (not full d3 bundle) | Metro cannot resolve full d3 ES module bundle | ✓ Good |
 
 ---
-*Last updated: 2026-03-10 after initialization*
+*Last updated: 2026-03-13 after v1.0 milestone*

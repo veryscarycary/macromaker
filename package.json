@@ -20,6 +20,7 @@
     "@react-navigation/stack": "^7.8.4",
     "d3": "5.15.1",
     "d3-scale": "3.2.1",
+    "d3-shape": "^2.1.0",
     "dayjs": "^1.11.13",
     "lodash": "4.17.21",
     "react": "19.2.3",

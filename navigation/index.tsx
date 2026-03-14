@@ -58,7 +58,7 @@ function RootNavigator() {
         options={{
           headerShown: false,
           presentation: 'transparentModal',
-          cardStyle: { backgroundColor: 'transparent' },
+          contentStyle: { backgroundColor: 'transparent' },
         }}
       />
     </Stack.Navigator>

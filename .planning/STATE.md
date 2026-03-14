@@ -1,11 +1,11 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.0
-milestone_name: milestone
-status: planning
-stopped_at: Completed 04-onboarding-ux-polish-05-PLAN.md
-last_updated: "2026-03-13T23:38:27.583Z"
-last_activity: 2026-03-10 — Roadmap created
+milestone_name: RN 0.84.1 Upgrade + Onboarding Polish
+status: milestone_complete
+stopped_at: v1.0 milestone archived
+last_updated: "2026-03-14T00:40:36.662Z"
+last_activity: 2026-03-13 — v1.0 milestone complete
 progress:
   total_phases: 4
   completed_phases: 4
@@ -18,17 +18,17 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-10)
+See: .planning/PROJECT.md (updated 2026-03-13)
 
 **Core value:** A fast, offline-first macro tracker where adding a meal and seeing your day's intake takes under 10 seconds.
-**Current focus:** Phase 1 — Dependency Audit
+**Current focus:** Planning v2.0 milestone
 
 ## Current Position
 
-Phase: 1 of 4 (Dependency Audit)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-03-10 — Roadmap created
+Phase: 4 of 4 (complete)
+Plan: All 17 plans complete
+Status: v1.0 milestone archived — ready for next milestone
+Last activity: 2026-03-13 — v1.0 milestone complete
 
 Progress: [░░░░░░░░░░] 0%
 

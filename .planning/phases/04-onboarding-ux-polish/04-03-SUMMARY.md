@@ -95,6 +95,12 @@ None - no external service configuration required.
 - BasicInfoScreen fully polished; ready for Plan 04-04 (MoreInfoScreen polish)
 - All ONBR-01 through ONBR-04 requirements addressed in this plan
 
+## Self-Check: PASSED
+
+- FOUND: `screens/InfoModal/screens/BasicInfoScreen.tsx`
+- FOUND: commit `1ee63d9` (feat: rewrite BasicInfoScreen)
+- FOUND: `.planning/phases/04-onboarding-ux-polish/04-03-SUMMARY.md`
+
 ---
 *Phase: 04-onboarding-ux-polish*
 *Completed: 2026-03-13*
