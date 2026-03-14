@@ -25,9 +25,22 @@ A fast, offline-first macro tracker where adding a meal and seeing your day's in
 - ✓ React Native upgraded to 0.84.1 with all compatible dependencies — v1.0
 - ✓ Onboarding flow polished: progress dots, keyboard avoidance, unit labels, sensible defaults — v1.0
 
+## Current Milestone: v1.1 Design System & Branding
+
+**Goal:** Establish a cohesive design system — tokens, typography, and a component library — that gives macromaker a clean, minimal, Notion/Linear-aesthetic with a distinctive color identity and consistent light-mode UI.
+
+**Target features:**
+- Brand color palette and design token system
+- Typography scale with a curated brand font
+- Core reusable UI component library (buttons, inputs, cards, navigation elements)
+- Apply design system across all existing screens
+
 ### Active
 
-- [ ] Running average view — 7-day macro/calorie average display (HIST-01/02 from v2 requirements)
+- [ ] Design token system (color, spacing, typography, radius, shadow)
+- [ ] Brand font selection and integration
+- [ ] Core UI component library
+- [ ] Design system applied to all existing screens
 
 ### Out of Scope
 
@@ -76,4 +89,4 @@ Key files:
 | Import d3-shape directly (not full d3 bundle) | Metro cannot resolve full d3 ES module bundle | ✓ Good |
 
 ---
-*Last updated: 2026-03-13 after v1.0 milestone*
+*Last updated: 2026-03-14 after v1.1 milestone start*
