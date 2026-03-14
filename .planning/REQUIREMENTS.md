@@ -103,39 +103,39 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TOKS-01 | — | Pending |
-| TOKS-02 | — | Pending |
-| TOKS-03 | — | Pending |
-| TOKS-04 | — | Pending |
-| FONT-01 | — | Pending |
-| FONT-02 | — | Pending |
-| FONT-03 | — | Pending |
-| FONT-04 | — | Pending |
-| PAPR-01 | — | Pending |
-| PAPR-02 | — | Pending |
-| PAPR-03 | — | Pending |
-| COMP-01 | — | Pending |
-| COMP-02 | — | Pending |
-| COMP-03 | — | Pending |
-| COMP-04 | — | Pending |
-| COMP-05 | — | Pending |
-| MIGR-01 | — | Pending |
-| MIGR-02 | — | Pending |
-| MIGR-03 | — | Pending |
-| MIGR-04 | — | Pending |
-| MIGR-05 | — | Pending |
-| MIGR-06 | — | Pending |
-| MIGR-07 | — | Pending |
-| BRAND-01 | — | Pending |
-| BRAND-02 | — | Pending |
-| BRAND-03 | — | Pending |
-| BRAND-04 | — | Pending |
+| TOKS-01 | Phase 5 | Pending |
+| TOKS-02 | Phase 5 | Pending |
+| TOKS-03 | Phase 5 | Pending |
+| TOKS-04 | Phase 5 | Pending |
+| FONT-01 | Phase 5 | Pending |
+| FONT-02 | Phase 5 | Pending |
+| FONT-03 | Phase 5 | Pending |
+| FONT-04 | Phase 5 | Pending |
+| PAPR-01 | Phase 6 | Pending |
+| PAPR-02 | Phase 6 | Pending |
+| PAPR-03 | Phase 6 | Pending |
+| COMP-01 | Phase 7 | Pending |
+| COMP-02 | Phase 7 | Pending |
+| COMP-03 | Phase 7 | Pending |
+| COMP-04 | Phase 7 | Pending |
+| COMP-05 | Phase 7 | Pending |
+| MIGR-01 | Phase 8 | Pending |
+| MIGR-02 | Phase 8 | Pending |
+| MIGR-03 | Phase 8 | Pending |
+| MIGR-04 | Phase 8 | Pending |
+| MIGR-05 | Phase 8 | Pending |
+| MIGR-06 | Phase 8 | Pending |
+| MIGR-07 | Phase 8 | Pending |
+| BRAND-01 | Phase 9 | Pending |
+| BRAND-02 | Phase 9 | Pending |
+| BRAND-03 | Phase 9 | Pending |
+| BRAND-04 | Phase 9 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 27 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 27 ⚠️
+- Mapped to phases: 27
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-03-14*
-*Last updated: 2026-03-14 after initial definition*
+*Last updated: 2026-03-14 — traceability populated after roadmap creation*
