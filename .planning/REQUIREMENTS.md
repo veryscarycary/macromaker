@@ -1,55 +1,64 @@
-# Requirements: macromaker
+# Requirements: Hone (macromaker)
 
-**Defined:** 2026-03-10
+**Defined:** 2026-03-14
 **Core Value:** A fast, offline-first macro tracker where adding a meal and seeing your day's intake takes under 10 seconds.
 
-## v1 Requirements
+## v1.0 Requirements (Complete)
 
-Requirements for this milestone: upgrade to RN 0.84.1 + onboarding UX polish.
+See archived phases 1–4. All 25 requirements complete.
 
-### Dependency Audit
+## v1.1 Requirements
 
-- [x] **DEPS-01**: All npm dependencies audited for New Architecture (Fabric/TurboModules) compatibility
-- [x] **DEPS-02**: `react-native-splash-screen` replaced with `react-native-bootsplash@7.1.0`
-- [x] **DEPS-03**: Target versions locked for all libraries before any RN version bump begins
+Requirements for this milestone: design system, branding, and app rename to Hone.
 
-### Native Infrastructure
+### Token Foundation
 
-- [x] **NATV-01**: iOS AppDelegate.m fully rewritten to AppDelegate.mm inheriting from RCTAppDelegate
-- [x] **NATV-02**: iOS Podfile updated to platform iOS 15.1 using new RN 0.76 template
-- [x] **NATV-03**: Android MainApplication SoLoader init updated to OpenSourceMergedSoMapping
-- [x] **NATV-04**: Android build.gradle updated (minSdk 24, Kotlin 2.0, updated Gradle)
-- [x] **NATV-05**: New Architecture in bridge-compat mode (`newArchEnabled=false` — intentional rollback for react-native-screens 4.x compatibility; New Architecture deferred to v2)
-- [x] **NATV-06**: App builds and launches on iOS and Android at RN 0.76.x
+- [ ] **TOKS-01**: Color token file created with primitive tier (palette) and semantic tier (brand, surface, text, macro colors)
+- [ ] **TOKS-02**: Typography scale defined — 8 levels (display → overline) using Inter, with typed TypeScript constants
+- [ ] **TOKS-03**: Spacing scale defined — 8pt grid constants (4, 8, 12, 16, 24, 32, 48, 64)
+- [ ] **TOKS-04**: Border radius scale defined — 4 levels (xs, sm, md, lg) as typed constants
 
-### JavaScript Dependencies
+### Font Integration
 
-- [x] **JSDP-01**: React Navigation upgraded to v7 bundle (@react-navigation/native, stack, bottom-tabs all v7)
-- [x] **JSDP-02**: react-native-screens upgraded to v4 and react-native-safe-area-context to v5 (required with Nav v7)
-- [x] **JSDP-03**: react-native-reanimated upgraded from 3.x to 4.x with react-native-worklets peer dependency
-- [x] **JSDP-04**: Reanimated Babel plugin — `react-native-worklets/plugin` not yet added to `babel.config.js` (no Reanimated-using code exists yet; add plugin when first worklet code is written)
-- [x] **JSDP-05**: @react-native-async-storage/async-storage upgraded from 1.x to 3.x with API compatibility verified
-- [x] **JSDP-06**: All existing animated/gesture code verified working after Reanimated 4 migration
+- [ ] **FONT-01**: Inter static TTF files (Regular, Medium, SemiBold, Bold) added to `assets/fonts/`
+- [ ] **FONT-02**: `react-native.config.js` configured and `react-native-asset` run to link fonts on both platforms
+- [ ] **FONT-03**: Inter renders correctly on iOS and Android (smoke test on simulator + physical device)
+- [ ] **FONT-04**: react-native-vector-icons (Ionicons, Feather, FontAwesome) still render correctly after font linking — `Info.plist` UIAppFonts intact
 
-### RN Version Upgrade
+### Paper Theme Integration
 
-- [x] **RNUP-01**: React Native upgraded to 0.84.1 with React and Hermes at matching versions
-- [x] **RNUP-02**: Node.js 22.11+ and Xcode 16.1+ confirmed as build environment
-- [x] **RNUP-03**: App runs on iOS simulator and physical device without crashes
-- [x] **RNUP-04**: App runs on Android emulator and physical device without crashes
-- [x] **RNUP-05**: All existing features (meal entry, history, graphs, tabs) work correctly on 0.84.1
+- [ ] **PAPR-01**: `design/theme/paperTheme.ts` built from token imports — brand colors mapped to MD3 color roles
+- [ ] **PAPR-02**: `configureFonts` applied with Inter mapped to all MD3 typography variants using separate weight files
+- [ ] **PAPR-03**: `App.tsx` updated to pass `paperTheme` to `PaperProvider`; existing Paper components visually reflect brand tokens
 
-### Onboarding UX
+### Component Library
 
-- [x] **ONBR-01**: Progress step indicator visible on all 3 onboarding screens (Welcome, BasicInfo, MoreInfo)
-- [x] **ONBR-02**: CTA button on BasicInfo screen reads "Next" or "Continue" (not "Calculate BMI")
-- [x] **ONBR-03**: BasicInfoScreen uses KeyboardAvoidingView so inputs remain visible when keyboard is open
-- [x] **ONBR-04**: All numeric input fields show unit labels ("lbs", "ft", "in") in placeholder or suffix
-- [x] **ONBR-05**: Numeric input fields have sensible non-zero defaults (e.g., weight 150 lbs, height 5'10")
+- [ ] **COMP-01**: `Text` component with typed variant system (display, heading, subheading, body, bodySmall, caption, label, overline)
+- [ ] **COMP-02**: `NumericText` component with tabular numerals (`fontVariant: ['tabular-nums']`) for all calorie/macro number displays
+- [ ] **COMP-03**: `Button` component with primary / secondary / ghost variants consuming brand tokens
+- [ ] **COMP-04**: `Card` component — surface container with radius token and optional border
+- [ ] **COMP-05**: `MacroProgressBar` component consuming `colors.macro.*` tokens
+
+### Screen Migration
+
+- [ ] **MIGR-01**: Onboarding screens (WelcomeScreen, BasicInfoScreen, MoreInfoScreen) migrated to design system tokens and components
+- [ ] **MIGR-02**: AddFoodScreen and EditFoodScreen migrated to design system tokens and components
+- [ ] **MIGR-03**: DietTodayScreen migrated to design system tokens and components
+- [ ] **MIGR-04**: DietHistoryScreen and DailyDietScreen migrated to design system tokens and components
+- [ ] **MIGR-05**: FitnessScreen migrated to design system tokens and components
+- [ ] **MIGR-06**: D3 graph components (BarGraph, MealTimeGraph, TotalCaloriesGraph) updated to use `colors.macro.*` tokens for fills; SVG `<Text>` stays on system fonts (documented carve-out)
+- [ ] **MIGR-07**: `constants/Colors.ts` shim deleted; no hardcoded hex values remain in any screen or component file
+
+### Brand Identity
+
+- [ ] **BRAND-01**: App display name updated from "macromaker" to "Hone" on iOS and Android
+- [ ] **BRAND-02**: Hone logo mark designed as SVG — geometric mark suitable for icon and splash use
+- [ ] **BRAND-03**: Splash screen updated with Hone branding via `react-native-bootsplash` CLI
+- [ ] **BRAND-04**: App icon generated for iOS and Android from Hone logo mark
 
 ## v2 Requirements
 
-Deferred to future milestone.
+Deferred from v1.0 and v1.1.
 
 ### History Views
 
@@ -67,16 +76,26 @@ Deferred to future milestone.
 - **FOOD-01**: Food search via nutrition API
 - **FOOD-02**: Barcode scanning for packaged foods
 
+### Design System Extensions
+
+- **DS-01**: Dark mode — semantic token layer makes it addable; defer until user demand
+- **DS-02**: Animated MacroProgressBar fill via Reanimated v3
+- **DS-03**: Shadow tokens applied to Card components (verify cross-platform behavior first)
+- **DS-04**: Icon wrapper component for consistent sizing over raw vector-icon calls
+- **DS-05**: EmptyState component for history and fitness tab empty states
+
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
 | Cloud sync / backend | Local-only architecture; no revenue model for infrastructure |
-| Apple Health / HealthKit | Significant native work; not core to v1 |
+| Apple Health / HealthKit | Significant native work; not core to v1.1 |
 | Social / sharing | Out of scope for MVP |
-| React Navigation v7 advanced features | Upgrade for compatibility only; no new nav patterns needed |
-| Macro % slider sum validation | Nice-to-have; defer until onboarding polish is shipped |
-| Animated slide transitions in onboarding | Blocked until Reanimated 4 is stable; P2 polish |
+| ThemeProvider context / CSS-in-JS | Unnecessary for light-mode-only; adds runtime overhead with no benefit |
+| react-native-unistyles (v2 or v3) | v3 requires New Architecture (we are bridge-compat); v2 is EOL Dec 2025 |
+| styled-components | Runtime overhead; wrong tool for token-driven approach |
+| Variable Inter font file | Renders only default weight on Android; static per-weight TTF files required |
+| Storybook component catalog | Not valuable for solo app under 30 components |
 
 ## Traceability
 
@@ -84,37 +103,39 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DEPS-01 | Phase 1 | Complete |
-| DEPS-02 | Phase 1 | Complete |
-| DEPS-03 | Phase 1 | Complete |
-| NATV-01 | Phase 2 | Complete |
-| NATV-02 | Phase 2 | Complete |
-| NATV-03 | Phase 2 | Complete |
-| NATV-04 | Phase 2 | Complete |
-| NATV-05 | Phase 2 | Complete |
-| NATV-06 | Phase 2 | Complete |
-| JSDP-01 | Phase 2 | Complete |
-| JSDP-02 | Phase 2 | Complete |
-| JSDP-03 | Phase 2 | Complete |
-| JSDP-04 | Phase 2 | Complete |
-| JSDP-05 | Phase 2 | Complete |
-| JSDP-06 | Phase 2 | Complete |
-| RNUP-01 | Phase 3 | Complete |
-| RNUP-02 | Phase 3 | Complete |
-| RNUP-03 | Phase 3 | Complete |
-| RNUP-04 | Phase 3 | Complete |
-| RNUP-05 | Phase 3 | Complete |
-| ONBR-01 | Phase 4 | Complete |
-| ONBR-02 | Phase 4 | Complete |
-| ONBR-03 | Phase 4 | Complete |
-| ONBR-04 | Phase 4 | Complete |
-| ONBR-05 | Phase 4 | Complete |
+| TOKS-01 | — | Pending |
+| TOKS-02 | — | Pending |
+| TOKS-03 | — | Pending |
+| TOKS-04 | — | Pending |
+| FONT-01 | — | Pending |
+| FONT-02 | — | Pending |
+| FONT-03 | — | Pending |
+| FONT-04 | — | Pending |
+| PAPR-01 | — | Pending |
+| PAPR-02 | — | Pending |
+| PAPR-03 | — | Pending |
+| COMP-01 | — | Pending |
+| COMP-02 | — | Pending |
+| COMP-03 | — | Pending |
+| COMP-04 | — | Pending |
+| COMP-05 | — | Pending |
+| MIGR-01 | — | Pending |
+| MIGR-02 | — | Pending |
+| MIGR-03 | — | Pending |
+| MIGR-04 | — | Pending |
+| MIGR-05 | — | Pending |
+| MIGR-06 | — | Pending |
+| MIGR-07 | — | Pending |
+| BRAND-01 | — | Pending |
+| BRAND-02 | — | Pending |
+| BRAND-03 | — | Pending |
+| BRAND-04 | — | Pending |
 
 **Coverage:**
-- v1 requirements: 25 total
-- Mapped to phases: 25
-- Unmapped: 0 ✓
+- v1.1 requirements: 27 total
+- Mapped to phases: 0 (pending roadmap)
+- Unmapped: 27 ⚠️
 
 ---
-*Requirements defined: 2026-03-10*
-*Last updated: 2026-03-13 — tech debt pass: NATV-05 doc drift corrected, JSDP-04 latent risk documented*
+*Requirements defined: 2026-03-14*
+*Last updated: 2026-03-14 after initial definition*
