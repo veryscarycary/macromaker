@@ -13,10 +13,10 @@ Requirements for this milestone: design system, branding, and app rename to Hone
 
 ### Token Foundation
 
-- [ ] **TOKS-01**: Color token file created with primitive tier (palette) and semantic tier (brand, surface, text, macro colors)
-- [ ] **TOKS-02**: Typography scale defined — 8 levels (display → overline) using Inter, with typed TypeScript constants
-- [ ] **TOKS-03**: Spacing scale defined — 8pt grid constants (4, 8, 12, 16, 24, 32, 48, 64)
-- [ ] **TOKS-04**: Border radius scale defined — 4 levels (xs, sm, md, lg) as typed constants
+- [x] **TOKS-01**: Color token file created with primitive tier (palette) and semantic tier (brand, surface, text, macro colors)
+- [x] **TOKS-02**: Typography scale defined — 8 levels (display → overline) using Inter, with typed TypeScript constants
+- [x] **TOKS-03**: Spacing scale defined — 8pt grid constants (4, 8, 12, 16, 24, 32, 48, 64)
+- [x] **TOKS-04**: Border radius scale defined — 4 levels (xs, sm, md, lg) as typed constants
 
 ### Font Integration
 
@@ -103,10 +103,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TOKS-01 | Phase 5 | Pending |
-| TOKS-02 | Phase 5 | Pending |
-| TOKS-03 | Phase 5 | Pending |
-| TOKS-04 | Phase 5 | Pending |
+| TOKS-01 | Phase 5 | Complete |
+| TOKS-02 | Phase 5 | Complete |
+| TOKS-03 | Phase 5 | Complete |
+| TOKS-04 | Phase 5 | Complete |
 | FONT-01 | Phase 5 | Pending |
 | FONT-02 | Phase 5 | Pending |
 | FONT-03 | Phase 5 | Pending |

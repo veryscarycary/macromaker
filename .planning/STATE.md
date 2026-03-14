@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Design System & Branding
-status: ready_to_plan
-stopped_at: —
-last_updated: "2026-03-14T00:00:00.000Z"
-last_activity: 2026-03-14 — v1.1 roadmap created (5 phases, 27 requirements mapped)
+status: planning
+stopped_at: Completed 05-token-foundation-font-integration/05-01-PLAN.md
+last_updated: "2026-03-14T23:47:17.888Z"
+last_activity: 2026-03-14 — Roadmap created for v1.1; 27 requirements mapped across 5 phases
 progress:
   total_phases: 5
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 3
+  completed_plans: 1
   percent: 0
 ---
 
@@ -44,6 +44,8 @@ Active decisions for v1.1:
 - Colors: Slate + orange accent replaces existing purple `#7078df`; macro colors blue/violet/amber
 - Paper: `configureFonts` maps each MD3 variant to a distinct font family name (e.g., `Inter-Bold`) — fontWeight must be undefined, not a string
 - SVG graph `<Text>`: stays on system fonts (documented carve-out) — custom fonts break on Android via react-native-svg
+- [Phase 05-token-foundation-font-integration]: Plain TypeScript as const objects in design/tokens/ — no runtime library; direct import into StyleSheet.create
+- [Phase 05-token-foundation-font-integration]: shadows.ts created as empty stub to reserve module slot for v2 (DS-03)
 
 ### Pending Todos
 
@@ -56,6 +58,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14
-Stopped at: Roadmap created — ready to run /gsd:plan-phase 5
+Last session: 2026-03-14T23:47:17.884Z
+Stopped at: Completed 05-token-foundation-font-integration/05-01-PLAN.md
 Resume file: None
