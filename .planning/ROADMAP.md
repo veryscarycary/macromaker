@@ -41,11 +41,12 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
   2. Inter renders in four weights (Regular, Medium, SemiBold, Bold) on both iOS simulator and physical iOS device
   3. Inter renders correctly on Android simulator after font linking
   4. react-native-vector-icons (Ionicons, Feather, FontAwesome) still display correctly on iOS — Info.plist UIAppFonts intact after react-native-asset run
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md — Design token files (colors, typography, spacing, radius, shadows) with TDD
+- [ ] 05-02-PLAN.md — Inter font download, react-native.config.js, asset linking, Info.plist audit
+- [ ] 05-03-PLAN.md — Font smoke test screen, visual verification on all platforms, cleanup
 
 ### Phase 6: Paper Theme Integration
 **Goal**: react-native-paper is wired to design tokens so existing Paper components visually reflect brand colors and Inter typography
