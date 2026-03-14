@@ -1,19 +1,21 @@
 # Feature Research
 
-**Domain:** Mobile macro/nutrition tracking app (React Native, local-only)
-**Researched:** 2026-03-10
-**Confidence:** MEDIUM — competitor patterns verified via multiple sources; RN-specific onboarding UX from official community sources; aggregate view patterns from app store analysis and nutrition blog reviews.
+**Domain:** React Native design system for a fitness/diet tracking app
+**Researched:** 2026-03-14
+**Confidence:** MEDIUM-HIGH — design system component tables-stakes from multiple verified industry sources; color theory from UX/psychology research; font characteristics verified against official font documentation; spacing scale from well-established 8pt grid doctrine.
 
 ---
 
 ## Milestone Scope
 
-This milestone targets two things on an already-functional app:
+This milestone establishes a cohesive design system for macromaker v1.1:
 
-1. **Onboarding polish** — the Welcome → BasicInfo → MoreInfo modal flow is identified as the roughest UX area.
-2. **7-day running average view** — aggregate/trend data for macro/calorie consistency.
+1. **Design token system** — color, spacing, typography, radius, shadow expressed as typed TypeScript constants
+2. **Brand font selection** — a single open-license font with strong numerics and clear hierarchy
+3. **Core UI component library** — typed, token-consuming components replacing ad-hoc styles
+4. **Design system applied** — all existing screens updated to use the system
 
-The feature research below is scoped to these two areas plus domain-wide context for completeness.
+The feature research below maps the design system "feature space": what a design system must include (table stakes), what separates a great one from a mediocre one (differentiators), and what to avoid (anti-features). Color, typography, and spacing recommendations are opinionated and actionable.
 
 ---
 
@@ -21,170 +23,245 @@ The feature research below is scoped to these two areas plus domain-wide context
 
 ### Table Stakes (Users Expect These)
 
-Features users assume exist in any credible nutrition tracker. Missing = product feels incomplete or amateur.
+These are the non-negotiable components of any credible React Native design system. Their absence signals immaturity. Their quality signals craft.
 
 | Feature | Why Expected | Complexity | Notes |
 |---------|--------------|------------|-------|
-| Progress indicator in multi-step onboarding | Users need to know how many steps remain; "Am I almost done?" anxiety causes abandonment | LOW | Dots or step N-of-M label; Reanimated transition between steps. Current flow has no indicator — this is the most visible polish gap. |
-| Back navigation during onboarding | Users make mistakes; back button on BasicInfo is absent | LOW | Stack navigator back arrow or explicit back button; preserve entered state across navigation |
-| Sensible default values in onboarding forms | Forms pre-populated with typical values reduce required keystrokes | LOW | Age 30, weight 160 lbs, 5'9", Moderate activity. Zero defaults (current behavior) feel broken. |
-| "Next" CTA is visually prominent and labeled clearly | Ambiguously labeled CTAs ("Calculate BMI") confuse flow intent | LOW | Replace "Calculate BMI" with "Next" or "Continue"; show calculation result on the results screen without making calculation the CTA label |
-| Keyboard-aware layout (fields don't hide behind keyboard) | Text inputs under the native keyboard = impossible to type | MEDIUM | `KeyboardAvoidingView` or `react-native-keyboard-aware-scroll-view`; current `DismissKeyboardView` only handles dismiss, not avoidance |
-| Calorie total prominently shown | Users orient to "how many calories today?" first | LOW | Already exists; must remain above the fold |
-| Today's macro breakdown (carbs/protein/fat in grams and %) | Core feature; users compare against targets | LOW | Already exists |
-| History view (past days) | Users track trends manually; need to look back | LOW | Already exists |
-| Edit/delete logged meals | Logging errors are universal | LOW | Already exists |
-| Daily macro target vs. actual comparison | Users measure compliance | LOW | Already exists via graphs |
+| Color token system (primitive + semantic) | Without named tokens, color is scattered as hex strings across files — impossible to retheme or audit | LOW | Two tiers: `colors.slate[900]` (primitive) and `colors.text.primary` (semantic). TypeScript `as const` object exported from `src/tokens/colors.ts`. |
+| Typography scale (6-8 levels) | Without a type scale, font sizes are arbitrary and inconsistent across screens | LOW | 8 levels: `display`, `heading`, `title`, `body`, `bodySmall`, `label`, `caption`, `overline`. Defined in `src/tokens/typography.ts`. |
+| Spacing scale (8pt base) | The 8pt grid is the industry standard for mobile; inconsistent spacing is the most visible sign of an unpolished app | LOW | Scale: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64. Half-step at 4pt for icon padding/internal micro-spacing. Exported as `spacing` constant. |
+| Border radius scale | Card, button, input, and pill shapes need consistent rounding | LOW | Tokens: `radius.none` (0), `radius.sm` (4), `radius.md` (8), `radius.lg` (12), `radius.xl` (16), `radius.full` (9999 for pills/avatars). |
+| Shadow/elevation scale | Cards and modals need consistent depth; iOS shadow ≠ Android elevation | LOW | Define 3 levels: `shadow.sm`, `shadow.md`, `shadow.lg`. Each includes `shadowColor`, `shadowOffset`, `shadowOpacity`, `shadowRadius`, and `elevation` for Android cross-compat. |
+| Button component (primary + secondary + ghost) | Every screen in the app has CTAs; without a shared Button, they drift in size, color, and touch state | LOW | `<Button variant="primary|secondary|ghost" size="sm|md|lg">`. Token-consuming, no hardcoded colors. |
+| TextInput component | Forms exist on onboarding, AddFood, EditFood screens; consistent input is mandatory | MEDIUM | Wraps RN `TextInput`, supports `label`, `error`, `suffix` (for "lbs", "g" units), focus state with brand border color. Replaces current `@rneui/themed` Input. |
+| Typography components (Text variants) | If every `<Text>` specifies `fontFamily`, `fontSize`, `fontWeight` inline, the system is not a system | LOW | `<Heading>`, `<Body>`, `<Caption>`, `<Label>` components. Each maps to a typography token. Eliminates repetition across 15+ screens. |
+| Card component | Used on DietTodayScreen, DietHistoryScreen, and any summary view; must be consistent | LOW | `<Card>` with `padding`, `shadow.sm`, `radius.lg`. Accepts children. Optionally `pressable` for tappable cards. |
+| Icon wrapper | Currently `react-native-vector-icons` called directly with size/color scattered across files | LOW | `<Icon name="" size="" color="">` wrapper that defaults to token-based sizes and colors. Prevents unintentional 1px drift. |
+| Loading/skeleton states | Data screens (history, today) fetch from AsyncStorage; flash of empty content feels broken | MEDIUM | Skeleton placeholder using `Animated` opacity pulse. Not a third-party library — a simple animated View with token background. |
+| Empty state component | History has no meals, fitness tab is sparse — empty state is either invisible (bad) or jarring (bad) | LOW | `<EmptyState icon title message>` component. Used wherever a list or data section can be empty. |
+| Color palette (documented hex values) | Without explicit brand colors with light/dark variants, designers and developers diverge | LOW | See Color Palette section below for full palette recommendation. |
+| Font loaded + exported | Without a shared font constant, typos in `fontFamily` strings silently fall back to system font | LOW | `typography.fontFamily.sans = 'Inter'` (or chosen font). One source of truth. One `loadAsync` call in App entry. |
 
-### Differentiators (Competitive Advantage)
+### Differentiators (What Separates Great from Mediocre)
 
-Features that align with the app's core value ("under 10 seconds to see your day") and aren't universally present at this quality level.
+These are the features that distinguish a design system built for macromaker specifically — a data-forward, precision-tracking app — from a generic component kit.
 
 | Feature | Value Proposition | Complexity | Notes |
 |---------|-------------------|------------|-------|
-| 7-day running average panel | Smooths out noisy single-day data; users think in weekly patterns, not daily; MacroFactor built its reputation on this | MEDIUM | Rolling 7-day window: avg calories, avg carbs/protein/fat. Show in history tab or as a summary card. Requires `getAveragesFromDietDays` which already exists in `utils.ts`. |
-| Onboarding result screen as motivation | Showing BMI/BMR/TDEE results as a "here's your body baseline" moment (not just a form step) creates an "aha" moment users remember | LOW | MoreInfoScreen already displays these values; framing and visual hierarchy is the only work needed |
-| Animated step transitions in onboarding | Horizontal slide or fade between steps using Reanimated (already a dependency) feels premium vs. stack push | MEDIUM | `react-native-reanimated` v3 is already installed; FlatList/ScrollView-based pager or `Animated.Value` slide |
-| Inline unit context on inputs | Labels like "lbs" or "ft / in" inside or adjacent to input fields prevent wrong-unit entries | LOW | No extra library; add `rightIcon` or suffix text to `@rneui/themed` Input |
-| Running average trend arrow | Up/down/flat arrow indicating whether 7-day average is improving vs. prior 7-day period | MEDIUM | Requires 14 days of data; only show when data exists; avoids "no data" empty state problem |
-| Persistent calorie budget display (remaining calories) | "X calories remaining today" is the most-used number in macro tracking; surfacing it without a tap reduces friction | LOW | Calculation: TDEE - today's total. Already have both values. |
+| Tabular-numeral text variant | Calorie and macro numbers change constantly; proportional figures cause layout jitter as digits update. Tabular figures (`fontVariant: ['tabular-nums']` in React Native) keep columns and counts visually stable. | LOW | Special `<NumericText>` or `<DataLabel>` component with `fontVariant: ['tabular-nums']` baked in. Used for all macro/calorie displays. This is the single highest-ROI typography detail for a data app. |
+| Macro-specific color semantics | Carbs, protein, and fat need consistent colors across every graph, label, and bar. Today those colors live only in D3 components. | LOW | Add semantic tokens: `colors.macro.carbs`, `colors.macro.protein`, `colors.macro.fat`. These feed both the typography labels and the D3 graph fills. One change updates all representations. |
+| Progress bar / ring component | Macro progress (carbs consumed vs. target) is the core daily UI. It deserves a purpose-built component, not a raw View with a hardcoded width calculation. | MEDIUM | `<MacroProgressBar macro="carbs" value={120} target={250}>`. Animates fill on mount using `Animated.timing`. Uses macro semantic color tokens. |
+| "Remaining" callout display | "X calories remaining today" is the most checked number. It deserves a distinct visual treatment — larger, higher contrast, near the top of the diet tab. | LOW | `<CalorieSummary consumed target>` renders two numbers: the consumed count (smaller, muted) and the remaining count (larger, primary). Uses `NumericText` for both. |
+| Consistent data-density hierarchy | Fitness data apps suffer from either "too sparse" (wastes screen real estate) or "too dense" (overwhelming). The design system should define a "data card" pattern with header, primary metric, and secondary rows. | MEDIUM | Document and componentize the `DataCard` pattern: header label (caption), primary number (display/title size), supporting rows (body/label size). This is the template for the diet summary, history cards, and future fitness cards. |
+| Section header component | DietTodayScreen and DietHistoryScreen have meal lists with implicit sections. A shared `<SectionHeader label>` unifies the visual rhythm. | LOW | Simple: label (overline/caption text, uppercase, tracking 0.8), optional right-side action link. Reused across tabs. |
+| Neutral, data-respecting palette | Most fitness apps default to green/black (energy, performance) or garish gradients. macromaker is a precision tool — it should feel like a well-designed spreadsheet or dashboard. Slate + a single warm accent communicates precision + approachability. | LOW | See Color Palette section. Not green, not neon, not aggressive. |
+| Token export as typed TS constants | Most design system implementations use JS objects. Exporting with `as const` and inferring types gives autocomplete on every token at the call site. | LOW | `export const spacing = { 4: 4, 8: 8, ... } as const; export type SpacingKey = keyof typeof spacing;` Catches typos at compile time. |
+| Component prop validation via TypeScript | Ad-hoc components accept `any` for style. A proper design system validates variant strings and size keys via union types. | LOW | `type ButtonVariant = 'primary' \| 'secondary' \| 'ghost'; type ButtonSize = 'sm' \| 'md' \| 'lg';`. TS errors on invalid props — better than runtime failures. |
 
 ### Anti-Features (Commonly Requested, Often Problematic)
 
 | Feature | Why Requested | Why Problematic | Alternative |
 |---------|---------------|-----------------|-------------|
-| Barcode scanner / food database API | "Just scan the barcode" is the #1 user request for manual-entry trackers | External API costs money, requires internet, introduces a third-party dependency that can break, and defeats the local-only architecture. TDEE-based macro tracking is weight/macro-centric, not food-database-centric. | Manual entry with good defaults and quick repeat. Defer to a future milestone with a clear monetization plan. |
-| Push notifications for meal reminders | Feels like a completeness feature | Requires permissions prompt, which itself is onboarding friction. Annoying when miscalibrated. Doesn't affect core loop. | Out of scope per PROJECT.md |
-| Social sharing / progress photos | Aspirational feature request | Requires auth, storage, privacy concerns; contradicts offline-first design | Out of scope per PROJECT.md |
-| Cloud sync / multi-device | "I use my phone and iPad" | Backend cost, auth system, conflict resolution — significant complexity with no revenue model | Explicitly out of scope per PROJECT.md. Document the tradeoff in settings. |
-| AI-generated meal suggestions | 2026 trend, users ask for it | Requires an LLM API (cost, internet dependency), not aligned with manual/intentional tracking ethos | Not for this milestone |
-| Wearable sync (Apple Health, Google Fit) | Makes TDEE more accurate | High implementation complexity (HealthKit entitlement, Android Health Connect), not the current bottleneck | Future milestone consideration |
-| Custom macro targets by day of week | Power-user feature | Increases UI complexity significantly; most users won't use it | Single target set. Allow editing profile to change targets. |
+| Dark mode | Every modern app does dark mode; it feels like table stakes | macromaker is light mode only by design decision. Implementing dark mode requires semantic token indirection, conditional theme context, and testing every screen in two modes. That doubles the QA surface for a solo app with no stated requirement. | Defer to v2+. Design tokens should be structured to make dark mode addable later (semantic layer), but do not implement or test it in this milestone. |
+| Third-party component library (Gluestack, Tamagui) | Pre-built components look polished and fast to integrate | macromaker already chose `react-native-paper`. Layering another system creates conflicts. More importantly, a custom token system over React Native primitives gives complete control and zero peer-dep risk. The app has modest component needs — no data table, no complex form. | Build the 8-10 components the app actually uses. Thin, typed, owned. |
+| Storybook or design system docs site | "Document the design system properly" | Storybook RN support requires separate metro config and has a history of tooling issues. Maintaining a docs site for a solo app is busywork. | README in `src/design-system/` documenting tokens and usage. Component files are self-documenting via TypeScript props. |
+| Animation on every interaction | Feels polished; every tap and transition animated | Over-animation slows perceived performance and trains users to wait. The Reanimated v3 dependency should be reserved for intentional, meaningful animations (macro bar fill on load, screen transition on onboarding) — not for every button press ripple. | Animate: macro progress fill, onboarding screen transitions. Do not animate: navigation tabs, list item taps, button press. |
+| Complex theming context | ThemeProvider, useTheme, ThemeContext — the full React Context theming pattern | For a single-theme app (light only), passing theme through context adds indirection with zero payoff. Every component must now import `useTheme`. | Import token constants directly. If dark mode is added later, the semantic token layer makes the switch clean. Token files are the source of truth, not a context. |
+| Responsive/adaptive layout system | Mobile best practice from web world | React Native apps target phone screens with a known density range. Breakpoints and fluid grids are web concepts. The 8pt grid + max-width containers are sufficient. Fluid typography is overkill for a small phone app. | Use fixed spacing tokens. Test on one small screen (iPhone SE: 375pt) and one large (iPhone 15 Pro Max: 430pt). That covers 90% of the install base. |
+| Icon system with custom SVGs | Brand identity via custom icons | React Native Vector Icons is already installed, working, and provides 1000+ icons. Custom SVG icons require source files, react-native-svg pipeline, and future maintenance. | Use Ionicons (already in `Info.plist`). Define an `Icon` wrapper component with consistent default sizing. No custom SVGs unless a specific icon is clearly missing. |
+| CSS-in-JS / Styled Components | Familiar from web React; "cleaner" API | Runtime style computation has measurable overhead in React Native. `StyleSheet.create` is pre-registered and more performant. styled-components adds bundle weight and a JSX transform. | `StyleSheet.create` + design token constants. The right abstraction for React Native. |
 
 ---
 
-## Onboarding UX Patterns: Polished vs. Clunky
+## Color Palette Recommendation
 
-This section is specific to the milestone goal of making the Welcome → BasicInfo → MoreInfo flow feel polished.
+### Direction
 
-### Current State (from code review)
+macromaker's Notion/Linear aesthetic calls for a **slate-primary, warm-accent** palette. Rationale:
 
-**WelcomeScreen:** Static image + title + description text + "Get Started" button. Functional, minimal. No animation, but not broken.
+- **Slate** (blue-gray family): communicates precision, data, and calm — appropriate for a tracking tool where users look at numbers daily. Avoids the clichéd fitness-green while remaining neutral enough to not compete with macro color coding.
+- **Warm accent** (orange or amber): provides the energy and call-to-action differentiation that pure slate/gray lacks. Orange is universally associated with action and achievment. It is not purple (macromaker's prior accent per v1.0 codebase at `#7078df`) — changing to a non-blue accent creates clear distinction between brand chrome and the informational blue in graphs.
+- **Three macro colors**: must be visually distinct from each other, from the brand accent, and from neutral backgrounds. Muted but legible.
 
-**BasicInfoScreen:** All profile inputs on one screen — name, age, weight (text inputs) + height (dual Picker), gender (Picker), activity level (Picker). Image takes 200x200 of vertical space above a dense form. CTA label is "Calculate BMI" — misleading because the calculation happens on submit, not at any separate step. No progress indicator. No back navigation affordance.
+### Proposed Palette with Hex Values
 
-**MoreInfoScreen:** Shows BMI/BMR/TDEE results then offers macro percentage sliders. CTA is "Finish." No contextual explanation of what BMR vs TDEE means. Saves to AsyncStorage and navigates to Root.
+**Primitives (raw values)**
 
-### Specific Problems (evidence-based)
+| Name | Hex | Notes |
+|------|-----|-------|
+| `slate[50]` | `#F8FAFC` | Page background |
+| `slate[100]` | `#F1F5F9` | Subtle surface, input background |
+| `slate[200]` | `#E2E8F0` | Borders, dividers |
+| `slate[400]` | `#94A3B8` | Placeholder text, disabled |
+| `slate[600]` | `#475569` | Secondary text, captions |
+| `slate[800]` | `#1E293B` | Primary text, headings |
+| `slate[900]` | `#0F172A` | Maximum contrast (use sparingly) |
+| `orange[400]` | `#FB923C` | Accent hover/secondary state |
+| `orange[500]` | `#F97316` | Primary brand accent — CTAs, progress fills |
+| `orange[600]` | `#EA580C` | Accent pressed state |
+| `orange[50]` | `#FFF7ED` | Accent tinted surface |
+| `red[400]` | `#F87171` | Error states, destructive actions |
+| `red[50]` | `#FEF2F2` | Error surface tint |
+| `green[500]` | `#22C55E` | Success states only |
+| `white` | `#FFFFFF` | Card background, modal background |
 
-| Problem | Impact | Fix |
-|---------|--------|-----|
-| No progress indicator | Users don't know how many screens remain; 3-screen flows with no indicator feel longer than they are | Add step dots (3 dots, current highlighted) at top or bottom of each screen |
-| "Calculate BMI" as CTA label | Implies BMI is being calculated here, not navigation to next step; confusing | Change to "Next" or "Continue"; calculation fires in background |
-| All inputs on one screen (BasicInfoScreen) | Dense cognitive load: 6+ inputs visible simultaneously | Keep all on one screen but use `ScrollView` with proper `keyboardAvoidingView`; group logically |
-| 200x200 image takes vertical space on small phones | On iPhone SE (375pt wide), image + form = scroll required; keyboard compounds this | Reduce image to 120x120 or hide on scroll; use `KeyboardAvoidingView behavior="padding"` |
-| No input labels showing units | Weight says "Your Weight" — pounds? kilograms? | Add "lbs" suffix; add "ft" / "in" to height pickers |
-| Zero as default for numeric inputs | `String(0)` in input fields; user must clear before typing | Default to empty string `""` and parse on submit; show placeholder text instead |
-| No back affordance in BasicInfo → MoreInfo | Stack navigator provides back, but no explicit back button | Stack header shown=false hides it; either enable header or add explicit back chevron |
-| MoreInfoScreen doesn't explain BMI/BMR/TDEE | Raw numbers shown without context | Add one-line tooltip or subtext: "BMR = calories your body needs at rest" |
-| MoreInfo percentage sliders: no validation that they sum to 100% | User can set 40/40/40 | Show running total; warn if != 100% |
+**Macro-specific colors** (used consistently across graphs, labels, and progress bars)
 
-### Polished Onboarding Patterns (what competitive apps do)
+| Name | Hex | Notes |
+|------|-----|-------|
+| `macro.carbs` | `#60A5FA` | Blue — calm, carbohydrate-associated with energy |
+| `macro.protein` | `#A78BFA` | Violet — distinct from carbs and fat, associated with muscle |
+| `macro.fat` | `#FBBF24` | Amber — warm, visually distinct from blue/violet |
 
-**Pattern 1: One question per screen (progressive disclosure)**
-- MyFitnessPal, MacroFactor: each screen has one clear question
-- Works well for onboarding; each "Next" tap feels like progress
-- For macromaker's scope, splitting BasicInfo into 2 screens (personal stats + activity level) is a pragmatic middle ground without major restructuring
+**Semantic tokens (how primitives are used)**
 
-**Pattern 2: Step dots or "Step X of N" label**
-- Universal in polished mobile onboarding
-- Should match the app's primary color (`#7078df`)
-- Implementation: simple View with 3 styled dots, index from navigation state
+| Token | Maps to | Purpose |
+|-------|---------|---------|
+| `colors.background.page` | `slate[50]` | App background |
+| `colors.background.card` | `white` | Card/surface background |
+| `colors.background.subtle` | `slate[100]` | Input fills, chip backgrounds |
+| `colors.border.default` | `slate[200]` | Dividers, input borders |
+| `colors.border.focus` | `orange[500]` | Input focused border |
+| `colors.text.primary` | `slate[800]` | Headings, body |
+| `colors.text.secondary` | `slate[600]` | Labels, descriptions |
+| `colors.text.placeholder` | `slate[400]` | Input placeholders |
+| `colors.text.disabled` | `slate[400]` | Disabled controls |
+| `colors.text.onAccent` | `white` | Text on orange buttons |
+| `colors.brand.accent` | `orange[500]` | Primary CTAs, active tab indicator |
+| `colors.brand.accentSubtle` | `orange[50]` | Tinted backgrounds near accent |
+| `colors.status.error` | `red[400]` | Validation errors |
+| `colors.status.errorSurface` | `red[50]` | Error input background tint |
+| `colors.status.success` | `green[500]` | Positive feedback |
 
-**Pattern 3: Animated screen transitions**
-- Horizontal slide (not the default vertical push of React Navigation modals)
-- Use `Reanimated` FlatList pager or configure stack `cardStyleInterpolator` to `forHorizontalIOS`
-- Signals "we're progressing through a sequence" vs. "we're going deeper into hierarchy"
+### Why Not Other Palettes
 
-**Pattern 4: Keyboard-aware inputs**
-- `KeyboardAvoidingView` with `behavior="padding"` on iOS (not `height` — height causes jumps)
-- `ScrollView` wrapping inputs so user can scroll even with keyboard open
-- Auto-focus first input on screen mount (reduces taps)
-- "Next" on keyboard goes to next field; final field's `returnKeyType="done"` dismisses keyboard
-
-**Pattern 5: Preserve state on back navigation**
-- If user goes BasicInfo → MoreInfo → back → BasicInfo, their entered values must still be there
-- InfoContext already holds this state, so this is mostly about not calling `navigation.reset()` on back
-- Test the back path explicitly
-
-**Pattern 6: Immediate feedback on the results screen**
-- MoreInfoScreen showing BMR/TDEE should feel like a reward, not another form
-- Large prominent number for TDEE (it's the most actionable)
-- BMI/BMR as secondary data
-- Brief, plain-English explanation of what TDEE means for daily eating
+| Palette | Why Rejected |
+|---------|-------------|
+| Green + black (classic fitness) | Clichéd, used by every gym app since 2012. macromaker is a precision tool, not a workout motivator. |
+| Purple (`#7078df`, prior accent) | Prior brand color was purple from the @rneui era. It reads as "tech product" or "meditation app." No strong association with nutrition tracking. Not distinct enough from macro.protein violet. |
+| Red primary | Red is reserved for error/destructive semantics. A red brand creates constant semantic ambiguity. |
+| Teal/mint | Overused in health/wellness apps. Associates with medical/clinical rather than personal tracking. |
+| Indigo/blue primary | Blends with `macro.carbs` blue. When the brand color and a data color are both blue, graphs and UI chrome compete. |
 
 ---
 
-## Aggregate / Average View Patterns
+## Typography Recommendation
 
-### What users expect in the 7-day average context
+### Font: Inter
 
-Based on competitor analysis (MacroFactor, MyFitnessPal, Cronometer, Fuel):
+**Recommendation: Inter (Google Fonts, SIL Open Font License)**
 
-**Minimum viable 7-day view:**
-- Rolling 7-day average calories
-- Rolling 7-day average per macro (carbs/protein/fat in grams)
-- Days with data vs. days without (show N/7 days logged)
+Rationale:
+- **Tabular numerals**: Inter has a full OpenType `tnum` feature. In React Native, `fontVariant: ['tabular-nums']` activates fixed-width digits, preventing layout shift when calorie/macro counts update. This is the most important typographic feature for a data app.
+- **Designed for screens**: Rasmus Andersson built Inter specifically for UI interfaces, not for print. Tall x-height, open apertures, and careful hinting at small sizes.
+- **18 weights**: Covers all hierarchy needs — Light (300), Regular (400), Medium (500), SemiBold (600), Bold (700). No faux-bold.
+- **Variable font**: Inter ships as a variable font (Inter Variable), which is a single font file covering all weights. Smaller bundle than loading 5 separate weight files.
+- **Breadth of use**: Used by Linear, Vercel, GitHub, Notion (body), and hundreds of major products. No exotic rendering surprises.
+- **Google Fonts / open license**: Free, stable, well-maintained.
 
-**Valuable additions (post-MVP):**
-- Comparison: this week vs. last week average
-- Trend arrow (up/down/flat) per metric
-- "On target X of 7 days" compliance summary
+**Alternative considered: DM Sans** — Geometric with lower-contrast stroke, slightly warmer than Inter. Good for headings. Weaker numeric rendering; fewer weights. Acceptable second choice if Inter feels too utilitarian.
 
-**What NOT to show in this milestone:**
-- Individual day bars repeated from the existing history view (redundant)
-- Percentages only — grams are primary in macro tracking, percentages secondary
-- Micronutrients — scope creep, app doesn't track these
+**Alternative considered: Plus Jakarta Sans** — Humanist warmth, 8 weights, good hierarchy. Less common on data-dense interfaces. Better for marketing than for tracking apps.
 
-### Implementation reality check
+**Not recommended: system fonts (SF Pro, Roboto)** — Per-platform inconsistency makes the brand feel unfinished across iOS and Android.
 
-`utils.ts` already exports `getAveragesFromDietDays` which computes averages from a `DietDay[]` array. The data is already in `HistoryContext`. The 7-day view is primarily a UI problem, not a data problem.
+### Typography Scale
 
-The main implementation questions:
-1. Where does the view live? (History tab is most natural — it's already date-oriented)
-2. How to handle fewer than 7 days of data? (Show what exists, label "3-day average" if only 3 days)
-3. Same graph style as existing graphs or a simpler summary card?
+Base: 16sp iOS / 16sp Android. Scale factor: Major Third (1.25×), with manual adjustments for mobile legibility.
 
-Recommendation: summary card above the history list in `DietHistoryScreen` is lower complexity than a new tab and fits the existing navigation model.
+| Token | Size (sp/pt) | Weight | Line Height | Letter Spacing | Use |
+|-------|-------------|--------|-------------|----------------|-----|
+| `type.display` | 32 | Bold 700 | 40 | -0.5 | Large calorie totals (today summary) |
+| `type.heading` | 24 | SemiBold 600 | 32 | -0.3 | Screen titles, section headings |
+| `type.title` | 20 | SemiBold 600 | 28 | -0.2 | Card titles, modal headings |
+| `type.body` | 16 | Regular 400 | 24 | 0 | Body text, input content |
+| `type.bodyMedium` | 16 | Medium 500 | 24 | 0 | Emphasized body, list item names |
+| `type.label` | 14 | Medium 500 | 20 | 0.1 | Button text, input labels, tab labels |
+| `type.caption` | 12 | Regular 400 | 16 | 0.2 | Secondary info, timestamps, unit labels |
+| `type.overline` | 11 | SemiBold 600 | 16 | 0.8 | Section headers in uppercase (e.g., "TODAY'S MACROS") |
+
+**Numeric display pattern** (for calorie totals, macro grams, BMR/TDEE values):
+- Use `type.display` or `type.heading`
+- Add `fontVariant: ['tabular-nums']`
+- Consider `fontFeatureSettings: "'tnum' 1"` as a fallback
+
+---
+
+## Spacing Scale Recommendation
+
+### Scale: 8pt Base with 4pt Half-Step
+
+The 8pt grid is the iOS Human Interface Guidelines-aligned standard. Multiples of 8 divide cleanly into common screen widths and pixel densities (1x, 2x, 3x).
+
+| Token | Value (pt) | Typical Use |
+|-------|-----------|-------------|
+| `spacing[1]` | 4 | Icon internal padding, chip inner padding, list item indicator |
+| `spacing[2]` | 8 | Tight padding between related elements (label to input) |
+| `spacing[3]` | 12 | Compact padding inside cards, between caption and body |
+| `spacing[4]` | 16 | Standard horizontal screen padding, button vertical padding |
+| `spacing[5]` | 20 | Comfortable card padding, form field bottom margin |
+| `spacing[6]` | 24 | Section spacing between major groups |
+| `spacing[8]` | 32 | Large section gap, above screen title |
+| `spacing[10]` | 40 | Bottom tab safe area padding, modal top padding |
+| `spacing[12]` | 48 | Minimum touchable target height (Apple HIG: 44pt) |
+| `spacing[16]` | 64 | Hero section spacing, prominent blank space |
+
+**Layout constants** (not part of the spacing scale, but defined alongside it):
+
+| Constant | Value | Use |
+|----------|-------|-----|
+| `layout.screenHorizontalPadding` | 16 | Horizontal padding applied to every screen |
+| `layout.cardBorderRadius` | 12 | Standard card rounding |
+| `layout.inputHeight` | 48 | All text inputs — meets minimum touch target |
+| `layout.buttonHeightMd` | 48 | Standard button height |
+| `layout.buttonHeightSm` | 36 | Compact button height |
+| `layout.tabBarHeight` | 56 | Bottom tab bar height (excluding safe area) |
 
 ---
 
 ## Feature Dependencies
 
 ```
-Polished onboarding
-    ├──requires──> KeyboardAvoidingView integration (precedes form refactor)
-    ├──requires──> Progress indicator component (new, shared across 3 screens)
-    └──requires──> Sensible defaults in InfoContext initial state
+Design token system (colors, spacing, typography, radius, shadow)
+    └──required by──> All components
+                          └──required by──> Screen redesign
 
-7-day running average view
-    ├──requires──> HistoryContext has 7+ days of data (already works)
-    ├──uses──>     getAveragesFromDietDays (already in utils.ts)
-    └──lives in──> DietHistoryScreen (existing screen)
+Typography tokens
+    ├──requires──> Inter font loaded (Expo Font / RN font linking)
+    └──required by──> Text/Heading/Caption components
+                          └──required by──> Every screen
 
-Animated screen transitions (onboarding)
-    └──requires──> react-native-reanimated v3 (already installed)
+Macro color tokens
+    ├──required by──> MacroProgressBar component
+    ├──required by──> D3 graph fill colors (BarGraph, TotalCaloriesGraph)
+    └──required by──> Macro label text colors
 
-Macro percentage validation (MoreInfoScreen sliders)
-    └──requires──> PercentageSlider component refactor or wrapper logic
+NumericText component (tabular numerals)
+    ├──requires──> Typography tokens
+    └──required by──> CalorieSummary, MacroProgressBar, HistoryCard
+
+Button component
+    ├──requires──> Color tokens (brand.accent, text.onAccent)
+    ├──requires──> Spacing tokens (buttonHeight)
+    └──required by──> All onboarding CTAs, AddFood, EditFood
+
+TextInput component
+    ├──requires──> Color tokens (border.default, border.focus, status.error)
+    ├──requires──> Spacing tokens (inputHeight)
+    └──required by──> BasicInfoScreen, AddFoodScreen, EditFoodScreen
+
+Card component
+    ├──requires──> Color tokens (background.card)
+    ├──requires──> Spacing tokens (cardBorderRadius, screenHorizontalPadding)
+    └──required by──> DietTodayScreen, DietHistoryScreen
 ```
 
 ### Dependency Notes
 
-- **7-day average requires HistoryContext:** The data layer already supports it. No new storage schema needed.
-- **Onboarding animation requires Reanimated:** Already a project dependency — no new install.
-- **Progress indicator is a new shared component:** Used by Welcome, BasicInfo, and MoreInfo screens. Build it once, render on all three.
-- **Keyboard-aware layout precedes any input refactor:** Fix `KeyboardAvoidingView` before restructuring input groups, so the fix doesn't get lost.
+- **Token system must come first**: Every component depends on tokens. Tokens are Phase 1.
+- **Font loading is a prerequisite for Typography**: Inter must be linked/loaded before any component uses it. This is a native step (pod install on iOS, font file linking on Android) that can block other work if discovered late.
+- **Macro colors are shared across UI and D3**: The same `colors.macro.*` tokens must feed both the component layer (labels, progress bars) and the existing D3 graph components. This ensures visual consistency without duplicating color decisions.
+- **NumericText is a quick win with high payoff**: Once the token system exists, `NumericText` is a 20-line component that immediately improves every data display. Do it early.
 
 ---
 
@@ -192,25 +269,25 @@ Macro percentage validation (MoreInfoScreen sliders)
 
 ### Launch With (milestone complete when)
 
-- [ ] Progress step indicator on all 3 onboarding screens — prevents abandonment and is the most visible quality signal
-- [ ] "Next" / "Continue" CTA labels replacing "Calculate BMI" — removes confusion about what the button does
-- [ ] Keyboard-aware layout in BasicInfo — inputs are usable when keyboard is open
-- [ ] Unit labels on inputs ("lbs", "ft", "in") — eliminates ambiguity
-- [ ] Sensible non-zero defaults for numeric fields — age 30, weight 160, height 5'9" as placeholders
-- [ ] 7-day rolling average summary card in DietHistoryScreen — shows avg calories + avg macros, handles <7 days gracefully
+- [ ] Token system complete: `src/tokens/colors.ts`, `src/tokens/typography.ts`, `src/tokens/spacing.ts`, `src/tokens/radius.ts`, `src/tokens/shadows.ts`
+- [ ] Inter font loaded and exported as the `typography.fontFamily.sans` constant
+- [ ] Core components built: `Button`, `TextInput`, `Card`, `Heading`/`Body`/`Caption` text variants, `NumericText`, `Icon` wrapper, `EmptyState`, `SectionHeader`
+- [ ] `MacroProgressBar` component consuming `colors.macro.*` tokens
+- [ ] All existing screens updated to consume tokens and core components (no more hardcoded hex, no more inline `fontSize`)
+- [ ] D3 graph components updated to use `colors.macro.*` tokens for fills
 
 ### Add After Validation (v1.x)
 
-- [ ] Animated horizontal slide transitions between onboarding screens — Reanimated is installed; adds polish without changing content
-- [ ] MoreInfoScreen TDEE explanation text — one sentence in plain English
-- [ ] Macro percentage sum validation on sliders — warn when total != 100%
-- [ ] Trend arrow on 7-day average (this week vs. last week) — requires 14 days of data to be meaningful
+- [ ] `DataCard` pattern documented and extracted as a reusable component if the pattern recurs
+- [ ] `CalorieSummary` component (consumed vs. remaining callout) — builds on `NumericText` and token system
+- [ ] Loading skeleton component (animated placeholder for async data)
+- [ ] Shadow tokens applied to Cards (validate they look correct on both iOS and Android before committing)
 
 ### Future Consideration (v2+)
 
-- [ ] Split BasicInfo into 2 screens (personal stats / activity level) — requires navigation restructuring; current single-screen approach is acceptable with keyboard fix
-- [ ] Barcode scanner / food database — explicit milestone with monetization plan
-- [ ] Apple Health / HealthKit sync — new milestone, requires entitlement and significant native work
+- [ ] Dark mode — semantic token layer makes this achievable; defer until demand is clear
+- [ ] `react-native-reanimated` macro progress bar fill animation — Reanimated is installed; animation is polish, not function
+- [ ] Storybook component catalog — only valuable if the design system grows to 30+ components or multiple contributors
 
 ---
 
@@ -218,45 +295,67 @@ Macro percentage validation (MoreInfoScreen sliders)
 
 | Feature | User Value | Implementation Cost | Priority |
 |---------|------------|---------------------|----------|
-| Progress step indicator | HIGH | LOW | P1 |
-| CTA label fix ("Next" vs "Calculate BMI") | HIGH | LOW | P1 |
-| Keyboard-aware layout (BasicInfo) | HIGH | LOW | P1 |
-| Unit labels on inputs | MEDIUM | LOW | P1 |
-| Sensible defaults for numeric inputs | MEDIUM | LOW | P1 |
-| 7-day rolling average summary card | HIGH | MEDIUM | P1 |
-| Animated onboarding transitions | MEDIUM | MEDIUM | P2 |
-| MoreInfoScreen TDEE explanation | MEDIUM | LOW | P2 |
-| Macro slider sum validation | MEDIUM | LOW | P2 |
-| Trend arrows on 7-day view | MEDIUM | MEDIUM | P2 |
-| Barcode scanner | HIGH | HIGH | P3 |
-| HealthKit sync | MEDIUM | HIGH | P3 |
+| Color token system | HIGH | LOW | P1 |
+| Typography scale + Inter font | HIGH | LOW | P1 |
+| Spacing scale | HIGH | LOW | P1 |
+| Button component | HIGH | LOW | P1 |
+| TextInput component | HIGH | LOW | P1 |
+| Text variant components | HIGH | LOW | P1 |
+| Card component | HIGH | LOW | P1 |
+| NumericText (tabular numerals) | HIGH | LOW | P1 |
+| Macro color tokens | HIGH | LOW | P1 |
+| MacroProgressBar component | HIGH | MEDIUM | P1 |
+| Apply system to all screens | HIGH | MEDIUM | P1 |
+| Update D3 graphs to use macro tokens | MEDIUM | LOW | P1 |
+| Icon wrapper component | MEDIUM | LOW | P2 |
+| EmptyState component | MEDIUM | LOW | P2 |
+| SectionHeader component | MEDIUM | LOW | P2 |
+| CalorieSummary component | MEDIUM | LOW | P2 |
+| Loading skeleton | LOW | MEDIUM | P2 |
+| Shadow token application | LOW | LOW | P2 |
+| Dark mode | HIGH | HIGH | P3 |
+| Animated progress bar fill | MEDIUM | MEDIUM | P3 |
+| Component documentation site | LOW | HIGH | P3 |
+
+**Priority key:**
+- P1: Required for design system milestone to be complete
+- P2: High value, add within this milestone if time permits
+- P3: Defer — not needed for this milestone
 
 ---
 
-## Competitor Feature Analysis
+## Competitor Design System Analysis
 
-| Feature | MyFitnessPal | MacroFactor | Cronometer | macromaker approach |
-|---------|--------------|-------------|------------|---------------------|
-| Onboarding | Progressive, one question per screen, branded | Minimal inputs, results-focused | Dense but thorough | Current: dense + unlabeled. Target: progress dots + keyboard-aware + labeled |
-| Daily view | Meal-separated timeline | Single dashboard, prominent calories remaining | Macro ring chart | Existing graphs; add "remaining" callout |
-| Weekly/average view | Weekly reports (premium) | Core feature — 7-day expenditure trend | Custom charting (premium) | 7-day average card in history tab |
-| Progress indicator | Dots or "Step X of Y" | Step numbers | Step numbers | Add dots using existing Reanimated |
-| Keyboard handling | Polished, fields scroll above keyboard | Standard | Standard | Fix with KeyboardAvoidingView + ScrollView |
+Analysis of what well-regarded fitness/data apps do at the design system level:
+
+| Design Concern | Strong (weightlifting) | Linear (product/reference) | Notion (product/reference) | macromaker approach |
+|----------------|------------------------|---------------------------|---------------------------|---------------------|
+| Color palette | Dark background, green + blue data colors | Slate/gray neutral, purple accent | Off-white, black/gray primary, no saturated accent | Slate neutral + orange accent — avoids both the gym-dark and the SaaS-purple |
+| Typography | System font (SF Pro), large numbers prominent | Custom (Linear Grotesk), tight tracking | System/custom, generous line height | Inter — purpose-built for UI, strong numerics |
+| Numeric display | Large, bold, tabular | Data tables use tabular figures | Not data-primary | `NumericText` component with tabular numerals throughout |
+| Data density | High density, information per pixel maximized | Moderate density, whitespace for scan | High whitespace, task-oriented | Moderate density — enough whitespace to be readable, enough data to be useful in one glance |
+| Spacing | Tight — efficiency for gym context | Generous — productivity app rhythm | Very generous — reading-oriented | 8pt grid, `spacing[4]` (16pt) as the base padding unit |
+| Macro/category colors | Not applicable | Categorical colors for issue status | Not applicable | Dedicated `colors.macro.*` tokens: blue (carbs), violet (protein), amber (fat) |
 
 ---
 
 ## Sources
 
-- [Best Macro Tracking Apps (2026 Edition)](https://fuelnutrition.app/blog/best-macro-tracking-apps) — MEDIUM confidence, marketing content but feature lists are accurate
-- [MacroFactor app](https://macrofactor.com/macrofactor/) — HIGH confidence, primary source; weekly check-in and running average are documented product features
-- [Cronometer vs MyFitnessPal comparison](https://www.katelymannutrition.com/blog/cronometer-vs-mfp) — MEDIUM confidence; registered dietitian comparative review
-- [Mobile Onboarding UX Best Practices 2026](https://www.designstudiouiux.com/blog/mobile-app-onboarding-best-practices/) — MEDIUM confidence; UX agency blog, patterns consistent with other sources
-- [VWO Mobile App Onboarding Guide](https://vwo.com/blog/mobile-app-onboarding-guide/) — MEDIUM confidence; conversion optimization firm, practical patterns
-- [React Native Onboarding patterns](https://blog.swmansion.com/onboarding-in-react-native-doesnt-have-to-be-hard-d037cd383771) — HIGH confidence; Software Mansion official blog (Reanimated maintainers)
-- [Comparing Top Macro Apps 2026](https://www.katelymannutrition.com/blog/best-tracking-app) — MEDIUM confidence; practitioner review with feature enumeration
-- Codebase review of `/screens/InfoModal/` — HIGH confidence; direct source of truth for current state
+- [Inter font — official site](https://rsms.me/inter/) — HIGH confidence; official documentation of tabular numerals and OpenType features
+- [Inter on Google Fonts](https://fonts.google.com/specimen/Inter) — HIGH confidence; canonical source for license and download
+- [8pt Grid System — spec.fm](https://spec.fm/specifics/8-pt-grid) — HIGH confidence; foundational reference, widely cited by iOS/Android designers
+- [Cieden — Spacing Best Practices](https://cieden.com/book/sub-atomic/spacing/spacing-best-practices) — MEDIUM confidence; design system reference, patterns consistent with Apple HIG
+- [UXmatters — Color Psychology in Health/Wellness Apps](https://www.uxmatters.com/mt/archives/2024/07/leveraging-the-psychology-of-color-in-ux-design-for-health-and-wellness-apps.php) — MEDIUM confidence; UX research publication, 2024
+- [App Color Trends 2025 — Medium/HuedServe](https://medium.com/@huedserve/app-color-trends-2025-fresh-palettes-to-elevate-your-design-bbfe2e40f8f1) — LOW confidence; single author, directionally useful
+- [decode.agency — How to Choose Color Palette for Apps](https://decode.agency/article/choose-color-palette-for-apps/) — MEDIUM confidence; agency blog, practical guidance
+- [Stormotion — Fitness App UX Principles](https://stormotion.io/blog/fitness-app-ux/) — MEDIUM confidence; mobile development agency, consistent with other sources
+- [creatype studio — Best Fonts for Mobile App Design 2025](https://creatypestudio.co/best-fonts-for-mobile-app-design/) — LOW confidence; validates Inter recommendation
+- [Toptal — Typography for Mobile Apps](https://www.toptal.com/designers/typography/typography-for-mobile-apps) — MEDIUM confidence; established platform, practical guidance
+- [React Native StyleSheet docs](https://reactnative.dev/docs/stylesheet) — HIGH confidence; official RN documentation
+- [Martin Fowler — Design Token-Based UI Architecture](https://martinfowler.com/articles/design-token-based-ui-architecture.html) — HIGH confidence; authoritative reference
+- [Material Design 3 — Design Tokens](https://m3.material.io/foundations/design-tokens) — HIGH confidence; Google's official token architecture reference
 
 ---
 
-*Feature research for: macromaker — mobile macro/nutrition tracker (React Native, local-only)*
-*Researched: 2026-03-10*
+*Feature research for: macromaker v1.1 — Design System & Branding*
+*Researched: 2026-03-14*
