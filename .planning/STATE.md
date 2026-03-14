@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Design System & Branding
 status: planning
-stopped_at: Completed 05-token-foundation-font-integration/05-01-PLAN.md
-last_updated: "2026-03-14T23:47:17.888Z"
+stopped_at: Completed 05-token-foundation-font-integration/05-02-PLAN.md
+last_updated: "2026-03-14T23:53:19.998Z"
 last_activity: 2026-03-14 — Roadmap created for v1.1; 27 requirements mapped across 5 phases
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -46,6 +46,8 @@ Active decisions for v1.1:
 - SVG graph `<Text>`: stays on system fonts (documented carve-out) — custom fonts break on Android via react-native-svg
 - [Phase 05-token-foundation-font-integration]: Plain TypeScript as const objects in design/tokens/ — no runtime library; direct import into StyleSheet.create
 - [Phase 05-token-foundation-font-integration]: shadows.ts created as empty stub to reserve module slot for v2 (DS-03)
+- [Phase 05-token-foundation-font-integration]: Inter v4.1 zip has no static TTFs; Inter v3.19 hinted Windows TTFs used — PostScript names match fontFamily strings, no Platform.select() needed
+- [Phase 05-token-foundation-font-integration]: react-native.config.js ios:null guard for vector-icons prevents UIAppFonts collision; audit after every react-native-asset run
 
 ### Pending Todos
 
@@ -58,6 +60,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14T23:47:17.884Z
-Stopped at: Completed 05-token-foundation-font-integration/05-01-PLAN.md
+Last session: 2026-03-14T23:53:19.993Z
+Stopped at: Completed 05-token-foundation-font-integration/05-02-PLAN.md
 Resume file: None

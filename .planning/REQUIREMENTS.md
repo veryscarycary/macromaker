@@ -20,10 +20,10 @@ Requirements for this milestone: design system, branding, and app rename to Hone
 
 ### Font Integration
 
-- [ ] **FONT-01**: Inter static TTF files (Regular, Medium, SemiBold, Bold) added to `assets/fonts/`
-- [ ] **FONT-02**: `react-native.config.js` configured and `react-native-asset` run to link fonts on both platforms
+- [x] **FONT-01**: Inter static TTF files (Regular, Medium, SemiBold, Bold) added to `assets/fonts/`
+- [x] **FONT-02**: `react-native.config.js` configured and `react-native-asset` run to link fonts on both platforms
 - [ ] **FONT-03**: Inter renders correctly on iOS and Android (smoke test on simulator + physical device)
-- [ ] **FONT-04**: react-native-vector-icons (Ionicons, Feather, FontAwesome) still render correctly after font linking — `Info.plist` UIAppFonts intact
+- [x] **FONT-04**: react-native-vector-icons (Ionicons, Feather, FontAwesome) still render correctly after font linking — `Info.plist` UIAppFonts intact
 
 ### Paper Theme Integration
 
@@ -107,10 +107,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TOKS-02 | Phase 5 | Complete |
 | TOKS-03 | Phase 5 | Complete |
 | TOKS-04 | Phase 5 | Complete |
-| FONT-01 | Phase 5 | Pending |
-| FONT-02 | Phase 5 | Pending |
+| FONT-01 | Phase 5 | Complete |
+| FONT-02 | Phase 5 | Complete |
 | FONT-03 | Phase 5 | Pending |
-| FONT-04 | Phase 5 | Pending |
+| FONT-04 | Phase 5 | Complete |
 | PAPR-01 | Phase 6 | Pending |
 | PAPR-02 | Phase 6 | Pending |
 | PAPR-03 | Phase 6 | Pending |
