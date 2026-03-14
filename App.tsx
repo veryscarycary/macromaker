@@ -8,6 +8,8 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import BootSplash from 'react-native-bootsplash';
 import { MD3DarkTheme, MD3LightTheme, PaperProvider } from 'react-native-paper';
+// TEMPORARY — for font smoke test only (05-03)
+import { FontSmokeTestScreen } from './screens/FontSmokeTestScreen';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -22,17 +24,7 @@ export default function App() {
   if (!isLoadingComplete) {
     return null;
   } else {
-    return (
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <PaperProvider theme={paperTheme}>
-          <SafeAreaProvider>
-            <HistoryProvider>
-              <Navigation colorScheme={colorScheme} />
-              <StatusBar />
-            </HistoryProvider>
-          </SafeAreaProvider>
-        </PaperProvider>
-      </GestureHandlerRootView>
-    );
+    // TEMPORARY — show smoke test screen instead of normal navigation (05-03)
+    return <FontSmokeTestScreen />;
   }
 }
