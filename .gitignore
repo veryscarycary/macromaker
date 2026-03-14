@@ -72,3 +72,7 @@ buck-out/
 web-build/
 
 # @end expo-cli
+
+# react-native-asset manifest (machine-generated, not committed)
+ios/link-assets-manifest.json
+android/link-assets-manifest.json
