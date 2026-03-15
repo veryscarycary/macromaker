@@ -7,7 +7,8 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import BootSplash from 'react-native-bootsplash';
-import { MD3DarkTheme, MD3LightTheme, PaperProvider } from 'react-native-paper';
+import { PaperProvider } from 'react-native-paper';
+import { paperTheme } from './design/theme/paperTheme';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -16,8 +17,6 @@ export default function App() {
   useEffect(() => {
     BootSplash.hide({ fade: true });
   }, []);
-
-  const paperTheme = colorScheme === 'dark' ? MD3DarkTheme : MD3LightTheme;
 
   if (!isLoadingComplete) {
     return null;
