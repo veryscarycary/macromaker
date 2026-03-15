@@ -1,9 +1,10 @@
 import React from 'react';
 import { Text } from '../../../../../components/Themed';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { DietScreenNavigationProp } from '../../../../../types';
+import { colors } from '../../../../../design/tokens/colors';
+import { fontFamilies } from '../../../../../design/tokens/typography';
 
 type Props = {
   navigation: DietScreenNavigationProp;
@@ -16,7 +17,7 @@ const AddMealSectionButton = ({ date, navigation }: Props) => {
       style={styles.container}
       onPress={() => navigation.navigate('AddFoodScreen', { date })}
     >
-      <Ionicons size={32} name="add-circle-outline" />
+      <Ionicons size={24} name="add-circle-outline" color={colors.text.inverse} />
       <Text style={styles.label}>Meal</Text>
     </TouchableOpacity>
   );
@@ -27,15 +28,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
+    gap: 8,
+    padding: 14,
     margin: 16,
-    borderRadius: 16,
-    backgroundColor: '#dedede',
+    borderRadius: 8,
+    backgroundColor: colors.brand.primary,
     overflow: 'hidden',
-    fontSize: 42,
   },
   label: {
-    fontSize: 20,
+    fontFamily: fontFamilies.medium,
+    fontSize: 16,
+    color: colors.text.inverse,
   },
 });
 

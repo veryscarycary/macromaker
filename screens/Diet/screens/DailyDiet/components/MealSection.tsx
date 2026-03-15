@@ -59,7 +59,7 @@ const MealSection = ({
           style={[styles.button, styles.editButton]}
           onPress={() => navigation.navigate('EditFoodScreen', { meal })}
         >
-          <Feather name="edit" size={20} color={colors.text.secondary} />
+          <Feather name="edit" size={20} color={colors.text.inverse} />
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, styles.deleteButton]}
@@ -127,9 +127,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   editButton: {
-    backgroundColor: colors.surface.muted,
+    backgroundColor: colors.brand.primary,
     borderRightWidth: 1,
-    borderRightColor: colors.surface.border,
+    borderRightColor: colors.brand.primaryDark,
   },
   deleteButton: {
     backgroundColor: colors.status.error,
