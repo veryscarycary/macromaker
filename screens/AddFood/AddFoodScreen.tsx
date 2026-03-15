@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { Searchbar, TextInput } from 'react-native-paper';
+import React, { useState } from 'react';
 import { Text, View } from '../../components/Themed';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { colors } from '../../design/tokens/colors';
+import { fontFamilies } from '../../design/tokens/typography';
 import Spacer from '../../components/Spacer';
 import {
-  Context as MealContext,
   storeMeal,
   updateMeal,
 } from '../../context/MealContext';
@@ -21,7 +21,7 @@ import {
   convertProteinToCalories,
   getTodaysDate,
 } from '../../utils';
-import { DietScreenNavigationProp, DietTabParamList, Meal } from '../../types';
+import { DietScreenNavigationProp, DietTabParamList } from '../../types';
 import DismissKeyboardView from '../../components/DismissKeyboardView';
 
 type Props = {
@@ -52,17 +52,6 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
   const defaultDate = get(meal, 'date');
 
   const [search, setSearch] = useState('');
-  // const {
-  //   state: { carbs, carbsUnit, protein, proteinUnit, fat, fatUnit },
-  //   state,
-  //   setCarbs,
-  //   setCarbsUnit,
-  //   setProtein,
-  //   setProteinUnit,
-  //   setFat,
-  //   setFatUnit,
-  // } = useContext(MealContext);
-
   const [carbs, setCarbs] = useState(getDefaultMacroState(defaultCarbs));
   const [protein, setProtein] = useState(getDefaultMacroState(defaultProtein));
   const [fat, setFat] = useState(getDefaultMacroState(defaultFat));
@@ -70,6 +59,9 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
   const [proteinUnit, setProteinUnit] = useState(defaultProteinUnit || 'g');
   const [fatUnit, setFatUnit] = useState(defaultFatUnit || 'g');
   const [mealName, setMealName] = useState(defaultMealName || '');
+
+  const [searchFocused, setSearchFocused] = useState(false);
+  const [mealNameFocused, setMealNameFocused] = useState(false);
 
   const carbsNum = carbs ? Number(carbs) : 0;
   const proteinNum = protein ? Number(protein) : 0;
@@ -87,23 +79,30 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
 
   return (
     <>
-      <Searchbar
-        icon={({ size, color }) => (
-          <Ionicons name="search-outline" size={size} color={color} />
-        )}
-        placeholder="Broccoli, pizza, etc"
-        onChangeText={(value: string) => setSearch(value)}
-        value={search}
-      />
+      <View style={[styles.searchbar, searchFocused && styles.searchbarFocused]}>
+        <Ionicons name="search-outline" size={18} color={colors.text.tertiary} />
+        <TextInput
+          style={styles.searchbarInput}
+          placeholder="Broccoli, pizza, etc"
+          placeholderTextColor={colors.text.tertiary}
+          onChangeText={(value: string) => setSearch(value)}
+          value={search}
+          onFocus={() => setSearchFocused(true)}
+          onBlur={() => setSearchFocused(false)}
+        />
+      </View>
 
-      <DismissKeyboardView style={styles.addMealForm}>
-        {/* <View style={styles.fields}> */}
-        <View style={styles.input}>
+      <DismissKeyboardView style={styles.form}>
+        <View style={styles.mealNameWrap}>
+          <Text style={styles.fieldLabel}>Meal Name</Text>
           <TextInput
-            mode="flat"
+            style={[styles.mealNameInput, mealNameFocused && styles.mealNameInputFocused]}
             onChangeText={setMealName}
             value={mealName}
-            placeholder="Meal Name"
+            placeholder="e.g. Chicken breast"
+            placeholderTextColor={colors.text.tertiary}
+            onFocus={() => setMealNameFocused(true)}
+            onBlur={() => setMealNameFocused(false)}
           />
         </View>
 
@@ -128,16 +127,15 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
           setValue={setFat}
           setUnit={setFatUnit}
         />
+
         <View style={styles.caloriesContainer}>
           <Text style={styles.calories}>Calories: {Math.round(calories)}</Text>
         </View>
-        {/* </View> */}
+
         <Spacer />
+
         <TouchableOpacity
-          style={[
-            styles.addMealButton,
-            isDisabled && styles.disabledAddMealButton,
-          ]}
+          style={[styles.addMealButton, isDisabled && styles.disabledAddMealButton]}
           disabled={isDisabled}
           onPress={async () => {
             if (get(meal, 'id')) {
@@ -158,9 +156,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
                   id: get(meal, 'id') as string,
                 });
               } catch (e) {
-                console.error(
-                  `Error: ${e}. Could not update meal of id ${get(meal, 'id')}!`
-                );
+                console.error(`Error: ${e}. Could not update meal of id ${get(meal, 'id')}!`);
               }
             } else {
               try {
@@ -186,12 +182,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
             navigation.pop();
           }}
         >
-          <Text
-            style={[
-              styles.addMealText,
-              isDisabled && styles.disabledAddMealText,
-            ]}
-          >
+          <Text style={[styles.addMealText, isDisabled && styles.disabledAddMealText]}>
             {get(meal, 'id') ? 'Edit' : 'Add'} Meal
           </Text>
         </TouchableOpacity>
@@ -201,46 +192,84 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  searchbar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.surface.muted,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    gap: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: 'transparent',
+  },
+  searchbarFocused: {
+    borderBottomColor: colors.brand.primary,
+  },
+  searchbarInput: {
+    flex: 1,
+    fontFamily: fontFamilies.regular,
+    fontSize: 14,
+    color: colors.text.primary,
+    paddingVertical: 4,
+  },
+  form: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 16,
+  },
+  mealNameWrap: {
+    width: '84%',
+    marginBottom: 4,
+  },
+  fieldLabel: {
+    fontFamily: fontFamilies.medium,
+    fontSize: 15,
+    color: colors.text.primary,
+    marginBottom: 2,
+  },
+  mealNameInput: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 14,
+    color: colors.text.primary,
+    backgroundColor: colors.surface.subtle,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderBottomWidth: 2,
+    borderBottomColor: colors.surface.border,
+  },
+  mealNameInputFocused: {
+    borderBottomColor: colors.brand.primary,
+  },
   caloriesContainer: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    padding: 10,
-    marginRight: 10,
+    alignSelf: 'flex-start',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginTop: 12,
     borderRadius: 7,
     backgroundColor: '#e8e8e8',
   },
-  calories: { fontSize: 24 },
-  marginTop: { marginTop: 5 },
-  addMealForm: {
-    flex: 1,
-    margin: 40,
-    paddingLeft: 10,
-    paddingTop: 5,
+  calories: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 20,
+    color: colors.text.primary,
   },
   addMealButton: {
-    backgroundColor: '#7078df',
+    backgroundColor: colors.brand.primary,
     alignItems: 'center',
     borderRadius: 5,
     padding: 12,
-    marginHorizontal: 10,
-    marginRight: 20,
     marginBottom: 20,
   },
   disabledAddMealButton: {
     backgroundColor: '#c6c6c6',
   },
   addMealText: {
-    fontSize: 20,
+    fontFamily: fontFamilies.medium,
+    fontSize: 16,
+    color: colors.text.inverse,
   },
   disabledAddMealText: {
     color: '#989898',
-  },
-  fields: {
-    marginBottom: 40,
-  },
-  input: {
-    width: '84%',
-    paddingHorizontal: 0,
   },
 });
 
