@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface.subtle,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: colors.surface.border,
   },
   mealNameInputFocused: {

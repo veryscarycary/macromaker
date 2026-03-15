@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     paddingVertical: 14,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: colors.surface.border,
   },
   label: {
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface.subtle,
     paddingHorizontal: 8,
     paddingVertical: 6,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: colors.surface.border,
   },
   inputFocused: {

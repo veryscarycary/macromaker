@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phase 6 Theme Preview — AddFoodScreen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f1f5f9;
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .label {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Phone shell */
+    .phone {
+      width: 375px;
+      background: #fff;
+      border-radius: 44px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+      overflow: hidden;
+      border: 8px solid #1e293b;
+    }
+
+    /* Status bar */
+    .status-bar {
+      height: 44px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    /* Nav header */
+    .nav-header {
+      height: 48px;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+    }
+    .nav-header .back-btn {
+      color: #f97316;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .nav-header .title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    /* Screen content */
+    .screen {
+      background: #fff;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Searchbar — MD3 style */
+    .searchbar {
+      margin: 0;
+      padding: 8px 12px;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .searchbar.focused {
+      border-bottom: 2px solid #f97316;
+    }
+    .searchbar .search-icon {
+      color: #64748b;
+      font-size: 18px;
+    }
+    .searchbar input {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      border: none;
+      background: transparent;
+      outline: none;
+      flex: 1;
+      color: #0f172a;
+    }
+
+    /* Form area */
+    .form {
+      flex: 1;
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Flat TextInput (MD3 style) */
+    .text-input-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .text-input-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: #64748b;
+      margin-bottom: 2px;
+    }
+    .text-input {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #0f172a;
+      border: none;
+      border-bottom: 1px solid #e2e8f0;
+      background: #f8fafc;
+      padding: 8px 10px;
+      outline: none;
+      width: 84%;
+    }
+    .text-input:focus {
+      border-bottom: 2px solid #f97316;
+    }
+    .text-input::placeholder {
+      color: #94a3b8;
+    }
+
+    /* Macro row */
+    .macro-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .macro-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #0f172a;
+      width: 60px;
+    }
+    .macro-input {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      border: none;
+      border-bottom: 1px solid #e2e8f0;
+      background: #f8fafc;
+      padding: 4px 6px;
+      width: 64px;
+      outline: none;
+      color: #0f172a;
+    }
+    .macro-input:focus {
+      border-bottom: 2px solid #f97316;
+    }
+    .macro-unit {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #64748b;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+
+    /* Calories badge */
+    .calories-box {
+      background: #e8e8e8;
+      border-radius: 7px;
+      padding: 8px 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #0f172a;
+      align-self: flex-start;
+    }
+
+    /* Add Meal button */
+    .add-btn {
+      background: #f97316;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+      padding: 12px;
+      border-radius: 5px;
+      margin-top: auto;
+      cursor: pointer;
+    }
+    .add-btn.disabled {
+      background: #c6c6c6;
+      color: #989898;
+    }
+
+    /* Bottom tab bar */
+    .tab-bar {
+      height: 56px;
+      background: #fff;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+    }
+    .tab.active { color: #f97316; }
+    .tab.inactive { color: #94a3b8; }
+    .tab-icon { font-size: 20px; }
+
+    /* Callout annotations */
+    .annotation {
+      background: #fff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #334155;
+      max-width: 220px;
+    }
+    .annotation .pill {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 1px 7px;
+      font-weight: 600;
+      font-size: 11px;
+      margin-right: 4px;
+    }
+    .pill.orange { background: #fff7ed; color: #f97316; border: 1px solid #f97316; }
+    .pill.slate  { background: #f8fafc; color: #475569; border: 1px solid #cbd5e1; }
+    .pill.inter  { background: #f0fdf4; color: #16a34a; border: 1px solid #86efac; }
+    .swatch {
+      display: inline-block;
+      width: 12px; height: 12px;
+      border-radius: 3px;
+      vertical-align: middle;
+      margin-right: 4px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .divider {
+      width: 1px;
+      height: 500px;
+      background: #cbd5e1;
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BEFORE -->
+  <div class="column">
+    <span class="label">Before (default Paper theme)</span>
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:41</span><span>●●●</span>
+      </div>
+      <div class="nav-header">
+        <span class="back-btn" style="color:#6750A4">‹ Back</span>
+        <span class="title">Add Meal</span>
+      </div>
+      <div class="screen">
+        <div class="searchbar focused" style="border-bottom-color:#6750A4">
+          <span class="search-icon">⌕</span>
+          <input style="font-family: system-ui, sans-serif;" placeholder="Broccoli, pizza, etc" value="chicken" readonly />
+        </div>
+        <div class="form">
+          <div class="text-input-wrap">
+            <span class="text-input-label">MEAL NAME</span>
+            <input class="text-input" style="border-bottom-color:#6750A4; font-family: system-ui, sans-serif;" value="Chicken breast" readonly />
+          </div>
+          <div class="macro-row">
+            <span class="macro-label">Carbs</span>
+            <input class="macro-input" style="font-family:system-ui,sans-serif" value="0" readonly />
+            <span class="macro-unit" style="font-family:system-ui,sans-serif">g</span>
+          </div>
+          <div class="macro-row">
+            <span class="macro-label">Protein</span>
+            <input class="macro-input" style="font-family:system-ui,sans-serif" value="31" readonly />
+            <span class="macro-unit" style="font-family:system-ui,sans-serif">g</span>
+          </div>
+          <div class="macro-row">
+            <span class="macro-label">Fat</span>
+            <input class="macro-input" style="font-family:system-ui,sans-serif" value="3.6" readonly />
+            <span class="macro-unit" style="font-family:system-ui,sans-serif">g</span>
+          </div>
+          <div class="calories-box">Calories: 156</div>
+          <div style="flex:1"></div>
+          <div class="add-btn" style="background:#7078df">Add Meal</div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab active" style="color:#6750A4"><span class="tab-icon">🥗</span>Diet</div>
+          <div class="tab inactive"><span class="tab-icon">🏋️</span>Fitness</div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation">
+      <span class="pill slate">Primary</span> Paper's default violet/purple<br>
+      <span class="swatch" style="background:#6750A4"></span><code>#6750A4</code><br><br>
+      Font: <strong>system-ui</strong> (San Francisco on iOS)<br>
+      Two-story <em>a</em>, generic platform font
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- AFTER -->
+  <div class="column">
+    <span class="label">After (brand paperTheme)</span>
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:41</span><span>●●●</span>
+      </div>
+      <div class="nav-header">
+        <span class="back-btn">‹ Back</span>
+        <span class="title">Add Meal</span>
+      </div>
+      <div class="screen">
+        <div class="searchbar focused">
+          <span class="search-icon">⌕</span>
+          <input placeholder="Broccoli, pizza, etc" value="chicken" readonly />
+        </div>
+        <div class="form">
+          <div class="text-input-wrap">
+            <span class="text-input-label">MEAL NAME</span>
+            <input class="text-input" style="border-bottom-color:#f97316" value="Chicken breast" readonly />
+          </div>
+          <div class="macro-row">
+            <span class="macro-label">Carbs</span>
+            <input class="macro-input" value="0" readonly />
+            <span class="macro-unit">g</span>
+          </div>
+          <div class="macro-row">
+            <span class="macro-label">Protein</span>
+            <input class="macro-input" value="31" readonly />
+            <span class="macro-unit">g</span>
+          </div>
+          <div class="macro-row">
+            <span class="macro-label">Fat</span>
+            <input class="macro-input" value="3.6" readonly />
+            <span class="macro-unit">g</span>
+          </div>
+          <div class="calories-box">Calories: 156</div>
+          <div style="flex:1"></div>
+          <div class="add-btn">Add Meal</div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab active"><span class="tab-icon">🥗</span>Diet</div>
+          <div class="tab inactive"><span class="tab-icon">🏋️</span>Fitness</div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation">
+      <span class="pill orange">Primary</span> Brand orange<br>
+      <span class="swatch" style="background:#f97316"></span><code>#f97316</code><br><br>
+      Font: <span class="pill inter">Inter</span> single-story <em>a</em><br>
+      Active underline, button, back arrow all orange<br><br>
+      <span class="pill slate">Borders</span> slate-200 <code>#e2e8f0</code>
+    </div>
+  </div>
+
+</body>
+</html>
