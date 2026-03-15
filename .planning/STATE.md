@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Design System & Branding
 status: planning
-stopped_at: Completed phase-05 (verified)
-last_updated: "2026-03-15T03:00:00.000Z"
-last_activity: 2026-03-15 — Phase 5 complete and verified (TOKS-01–04, FONT-01–04)
+stopped_at: Completed 06-paper-theme-integration/06-01-PLAN.md
+last_updated: "2026-03-15T03:26:36.480Z"
+last_activity: 2026-03-15 — Phase 5 complete and verified (design tokens + Inter font)
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 5
+  completed_plans: 4
   percent: 20
 ---
 
@@ -50,6 +50,8 @@ Active decisions for v1.1:
 - [Phase 05-token-foundation-font-integration]: react-native.config.js ios:null guard for vector-icons prevents UIAppFonts collision; audit after every react-native-asset run
 - [Phase 05-token-foundation-font-integration]: Physical iOS device verification confirmed Inter weight rendering matches simulator; no Platform.select() needed
 - [Phase 05-token-foundation-font-integration]: Smoke test screen pattern: temporary screen in screens/, wired as direct App.tsx return, deleted after human sign-off
+- [Phase 06-paper-theme-integration]: configureFonts uses per-variant config with fontWeight: undefined — fontWeight must never be a string alongside custom font family names
+- [Phase 06-paper-theme-integration]: paperTheme.ts imports all color values from design/tokens — zero hex literals at theme layer (enforced by test)
 
 ### Pending Todos
 
@@ -61,6 +63,6 @@ None active. (Phase 5 blockers resolved — UIAppFonts intact, physical device v
 
 ## Session Continuity
 
-Last session: 2026-03-15T02:46:13.937Z
-Stopped at: Completed 05-token-foundation-font-integration/05-03-PLAN.md
+Last session: 2026-03-15T03:26:36.474Z
+Stopped at: Completed 06-paper-theme-integration/06-01-PLAN.md
 Resume file: None

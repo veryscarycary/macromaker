@@ -27,8 +27,8 @@ Requirements for this milestone: design system, branding, and app rename to Hone
 
 ### Paper Theme Integration
 
-- [ ] **PAPR-01**: `design/theme/paperTheme.ts` built from token imports — brand colors mapped to MD3 color roles
-- [ ] **PAPR-02**: `configureFonts` applied with Inter mapped to all MD3 typography variants using separate weight files
+- [x] **PAPR-01**: `design/theme/paperTheme.ts` built from token imports — brand colors mapped to MD3 color roles
+- [x] **PAPR-02**: `configureFonts` applied with Inter mapped to all MD3 typography variants using separate weight files
 - [ ] **PAPR-03**: `App.tsx` updated to pass `paperTheme` to `PaperProvider`; existing Paper components visually reflect brand tokens
 
 ### Component Library
@@ -111,8 +111,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FONT-02 | Phase 5 | Complete |
 | FONT-03 | Phase 5 | Complete |
 | FONT-04 | Phase 5 | Complete |
-| PAPR-01 | Phase 6 | Pending |
-| PAPR-02 | Phase 6 | Pending |
+| PAPR-01 | Phase 6 | Complete |
+| PAPR-02 | Phase 6 | Complete |
 | PAPR-03 | Phase 6 | Pending |
 | COMP-01 | Phase 7 | Pending |
 | COMP-02 | Phase 7 | Pending |
