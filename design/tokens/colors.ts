@@ -21,6 +21,7 @@ const palette = {
   blue400:   '#60a5fa',
   violet400: '#a78bfa',
   amber400:  '#fbbf24',
+  red500:    '#ef4444',
   white:     '#ffffff',
   black:     '#000000',
 } as const;
@@ -47,6 +48,9 @@ export const colors = {
     carbs:   palette.blue400,
     protein: palette.violet400,
     fat:     palette.amber400,
+  },
+  status: {
+    error: palette.red500,
   },
 } as const;
 

@@ -9,6 +9,8 @@ import { Context as InfoContext } from '../../../context/InfoContext';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
 import PercentageSlider from '../../../components/PercentageSlider';
 import { getInfoWithCalculatedMetrics, storeBasicInfo } from '../../../context/InfoContext';
+import { colors } from '../../../design/tokens/colors';
+import { fontFamilies } from '../../../design/tokens/typography';
 
 type Props = {
   navigation: ModalStackNavigationProp;
@@ -147,16 +149,19 @@ const styles = StyleSheet.create({
     height: 68,
   },
   title: {
+    fontFamily: fontFamilies.semiBold,
     fontSize: 18,
-    fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 4,
+    color: colors.text.primary,
   },
   description: {
+    fontFamily: fontFamilies.regular,
     fontSize: 12,
     textAlign: 'center',
     marginBottom: 8,
     lineHeight: 16,
+    color: colors.text.secondary,
   },
   imageContainer: {
     flexDirection: 'row',
@@ -181,7 +186,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   descriptionHighlight: {
-    fontWeight: 'bold',
+    fontFamily: fontFamilies.bold,
   },
   sliderSection: {
     gap: 0,
@@ -195,12 +200,13 @@ const styles = StyleSheet.create({
   },
   sliderSectionError: {
     borderWidth: 1.5,
-    borderColor: '#e53e3e',
+    borderColor: colors.status.error,
     borderRadius: 8,
     padding: 10,
   },
   macroErrorText: {
-    color: '#e53e3e',
+    fontFamily: fontFamilies.regular,
+    color: colors.status.error,
     fontSize: 12,
     marginTop: 8,
     textAlign: 'center',
@@ -219,14 +225,16 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   button: {
-    backgroundColor: '#7078df',
+    backgroundColor: colors.brand.primary,
     alignItems: 'center',
     borderRadius: 5,
     paddingVertical: 10,
     marginTop: 6,
   },
   buttonText: {
-    color: '#ffffff',
+    fontFamily: fontFamilies.medium,
+    fontSize: 16,
+    color: colors.text.inverse,
   },
 });
 

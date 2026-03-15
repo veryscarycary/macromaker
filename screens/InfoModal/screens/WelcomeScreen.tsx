@@ -6,6 +6,8 @@ import { ModalStackNavigationProp } from '../../../types';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
 import Spacer from '../../../components/Spacer';
 import StepIndicator from '../components/StepIndicator';
+import { colors } from '../../../design/tokens/colors';
+import { fontFamilies } from '../../../design/tokens/typography';
 
 type Props = {
   navigation: ModalStackNavigationProp;
@@ -37,17 +39,19 @@ const WelcomeScreen = ({ navigation }: Props) => {
     </SafeAreaView>
   );
 };
-{
-  /* <Button onPress={() => navigation.navigate('MoreInfo')} title="Go to More Info" /> */
-}
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   form: {
     flex: 1,
-    marginTop: 64,
-    margin: 40,
-    paddingLeft: 10,
-    paddingTop: 5,
+    paddingHorizontal: 24,
+    paddingTop: 32,
+  },
+  imageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   image: {
     width: 200,
@@ -56,34 +60,29 @@ const styles = StyleSheet.create({
     marginTop: 72,
   },
   title: {
+    fontFamily: fontFamilies.bold,
     fontSize: 32,
-    fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 48,
+    color: colors.text.primary,
   },
   description: {
+    fontFamily: fontFamilies.regular,
     fontSize: 16,
-    fontWeight: 'bold',
     textAlign: 'center',
-  },
-  imageContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    color: colors.text.secondary,
   },
   button: {
-    backgroundColor: '#7078df',
+    backgroundColor: colors.brand.primary,
     alignItems: 'center',
     borderRadius: 5,
     padding: 12,
-    marginHorizontal: 10,
-    marginRight: 20,
     marginBottom: 20,
   },
-  safeArea: {
-    flex: 1,
-  },
   buttonText: {
-    color: '#ffffff',
+    fontFamily: fontFamilies.medium,
+    fontSize: 16,
+    color: colors.text.inverse,
   },
 });
 

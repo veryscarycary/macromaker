@@ -6,6 +6,8 @@ import { ModalStackNavigationProp } from '../../../types';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
 import { Context as InfoContext } from '../../../context/InfoContext';
 import StepIndicator from '../components/StepIndicator';
+import { colors } from '../../../design/tokens/colors';
+import { fontFamilies } from '../../../design/tokens/typography';
 
 type Props = {
   navigation: ModalStackNavigationProp;
@@ -29,6 +31,9 @@ const getRequiredNumberValue = (value: number) => (value > 0 ? String(value) : '
 
 const BasicInfoScreen = ({ navigation }: Props) => {
   const [nameError, setNameError] = useState(false);
+  const [nameFocused, setNameFocused] = useState(false);
+  const [ageFocused, setAgeFocused] = useState(false);
+  const [weightFocused, setWeightFocused] = useState(false);
   const { height } = useWindowDimensions();
   const isCompact = height < 760;
   const {
@@ -72,6 +77,12 @@ const BasicInfoScreen = ({ navigation }: Props) => {
     </TouchableOpacity>
   );
 
+  const getInputBorderColor = (focused: boolean, hasError = false) => {
+    if (hasError) return colors.status.error;
+    if (focused) return colors.brand.primary;
+    return colors.surface.border;
+  };
+
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <StepIndicator totalSteps={3} currentStep={2} />
@@ -94,60 +105,65 @@ const BasicInfoScreen = ({ navigation }: Props) => {
             </View>
             <View style={styles.content}>
               <View style={styles.inputSection}>
-                <View style={styles.input}>
-                  <Text style={styles.pickerLabel}>Name</Text>
+                <View style={styles.inputWrap}>
+                  <Text style={styles.fieldLabel}>Name</Text>
                   <TextInput
-                    style={[styles.textInput, nameError ? styles.textInputError : null]}
+                    style={[styles.textInput, { borderBottomColor: getInputBorderColor(nameFocused, nameError) }]}
                     onChangeText={(val: string) => {
                       setInfoState({ name: val });
                       if (nameError && val.trim().length > 0) setNameError(false);
                     }}
                     value={name}
                     placeholder="Enter your name"
-                    placeholderTextColor="#aaa"
+                    placeholderTextColor={colors.text.tertiary}
+                    onFocus={() => setNameFocused(true)}
+                    onBlur={() => setNameFocused(false)}
                   />
                   {nameError && (
                     <Text style={styles.errorText}>Name is required</Text>
                   )}
                 </View>
 
-                <View style={styles.input}>
-                  <Text style={styles.pickerLabel}>Age</Text>
+                <View style={styles.inputWrap}>
+                  <Text style={styles.fieldLabel}>Age</Text>
                   <TextInput
-                    style={styles.textInput}
+                    style={[styles.textInput, { borderBottomColor: getInputBorderColor(ageFocused) }]}
                     onChangeText={(val: string) =>
                       setInfoState({ age: val === '' ? 0 : Number(val) })
                     }
                     value={getRequiredNumberValue(age)}
                     placeholder="Enter your age"
-                    placeholderTextColor="#aaa"
+                    placeholderTextColor={colors.text.tertiary}
                     keyboardType="numeric"
+                    onFocus={() => setAgeFocused(true)}
+                    onBlur={() => setAgeFocused(false)}
                   />
                 </View>
 
-                <View style={styles.input}>
-                  <Text style={styles.pickerLabel}>Weight</Text>
+                <View style={styles.inputWrap}>
+                  <Text style={styles.fieldLabel}>Weight</Text>
                   <View style={styles.inputRow}>
                     <TextInput
-                      style={[styles.textInput, styles.textInputWithSuffix]}
+                      style={[styles.textInput, styles.textInputFlex, { borderBottomColor: getInputBorderColor(weightFocused) }]}
                       onChangeText={(val: string) =>
                         setInfoState({ weight: val === '' ? 0 : Number(val) })
                       }
                       value={getRequiredNumberValue(weight)}
                       placeholder="150"
-                      placeholderTextColor="#aaa"
+                      placeholderTextColor={colors.text.tertiary}
                       keyboardType="numeric"
+                      onFocus={() => setWeightFocused(true)}
+                      onBlur={() => setWeightFocused(false)}
                     />
-                    <View style={styles.suffixContainer}>
-                      <Text style={styles.suffixText}>lbs</Text>
+                    <View style={styles.unitPill}>
+                      <Text style={styles.unitText}>lbs</Text>
                     </View>
                   </View>
                 </View>
               </View>
 
               <View style={[styles.inputSection, styles.pickerSection]}>
-                <Text style={styles.pickerLabel}>Height</Text>
-
+                <Text style={styles.fieldLabel}>Height</Text>
                 <View style={styles.heightSelector}>
                   <View style={styles.optionGroup}>
                     <Text style={styles.optionGroupLabel}>Feet</Text>
@@ -173,7 +189,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
               </View>
 
               <View style={[styles.inputSection, styles.pickerSection]}>
-                <Text style={styles.pickerLabel}>Gender</Text>
+                <Text style={styles.fieldLabel}>Gender</Text>
                 <View style={styles.optionSelector}>
                   {GENDER_OPTIONS.map(({ label, value }) =>
                     renderOptionButton(label, value, gender, (nextValue) =>
@@ -184,7 +200,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
               </View>
 
               <View style={[styles.inputSection, styles.pickerSection]}>
-                <Text style={styles.pickerLabel}>Activity Level</Text>
+                <Text style={styles.fieldLabel}>Activity Level</Text>
                 <View style={styles.optionSelector}>
                   {ACTIVITY_LEVEL_OPTIONS.map(({ label, value }) =>
                     renderOptionButton(label, value, activityLevel, (nextValue) =>
@@ -218,29 +234,10 @@ const BasicInfoScreen = ({ navigation }: Props) => {
     </SafeAreaView>
   );
 };
-{
-  /* <Button onPress={() => navigation.navigate('MoreInfo')} title="Go to More Info" /> */
-}
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-  },
-  button: {
-    backgroundColor: '#7078df',
-    alignItems: 'center',
-    borderRadius: 5,
-    paddingVertical: 10,
-    marginTop: 6,
-  },
-  buttonDisabled: {
-    backgroundColor: '#c6c6c6',
-  },
-  buttonText: {
-    color: '#ffffff',
-  },
-  buttonTextDisabled: {
-    color: '#7d7d7d',
   },
   form: {
     flex: 1,
@@ -253,20 +250,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-  },
-  input: {
-    marginBottom: 8,
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: '#c7c7c7',
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    backgroundColor: '#f5f5f5',
-    fontSize: 12,
-    color: '#1e1e1e',
-    marginTop: 4,
   },
   imageContainer: {
     flexDirection: 'row',
@@ -290,6 +273,46 @@ const styles = StyleSheet.create({
   pickerSection: {
     alignItems: 'flex-start',
   },
+  inputWrap: {
+    marginBottom: 8,
+  },
+  fieldLabel: {
+    fontFamily: fontFamilies.medium,
+    fontSize: 13,
+    color: colors.text.secondary,
+    marginBottom: 2,
+  },
+  textInput: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 14,
+    color: colors.text.primary,
+    backgroundColor: colors.surface.subtle,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderBottomWidth: 2,
+    borderBottomColor: colors.surface.border,
+  },
+  textInputFlex: {
+    flex: 1,
+  },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  unitPill: {
+    backgroundColor: colors.surface.muted,
+    borderWidth: 1,
+    borderColor: colors.surface.border,
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+  },
+  unitText: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 12,
+    color: colors.text.secondary,
+  },
   heightSelector: {
     width: '100%',
   },
@@ -297,18 +320,15 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   optionGroupLabel: {
+    fontFamily: fontFamilies.regular,
     fontSize: 11,
+    color: colors.text.tertiary,
     marginBottom: 4,
-    opacity: 0.7,
   },
   optionRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
-  },
-  pickerLabel: {
-    fontWeight: '600',
-    fontSize: 13,
   },
   optionSelector: {
     flexDirection: 'row',
@@ -319,60 +339,53 @@ const styles = StyleSheet.create({
   },
   optionButton: {
     borderWidth: 1,
-    borderColor: '#c7c7c7',
-    borderRadius: 8,
+    borderColor: colors.surface.border,
+    borderRadius: 4,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: colors.surface.muted,
   },
   optionButtonSelected: {
-    backgroundColor: '#7078df',
-    borderColor: '#7078df',
+    backgroundColor: colors.brand.primary,
+    borderColor: colors.brand.primary,
   },
   optionButtonText: {
-    color: '#1e1e1e',
+    fontFamily: fontFamilies.regular,
+    color: colors.text.primary,
     fontSize: 12,
   },
   optionButtonTextSelected: {
-    color: '#ffffff',
+    color: colors.text.inverse,
+  },
+  errorText: {
+    fontFamily: fontFamilies.regular,
+    color: colors.status.error,
+    fontSize: 11,
+    marginTop: 2,
   },
   footer: {
     paddingTop: 6,
     paddingBottom: 12,
   },
-  inputRow: {
-    flexDirection: 'row',
+  button: {
+    backgroundColor: colors.brand.primary,
     alignItems: 'center',
-    marginTop: 4,
+    borderRadius: 5,
+    paddingVertical: 10,
+    marginTop: 6,
   },
-  textInputWithSuffix: {
-    flex: 1,
-    marginTop: 0,
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
+  buttonDisabled: {
+    backgroundColor: colors.surface.border,
   },
-  suffixContainer: {
-    borderWidth: 1,
-    borderColor: '#c7c7c7',
-    borderLeftWidth: 0,
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    backgroundColor: '#f5f5f5',
-    justifyContent: 'center',
+  buttonText: {
+    fontFamily: fontFamilies.medium,
+    fontSize: 16,
+    color: colors.text.inverse,
   },
-  suffixText: {
-    fontSize: 12,
-    color: '#1e1e1e',
-  },
-  textInputError: {
-    borderColor: '#d32f2f',
-  },
-  errorText: {
-    color: '#d32f2f',
-    fontSize: 11,
-    marginTop: 2,
+  buttonTextDisabled: {
+    fontFamily: fontFamilies.medium,
+    fontSize: 16,
+    color: colors.text.tertiary,
   },
 });
 

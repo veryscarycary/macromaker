@@ -3,6 +3,7 @@ import { StyleSheet, FlatList } from 'react-native';
 import { List, Divider } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { DietDay, DietScreenNavigationProp, GenericObject } from '../../../types';
+import { colors } from '../../../design/tokens/colors';
 
 const today = new Date();
 const yesterday = new Date();
@@ -22,7 +23,7 @@ const DietHistoryListItem = ({ dietHistoryDay, onPress }: GenericObject) => (
       right={() => (
         <Ionicons
           size={22}
-          color="#8a8a8a"
+          color={colors.text.tertiary}
           name="chevron-forward"
           style={styles.chevron}
         />
@@ -59,11 +60,6 @@ const DietHistoryList = ({ dietHistory, navigation }: Props) => (
 );
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    paddingHorizontal: 40,
-    backgroundColor: 'transparent',
-  },
   list: {
     flex: 1,
     width: '100%',

@@ -4,10 +4,11 @@ import MealList from './components/MealList';
 import MacroGraph from '../../../../components/MacroGraph';
 import { Text, View } from '../../../../components/Themed';
 import { getMealData } from '../../../../context/MealContext';
-// import { Context as MealContext } from '../context/MealContext';
 import { getDay, getMacrosFromMeals } from '../../../../utils';
 import { DietScreenNavigationProp, DietTabParamList, Meal } from '../../../../types';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
+import { colors } from '../../../../design/tokens/colors';
+import { fontFamilies } from '../../../../design/tokens/typography';
 
 type Props = {
   route: RouteProp<DietTabParamList, 'DailyDietScreen'>;
@@ -69,8 +70,10 @@ const styles = StyleSheet.create({
     padding: 7,
   },
   title: {
+    fontFamily: fontFamilies.semiBold,
     fontSize: 18,
     textAlign: 'center',
+    color: colors.text.primary,
   },
   otherNutrientsContainer: {
     marginTop: 10,
@@ -80,7 +83,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   data: {
-    color: '#808080',
+    fontFamily: fontFamilies.regular,
+    color: colors.text.secondary,
     fontSize: 16,
   },
   graphContainer: {

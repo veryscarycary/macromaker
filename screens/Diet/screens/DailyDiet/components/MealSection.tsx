@@ -3,12 +3,10 @@ import { Text, View } from '../../../../../components/Themed';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { deleteMeal, getMealData } from '../../../../../context/MealContext';
-
-import {
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { DietScreenNavigationProp, Meal } from '../../../../../types';
+import { colors } from '../../../../../design/tokens/colors';
+import { fontFamilies } from '../../../../../design/tokens/typography';
 
 type Props = {
   date: string;
@@ -31,26 +29,26 @@ const MealSection = ({
     <View style={styles.container}>
       <View style={styles.mealData}>
         <View style={[styles.row, styles.marginBottom8]}>
-          <Text style={[styles.bold, styles.mealTitle]}>Meal #{mealNumber}:</Text>
+          <Text style={[styles.label, styles.mealTitle]}>Meal #{mealNumber}:</Text>
           <Text style={styles.value}>{mealName}</Text>
         </View>
 
         <View style={[styles.row, styles.marginBottom8]}>
-          <Text style={styles.bold}>Calories:</Text>
+          <Text style={styles.label}>Calories:</Text>
           <Text style={styles.value}>{Math.round(calories)}</Text>
         </View>
 
         <View style={[styles.row, styles.spaceBetween]}>
           <View style={styles.row}>
-            <Text style={styles.bold}>Carbs:</Text>
+            <Text style={styles.label}>Carbs:</Text>
             <Text style={styles.value}>{carbs}{carbsUnit}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.bold}>Protein:</Text>
+            <Text style={styles.label}>Protein:</Text>
             <Text style={styles.value}>{protein}{proteinUnit}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.bold}>Fat:</Text>
+            <Text style={styles.label}>Fat:</Text>
             <Text style={styles.value}>{fat}{fatUnit}</Text>
           </View>
         </View>
@@ -61,7 +59,7 @@ const MealSection = ({
           style={[styles.button, styles.editButton]}
           onPress={() => navigation.navigate('EditFoodScreen', { meal })}
         >
-          <Feather name="edit" size={24} color="black" />
+          <Feather name="edit" size={20} color={colors.text.secondary} />
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, styles.deleteButton]}
@@ -76,7 +74,7 @@ const MealSection = ({
             navigation.pop();
           }}
         >
-          <FontAwesome name="remove" size={26} color="black" />
+          <FontAwesome name="remove" size={20} color={colors.text.inverse} />
         </TouchableOpacity>
       </View>
     </View>
@@ -86,24 +84,29 @@ const MealSection = ({
 const styles = StyleSheet.create({
   container: {
     margin: 16,
-    borderRadius: 16,
-    backgroundColor: '#FFF',
+    borderRadius: 12,
+    backgroundColor: colors.surface.default,
+    borderWidth: 1,
+    borderColor: colors.surface.border,
     overflow: 'hidden',
   },
   mealData: {
-    padding: 10,
+    padding: 12,
   },
-  bold: {
-    fontWeight: 'bold',
+  label: {
+    fontFamily: fontFamilies.medium,
+    color: colors.text.primary,
   },
   mealTitle: {
-    fontSize: 20,
+    fontSize: 16,
   },
   value: {
-    marginLeft: 10,
+    fontFamily: fontFamilies.regular,
+    marginLeft: 8,
+    color: colors.text.secondary,
   },
   marginBottom8: {
-    marginBottom: 20,
+    marginBottom: 16,
   },
   row: {
     flexDirection: 'row',
@@ -114,19 +117,22 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
+    borderTopWidth: 1,
+    borderTopColor: colors.surface.border,
     height: 40,
   },
   button: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 10,
   },
   editButton: {
-    backgroundColor: '#ffc446',
+    backgroundColor: colors.surface.muted,
+    borderRightWidth: 1,
+    borderRightColor: colors.surface.border,
   },
   deleteButton: {
-    backgroundColor: '#ff3333',
+    backgroundColor: colors.status.error,
   },
 });
 

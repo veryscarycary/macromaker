@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { colors } from '../../../design/tokens/colors';
 
 type Props = {
   totalSteps: number;
@@ -32,10 +33,10 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   dotFilled: {
-    backgroundColor: '#6068d0',
+    backgroundColor: colors.brand.primary,
   },
   dotEmpty: {
-    backgroundColor: '#c7c7c7',
+    backgroundColor: colors.surface.border,
   },
 });
 

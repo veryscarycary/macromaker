@@ -7,6 +7,8 @@ import { getAllMealData } from '../../context/MealContext';
 import { DietDay, DietScreenNavigationProp } from '../../types';
 import { getAveragesFromDietDays } from '../../utils';
 import DietHistoryList from './components/DietHistoryList';
+import { colors } from '../../design/tokens/colors';
+import { fontFamilies } from '../../design/tokens/typography';
 
 type Props = {
   navigation: DietScreenNavigationProp;
@@ -68,8 +70,10 @@ const styles = StyleSheet.create({
     padding: 7,
   },
   title: {
+    fontFamily: fontFamilies.semiBold,
     fontSize: 18,
     textAlign: 'center',
+    color: colors.text.primary,
   },
   otherNutrientsContainer: {
     marginTop: 10,
@@ -79,7 +83,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   data: {
-    color: '#808080',
+    fontFamily: fontFamilies.regular,
+    color: colors.text.secondary,
     fontSize: 16,
   },
   graphContainer: {
