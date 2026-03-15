@@ -4,7 +4,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "test": "jest --watchAll",
-    "test:single": "jest"
+    "test:single": "jest",
+    "postinstall": "node scripts/patch-nav-assets.js"
   },
   "jest": {
     "preset": "react-native",

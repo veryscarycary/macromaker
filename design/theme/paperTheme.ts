@@ -22,7 +22,6 @@ const paperFonts = configureFonts({
     bodyLarge:      { fontFamily: fontFamilies.regular,  fontWeight: undefined },
     bodyMedium:     { fontFamily: fontFamilies.regular,  fontWeight: undefined },
     bodySmall:      { fontFamily: fontFamilies.regular,  fontWeight: undefined },
-    default:        { fontFamily: fontFamilies.regular,  fontWeight: undefined },
   },
 });
 
@@ -40,5 +39,8 @@ export const paperTheme = {
     onSurfaceVariant: colors.text.secondary,
     outline:          colors.surface.border,
   },
-  fonts: paperFonts,
+  fonts: {
+    ...paperFonts,
+    default: { ...MD3LightTheme.fonts.default, fontFamily: fontFamilies.regular, fontWeight: undefined },
+  },
 } satisfies typeof MD3LightTheme;

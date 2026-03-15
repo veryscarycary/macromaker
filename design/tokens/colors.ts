@@ -13,9 +13,11 @@ const palette = {
   slate700: '#334155',
   slate800: '#1e293b',
   slate900: '#0f172a',
-  orange400: '#fb923c',
-  orange500: '#f97316',
-  orange600: '#ea580c',
+  purple300: '#a5a8f0',
+  purple400: '#9198e5',
+  purple500: '#7078df',
+  purple600: '#5a62ca',
+  purple700: '#4650b8',
   blue400:   '#60a5fa',
   violet400: '#a78bfa',
   amber400:  '#fbbf24',
@@ -25,9 +27,9 @@ const palette = {
 
 export const colors = {
   brand: {
-    primary:      palette.orange500,
-    primaryDark:  palette.orange600,
-    primaryLight: palette.orange400,
+    primary:      palette.purple500,
+    primaryDark:  palette.purple600,
+    primaryLight: palette.purple400,
   },
   surface: {
     default: palette.white,

@@ -27,8 +27,8 @@ const MD3_TYPESCALE_KEYS = [
 ] as const;
 
 describe('PAPR-01: paperTheme color token wiring', () => {
-  it('paperTheme.colors.primary equals #f97316', () => {
-    expect(paperTheme.colors.primary).toBe('#f97316');
+  it('paperTheme.colors.primary equals #7078df', () => {
+    expect(paperTheme.colors.primary).toBe('#7078df');
   });
 
   it('paperTheme.colors.onPrimary equals #ffffff', () => {
