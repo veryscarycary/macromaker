@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Design System & Branding
 status: planning
-stopped_at: Completed 05-token-foundation-font-integration/05-02-PLAN.md
-last_updated: "2026-03-14T23:53:19.998Z"
+stopped_at: Completed 05-token-foundation-font-integration/05-03-PLAN.md
+last_updated: "2026-03-15T02:46:13.941Z"
 last_activity: 2026-03-14 — Roadmap created for v1.1; 27 requirements mapped across 5 phases
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
@@ -48,6 +48,8 @@ Active decisions for v1.1:
 - [Phase 05-token-foundation-font-integration]: shadows.ts created as empty stub to reserve module slot for v2 (DS-03)
 - [Phase 05-token-foundation-font-integration]: Inter v4.1 zip has no static TTFs; Inter v3.19 hinted Windows TTFs used — PostScript names match fontFamily strings, no Platform.select() needed
 - [Phase 05-token-foundation-font-integration]: react-native.config.js ios:null guard for vector-icons prevents UIAppFonts collision; audit after every react-native-asset run
+- [Phase 05-token-foundation-font-integration]: Physical iOS device verification confirmed Inter weight rendering matches simulator; no Platform.select() needed
+- [Phase 05-token-foundation-font-integration]: Smoke test screen pattern: temporary screen in screens/, wired as direct App.tsx return, deleted after human sign-off
 
 ### Pending Todos
 
@@ -60,6 +62,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14T23:53:19.993Z
-Stopped at: Completed 05-token-foundation-font-integration/05-02-PLAN.md
+Last session: 2026-03-15T02:46:13.937Z
+Stopped at: Completed 05-token-foundation-font-integration/05-03-PLAN.md
 Resume file: None

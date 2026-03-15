@@ -22,7 +22,7 @@ Requirements for this milestone: design system, branding, and app rename to Hone
 
 - [x] **FONT-01**: Inter static TTF files (Regular, Medium, SemiBold, Bold) added to `assets/fonts/`
 - [x] **FONT-02**: `react-native.config.js` configured and `react-native-asset` run to link fonts on both platforms
-- [ ] **FONT-03**: Inter renders correctly on iOS and Android (smoke test on simulator + physical device)
+- [x] **FONT-03**: Inter renders correctly on iOS and Android (smoke test on simulator + physical device)
 - [x] **FONT-04**: react-native-vector-icons (Ionicons, Feather, FontAwesome) still render correctly after font linking — `Info.plist` UIAppFonts intact
 
 ### Paper Theme Integration
@@ -109,7 +109,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TOKS-04 | Phase 5 | Complete |
 | FONT-01 | Phase 5 | Complete |
 | FONT-02 | Phase 5 | Complete |
-| FONT-03 | Phase 5 | Pending |
+| FONT-03 | Phase 5 | Complete |
 | FONT-04 | Phase 5 | Complete |
 | PAPR-01 | Phase 6 | Pending |
 | PAPR-02 | Phase 6 | Pending |
