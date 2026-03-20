@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Design System & Branding
 status: planning
-stopped_at: Completed 07-component-library-01-PLAN.md
-last_updated: "2026-03-20T17:06:21.357Z"
+stopped_at: Completed 07-component-library-03-PLAN.md
+last_updated: "2026-03-20T17:10:21.371Z"
 last_activity: 2026-03-15 — Phase 5 complete and verified (design tokens + Inter font)
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 9
-  completed_plans: 6
+  completed_plans: 9
   percent: 20
 ---
 
@@ -54,6 +54,12 @@ Active decisions for v1.1:
 - [Phase 06-paper-theme-integration]: paperTheme.ts imports all color values from design/tokens — zero hex literals at theme layer (enforced by test)
 - [Phase 07-component-library]: All component tests import from barrel '../../design/components' only
 - [Phase 07-component-library]: MacroProgressBar requires 7 distinct testIDs: macro-bar-container plus 3 segment containers plus 3 fill views
+- [Phase 07-component-library]: NumericText implemented directly against token pattern (not re-using Text.tsx) to keep components self-contained
+- [Phase 07-component-library]: Barrel index.ts is the single import point for all DS consumers — tests and screens import from design/components, never individual file paths
+- [Phase 07-component-library]: Button uses RNText inline to keep Plan 03 independent from DS Text (Plan 02 cross-plan dependency avoided)
+- [Phase 07-component-library]: Card bordered={false} default uses falsy short-circuit so borderWidth/borderColor never appear in style object when false
+- [Phase 07-component-library]: MacroProgressBar barrel index.ts was already complete from 07-02 fix commit — no additional changes needed
+- [Phase 07-component-library]: MacroProgressBar overflow fill: logged > target AND target > 0 condition prevents false overflow on zero-target segments
 
 ### Pending Todos
 
@@ -65,6 +71,6 @@ None active. (Phase 5 blockers resolved — UIAppFonts intact, physical device v
 
 ## Session Continuity
 
-Last session: 2026-03-20T17:06:21.353Z
-Stopped at: Completed 07-component-library-01-PLAN.md
+Last session: 2026-03-20T17:10:21.367Z
+Stopped at: Completed 07-component-library-03-PLAN.md
 Resume file: None
