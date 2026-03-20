@@ -33,11 +33,11 @@ Requirements for this milestone: design system, branding, and app rename to Hone
 
 ### Component Library
 
-- [ ] **COMP-01**: `Text` component with typed variant system (display, heading, subheading, body, bodySmall, caption, label, overline)
-- [ ] **COMP-02**: `NumericText` component with tabular numerals (`fontVariant: ['tabular-nums']`) for all calorie/macro number displays
-- [ ] **COMP-03**: `Button` component with primary / secondary / ghost variants consuming brand tokens
-- [ ] **COMP-04**: `Card` component — surface container with radius token and optional border
-- [ ] **COMP-05**: `MacroProgressBar` component consuming `colors.macro.*` tokens
+- [x] **COMP-01**: `Text` component with typed variant system (display, heading, subheading, body, bodySmall, caption, label, overline)
+- [x] **COMP-02**: `NumericText` component with tabular numerals (`fontVariant: ['tabular-nums']`) for all calorie/macro number displays
+- [x] **COMP-03**: `Button` component with primary / secondary / ghost variants consuming brand tokens
+- [x] **COMP-04**: `Card` component — surface container with radius token and optional border
+- [x] **COMP-05**: `MacroProgressBar` component consuming `colors.macro.*` tokens
 
 ### Screen Migration
 
@@ -114,11 +114,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PAPR-01 | Phase 6 | Complete |
 | PAPR-02 | Phase 6 | Complete |
 | PAPR-03 | Phase 6 | Pending |
-| COMP-01 | Phase 7 | Pending |
-| COMP-02 | Phase 7 | Pending |
-| COMP-03 | Phase 7 | Pending |
-| COMP-04 | Phase 7 | Pending |
-| COMP-05 | Phase 7 | Pending |
+| COMP-01 | Phase 7 | Complete |
+| COMP-02 | Phase 7 | Complete |
+| COMP-03 | Phase 7 | Complete |
+| COMP-04 | Phase 7 | Complete |
+| COMP-05 | Phase 7 | Complete |
 | MIGR-01 | Phase 8 | Pending |
 | MIGR-02 | Phase 8 | Pending |
 | MIGR-03 | Phase 8 | Pending |
