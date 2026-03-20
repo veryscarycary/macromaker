@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hone — Final Icon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #cbd5e1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 40px;
+      gap: 56px;
+    }
+
+    h1 {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: #475569;
+    }
+
+    /* squircle shell */
+    .icon {
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #0f172a;
+    }
+    .icon.xl  { width: 256px; height: 256px; border-radius: 58px;  box-shadow: 0 32px 80px rgba(0,0,0,0.45), 0 4px 16px rgba(0,0,0,0.28); }
+    .icon.lg  { width: 180px; height: 180px; border-radius: 40px;  box-shadow: 0 20px 56px rgba(0,0,0,0.4),  0 3px 10px rgba(0,0,0,0.22); }
+    .icon.md  { width: 120px; height: 120px; border-radius: 27px;  box-shadow: 0 12px 36px rgba(0,0,0,0.38), 0 2px 8px  rgba(0,0,0,0.2); }
+    .icon.sm  { width:  80px; height:  80px; border-radius: 18px;  box-shadow: 0 8px  24px rgba(0,0,0,0.35), 0 2px 6px  rgba(0,0,0,0.18); }
+    .icon.xs  { width:  60px; height:  60px; border-radius: 14px;  box-shadow: 0 6px  18px rgba(0,0,0,0.32), 0 1px 5px  rgba(0,0,0,0.16); }
+    .icon.xxs { width:  40px; height:  40px; border-radius:  9px;  box-shadow: 0 4px  12px rgba(0,0,0,0.3),  0 1px 4px  rgba(0,0,0,0.14); }
+
+    .icon svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* size row */
+    .scale-row {
+      display: flex;
+      gap: 24px;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .icon-wrap {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 10px;
+    }
+    .size-label {
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: #64748b;
+    }
+
+    /* homescreen mockup */
+    .homescreen {
+      background: linear-gradient(160deg, #1e3a5f 0%, #0f172a 100%);
+      border-radius: 28px;
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 20px 56px rgba(0,0,0,0.32);
+    }
+    .hs-label {
+      font-size: 12px; font-weight: 500;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* wordmark lockup */
+    .lockup {
+      display: flex; align-items: center; gap: 18px;
+      padding: 22px 32px;
+      background: #0f172a;
+      border-radius: 16px;
+      box-shadow: 0 10px 32px rgba(0,0,0,0.32);
+    }
+    .lockup-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); }
+    .lockup-text { display: flex; flex-direction: column; gap: 4px; }
+    .lockup-name { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -0.5px; line-height: 1; }
+    .lockup-sub  { font-size: 8px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.28); }
+
+    .section-label {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hone · The Passes — App Icon</h1>
+
+  <!-- Hero -->
+  <div class="icon-wrap">
+    <div class="icon xl">
+      <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+        <!-- Pass 1: longest, fullest -->
+        <path d="M 32,62  L 76,62  L 192,202  L 178,202 Z" fill="#7078df"/>
+        <!-- Pass 2: medium, 70% -->
+        <path d="M 98,62  L 132,62  L 218,190  L 204,190 Z" fill="#7078df" opacity="0.65"/>
+        <!-- Pass 3: shortest, faintest -->
+        <path d="M 156,62  L 180,62  L 228,148  L 216,148 Z" fill="#7078df" opacity="0.35"/>
+      </svg>
+    </div>
+    <div class="size-label">1024 (Hero)</div>
+  </div>
+
+  <!-- Scale row -->
+  <div class="scale-row">
+    <div class="icon-wrap">
+      <div class="icon lg">
+        <svg viewBox="0 0 256 256">
+          <path d="M 32,62  L 76,62  L 192,202  L 178,202 Z" fill="#7078df"/>
+          <path d="M 98,62  L 132,62  L 218,190  L 204,190 Z" fill="#7078df" opacity="0.65"/>
+          <path d="M 156,62  L 180,62  L 228,148  L 216,148 Z" fill="#7078df" opacity="0.35"/>
+        </svg>
+      </div>
+      <div class="size-label">180</div>
+    </div>
+
+    <div class="icon-wrap">
+      <div class="icon md">
+        <svg viewBox="0 0 256 256">
+          <path d="M 32,62  L 76,62  L 192,202  L 178,202 Z" fill="#7078df"/>
+          <path d="M 98,62  L 132,62  L 218,190  L 204,190 Z" fill="#7078df" opacity="0.65"/>
+          <path d="M 156,62  L 180,62  L 228,148  L 216,148 Z" fill="#7078df" opacity="0.35"/>
+        </svg>
+      </div>
+      <div class="size-label">120</div>
+    </div>
+
+    <div class="icon-wrap">
+      <div class="icon sm">
+        <svg viewBox="0 0 256 256">
+          <path d="M 32,62  L 76,62  L 192,202  L 178,202 Z" fill="#7078df"/>
+          <path d="M 98,62  L 132,62  L 218,190  L 204,190 Z" fill="#7078df" opacity="0.65"/>
+          <path d="M 156,62  L 180,62  L 228,148  L 216,148 Z" fill="#7078df" opacity="0.35"/>
+        </svg>
+      </div>
+      <div class="size-label">80</div>
+    </div>
+
+    <div class="icon-wrap">
+      <div class="icon xs">
+        <svg viewBox="0 0 256 256">
+          <path d="M 32,62  L 76,62  L 192,202  L 178,202 Z" fill="#7078df"/>
+          <path d="M 98,62  L 132,62  L 218,190  L 204,190 Z" fill="#7078df" opacity="0.65"/>
+          <path d="M 156,62  L 180,62  L 228,148  L 216,148 Z" fill="#7078df" opacity="0.35"/>
+        </svg>
+      </div>
+      <div class="size-label">60</div>
+    </div>
+
+    <div class="icon-wrap">
+      <div class="icon xxs">
+        <svg viewBox="0 0 256 256">
+          <path d="M 32,62  L 76,62  L 192,202  L 178,202 Z" fill="#7078df"/>
+          <path d="M 98,62  L 132,62  L 218,190  L 204,190 Z" fill="#7078df" opacity="0.65"/>
+          <path d="M 156,62  L 180,62  L 228,148  L 216,148 Z" fill="#7078df" opacity="0.35"/>
+        </svg>
+      </div>
+      <div class="size-label">40</div>
+    </div>
+  </div>
+
+  <!-- Homescreen context -->
+  <div class="homescreen">
+    <div class="icon xs">
+      <svg viewBox="0 0 256 256">
+        <path d="M 32,62  L 76,62  L 192,202  L 178,202 Z" fill="#7078df"/>
+        <path d="M 98,62  L 132,62  L 218,190  L 204,190 Z" fill="#7078df" opacity="0.65"/>
+        <path d="M 156,62  L 180,62  L 228,148  L 216,148 Z" fill="#7078df" opacity="0.35"/>
+      </svg>
+    </div>
+    <div class="hs-label">Hone</div>
+  </div>
+
+  <!-- Wordmark lockup -->
+  <div class="icon-wrap">
+    <div class="lockup">
+      <svg width="40" height="40" viewBox="0 0 256 256">
+        <path d="M 32,62  L 76,62  L 192,202  L 178,202 Z" fill="#7078df"/>
+        <path d="M 98,62  L 132,62  L 218,190  L 204,190 Z" fill="#7078df" opacity="0.65"/>
+        <path d="M 156,62  L 180,62  L 228,148  L 216,148 Z" fill="#7078df" opacity="0.35"/>
+      </svg>
+      <div class="lockup-divider"></div>
+      <div class="lockup-text">
+        <div class="lockup-name">Hone</div>
+        <div class="lockup-sub">Nutrition · Training</div>
+      </div>
+    </div>
+    <div class="size-label" style="margin-top:4px;">Wordmark Lockup</div>
+  </div>
+
+</body>
+</html>

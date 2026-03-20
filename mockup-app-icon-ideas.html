@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hone — Icon Ideas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #94a3b8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 40px;
+      gap: 64px;
+    }
+
+    h1 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    .row {
+      display: flex;
+      gap: 56px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .icon-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .col-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #334155;
+      text-align: center;
+    }
+
+    .sizes { display: flex; gap: 16px; align-items: flex-end; }
+
+    .icon-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .size-label {
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #64748b; text-align: center; margin-top: 6px;
+    }
+
+    .icon {
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #0f172a;
+      box-shadow:
+        0 16px 48px rgba(0,0,0,0.4),
+        0 3px 10px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .icon.lg { width: 200px; height: 200px; border-radius: 45px; }
+    .icon.sm { width:  80px; height:  80px; border-radius: 18px; }
+    .icon.xs { width:  44px; height:  44px; border-radius: 10px; }
+    .icon.hs { width:  60px; height:  60px; border-radius: 14px; }
+
+    .homescreen {
+      background: linear-gradient(160deg, #1e3a5f, #0f172a);
+      border-radius: 24px;
+      padding: 28px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    .hs-label {
+      font-size: 11px; font-weight: 500;
+      color: rgba(255,255,255,0.8);
+    }
+
+
+    /* ══════════════════════════════════════════════════════
+       IDEA 1 — CUTOUT
+       The H is punched through the purple card as dark
+       negative space. Card is V1 position (upper-left).
+    ══════════════════════════════════════════════════════ */
+    .i1 .card {
+      position: absolute;
+      background: #7078df;
+      transform-origin: center;
+      z-index: 2;
+    }
+    .i1.lg .card { width: 195px; height: 195px; top: -28px; left: -28px; transform: rotate(-15deg); }
+    .i1.sm .card { width:  78px; height:  78px; top: -11px; left: -11px; transform: rotate(-15deg); }
+    .i1.xs .card { width:  43px; height:  43px; top:  -6px; left:  -6px; transform: rotate(-15deg); }
+    .i1.hs .card { width:  58px; height:  58px; top:  -8px; left:  -8px; transform: rotate(-15deg); }
+
+    /* The H as a dark knockout on top of the card */
+    .i1 .letter {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900;
+      color: #0f172a;
+      z-index: 3;
+    }
+    .i1.lg .letter { font-size: 112px; letter-spacing: -5px; }
+    .i1.sm .letter { font-size:  45px; letter-spacing: -2px; }
+    .i1.xs .letter { font-size:  25px; letter-spacing: -1px; }
+    .i1.hs .letter { font-size:  34px; letter-spacing: -1px; }
+
+
+    /* ══════════════════════════════════════════════════════
+       IDEA 2 — LAYERED CARDS
+       Two cards stacked. The back card is a darker purple,
+       offset down-right from the front card. Adds depth
+       while staying completely minimal and flat.
+    ══════════════════════════════════════════════════════ */
+    .i2 .card-back {
+      position: absolute;
+      background: #4650b8;
+      transform-origin: center;
+      z-index: 1;
+    }
+    .i2.lg .card-back { width: 195px; height: 195px; top: -14px; left: -14px; transform: rotate(-15deg); }
+    .i2.sm .card-back { width:  78px; height:  78px; top:  -5px; left:  -5px; transform: rotate(-15deg); }
+    .i2.xs .card-back { width:  43px; height:  43px; top:  -3px; left:  -3px; transform: rotate(-15deg); }
+    .i2.hs .card-back { width:  58px; height:  58px; top:  -4px; left:  -4px; transform: rotate(-15deg); }
+
+    .i2 .card-front {
+      position: absolute;
+      background: #7078df;
+      transform-origin: center;
+      z-index: 2;
+    }
+    .i2.lg .card-front { width: 195px; height: 195px; top: -38px; left: -38px; transform: rotate(-15deg); }
+    .i2.sm .card-front { width:  78px; height:  78px; top: -15px; left: -15px; transform: rotate(-15deg); }
+    .i2.xs .card-front { width:  43px; height:  43px; top:  -8px; left:  -8px; transform: rotate(-15deg); }
+    .i2.hs .card-front { width:  58px; height:  58px; top: -11px; left: -11px; transform: rotate(-15deg); }
+
+    .i2 .letter {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; z-index: 4;
+    }
+    .i2.lg .letter { font-size: 112px; letter-spacing: -5px; }
+    .i2.sm .letter { font-size:  45px; letter-spacing: -2px; }
+    .i2.xs .letter { font-size:  25px; letter-spacing: -1px; }
+    .i2.hs .letter { font-size:  34px; letter-spacing: -1px; }
+
+
+    /* ══════════════════════════════════════════════════════
+       IDEA 3 — BLEED
+       Card is flush with top and left edges — no gap in
+       those corners. Dark reveals only as a sharp triangle
+       in the bottom-right. More architectural, confident.
+    ══════════════════════════════════════════════════════ */
+    .i3 .card {
+      position: absolute;
+      background: #7078df;
+      transform-origin: top left;
+      z-index: 2;
+    }
+    .i3.lg .card { width: 260px; height: 260px; top: -46px; left: -46px; transform: rotate(-15deg); }
+    .i3.sm .card { width: 104px; height: 104px; top: -18px; left: -18px; transform: rotate(-15deg); }
+    .i3.xs .card { width:  57px; height:  57px; top: -10px; left: -10px; transform: rotate(-15deg); }
+    .i3.hs .card { width:  78px; height:  78px; top: -14px; left: -14px; transform: rotate(-15deg); }
+
+    .i3 .letter {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; z-index: 4;
+    }
+    .i3.lg .letter { font-size: 112px; letter-spacing: -5px; }
+    .i3.sm .letter { font-size:  45px; letter-spacing: -2px; }
+    .i3.xs .letter { font-size:  25px; letter-spacing: -1px; }
+    .i3.hs .letter { font-size:  34px; letter-spacing: -1px; }
+
+
+    /* ══════════════════════════════════════════════════════
+       IDEA 4 — SPLIT LETTER
+       The card edge bisects the H. Left half of H is
+       white-on-purple. Right half is purple-on-dark.
+       The card is the same V1 position — the letterform
+       ties the two halves together.
+    ══════════════════════════════════════════════════════ */
+    .i4 .card {
+      position: absolute;
+      background: #7078df;
+      transform-origin: center;
+      z-index: 2;
+    }
+    /* Card positioned so its right edge bisects the icon center */
+    .i4.lg .card { width: 195px; height: 195px; top: -28px; left: -28px; transform: rotate(-15deg); }
+    .i4.sm .card { width:  78px; height:  78px; top: -11px; left: -11px; transform: rotate(-15deg); }
+    .i4.xs .card { width:  43px; height:  43px; top:  -6px; left:  -6px; transform: rotate(-15deg); }
+    .i4.hs .card { width:  58px; height:  58px; top:  -8px; left:  -8px; transform: rotate(-15deg); }
+
+    /* White H in the dark zone */
+    .i4 .letter-dark {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #7078df; font-weight: 800; z-index: 3;
+    }
+    .i4.lg .letter-dark { font-size: 112px; letter-spacing: -5px; }
+    .i4.sm .letter-dark { font-size:  45px; letter-spacing: -2px; }
+    .i4.xs .letter-dark { font-size:  25px; letter-spacing: -1px; }
+    .i4.hs .letter-dark { font-size:  34px; letter-spacing: -1px; }
+
+    /* Dark H clipped to card area — creates the split effect */
+    .i4 .letter-light-clip {
+      position: absolute; inset: 0;
+      overflow: hidden;
+      z-index: 4;
+    }
+    /* We size the clip to match the card's visible upper-left area */
+    .i4.lg .letter-light-clip { width: 130px; height: 130px; }
+    .i4.sm .letter-light-clip { width:  52px; height:  52px; }
+    .i4.xs .letter-light-clip { width:  29px; height:  29px; }
+    .i4.hs .letter-light-clip { width:  39px; height:  39px; }
+
+    .i4 .letter-light {
+      position: absolute;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800;
+    }
+    .i4.lg .letter-light { width: 200px; height: 200px; top: 0; left: 0; font-size: 112px; letter-spacing: -5px; }
+    .i4.sm .letter-light { width:  80px; height:  80px; top: 0; left: 0; font-size:  45px; letter-spacing: -2px; }
+    .i4.xs .letter-light { width:  44px; height:  44px; top: 0; left: 0; font-size:  25px; letter-spacing: -1px; }
+    .i4.hs .letter-light { width:  60px; height:  60px; top: 0; left: 0; font-size:  34px; letter-spacing: -1px; }
+
+  </style>
+</head>
+<body>
+
+  <h1>Hone · Icon — New Ideas</h1>
+
+  <div class="row">
+
+    <!-- IDEA 1: Cutout -->
+    <div class="icon-col">
+      <div class="col-label">1 — Cutout H</div>
+      <div class="icon i1 lg">
+        <div class="card"></div>
+        <div class="letter">H</div>
+      </div>
+      <div class="sizes">
+        <div class="icon-wrap">
+          <div class="icon i1 sm"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">80</div>
+        </div>
+        <div class="icon-wrap">
+          <div class="icon i1 xs"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">44</div>
+        </div>
+      </div>
+      <div class="homescreen">
+        <div class="icon i1 hs"><div class="card"></div><div class="letter">H</div></div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- IDEA 2: Layered -->
+    <div class="icon-col">
+      <div class="col-label">2 — Layered Cards</div>
+      <div class="icon i2 lg">
+        <div class="card-back"></div>
+        <div class="card-front"></div>
+        <div class="letter">H</div>
+      </div>
+      <div class="sizes">
+        <div class="icon-wrap">
+          <div class="icon i2 sm"><div class="card-back"></div><div class="card-front"></div><div class="letter">H</div></div>
+          <div class="size-label">80</div>
+        </div>
+        <div class="icon-wrap">
+          <div class="icon i2 xs"><div class="card-back"></div><div class="card-front"></div><div class="letter">H</div></div>
+          <div class="size-label">44</div>
+        </div>
+      </div>
+      <div class="homescreen">
+        <div class="icon i2 hs"><div class="card-back"></div><div class="card-front"></div><div class="letter">H</div></div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- IDEA 3: Bleed -->
+    <div class="icon-col">
+      <div class="col-label">3 — Edge Bleed</div>
+      <div class="icon i3 lg">
+        <div class="card"></div>
+        <div class="letter">H</div>
+      </div>
+      <div class="sizes">
+        <div class="icon-wrap">
+          <div class="icon i3 sm"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">80</div>
+        </div>
+        <div class="icon-wrap">
+          <div class="icon i3 xs"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">44</div>
+        </div>
+      </div>
+      <div class="homescreen">
+        <div class="icon i3 hs"><div class="card"></div><div class="letter">H</div></div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- IDEA 4: Split Letter -->
+    <div class="icon-col">
+      <div class="col-label">4 — Split Letter</div>
+      <div class="icon i4 lg">
+        <div class="card"></div>
+        <div class="letter-dark">H</div>
+        <div class="letter-light-clip">
+          <div class="letter-light">H</div>
+        </div>
+      </div>
+      <div class="sizes">
+        <div class="icon-wrap">
+          <div class="icon i4 sm">
+            <div class="card"></div>
+            <div class="letter-dark">H</div>
+            <div class="letter-light-clip"><div class="letter-light">H</div></div>
+          </div>
+          <div class="size-label">80</div>
+        </div>
+        <div class="icon-wrap">
+          <div class="icon i4 xs">
+            <div class="card"></div>
+            <div class="letter-dark">H</div>
+            <div class="letter-light-clip"><div class="letter-light">H</div></div>
+          </div>
+          <div class="size-label">44</div>
+        </div>
+      </div>
+      <div class="homescreen">
+        <div class="icon i4 hs">
+          <div class="card"></div>
+          <div class="letter-dark">H</div>
+          <div class="letter-light-clip"><div class="letter-light">H</div></div>
+        </div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

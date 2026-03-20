@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hone — Icon A Iterations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #94a3b8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 40px;
+      gap: 64px;
+    }
+
+    h1 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    .row {
+      display: flex;
+      gap: 56px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .icon-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .col-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    .sizes {
+      display: flex;
+      gap: 18px;
+      align-items: flex-end;
+    }
+
+    /* squircle shell */
+    .icon {
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      border-radius: 22.5%;
+      box-shadow:
+        0 12px 40px rgba(0,0,0,0.4),
+        0 2px 8px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.07);
+    }
+    .icon.lg { width: 200px; height: 200px; border-radius: 45px; }
+    .icon.sm { width:  80px; height:  80px; border-radius: 18px; }
+    .icon.xs { width:  44px; height:  44px; border-radius: 10px; }
+    .icon.hs { width:  60px; height:  60px; border-radius: 14px; } /* homescreen */
+
+    /* homescreen context */
+    .homescreen {
+      background: linear-gradient(160deg, #1e3a5f, #0f172a);
+      border-radius: 24px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    .hs-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+    }
+
+
+    /* ══════════════════════════════════════════════════════
+       A1 — CENTERED BANNER
+       A thick, nearly-horizontal slash cuts through the
+       center third. H sits perfectly on top of it.
+       The slash feels like a stage / platform for the letter.
+    ══════════════════════════════════════════════════════ */
+    .a1 { background: #0f172a; }
+
+    .a1 .band {
+      position: absolute;
+      left: 0; right: 0;
+      background: #7078df;
+      transform-origin: center;
+    }
+    .a1.lg .band { height: 62px; top: 50%; margin-top: -31px; transform: rotate(-8deg) scaleX(1.3); }
+    .a1.sm .band { height: 25px; top: 50%; margin-top: -12px; transform: rotate(-8deg) scaleX(1.3); }
+    .a1.xs .band { height: 14px; top: 50%; margin-top: -7px;  transform: rotate(-8deg) scaleX(1.3); }
+    .a1.hs .band { height: 18px; top: 50%; margin-top: -9px;  transform: rotate(-8deg) scaleX(1.3); }
+
+    .a1 .band-glow {
+      position: absolute;
+      left: 0; right: 0;
+      background: #9198e5;
+      opacity: 0.18;
+      transform-origin: center;
+      filter: blur(8px);
+    }
+    .a1.lg .band-glow { height: 100px; top: 50%; margin-top: -50px; transform: rotate(-8deg) scaleX(1.4); }
+    .a1.sm .band-glow { height: 40px;  top: 50%; margin-top: -20px; transform: rotate(-8deg) scaleX(1.4); }
+    .a1.xs .band-glow { height: 22px;  top: 50%; margin-top: -11px; transform: rotate(-8deg) scaleX(1.4); }
+    .a1.hs .band-glow { height: 28px;  top: 50%; margin-top: -14px; transform: rotate(-8deg) scaleX(1.4); }
+
+    .a1 .letter {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; z-index: 3;
+    }
+    .a1.lg .letter { font-size: 112px; letter-spacing: -5px; margin-top: -2px; }
+    .a1.sm .letter { font-size: 45px;  letter-spacing: -2px; }
+    .a1.xs .letter { font-size: 25px;  letter-spacing: -1px; }
+    .a1.hs .letter { font-size: 34px;  letter-spacing: -1px; }
+
+
+    /* ══════════════════════════════════════════════════════
+       A2 — DOUBLE STRIPE
+       Two parallel diagonal slashes — one full purple,
+       one lighter — like racing stripes or motion lines.
+       H anchored in the upper-left region.
+    ══════════════════════════════════════════════════════ */
+    .a2 { background: #0f172a; }
+
+    .a2 .stripe {
+      position: absolute;
+      transform: rotate(-18deg);
+      border-radius: 2px;
+    }
+    /* Primary stripe */
+    .a2.lg .stripe.s1 { width: 54px; height: 340px; top: -80px; left: 60px;  background: #7078df; }
+    .a2.sm .stripe.s1 { width: 22px; height: 136px; top: -32px; left: 24px;  background: #7078df; }
+    .a2.xs .stripe.s1 { width: 12px; height: 75px;  top: -18px; left: 13px;  background: #7078df; }
+    .a2.hs .stripe.s1 { width: 16px; height: 100px; top: -22px; left: 18px;  background: #7078df; }
+    /* Secondary stripe */
+    .a2.lg .stripe.s2 { width: 22px; height: 340px; top: -80px; left: 126px; background: #9198e5; opacity: 0.4; }
+    .a2.sm .stripe.s2 { width: 9px;  height: 136px; top: -32px; left: 50px;  background: #9198e5; opacity: 0.4; }
+    .a2.xs .stripe.s2 { width: 5px;  height: 75px;  top: -18px; left: 28px;  background: #9198e5; opacity: 0.4; }
+    .a2.hs .stripe.s2 { width: 7px;  height: 100px; top: -22px; left: 38px;  background: #9198e5; opacity: 0.4; }
+
+    .a2 .letter {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; z-index: 3;
+    }
+    .a2.lg .letter { font-size: 112px; letter-spacing: -5px; }
+    .a2.sm .letter { font-size: 45px;  letter-spacing: -2px; }
+    .a2.xs .letter { font-size: 25px;  letter-spacing: -1px; }
+    .a2.hs .letter { font-size: 34px;  letter-spacing: -1px; }
+
+
+    /* ══════════════════════════════════════════════════════
+       A3 — GLOW SLASH
+       Same slash as original A but with a strong luminous
+       bloom/glow — soft, atmospheric, premium feel.
+       The slash pulses with light behind the H.
+    ══════════════════════════════════════════════════════ */
+    .a3 { background: #080e1a; }
+
+    /* outer bloom — very diffuse */
+    .a3 .bloom {
+      position: absolute;
+      background: #7078df;
+      opacity: 0.2;
+      transform: rotate(-15deg);
+      filter: blur(24px);
+      border-radius: 50%;
+    }
+    .a3.lg .bloom { width: 280px; height: 400px; top: -100px; left: -60px; }
+    .a3.sm .bloom { width: 112px; height: 160px; top: -40px; left: -24px; }
+    .a3.xs .bloom { width: 62px;  height: 88px;  top: -22px; left: -13px; }
+    .a3.hs .bloom { width: 84px;  height: 120px; top: -30px; left: -18px; }
+
+    /* mid glow */
+    .a3 .glow-mid {
+      position: absolute;
+      background: #9198e5;
+      opacity: 0.35;
+      transform: rotate(-15deg);
+      filter: blur(10px);
+    }
+    .a3.lg .glow-mid { width: 160px; height: 320px; top: -80px; left: -20px; }
+    .a3.sm .glow-mid { width: 64px;  height: 128px; top: -32px; left: -8px; }
+    .a3.xs .glow-mid { width: 35px;  height: 70px;  top: -18px; left: -4px; }
+    .a3.hs .glow-mid { width: 48px;  height: 96px;  top: -24px; left: -6px; }
+
+    /* hard slash core */
+    .a3 .slash-core {
+      position: absolute;
+      background: #a5a8f0;
+      transform: rotate(-15deg);
+    }
+    .a3.lg .slash-core { width: 72px; height: 320px; top: -80px; left: -10px; }
+    .a3.sm .slash-core { width: 29px; height: 128px; top: -32px; left: -4px; }
+    .a3.xs .slash-core { width: 16px; height: 70px;  top: -18px; left: -2px; }
+    .a3.hs .slash-core { width: 21px; height: 96px;  top: -24px; left: -3px; }
+
+    .a3 .letter {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; z-index: 4;
+      text-shadow: 0 0 40px rgba(161,168,240,0.6);
+    }
+    .a3.lg .letter { font-size: 112px; letter-spacing: -5px; }
+    .a3.sm .letter { font-size: 45px;  letter-spacing: -2px; }
+    .a3.xs .letter { font-size: 25px;  letter-spacing: -1px; }
+    .a3.hs .letter { font-size: 34px;  letter-spacing: -1px; }
+
+
+    /* ══════════════════════════════════════════════════════
+       A4 — SLASH + WORDMARK
+       Dark bg · slash from original A · "H" replaced with
+       stacked "HONE" wordmark. The slash sits behind the
+       type, making the brand name the hero.
+    ══════════════════════════════════════════════════════ */
+    .a4 { background: #0f172a; }
+
+    .a4 .slash {
+      position: absolute;
+      background: #7078df;
+      transform: rotate(-15deg);
+    }
+    .a4.lg .slash { width: 160px; height: 320px; top: -80px; left: -40px; }
+    .a4.sm .slash { width: 64px;  height: 128px; top: -32px; left: -16px; }
+    .a4.xs .slash { width: 35px;  height: 70px;  top: -18px; left: -9px; }
+    .a4.hs .slash { width: 48px;  height: 96px;  top: -24px; left: -12px; }
+
+    .a4 .slash-glow {
+      position: absolute;
+      background: #9198e5;
+      opacity: 0.18;
+      transform: rotate(-15deg);
+    }
+    .a4.lg .slash-glow { width: 200px; height: 340px; top: -90px; left: -60px; }
+    .a4.sm .slash-glow { width: 80px;  height: 136px; top: -36px; left: -24px; }
+    .a4.xs .slash-glow { width: 44px;  height: 75px;  top: -20px; left: -13px; }
+    .a4.hs .slash-glow { width: 60px;  height: 102px; top: -27px; left: -18px; }
+
+    /* wordmark stack */
+    .a4 .wordmark {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 3; gap: 0;
+    }
+    .a4 .wm-h {
+      color: #fff;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .a4 .wm-one {
+      color: rgba(255,255,255,0.45);
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .a4.lg .wm-h   { font-size: 72px; letter-spacing: -3px; }
+    .a4.lg .wm-one { font-size: 18px; margin-top: 2px; }
+
+    .a4.sm .wm-h   { font-size: 29px; letter-spacing: -1px; }
+    .a4.sm .wm-one { font-size: 7px;  margin-top: 1px; letter-spacing: 0.2em; }
+
+    .a4.xs .wm-h   { font-size: 16px; letter-spacing: -0.5px; }
+    .a4.xs .wm-one { font-size: 4px;  margin-top: 0; letter-spacing: 0.15em; }
+
+    .a4.hs .wm-h   { font-size: 22px; letter-spacing: -1px; }
+    .a4.hs .wm-one { font-size: 5.5px; margin-top: 1px; letter-spacing: 0.2em; }
+
+  </style>
+</head>
+<body>
+
+  <h1>Hone · Icon A — Iterations</h1>
+
+  <div class="row">
+
+    <!-- A1: Centered Banner -->
+    <div class="icon-col">
+      <div class="col-label">A1 — Centered Band</div>
+
+      <div class="icon a1 lg">
+        <div class="band-glow"></div>
+        <div class="band"></div>
+        <div class="letter">H</div>
+      </div>
+
+      <div class="sizes">
+        <div class="icon a1 sm">
+          <div class="band-glow"></div>
+          <div class="band"></div>
+          <div class="letter">H</div>
+        </div>
+        <div class="icon a1 xs">
+          <div class="band-glow"></div>
+          <div class="band"></div>
+          <div class="letter">H</div>
+        </div>
+      </div>
+
+      <div class="homescreen">
+        <div class="icon a1 hs">
+          <div class="band-glow"></div>
+          <div class="band"></div>
+          <div class="letter">H</div>
+        </div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- A2: Double Stripe -->
+    <div class="icon-col">
+      <div class="col-label">A2 — Double Stripe</div>
+
+      <div class="icon a2 lg">
+        <div class="stripe s1"></div>
+        <div class="stripe s2"></div>
+        <div class="letter">H</div>
+      </div>
+
+      <div class="sizes">
+        <div class="icon a2 sm">
+          <div class="stripe s1"></div>
+          <div class="stripe s2"></div>
+          <div class="letter">H</div>
+        </div>
+        <div class="icon a2 xs">
+          <div class="stripe s1"></div>
+          <div class="stripe s2"></div>
+          <div class="letter">H</div>
+        </div>
+      </div>
+
+      <div class="homescreen">
+        <div class="icon a2 hs">
+          <div class="stripe s1"></div>
+          <div class="stripe s2"></div>
+          <div class="letter">H</div>
+        </div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- A3: Glow Slash -->
+    <div class="icon-col">
+      <div class="col-label">A3 — Glow Slash</div>
+
+      <div class="icon a3 lg">
+        <div class="bloom"></div>
+        <div class="glow-mid"></div>
+        <div class="slash-core"></div>
+        <div class="letter">H</div>
+      </div>
+
+      <div class="sizes">
+        <div class="icon a3 sm">
+          <div class="bloom"></div>
+          <div class="glow-mid"></div>
+          <div class="slash-core"></div>
+          <div class="letter">H</div>
+        </div>
+        <div class="icon a3 xs">
+          <div class="bloom"></div>
+          <div class="glow-mid"></div>
+          <div class="slash-core"></div>
+          <div class="letter">H</div>
+        </div>
+      </div>
+
+      <div class="homescreen">
+        <div class="icon a3 hs">
+          <div class="bloom"></div>
+          <div class="glow-mid"></div>
+          <div class="slash-core"></div>
+          <div class="letter">H</div>
+        </div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- A4: Slash + Wordmark -->
+    <div class="icon-col">
+      <div class="col-label">A4 — Slash + Name</div>
+
+      <div class="icon a4 lg">
+        <div class="slash-glow"></div>
+        <div class="slash"></div>
+        <div class="wordmark">
+          <span class="wm-h">H</span>
+          <span class="wm-one">ONE</span>
+        </div>
+      </div>
+
+      <div class="sizes">
+        <div class="icon a4 sm">
+          <div class="slash-glow"></div>
+          <div class="slash"></div>
+          <div class="wordmark">
+            <span class="wm-h">H</span>
+            <span class="wm-one">ONE</span>
+          </div>
+        </div>
+        <div class="icon a4 xs">
+          <div class="slash-glow"></div>
+          <div class="slash"></div>
+          <div class="wordmark">
+            <span class="wm-h">H</span>
+            <span class="wm-one">ONE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="homescreen">
+        <div class="icon a4 hs">
+          <div class="slash-glow"></div>
+          <div class="slash"></div>
+          <div class="wordmark">
+            <span class="wm-h">H</span>
+            <span class="wm-one">ONE</span>
+          </div>
+        </div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

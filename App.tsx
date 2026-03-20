@@ -15,8 +15,10 @@ export default function App() {
   const colorScheme = useColorScheme();
 
   useEffect(() => {
-    BootSplash.hide({ fade: true });
-  }, []);
+    if (isLoadingComplete) {
+      BootSplash.hide({ fade: true });
+    }
+  }, [isLoadingComplete]);
 
   if (!isLoadingComplete) {
     return null;

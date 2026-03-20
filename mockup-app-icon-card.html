@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hone — Icon Card Concept</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #94a3b8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 40px;
+      gap: 56px;
+    }
+
+    h1 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    .icon {
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      border-radius: 22.5%;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.45),
+        0 4px 12px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.07);
+      background: #0f172a;
+    }
+    .icon.xl { width: 280px; height: 280px; border-radius: 63px; }
+    .icon.lg { width: 200px; height: 200px; border-radius: 45px; }
+    .icon.md { width: 120px; height: 120px; border-radius: 27px; }
+    .icon.sm { width:  80px; height:  80px; border-radius: 18px; }
+    .icon.xs { width:  44px; height:  44px; border-radius: 10px; }
+    .icon.hs { width:  60px; height:  60px; border-radius: 14px; }
+
+    /* ── The card ─────────────────────────────────────────
+       A large rotated rectangle — not a thin slash but a
+       real card shape that fills most of the icon square.
+       Dark bg peeks out only in the two opposing corners.
+    ─────────────────────────────────────────────────────── */
+    .card {
+      position: absolute;
+      background: #7078df;
+      transform-origin: center;
+      /* slight gradient to add depth */
+      background: linear-gradient(135deg, #9198e5 0%, #7078df 45%, #5a62ca 100%);
+    }
+
+    /* XL */
+    .icon.xl .card {
+      width: 320px; height: 320px;
+      top: -30px; left: -30px;
+      transform: rotate(-18deg);
+      border-radius: 48px;
+    }
+    /* LG */
+    .icon.lg .card {
+      width: 230px; height: 230px;
+      top: -22px; left: -22px;
+      transform: rotate(-18deg);
+      border-radius: 34px;
+    }
+    /* MD */
+    .icon.md .card {
+      width: 138px; height: 138px;
+      top: -13px; left: -13px;
+      transform: rotate(-18deg);
+      border-radius: 20px;
+    }
+    /* SM */
+    .icon.sm .card {
+      width: 92px; height: 92px;
+      top: -9px; left: -9px;
+      transform: rotate(-18deg);
+      border-radius: 14px;
+    }
+    /* XS */
+    .icon.xs .card {
+      width: 50px; height: 50px;
+      top: -4px; left: -4px;
+      transform: rotate(-18deg);
+      border-radius: 7px;
+    }
+    /* HS */
+    .icon.hs .card {
+      width: 68px; height: 68px;
+      top: -6px; left: -6px;
+      transform: rotate(-18deg);
+      border-radius: 10px;
+    }
+
+    /* subtle inner highlight on the card edge */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1.5px solid rgba(255,255,255,0.15);
+    }
+
+    /* ── Letter ─────────────────────────────────────────── */
+    .letter {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      z-index: 4;
+    }
+    .icon.xl .letter { font-size: 156px; letter-spacing: -7px; }
+    .icon.lg .letter { font-size: 112px; letter-spacing: -5px; }
+    .icon.md .letter { font-size:  67px; letter-spacing: -3px; }
+    .icon.sm .letter { font-size:  45px; letter-spacing: -2px; }
+    .icon.xs .letter { font-size:  25px; letter-spacing: -1px; }
+    .icon.hs .letter { font-size:  34px; letter-spacing: -1px; }
+
+    /* ── Layout helpers ──────────────────────────────────── */
+    .row {
+      display: flex;
+      gap: 40px;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .homescreen {
+      background: linear-gradient(160deg, #1e3a5f, #0f172a);
+      border-radius: 24px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    .hs-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .size-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #475569;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .icon-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hone · Angled Card Icon</h1>
+
+  <!-- Hero size -->
+  <div class="icon xl">
+    <div class="card"></div>
+    <div class="letter">H</div>
+  </div>
+
+  <!-- Scale row -->
+  <div class="row">
+    <div class="icon-col">
+      <div class="icon lg">
+        <div class="card"></div>
+        <div class="letter">H</div>
+      </div>
+      <div class="size-label">200</div>
+    </div>
+    <div class="icon-col">
+      <div class="icon md">
+        <div class="card"></div>
+        <div class="letter">H</div>
+      </div>
+      <div class="size-label">120</div>
+    </div>
+    <div class="icon-col">
+      <div class="icon sm">
+        <div class="card"></div>
+        <div class="letter">H</div>
+      </div>
+      <div class="size-label">80</div>
+    </div>
+    <div class="icon-col">
+      <div class="icon xs">
+        <div class="card"></div>
+        <div class="letter">H</div>
+      </div>
+      <div class="size-label">44</div>
+    </div>
+  </div>
+
+  <!-- Home screen context -->
+  <div class="homescreen">
+    <div class="icon hs">
+      <div class="card"></div>
+      <div class="letter">H</div>
+    </div>
+    <div class="hs-label">Hone</div>
+  </div>
+
+</body>
+</html>

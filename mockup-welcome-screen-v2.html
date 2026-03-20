@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hone — Welcome Screen Mockups v2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #cbd5e1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px 40px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .phone {
+      width: 375px;
+      height: 812px;
+      border-radius: 50px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.1);
+      overflow: hidden;
+      border: 10px solid #1e293b;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .status-bar {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      font-size: 12px;
+      font-weight: 600;
+      position: relative;
+      z-index: 10;
+    }
+    .status-bar .time { font-size: 15px; font-weight: 600; }
+
+    .step-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .step-indicator {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    /* ══════════════════════════════════════════════
+       CONCEPT E — Minimal Type / High Fashion
+    ══════════════════════════════════════════════ */
+    .phone-e { background: #f8fafc; }
+    .phone-e .status-bar { background: #f8fafc; color: #0f172a; }
+
+    .bg-type-e {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .bg-word {
+      font-size: 180px;
+      font-weight: 900;
+      color: #f1f5f9;
+      letter-spacing: -8px;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .content-e {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      height: calc(100% - 44px);
+      padding: 16px 32px 0;
+    }
+    .step-indicator-e {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-start;
+      margin-bottom: 0;
+    }
+
+    .e-top {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+    .overline-e {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #7078df;
+      margin-bottom: 8px;
+    }
+    .wordmark-e {
+      font-size: 68px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -3px;
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+    .divider-line-e {
+      width: 48px;
+      height: 2px;
+      background: #7078df;
+      margin-bottom: 20px;
+    }
+    .tagline-e {
+      font-size: 16px;
+      font-weight: 400;
+      color: #64748b;
+      line-height: 1.7;
+      max-width: 240px;
+    }
+
+    .e-bottom {
+      padding-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn-e {
+      background: #0f172a;
+      border-radius: 10px;
+      padding: 16px 24px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .btn-outline-e {
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px 24px;
+      color: #475569;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    /* ══════════════════════════════════════════════
+       CONCEPT F — App Preview / Peek Inside
+    ══════════════════════════════════════════════ */
+    .phone-f { background: #0f172a; }
+    .phone-f .status-bar { background: #0f172a; color: #e2e8f0; }
+
+    .content-f {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: calc(100% - 44px);
+      padding: 12px 0 0;
+    }
+    .f-header {
+      padding: 0 24px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+    .wordmark-f {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .step-indicator-f { display: flex; gap: 5px; }
+
+    /* stacked preview cards */
+    .card-stack {
+      position: relative;
+      width: 320px;
+      height: 360px;
+      margin-bottom: 32px;
+    }
+    .preview-card {
+      position: absolute;
+      width: 100%;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .preview-card.back {
+      background: #334155;
+      top: 24px;
+      transform: rotate(4deg);
+      opacity: 0.7;
+    }
+    .preview-card.mid {
+      background: #1e293b;
+      top: 12px;
+      transform: rotate(-2deg);
+      opacity: 0.85;
+      border: 1px solid #334155;
+    }
+    .preview-card.front {
+      background: #1e293b;
+      top: 0;
+      border: 1px solid #475569;
+    }
+
+    /* macro summary card */
+    .card-label-f {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .macro-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .macro-item { text-align: center; }
+    .macro-value { font-size: 22px; font-weight: 700; color: #fff; }
+    .macro-sub { font-size: 10px; color: #64748b; margin-top: 2px; font-weight: 500; letter-spacing: 0.5px; }
+    .macro-bar-track {
+      height: 6px;
+      background: #334155;
+      border-radius: 3px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .macro-bar-fill { height: 100%; border-radius: 3px; }
+
+    .workout-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #0f172a;
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 12px;
+    }
+    .workout-icon {
+      width: 36px; height: 36px;
+      background: #7078df22;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .workout-text { flex: 1; }
+    .workout-name { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+    .workout-meta { font-size: 11px; color: #64748b; }
+    .workout-badge {
+      background: #7078df22;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #9198e5;
+    }
+
+    .f-tagline {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      padding: 0 28px;
+    }
+    .f-sub {
+      font-size: 14px;
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 24px;
+      padding: 0 36px;
+    }
+    .btn-f {
+      width: calc(100% - 48px);
+      background: #7078df;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 36px;
+    }
+
+    /* ══════════════════════════════════════════════
+       CONCEPT G — Sport Slash / Dynamic
+    ══════════════════════════════════════════════ */
+    .phone-g { background: #0f172a; overflow: hidden; }
+    .phone-g .status-bar { background: transparent; color: #e2e8f0; position: relative; z-index: 5; }
+
+    .slash-bg {
+      position: absolute;
+      top: -80px;
+      left: -60px;
+      width: 320px;
+      height: 600px;
+      background: linear-gradient(175deg, #7078df 0%, #5a62ca 50%, #4650b8 100%);
+      transform: rotate(-12deg);
+      z-index: 1;
+    }
+    .slash-glow {
+      position: absolute;
+      top: -80px;
+      left: -60px;
+      width: 320px;
+      height: 600px;
+      background: linear-gradient(175deg, #9198e5 0%, #7078df 50%, transparent 100%);
+      transform: rotate(-12deg);
+      filter: blur(20px);
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    .content-g {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      height: calc(100% - 44px);
+      padding: 20px 28px 0;
+    }
+    .step-indicator-g {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+      margin-bottom: 0;
+    }
+
+    .g-top {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .eyebrow-g {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .wordmark-g {
+      font-size: 72px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -4px;
+      line-height: 0.9;
+      margin-bottom: 24px;
+    }
+    .tagline-g {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      max-width: 220px;
+    }
+
+    .g-bottom {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 40px;
+    }
+    /* stat pills */
+    .stat-strip {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .stat-pill {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .stat-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .stat-label {
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.5px;
+    }
+    .btn-g {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      color: #4650b8;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .btn-ghost-g {
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 4px;
+    }
+
+    /* ══════════════════════════════════════════════
+       CONCEPT H — Monogram Badge / Premium Mark
+    ══════════════════════════════════════════════ */
+    .phone-h { background: #0f172a; }
+    .phone-h .status-bar { background: #0f172a; color: #94a3b8; }
+
+    .content-h {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: calc(100% - 44px);
+      padding: 16px 28px 0;
+    }
+    .step-indicator-h {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    .badge-container {
+      margin-top: 56px;
+      margin-bottom: 48px;
+      position: relative;
+      width: 180px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* tick ring */
+    .badge-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid #334155;
+    }
+    .badge-ring-inner {
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      border: 1px solid #1e293b;
+    }
+    /* arc highlight */
+    .badge-arc {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: #7078df;
+      border-right-color: #7078df;
+      transform: rotate(-30deg);
+    }
+
+    /* tick marks around ring */
+    .tick {
+      position: absolute;
+      width: 2px;
+      height: 8px;
+      background: #334155;
+      border-radius: 1px;
+      top: -4px;
+      left: calc(50% - 1px);
+      transform-origin: 50% 94px;
+    }
+    .tick.accent { background: #7078df; height: 10px; }
+
+    .badge-center {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      border: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+    .badge-letter {
+      font-size: 56px;
+      font-weight: 800;
+      color: #7078df;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    .wordmark-h {
+      font-size: 38px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .edition-h {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      color: #475569;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .tagline-h {
+      font-size: 15px;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.7;
+      max-width: 240px;
+      margin-bottom: 8px;
+    }
+
+    .h-bottom {
+      width: 100%;
+      margin-top: auto;
+      padding-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn-h {
+      width: 100%;
+      background: #7078df;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .btn-ghost-h {
+      font-size: 13px;
+      color: #475569;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ CONCEPT E: Minimal Type ══ -->
+  <div class="column">
+    <div class="label">E — Minimal Type</div>
+    <div class="phone phone-e">
+      <div class="bg-type-e">
+        <div class="bg-word">H</div>
+      </div>
+      <div class="status-bar" style="background:transparent;">
+        <span class="time">9:41</span>
+        <div style="display:flex;gap:6px;font-size:12px;">▲▲ WiFi 100%</div>
+      </div>
+      <div class="content-e">
+        <div class="step-indicator-e" style="margin-bottom:0;">
+          <div class="step-dot" style="background:#7078df;"></div>
+          <div class="step-dot" style="background:#e2e8f0;"></div>
+          <div class="step-dot" style="background:#e2e8f0;"></div>
+        </div>
+        <div class="e-top">
+          <div class="overline-e">Introducing</div>
+          <div class="wordmark-e">Hone</div>
+          <div class="divider-line-e"></div>
+          <div class="tagline-e">Macro tracking and training, refined into one focused tool.</div>
+        </div>
+        <div class="e-bottom">
+          <div class="btn-e">Get Started</div>
+          <div class="btn-outline-e">Sign In</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONCEPT F: App Preview ══ -->
+  <div class="column">
+    <div class="label">F — App Preview</div>
+    <div class="phone phone-f">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div style="display:flex;gap:6px;font-size:12px;color:#94a3b8;">▲▲ WiFi 100%</div>
+      </div>
+      <div class="content-f">
+        <div class="f-header">
+          <div class="wordmark-f">Hone</div>
+          <div class="step-indicator-f">
+            <div class="step-dot" style="background:#7078df;"></div>
+            <div class="step-dot" style="background:#334155;"></div>
+            <div class="step-dot" style="background:#334155;"></div>
+          </div>
+        </div>
+
+        <div class="card-stack">
+          <!-- back card -->
+          <div class="preview-card back"></div>
+          <!-- mid card -->
+          <div class="preview-card mid"></div>
+          <!-- front card: macro summary -->
+          <div class="preview-card front">
+            <div class="card-label-f">Today's Macros</div>
+            <div class="macro-row">
+              <div class="macro-item">
+                <div class="macro-value" style="color:#60a5fa;">182g</div>
+                <div class="macro-sub">Carbs</div>
+              </div>
+              <div class="macro-item">
+                <div class="macro-value" style="color:#a78bfa;">148g</div>
+                <div class="macro-sub">Protein</div>
+              </div>
+              <div class="macro-item">
+                <div class="macro-value" style="color:#fbbf24;">62g</div>
+                <div class="macro-sub">Fat</div>
+              </div>
+            </div>
+            <div class="macro-bar-track">
+              <div class="macro-bar-fill" style="width:72%;background:linear-gradient(90deg,#60a5fa,#a78bfa,#fbbf24);"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+              <span style="font-size:10px;color:#64748b;">1,862 cal eaten</span>
+              <span style="font-size:10px;color:#64748b;">2,400 goal</span>
+            </div>
+
+            <div class="workout-row">
+              <div class="workout-icon">💪</div>
+              <div class="workout-text">
+                <div class="workout-name">Upper Body Push</div>
+                <div class="workout-meta">Today · 45 min</div>
+              </div>
+              <div class="workout-badge">Done</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="f-tagline">Everything you need,<br>in one place.</div>
+        <div class="f-sub">Macros, workouts, and progress — built for people who take it seriously.</div>
+        <div class="btn-f">Get Started</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONCEPT G: Sport Slash ══ -->
+  <div class="column">
+    <div class="label">G — Sport Slash</div>
+    <div class="phone phone-g">
+      <div class="slash-glow"></div>
+      <div class="slash-bg"></div>
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div style="display:flex;gap:6px;font-size:12px;">▲▲ WiFi 100%</div>
+      </div>
+      <div class="content-g">
+        <div class="step-indicator-g">
+          <div class="step-dot" style="background:rgba(255,255,255,0.9);"></div>
+          <div class="step-dot" style="background:rgba(255,255,255,0.3);"></div>
+          <div class="step-dot" style="background:rgba(255,255,255,0.3);"></div>
+        </div>
+        <div class="g-top">
+          <div class="eyebrow-g">Welcome to</div>
+          <div class="wordmark-g">Hone</div>
+          <div class="tagline-g">Dial in your nutrition. Lock in your training.</div>
+        </div>
+        <div class="g-bottom">
+          <div class="stat-strip">
+            <div class="stat-pill">
+              <div class="stat-value">🥗</div>
+              <div class="stat-label">Macros</div>
+            </div>
+            <div class="stat-pill">
+              <div class="stat-value">🏋️</div>
+              <div class="stat-label">Training</div>
+            </div>
+            <div class="stat-pill">
+              <div class="stat-value">📊</div>
+              <div class="stat-label">Progress</div>
+            </div>
+          </div>
+          <div class="btn-g">Get Started</div>
+          <div class="btn-ghost-g">Sign in to existing account</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONCEPT H: Monogram Badge ══ -->
+  <div class="column">
+    <div class="label">H — Monogram Badge</div>
+    <div class="phone phone-h">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div style="display:flex;gap:6px;font-size:12px;">▲▲ WiFi 100%</div>
+      </div>
+      <div class="content-h">
+        <div class="step-indicator-h">
+          <div class="step-dot" style="background:#7078df;"></div>
+          <div class="step-dot" style="background:#334155;"></div>
+          <div class="step-dot" style="background:#334155;"></div>
+        </div>
+
+        <div class="badge-container">
+          <div class="badge-ring"></div>
+          <div class="badge-ring-inner"></div>
+          <div class="badge-arc"></div>
+
+          <!-- tick marks -->
+          <div class="tick" style="transform:rotate(0deg) translateX(0);"></div>
+          <div class="tick" style="transform:rotate(30deg);"></div>
+          <div class="tick accent" style="transform:rotate(60deg);"></div>
+          <div class="tick" style="transform:rotate(90deg);"></div>
+          <div class="tick" style="transform:rotate(120deg);"></div>
+          <div class="tick accent" style="transform:rotate(150deg);"></div>
+          <div class="tick" style="transform:rotate(180deg);"></div>
+          <div class="tick" style="transform:rotate(210deg);"></div>
+          <div class="tick" style="transform:rotate(240deg);"></div>
+          <div class="tick" style="transform:rotate(270deg);"></div>
+          <div class="tick" style="transform:rotate(300deg);"></div>
+          <div class="tick" style="transform:rotate(330deg);"></div>
+
+          <div class="badge-center">
+            <div class="badge-letter">H</div>
+          </div>
+        </div>
+
+        <div class="wordmark-h">Hone</div>
+        <div class="edition-h">Nutrition · Training · Progress</div>
+        <div class="tagline-h">Everything you need to build the best version of yourself.</div>
+
+        <div class="h-bottom">
+          <div class="btn-h">Get Started</div>
+          <div class="btn-ghost-h">Already have an account? Sign in</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

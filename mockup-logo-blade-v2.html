@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hone — Logo Concepts v2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 40px;
+      gap: 100px;
+    }
+
+    h1 {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: #475569;
+    }
+
+    .concept {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .concept-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .concept-name {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; color: #334155;
+    }
+    .concept-note {
+      font-size: 13px; color: #64748b;
+      text-align: center; max-width: 400px; line-height: 1.7;
+    }
+    .concept-divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, #94a3b8, transparent);
+    }
+
+    .presentations {
+      display: flex;
+      gap: 20px;
+      align-items: flex-end;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .pres {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 12px;
+    }
+    .pres-label {
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase; color: #94a3b8;
+    }
+
+    .canvas-dark {
+      width: 280px; height: 280px; background: #0f172a;
+      border-radius: 24px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    .canvas-light {
+      width: 280px; height: 280px; background: #f8fafc;
+      border-radius: 24px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid #e2e8f0;
+    }
+
+    .icon {
+      position: relative; overflow: hidden; flex-shrink: 0;
+      background: #0f172a;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.38), 0 3px 8px rgba(0,0,0,0.2);
+    }
+    .icon.lg { width: 120px; height: 120px; border-radius: 27px; }
+    .icon.sm { width:  60px; height:  60px; border-radius: 14px; }
+    .icon.xs { width:  40px; height:  40px; border-radius:  9px; }
+    .icon-set { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .icon-sizes-row { display: flex; gap: 12px; align-items: flex-end; }
+
+    .pcard {
+      position: absolute; background: #7078df;
+      transform-origin: center; pointer-events: none;
+    }
+    .icon.lg .pcard { width: 140px; height: 140px; top: -17px; left: -17px; transform: rotate(-15deg); }
+    .icon.sm .pcard { width:  70px; height:  70px; top:  -8px; left:  -8px; transform: rotate(-15deg); }
+    .icon.xs .pcard { width:  46px; height:  46px; top:  -5px; left:  -5px; transform: rotate(-15deg); }
+    .icon svg { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+
+    .lockup {
+      display: flex; align-items: center; gap: 16px;
+      padding: 20px 28px; background: #0f172a;
+      border-radius: 14px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.28);
+    }
+    .lockup-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.1); }
+    .lockup-text { display: flex; flex-direction: column; gap: 3px; }
+    .lockup-name { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: -0.5px; line-height: 1; }
+    .lockup-sub { font-size: 8px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.28); }
+  </style>
+</head>
+<body>
+
+  <h1>Hone · Logo Concepts — Round 2</h1>
+
+
+  <!-- ════════════════════════════════════════════════════
+       1 — THE ACUTE
+       A diamond stretched to an extreme horizontal ratio.
+       The shape itself IS the concept — the sharpest
+       possible geometric form. No metaphor needed.
+  ════════════════════════════════════════════════════ -->
+  <div class="concept">
+    <div class="concept-header">
+      <div class="concept-name">1 — The Acute</div>
+      <div class="concept-note">A diamond stretched to its limit — the sharpest possible geometric form. The shape itself is the concept. Ultra-precise, completely ownable.</div>
+    </div>
+    <div class="concept-divider"></div>
+    <div class="presentations">
+
+      <div class="pres">
+        <div class="canvas-dark">
+          <svg width="230" height="80" viewBox="0 0 230 80">
+            <!-- extreme horizontal diamond: left point, top, right point, bottom -->
+            <polygon points="4,40  115,6  226,40  115,74" fill="#7078df"/>
+            <!-- subtle inner highlight on top-left face -->
+            <polygon points="4,40  115,6  115,40" fill="rgba(255,255,255,0.1)"/>
+          </svg>
+        </div>
+        <div class="pres-label">Dark</div>
+      </div>
+
+      <div class="pres">
+        <div class="canvas-light">
+          <svg width="230" height="80" viewBox="0 0 230 80">
+            <polygon points="4,40  115,6  226,40  115,74" fill="#7078df"/>
+            <polygon points="4,40  115,6  115,40" fill="rgba(255,255,255,0.12)"/>
+          </svg>
+        </div>
+        <div class="pres-label">Light</div>
+      </div>
+
+      <div class="pres">
+        <div class="icon-set">
+          <div class="icon lg">
+            <div class="pcard"></div>
+            <svg width="120" height="120" viewBox="0 0 120 120">
+              <polygon points="4,60  60,22  116,60  60,98" fill="white"/>
+              <polygon points="4,60  60,22  60,60" fill="rgba(0,0,0,0.1)"/>
+            </svg>
+          </div>
+          <div class="icon-sizes-row">
+            <div class="icon sm">
+              <div class="pcard"></div>
+              <svg width="60" height="60" viewBox="0 0 120 120">
+                <polygon points="4,60  60,22  116,60  60,98" fill="white"/>
+              </svg>
+            </div>
+            <div class="icon xs">
+              <div class="pcard"></div>
+              <svg width="40" height="40" viewBox="0 0 120 120">
+                <polygon points="4,60  60,22  116,60  60,98" fill="white"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="pres-label">Icon</div>
+      </div>
+
+      <div class="pres" style="justify-content:center;">
+        <div class="lockup">
+          <svg width="48" height="18" viewBox="0 0 230 80">
+            <polygon points="4,40  115,6  226,40  115,74" fill="#7078df"/>
+            <polygon points="4,40  115,6  115,40" fill="rgba(255,255,255,0.1)"/>
+          </svg>
+          <div class="lockup-divider"></div>
+          <div class="lockup-text">
+            <div class="lockup-name">Hone</div>
+            <div class="lockup-sub">Nutrition · Training</div>
+          </div>
+        </div>
+        <div class="pres-label">Lockup</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════
+       2 — THE DROP
+       The cross-section of a perfectly honed edge, seen
+       from the side: a teardrop. Round at the spine,
+       tapering to an impossibly fine point. Organic,
+       precise, completely unexpected for a fitness app.
+  ════════════════════════════════════════════════════ -->
+  <div class="concept">
+    <div class="concept-header">
+      <div class="concept-name">2 — The Drop</div>
+      <div class="concept-note">The cross-section of a blade seen side-on — round at the spine, tapering to a razor point. Organic, precise, and unexpected.</div>
+    </div>
+    <div class="concept-divider"></div>
+    <div class="presentations">
+
+      <div class="pres">
+        <div class="canvas-dark">
+          <svg width="180" height="180" viewBox="0 0 180 180">
+            <!--
+              Teardrop: circle on left, pointed on right.
+              Circle center ~(72,90), r=58.
+              Tip at right: (174, 90).
+              Top tangent line from circle-top to tip.
+              Bottom tangent line from circle-bottom to tip.
+            -->
+            <path d="
+              M 72,32
+              A 58,58 0 1 0 72,148
+              L 174,90
+              Z
+            " fill="#7078df"/>
+            <!-- inner highlight: upper-left arc face -->
+            <path d="
+              M 72,32
+              A 58,58 0 0 0 14,90
+              A 58,58 0 0 0 72,90
+              Z
+            " fill="rgba(255,255,255,0.08)"/>
+          </svg>
+        </div>
+        <div class="pres-label">Dark</div>
+      </div>
+
+      <div class="pres">
+        <div class="canvas-light">
+          <svg width="180" height="180" viewBox="0 0 180 180">
+            <path d="
+              M 72,32
+              A 58,58 0 1 0 72,148
+              L 174,90
+              Z
+            " fill="#7078df"/>
+            <path d="
+              M 72,32
+              A 58,58 0 0 0 14,90
+              A 58,58 0 0 0 72,90
+              Z
+            " fill="rgba(255,255,255,0.1)"/>
+          </svg>
+        </div>
+        <div class="pres-label">Light</div>
+      </div>
+
+      <div class="pres">
+        <div class="icon-set">
+          <div class="icon lg">
+            <div class="pcard"></div>
+            <svg width="120" height="120" viewBox="0 0 180 180">
+              <path d="M 72,32 A 58,58 0 1 0 72,148 L 174,90 Z" fill="white"/>
+              <path d="M 72,32 A 58,58 0 0 0 14,90 A 58,58 0 0 0 72,90 Z" fill="rgba(0,0,0,0.08)"/>
+            </svg>
+          </div>
+          <div class="icon-sizes-row">
+            <div class="icon sm">
+              <div class="pcard"></div>
+              <svg width="60" height="60" viewBox="0 0 180 180">
+                <path d="M 72,32 A 58,58 0 1 0 72,148 L 174,90 Z" fill="white"/>
+              </svg>
+            </div>
+            <div class="icon xs">
+              <div class="pcard"></div>
+              <svg width="40" height="40" viewBox="0 0 180 180">
+                <path d="M 72,32 A 58,58 0 1 0 72,148 L 174,90 Z" fill="white"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="pres-label">Icon</div>
+      </div>
+
+      <div class="pres" style="justify-content:center;">
+        <div class="lockup">
+          <svg width="38" height="38" viewBox="0 0 180 180">
+            <path d="M 72,32 A 58,58 0 1 0 72,148 L 174,90 Z" fill="#7078df"/>
+            <path d="M 72,32 A 58,58 0 0 0 14,90 A 58,58 0 0 0 72,90 Z" fill="rgba(255,255,255,0.1)"/>
+          </svg>
+          <div class="lockup-divider"></div>
+          <div class="lockup-text">
+            <div class="lockup-name">Hone</div>
+            <div class="lockup-sub">Nutrition · Training</div>
+          </div>
+        </div>
+        <div class="pres-label">Lockup</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════
+       3 — THE PASSES
+       Three diagonal strokes, each pass shorter and
+       thinner than the last — like a blade being drawn
+       across a stone repeatedly, each pass refining the
+       edge further. Progress, repetition, refinement.
+  ════════════════════════════════════════════════════ -->
+  <div class="concept">
+    <div class="concept-header">
+      <div class="concept-name">3 — The Passes</div>
+      <div class="concept-note">Each stroke across the stone sharpens the edge a little more. Three passes — each shorter, each finer. Repetition as refinement.</div>
+    </div>
+    <div class="concept-divider"></div>
+    <div class="presentations">
+
+      <div class="pres">
+        <div class="canvas-dark">
+          <svg width="200" height="200" viewBox="0 0 240 240">
+            <!-- Pass 1: longest, thickest -->
+            <path d="M 32,68  L 68,68  L 164,188  L 152,188 Z" fill="#7078df"/>
+            <!-- Pass 2: medium -->
+            <path d="M 96,68  L 124,68  L 196,178  L 184,178 Z" fill="#7078df" opacity="0.7"/>
+            <!-- Pass 3: shortest, thinnest — just a sliver -->
+            <path d="M 152,68  L 172,68  L 214,144  L 206,144 Z" fill="#7078df" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="pres-label">Dark</div>
+      </div>
+
+      <div class="pres">
+        <div class="canvas-light">
+          <svg width="200" height="200" viewBox="0 0 240 240">
+            <path d="M 32,68  L 68,68  L 164,188  L 152,188 Z" fill="#7078df"/>
+            <path d="M 96,68  L 124,68  L 196,178  L 184,178 Z" fill="#7078df" opacity="0.6"/>
+            <path d="M 152,68  L 172,68  L 214,144  L 206,144 Z" fill="#7078df" opacity="0.35"/>
+          </svg>
+        </div>
+        <div class="pres-label">Light</div>
+      </div>
+
+      <div class="pres">
+        <div class="icon-set">
+          <div class="icon lg">
+            <div class="pcard"></div>
+            <svg width="120" height="120" viewBox="0 0 240 240">
+              <path d="M 32,68  L 68,68  L 164,188  L 152,188 Z" fill="white"/>
+              <path d="M 96,68  L 124,68  L 196,178  L 184,178 Z" fill="white" opacity="0.65"/>
+              <path d="M 152,68  L 172,68  L 214,144  L 206,144 Z" fill="white" opacity="0.35"/>
+            </svg>
+          </div>
+          <div class="icon-sizes-row">
+            <div class="icon sm">
+              <div class="pcard"></div>
+              <svg width="60" height="60" viewBox="0 0 240 240">
+                <path d="M 32,68  L 68,68  L 164,188  L 152,188 Z" fill="white"/>
+                <path d="M 96,68  L 124,68  L 196,178  L 184,178 Z" fill="white" opacity="0.65"/>
+                <path d="M 152,68  L 172,68  L 214,144  L 206,144 Z" fill="white" opacity="0.35"/>
+              </svg>
+            </div>
+            <div class="icon xs">
+              <div class="pcard"></div>
+              <svg width="40" height="40" viewBox="0 0 240 240">
+                <path d="M 32,68  L 68,68  L 164,188  L 152,188 Z" fill="white"/>
+                <path d="M 96,68  L 124,68  L 196,178  L 184,188 Z" fill="white" opacity="0.65"/>
+                <path d="M 152,68  L 172,68  L 214,144  L 206,144 Z" fill="white" opacity="0.35"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="pres-label">Icon</div>
+      </div>
+
+      <div class="pres" style="justify-content:center;">
+        <div class="lockup">
+          <svg width="36" height="36" viewBox="0 0 240 240">
+            <path d="M 32,68  L 68,68  L 164,188  L 152,188 Z" fill="#7078df"/>
+            <path d="M 96,68  L 124,68  L 196,178  L 184,178 Z" fill="#7078df" opacity="0.6"/>
+            <path d="M 152,68  L 172,68  L 214,144  L 206,144 Z" fill="#7078df" opacity="0.35"/>
+          </svg>
+          <div class="lockup-divider"></div>
+          <div class="lockup-text">
+            <div class="lockup-name">Hone</div>
+            <div class="lockup-sub">Nutrition · Training</div>
+          </div>
+        </div>
+        <div class="pres-label">Lockup</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════
+       4 — THE CHANNEL
+       A whetstone seen edge-on: a thick bar with a precise
+       V-groove cut through its center — the channel where
+       the blade contacts the stone at the exact honing
+       angle. Industrial, architectural, precise.
+  ════════════════════════════════════════════════════ -->
+  <div class="concept">
+    <div class="concept-header">
+      <div class="concept-name">4 — The Channel</div>
+      <div class="concept-note">The whetstone, edge-on. A V-groove cut through the center — the exact channel where blade meets stone. Industrial precision made geometric.</div>
+    </div>
+    <div class="concept-divider"></div>
+    <div class="presentations">
+
+      <div class="pres">
+        <div class="canvas-dark">
+          <svg width="220" height="120" viewBox="0 0 220 120">
+            <!--
+              Stone bar with V notch cut from the bottom.
+              Full bar: rect, then subtract a triangle from bottom center.
+            -->
+            <!-- Use clip/path to cut the notch -->
+            <defs>
+              <clipPath id="notch-dark">
+                <!-- everything EXCEPT the notch triangle -->
+                <polygon points="
+                  0,0  220,0  220,120
+                  130,120  110,72  90,120
+                  0,120
+                "/>
+              </clipPath>
+            </defs>
+            <rect x="0" y="0" width="220" height="120" rx="0"
+                  fill="#7078df" clip-path="url(#notch-dark)"/>
+            <!-- subtle top highlight -->
+            <rect x="0" y="0" width="220" height="4" fill="rgba(255,255,255,0.15)"/>
+          </svg>
+        </div>
+        <div class="pres-label">Dark</div>
+      </div>
+
+      <div class="pres">
+        <div class="canvas-light">
+          <svg width="220" height="120" viewBox="0 0 220 120">
+            <defs>
+              <clipPath id="notch-light">
+                <polygon points="0,0  220,0  220,120  130,120  110,72  90,120  0,120"/>
+              </clipPath>
+            </defs>
+            <rect x="0" y="0" width="220" height="120"
+                  fill="#7078df" clip-path="url(#notch-light)"/>
+            <rect x="0" y="0" width="220" height="4" fill="rgba(255,255,255,0.2)"/>
+          </svg>
+        </div>
+        <div class="pres-label">Light</div>
+      </div>
+
+      <div class="pres">
+        <div class="icon-set">
+          <div class="icon lg">
+            <div class="pcard"></div>
+            <svg width="120" height="120" viewBox="0 0 240 240">
+              <defs>
+                <clipPath id="notch-icon-lg">
+                  <polygon points="0,68  240,68  240,172  148,172  120,124  92,172  0,172"/>
+                </clipPath>
+              </defs>
+              <rect x="0" y="68" width="240" height="104"
+                    fill="white" clip-path="url(#notch-icon-lg)"/>
+              <rect x="0" y="68" width="240" height="5" fill="rgba(255,255,255,0.3)"/>
+            </svg>
+          </div>
+          <div class="icon-sizes-row">
+            <div class="icon sm">
+              <div class="pcard"></div>
+              <svg width="60" height="60" viewBox="0 0 240 240">
+                <defs>
+                  <clipPath id="notch-icon-sm">
+                    <polygon points="0,68  240,68  240,172  148,172  120,124  92,172  0,172"/>
+                  </clipPath>
+                </defs>
+                <rect x="0" y="68" width="240" height="104"
+                      fill="white" clip-path="url(#notch-icon-sm)"/>
+              </svg>
+            </div>
+            <div class="icon xs">
+              <div class="pcard"></div>
+              <svg width="40" height="40" viewBox="0 0 240 240">
+                <defs>
+                  <clipPath id="notch-icon-xs">
+                    <polygon points="0,68  240,68  240,172  148,172  120,124  92,172  0,172"/>
+                  </clipPath>
+                </defs>
+                <rect x="0" y="68" width="240" height="104"
+                      fill="white" clip-path="url(#notch-icon-xs)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="pres-label">Icon</div>
+      </div>
+
+      <div class="pres" style="justify-content:center;">
+        <div class="lockup">
+          <svg width="44" height="24" viewBox="0 0 220 120">
+            <defs>
+              <clipPath id="notch-lockup">
+                <polygon points="0,0  220,0  220,120  130,120  110,72  90,120  0,120"/>
+              </clipPath>
+            </defs>
+            <rect x="0" y="0" width="220" height="120"
+                  fill="#7078df" clip-path="url(#notch-lockup)"/>
+          </svg>
+          <div class="lockup-divider"></div>
+          <div class="lockup-text">
+            <div class="lockup-name">Hone</div>
+            <div class="lockup-sub">Nutrition · Training</div>
+          </div>
+        </div>
+        <div class="pres-label">Lockup</div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

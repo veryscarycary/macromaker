@@ -4,7 +4,6 @@ import { TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../design/tokens/colors';
 import { fontFamilies } from '../../design/tokens/typography';
-import Spacer from '../../components/Spacer';
 import {
   storeMeal,
   updateMeal,
@@ -93,8 +92,10 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
       </View>
 
       <DismissKeyboardView style={styles.form}>
+
+        <Text style={styles.sectionHeader}>Meal Details</Text>
         <View style={styles.mealNameWrap}>
-          <Text style={styles.fieldLabel}>Meal Name</Text>
+          <Text style={styles.fieldLabel}>Name</Text>
           <TextInput
             style={[styles.mealNameInput, mealNameFocused && styles.mealNameInputFocused]}
             onChangeText={setMealName}
@@ -106,10 +107,13 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
           />
         </View>
 
+        <Text style={styles.sectionHeader}>Macros</Text>
         <MacroInput
           type="Carbs"
           unit={carbsUnit}
           value={carbs}
+          macroColor={colors.macro.carbs}
+          kcal={carbsCalories}
           setValue={setCarbs}
           setUnit={setCarbsUnit}
         />
@@ -117,6 +121,8 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
           type="Protein"
           unit={proteinUnit}
           value={protein}
+          macroColor={colors.macro.protein}
+          kcal={proteinCalories}
           setValue={setProtein}
           setUnit={setProteinUnit}
         />
@@ -124,15 +130,30 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
           type="Fat"
           unit={fatUnit}
           value={fat}
+          macroColor={colors.macro.fat}
+          kcal={fatCalories}
           setValue={setFat}
           setUnit={setFatUnit}
         />
 
-        <View style={styles.caloriesContainer}>
-          <Text style={styles.calories}>Calories: {Math.round(calories)}</Text>
+        <View style={styles.caloriesRow}>
+          <Text style={styles.caloriesLabel}>Total Calories</Text>
+          <Text style={styles.caloriesValue}>{Math.round(calories)}</Text>
         </View>
 
-        <Spacer />
+        {calories > 0 && (
+          <View style={styles.macroBar}>
+            {carbsCalories > 0 && (
+              <View style={[styles.macroBarSeg, { flex: carbsCalories, backgroundColor: colors.macro.carbs }]} />
+            )}
+            {proteinCalories > 0 && (
+              <View style={[styles.macroBarSeg, { flex: proteinCalories, backgroundColor: colors.macro.protein }]} />
+            )}
+            {fatCalories > 0 && (
+              <View style={[styles.macroBarSeg, { flex: fatCalories, backgroundColor: colors.macro.fat }]} />
+            )}
+          </View>
+        )}
 
         <TouchableOpacity
           style={[styles.addMealButton, isDisabled && styles.disabledAddMealButton]}
@@ -214,18 +235,25 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
-    paddingHorizontal: 24,
-    paddingTop: 16,
+    paddingHorizontal: 20,
+    paddingTop: 14,
+  },
+  sectionHeader: {
+    fontFamily: fontFamilies.semiBold,
+    fontSize: 11,
+    color: colors.text.tertiary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+    marginBottom: 8,
   },
   mealNameWrap: {
-    width: '84%',
-    marginBottom: 4,
+    marginBottom: 16,
   },
   fieldLabel: {
     fontFamily: fontFamilies.medium,
-    fontSize: 15,
-    color: colors.text.primary,
-    marginBottom: 2,
+    fontSize: 11,
+    color: colors.text.secondary,
+    marginBottom: 4,
   },
   mealNameInput: {
     fontFamily: fontFamilies.regular,
@@ -234,42 +262,63 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface.subtle,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.surface.border,
+    borderWidth: 1,
+    borderColor: colors.surface.border,
+    borderRadius: 6,
   },
   mealNameInputFocused: {
-    borderBottomColor: colors.brand.primary,
+    borderColor: colors.brand.primary,
   },
-  caloriesContainer: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginTop: 12,
-    borderRadius: 7,
-    backgroundColor: '#e8e8e8',
+  caloriesRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 12,
+    marginTop: 2,
+    borderTopWidth: 1,
+    borderTopColor: colors.surface.border,
   },
-  calories: {
-    fontFamily: fontFamilies.regular,
+  caloriesLabel: {
+    fontFamily: fontFamilies.semiBold,
+    fontSize: 14,
+    color: colors.text.secondary,
+  },
+  caloriesValue: {
+    fontFamily: fontFamilies.bold,
     fontSize: 20,
     color: colors.text.primary,
+    letterSpacing: -0.5,
+  },
+  macroBar: {
+    flexDirection: 'row',
+    height: 5,
+    borderRadius: 3,
+    overflow: 'hidden',
+    gap: 2,
+    marginBottom: 16,
+  },
+  macroBarSeg: {
+    height: '100%',
+    borderRadius: 3,
   },
   addMealButton: {
     backgroundColor: colors.brand.primary,
     alignItems: 'center',
-    borderRadius: 5,
-    padding: 12,
+    borderRadius: 6,
+    padding: 14,
+    marginTop: 16,
     marginBottom: 20,
   },
   disabledAddMealButton: {
-    backgroundColor: '#c6c6c6',
+    backgroundColor: colors.surface.border,
   },
   addMealText: {
-    fontFamily: fontFamilies.medium,
+    fontFamily: fontFamilies.semiBold,
     fontSize: 16,
     color: colors.text.inverse,
   },
   disabledAddMealText: {
-    color: '#989898',
+    color: colors.text.tertiary,
   },
 });
 

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hone — App Icon Concepts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #94a3b8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 40px;
+      gap: 64px;
+    }
+
+    h1 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    .row {
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .icon-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    /* ── Size variants wrapper ── */
+    .sizes {
+      display: flex;
+      gap: 20px;
+      align-items: flex-end;
+    }
+
+    /* ── Base icon shell ── */
+    .icon {
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      /* iOS squircle approximation */
+      border-radius: 22.5%;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.35),
+        0 2px 8px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .icon.lg { width: 200px; height: 200px; border-radius: 45px; }
+    .icon.sm { width: 80px;  height: 80px;  border-radius: 18px; }
+    .icon.xs { width: 44px;  height: 44px;  border-radius: 10px; }
+
+    /* ══════════════════════════════════════════════════════
+       ICON A — Slash Mark
+       Dark bg · diagonal purple slash · bold white "H"
+    ══════════════════════════════════════════════════════ */
+    .icon-a { background: #0f172a; }
+
+    .icon-a .slash {
+      position: absolute;
+      background: #7078df;
+      transform: rotate(-18deg);
+    }
+    .icon-a.lg .slash {
+      width: 160px; height: 280px;
+      top: -60px; left: -40px;
+    }
+    .icon-a.sm .slash {
+      width: 64px; height: 112px;
+      top: -24px; left: -16px;
+    }
+    .icon-a.xs .slash {
+      width: 35px; height: 62px;
+      top: -13px; left: -9px;
+    }
+
+    .icon-a .slash-glow {
+      position: absolute;
+      background: #9198e5;
+      opacity: 0.2;
+      transform: rotate(-18deg);
+    }
+    .icon-a.lg .slash-glow {
+      width: 180px; height: 300px;
+      top: -70px; left: -55px;
+    }
+    .icon-a.sm .slash-glow {
+      width: 72px; height: 120px;
+      top: -28px; left: -22px;
+    }
+    .icon-a.xs .slash-glow {
+      width: 40px; height: 66px;
+      top: -15px; left: -12px;
+    }
+
+    .icon-a .letter {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      z-index: 2;
+    }
+    .icon-a.lg .letter { font-size: 108px; letter-spacing: -5px; }
+    .icon-a.sm .letter { font-size: 44px;  letter-spacing: -2px; }
+    .icon-a.xs .letter { font-size: 24px;  letter-spacing: -1px; }
+
+    /* ══════════════════════════════════════════════════════
+       ICON B — Slash Letterform
+       The "H" crossbar IS the purple slash. Verticals white.
+    ══════════════════════════════════════════════════════ */
+    .icon-b { background: #0f172a; }
+
+    /* We build the H from three divs: left bar, right bar, crossbar (slashed) */
+    .icon-b .h-mark {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+    .icon-b .h-inner {
+      position: relative;
+    }
+    .icon-b.lg .h-inner { width: 108px; height: 120px; }
+    .icon-b.sm .h-inner { width: 43px;  height: 48px;  }
+    .icon-b.xs .h-inner { width: 24px;  height: 26px;  }
+
+    .icon-b .bar-left,
+    .icon-b .bar-right {
+      position: absolute;
+      top: 0;
+      background: #ffffff;
+      border-radius: 3px;
+    }
+    .icon-b.lg .bar-left,
+    .icon-b.lg .bar-right { width: 18px; height: 120px; border-radius: 5px; }
+    .icon-b.sm .bar-left,
+    .icon-b.sm .bar-right { width: 7px;  height: 48px;  border-radius: 2px; }
+    .icon-b.xs .bar-left,
+    .icon-b.xs .bar-right { width: 4px;  height: 26px;  border-radius: 1px; }
+
+    .icon-b .bar-left  { left: 0; }
+    .icon-b.lg .bar-right { right: 0; }
+    .icon-b.sm .bar-right { right: 0; }
+    .icon-b.xs .bar-right { right: 0; }
+
+    /* crossbar: a rotated pill, purple, cutting diagonally */
+    .icon-b .crossbar {
+      position: absolute;
+      background: #7078df;
+      border-radius: 3px;
+      transform-origin: center;
+    }
+    .icon-b.lg .crossbar {
+      width: 108px; height: 16px;
+      top: 50%; left: 0;
+      margin-top: -8px;
+      transform: rotate(-14deg);
+      border-radius: 4px;
+    }
+    .icon-b.sm .crossbar {
+      width: 43px; height: 6px;
+      top: 50%; left: 0;
+      margin-top: -3px;
+      transform: rotate(-14deg);
+      border-radius: 2px;
+    }
+    .icon-b.xs .crossbar {
+      width: 24px; height: 4px;
+      top: 50%; left: 0;
+      margin-top: -2px;
+      transform: rotate(-14deg);
+      border-radius: 1px;
+    }
+
+    /* subtle bg slash echo */
+    .icon-b .bg-slash {
+      position: absolute;
+      background: #7078df;
+      opacity: 0.08;
+      transform: rotate(-18deg);
+    }
+    .icon-b.lg .bg-slash { width: 160px; height: 280px; top: -60px; left: -30px; }
+    .icon-b.sm .bg-slash { width: 64px; height: 112px; top: -24px; left: -12px; }
+    .icon-b.xs .bg-slash { width: 35px; height: 62px; top: -13px; left: -7px; }
+
+    /* ══════════════════════════════════════════════════════
+       ICON C — Dual Tone Block
+       Left half: purple · Right half: dark · "H" split white
+    ══════════════════════════════════════════════════════ */
+    .icon-c { background: #0f172a; }
+
+    .icon-c .purple-half {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      background: linear-gradient(160deg, #9198e5, #5a62ca);
+    }
+    .icon-c.lg .purple-half { width: 105px; }
+    .icon-c.sm .purple-half { width: 42px; }
+    .icon-c.xs .purple-half { width: 23px; }
+
+    /* Diagonal cut edge */
+    .icon-c .cut-edge {
+      position: absolute;
+      top: 0; bottom: 0;
+      background: #0f172a;
+      transform-origin: top right;
+    }
+    .icon-c.lg .cut-edge {
+      width: 40px;
+      left: 85px;
+      transform: skewX(-8deg);
+    }
+    .icon-c.sm .cut-edge {
+      width: 16px;
+      left: 34px;
+      transform: skewX(-8deg);
+    }
+    .icon-c.xs .cut-edge {
+      width: 9px;
+      left: 19px;
+      transform: skewX(-8deg);
+    }
+
+    .icon-c .letter-c {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      color: #fff;
+      z-index: 3;
+    }
+    .icon-c.lg .letter-c { font-size: 108px; letter-spacing: -5px; }
+    .icon-c.sm .letter-c { font-size: 44px;  letter-spacing: -2px; }
+    .icon-c.xs .letter-c { font-size: 24px;  letter-spacing: -1px; }
+
+    /* ══════════════════════════════════════════════════════
+       ICON D — Purple Field + White Slash Cutout
+       Solid purple bg · white "H" · dark diagonal slash cuts through
+    ══════════════════════════════════════════════════════ */
+    .icon-d { background: linear-gradient(145deg, #7078df, #4650b8); }
+
+    .icon-d .dark-slash {
+      position: absolute;
+      background: rgba(15,23,42,0.55);
+      transform: rotate(-18deg);
+    }
+    .icon-d.lg .dark-slash {
+      width: 52px; height: 320px;
+      top: -60px; left: 80px;
+    }
+    .icon-d.sm .dark-slash {
+      width: 21px; height: 128px;
+      top: -24px; left: 32px;
+    }
+    .icon-d.xs .dark-slash {
+      width: 12px; height: 70px;
+      top: -13px; left: 18px;
+    }
+
+    .icon-d .letter-d {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      color: rgba(255,255,255,0.95);
+      z-index: 2;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    }
+    .icon-d.lg .letter-d { font-size: 108px; letter-spacing: -5px; }
+    .icon-d.sm .letter-d { font-size: 44px;  letter-spacing: -2px; }
+    .icon-d.xs .letter-d { font-size: 24px;  letter-spacing: -1px; }
+
+    /* ── Context: icon on fake home screen ── */
+    .homescreen {
+      background: linear-gradient(160deg, #1e3a5f, #0f172a);
+      border-radius: 24px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    .homescreen-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hone · App Icon Concepts</h1>
+
+  <div class="row">
+
+    <!-- ══ ICON A: Slash Mark ══ -->
+    <div class="icon-col">
+      <div class="label">A — Slash Mark</div>
+      <div class="sizes">
+        <!-- lg -->
+        <div class="icon icon-a lg">
+          <div class="slash-glow"></div>
+          <div class="slash"></div>
+          <div class="letter">H</div>
+        </div>
+      </div>
+      <div class="sizes">
+        <div class="icon icon-a sm">
+          <div class="slash-glow"></div>
+          <div class="slash"></div>
+          <div class="letter">H</div>
+        </div>
+        <div class="icon icon-a xs">
+          <div class="slash-glow"></div>
+          <div class="slash"></div>
+          <div class="letter">H</div>
+        </div>
+      </div>
+      <!-- on homescreen -->
+      <div class="homescreen">
+        <div class="icon icon-a" style="width:60px;height:60px;border-radius:14px;">
+          <div class="slash-glow" style="width:36px;height:80px;top:-15px;left:-10px;"></div>
+          <div class="slash" style="width:32px;height:72px;top:-13px;left:-8px;"></div>
+          <div class="letter" style="font-size:33px;letter-spacing:-1px;">H</div>
+        </div>
+        <div class="homescreen-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- ══ ICON B: Slash Letterform ══ -->
+    <div class="icon-col">
+      <div class="label">B — Slash H</div>
+      <div class="sizes">
+        <div class="icon icon-b lg">
+          <div class="bg-slash"></div>
+          <div class="h-mark">
+            <div class="h-inner">
+              <div class="bar-left"></div>
+              <div class="bar-right"></div>
+              <div class="crossbar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sizes">
+        <div class="icon icon-b sm">
+          <div class="bg-slash"></div>
+          <div class="h-mark">
+            <div class="h-inner">
+              <div class="bar-left"></div>
+              <div class="bar-right"></div>
+              <div class="crossbar"></div>
+            </div>
+          </div>
+        </div>
+        <div class="icon icon-b xs">
+          <div class="bg-slash"></div>
+          <div class="h-mark">
+            <div class="h-inner">
+              <div class="bar-left"></div>
+              <div class="bar-right"></div>
+              <div class="crossbar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="homescreen">
+        <div class="icon icon-b" style="width:60px;height:60px;border-radius:14px;">
+          <div class="bg-slash" style="width:40px;height:80px;top:-16px;left:-9px;"></div>
+          <div class="h-mark">
+            <div class="h-inner" style="width:32px;height:36px;">
+              <div class="bar-left" style="width:5px;height:36px;border-radius:2px;"></div>
+              <div class="bar-right" style="width:5px;height:36px;border-radius:2px;right:0;position:absolute;top:0;background:#fff;"></div>
+              <div class="crossbar" style="width:32px;height:5px;top:50%;left:0;margin-top:-2px;transform:rotate(-14deg);border-radius:2px;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="homescreen-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- ══ ICON C: Dual Tone ══ -->
+    <div class="icon-col">
+      <div class="label">C — Dual Tone</div>
+      <div class="sizes">
+        <div class="icon icon-c lg">
+          <div class="purple-half"></div>
+          <div class="cut-edge"></div>
+          <div class="letter-c">H</div>
+        </div>
+      </div>
+      <div class="sizes">
+        <div class="icon icon-c sm">
+          <div class="purple-half"></div>
+          <div class="cut-edge"></div>
+          <div class="letter-c">H</div>
+        </div>
+        <div class="icon icon-c xs">
+          <div class="purple-half"></div>
+          <div class="cut-edge"></div>
+          <div class="letter-c">H</div>
+        </div>
+      </div>
+      <div class="homescreen">
+        <div class="icon icon-c" style="width:60px;height:60px;border-radius:14px;">
+          <div class="purple-half" style="width:31px;"></div>
+          <div class="cut-edge" style="width:13px;left:25px;transform:skewX(-8deg);"></div>
+          <div class="letter-c" style="font-size:33px;letter-spacing:-1px;">H</div>
+        </div>
+        <div class="homescreen-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- ══ ICON D: Purple Field ══ -->
+    <div class="icon-col">
+      <div class="label">D — Purple Field</div>
+      <div class="sizes">
+        <div class="icon icon-d lg">
+          <div class="dark-slash"></div>
+          <div class="letter-d">H</div>
+        </div>
+      </div>
+      <div class="sizes">
+        <div class="icon icon-d sm">
+          <div class="dark-slash"></div>
+          <div class="letter-d">H</div>
+        </div>
+        <div class="icon icon-d xs">
+          <div class="dark-slash"></div>
+          <div class="letter-d">H</div>
+        </div>
+      </div>
+      <div class="homescreen">
+        <div class="icon icon-d" style="width:60px;height:60px;border-radius:14px;">
+          <div class="dark-slash" style="width:15px;height:90px;top:-16px;left:24px;transform:rotate(-18deg);background:rgba(15,23,42,0.55);"></div>
+          <div class="letter-d" style="font-size:33px;letter-spacing:-1px;">H</div>
+        </div>
+        <div class="homescreen-label">Hone</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

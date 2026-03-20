@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hone — Welcome Screen Mockups</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e2e8f0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px 40px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* ── Phone shell ───────────────────────────────────── */
+    .phone {
+      width: 375px;
+      height: 812px;
+      border-radius: 50px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.08);
+      overflow: hidden;
+      border: 10px solid #1e293b;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    /* ── Status bar ─────────────────────────────────────── */
+    .status-bar {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      font-size: 12px;
+      font-weight: 600;
+      position: relative;
+      z-index: 10;
+    }
+    .status-bar .time { font-size: 15px; font-weight: 600; }
+    .status-bar .icons { display: flex; gap: 6px; align-items: center; font-size: 12px; }
+
+    /* ── Step indicator ─────────────────────────────────── */
+    .step-indicator {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      padding: 16px 0 0;
+    }
+    .step-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       CONCEPT A — Dark Hero
+    ══════════════════════════════════════════════════════ */
+    .phone-a {
+      background: #0f172a;
+    }
+    .phone-a .status-bar {
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+    .phone-a .step-dot { background: #334155; }
+    .phone-a .step-dot.active { background: #7078df; }
+
+    .phone-a .content-a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 28px;
+      flex: 1;
+      height: calc(100% - 44px);
+    }
+
+    .glow-orb {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #9198e5 0%, #7078df 35%, #4650b8 65%, transparent 100%);
+      box-shadow:
+        0 0 60px 20px rgba(112,120,223,0.35),
+        0 0 120px 60px rgba(112,120,223,0.15);
+      margin-top: 60px;
+      margin-bottom: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .glow-orb-letter {
+      font-size: 80px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.92);
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    .wordmark-a {
+      font-size: 42px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .tagline-a {
+      font-size: 16px;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.6;
+      max-width: 260px;
+    }
+    .spacer { flex: 1; }
+    .btn-a {
+      width: 100%;
+      background: #7078df;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 36px;
+      letter-spacing: 0.02em;
+    }
+    .btn-a:hover { background: #5a62ca; cursor: pointer; }
+
+    /* ══════════════════════════════════════════════════════
+       CONCEPT B — Clean White + Feature Cards
+    ══════════════════════════════════════════════════════ */
+    .phone-b { background: #ffffff; }
+    .phone-b .status-bar { background: #ffffff; color: #0f172a; }
+    .phone-b .step-dot { background: #e2e8f0; }
+    .phone-b .step-dot.active { background: #7078df; }
+
+    .content-b {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 24px 0;
+      height: calc(100% - 44px);
+    }
+
+    .logo-lockup-b {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .wordmark-b {
+      font-size: 44px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+    }
+    .wordmark-underline {
+      height: 3px;
+      width: 80px;
+      background: #7078df;
+      border-radius: 2px;
+      margin-top: 6px;
+    }
+    .tagline-b {
+      font-size: 15px;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.6;
+      margin-top: 14px;
+      margin-bottom: 36px;
+    }
+
+    .feature-cards {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 32px;
+    }
+    .feature-card {
+      flex: 1;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 16px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .feature-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .feature-icon.nutrition { background: #eff6ff; }
+    .feature-icon.training  { background: #f5f3ff; }
+    .feature-icon.progress  { background: #fffbeb; }
+    .feature-card-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #475569;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .divider-b {
+      width: 100%;
+      height: 1px;
+      background: #f1f5f9;
+      margin-bottom: 24px;
+    }
+
+    .body-text-b {
+      font-size: 14px;
+      color: #94a3b8;
+      text-align: center;
+      line-height: 1.65;
+      max-width: 270px;
+      margin-bottom: 8px;
+    }
+
+    .btn-b {
+      width: 100%;
+      background: #7078df;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 36px;
+    }
+    .skip-b {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 4px;
+      margin-bottom: 24px;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       CONCEPT C — Full Gradient Splash
+    ══════════════════════════════════════════════════════ */
+    .phone-c {
+      background: linear-gradient(160deg, #9198e5 0%, #7078df 30%, #5a62ca 60%, #4650b8 100%);
+    }
+    .phone-c .status-bar {
+      background: transparent;
+      color: rgba(255,255,255,0.9);
+    }
+    .phone-c .step-dot { background: rgba(255,255,255,0.3); }
+    .phone-c .step-dot.active { background: rgba(255,255,255,0.95); }
+
+    .content-c {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 28px;
+      height: calc(100% - 44px);
+    }
+
+    .abstract-shape-container {
+      margin-top: 40px;
+      margin-bottom: 44px;
+      width: 200px;
+      height: 160px;
+      position: relative;
+    }
+    .shape-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.25);
+    }
+    .shape-circle.c1 {
+      width: 140px; height: 140px;
+      background: rgba(255,255,255,0.1);
+      top: 10px; left: 10px;
+    }
+    .shape-circle.c2 {
+      width: 90px; height: 90px;
+      background: rgba(255,255,255,0.15);
+      top: 35px; left: 80px;
+    }
+    .shape-circle.c3 {
+      width: 60px; height: 60px;
+      background: rgba(255,255,255,0.2);
+      top: 55px; left: 0;
+    }
+    .shape-bar {
+      position: absolute;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.35);
+    }
+    .shape-bar.b1 { width: 8px; height: 70px; bottom: 0; left: 52px; }
+    .shape-bar.b2 { width: 8px; height: 100px; bottom: 0; left: 68px; }
+    .shape-bar.b3 { width: 8px; height: 55px; bottom: 0; left: 84px; }
+
+    .wordmark-c {
+      font-size: 52px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+      margin-bottom: 16px;
+    }
+    .tagline-c {
+      font-size: 16px;
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      line-height: 1.6;
+      max-width: 260px;
+      margin-bottom: 12px;
+    }
+    .pill-badges {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+    .pill-badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+    }
+    .btn-c {
+      width: 100%;
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      color: #5a62ca;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .btn-ghost-c {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       CONCEPT D — Split Layout / Data Story
+    ══════════════════════════════════════════════════════ */
+    .phone-d { background: #1e293b; }
+    .phone-d .status-bar { background: #1e293b; color: #e2e8f0; }
+    .phone-d .step-dot { background: #334155; }
+    .phone-d .step-dot.active { background: #7078df; }
+
+    .hero-area-d {
+      background: #1e293b;
+      height: 340px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 32px;
+      gap: 28px;
+    }
+
+    .viz-container {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 120px;
+    }
+    .viz-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .viz-bar-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      justify-content: flex-end;
+    }
+    .viz-segment {
+      width: 28px;
+      border-radius: 3px;
+    }
+    /* bar 1 */
+    .bar1 .seg-fat    { height: 18px; background: #fbbf24; opacity: 0.85; }
+    .bar1 .seg-protein { height: 28px; background: #a78bfa; opacity: 0.85; }
+    .bar1 .seg-carbs   { height: 22px; background: #60a5fa; opacity: 0.85; }
+    /* bar 2 */
+    .bar2 .seg-fat    { height: 12px; background: #fbbf24; opacity: 0.85; }
+    .bar2 .seg-protein { height: 36px; background: #a78bfa; opacity: 0.85; }
+    .bar2 .seg-carbs   { height: 32px; background: #60a5fa; opacity: 0.85; }
+    /* bar 3 */
+    .bar3 .seg-fat    { height: 22px; background: #fbbf24; opacity: 0.85; }
+    .bar3 .seg-protein { height: 24px; background: #a78bfa; opacity: 0.85; }
+    .bar3 .seg-carbs   { height: 40px; background: #60a5fa; opacity: 0.85; }
+    /* bar 4 - active/highlighted */
+    .bar4 .seg-fat    { height: 16px; background: #fbbf24; }
+    .bar4 .seg-protein { height: 42px; background: #a78bfa; }
+    .bar4 .seg-carbs   { height: 48px; background: #60a5fa; }
+    .bar4 .viz-segment { width: 34px; }
+
+    .bar-label {
+      font-size: 9px;
+      font-weight: 500;
+      color: #64748b;
+      letter-spacing: 0.04em;
+    }
+    .bar-label.active { color: #9198e5; }
+
+    .viz-legend {
+      display: flex;
+      gap: 14px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .legend-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+    }
+
+    .card-d {
+      background: #fff;
+      border-radius: 32px 32px 0 0;
+      flex: 1;
+      padding: 32px 28px 36px;
+      display: flex;
+      flex-direction: column;
+    }
+    .overline-d {
+      font-size: 10px;
+      font-weight: 700;
+      color: #7078df;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .headline-d {
+      font-size: 30px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .headline-d span { color: #7078df; }
+    .body-d {
+      font-size: 15px;
+      color: #64748b;
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+    .btn-d {
+      width: 100%;
+      background: #7078df;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: auto;
+      margin-bottom: 4px;
+    }
+    .step-indicator-d {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ CONCEPT A: Dark Hero ══ -->
+  <div class="column">
+    <div class="label">A — Dark Hero</div>
+    <div class="phone phone-a">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="icons">▲▲ WiFi 100%</div>
+      </div>
+      <div class="step-indicator" style="padding-top:12px;">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+      </div>
+      <div class="content-a">
+        <div class="glow-orb">
+          <span class="glow-orb-letter">H</span>
+        </div>
+        <div class="wordmark-a">Hone</div>
+        <div class="tagline-a">Track your macros. Own your training. Become who you're building.</div>
+        <div class="spacer"></div>
+        <div class="btn-a">Get Started →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONCEPT B: Clean White ══ -->
+  <div class="column">
+    <div class="label">B — Clean White</div>
+    <div class="phone phone-b">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="icons">▲▲ WiFi 100%</div>
+      </div>
+      <div class="step-indicator">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+      </div>
+      <div class="content-b">
+        <div class="logo-lockup-b">
+          <div class="wordmark-b">Hone</div>
+          <div class="wordmark-underline"></div>
+        </div>
+        <div class="tagline-b">Your fitness, unified.</div>
+        <div class="feature-cards">
+          <div class="feature-card">
+            <div class="feature-icon nutrition">🥗</div>
+            <div class="feature-card-label">Macros</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon training">🏋️</div>
+            <div class="feature-card-label">Training</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon progress">📈</div>
+            <div class="feature-card-label">Progress</div>
+          </div>
+        </div>
+        <div class="divider-b"></div>
+        <div class="body-text-b">
+          Log meals, track workouts, and see your gains over time — all in one place.
+        </div>
+        <div class="spacer"></div>
+        <div class="btn-b">Get Started</div>
+        <div class="skip-b">Already have an account? Sign in</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONCEPT C: Full Gradient ══ -->
+  <div class="column">
+    <div class="label">C — Gradient Splash</div>
+    <div class="phone phone-c">
+      <div class="status-bar" style="background:transparent;">
+        <span class="time" style="color:rgba(255,255,255,0.9)">9:41</span>
+        <div class="icons" style="color:rgba(255,255,255,0.9)">▲▲ WiFi 100%</div>
+      </div>
+      <div class="step-indicator">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+      </div>
+      <div class="content-c">
+        <div class="abstract-shape-container">
+          <div class="shape-circle c1"></div>
+          <div class="shape-circle c2"></div>
+          <div class="shape-circle c3"></div>
+          <div class="shape-bar b1"></div>
+          <div class="shape-bar b2"></div>
+          <div class="shape-bar b3"></div>
+        </div>
+        <div class="wordmark-c">Hone</div>
+        <div class="tagline-c">The only fitness app you need. Macros, workouts, progress.</div>
+        <div class="pill-badges">
+          <div class="pill-badge">🥗 Nutrition</div>
+          <div class="pill-badge">💪 Training</div>
+          <div class="pill-badge">📊 Goals</div>
+        </div>
+        <div class="spacer"></div>
+        <div class="btn-c">Get Started</div>
+        <div class="btn-ghost-c">Already have an account?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONCEPT D: Split / Data Story ══ -->
+  <div class="column">
+    <div class="label">D — Data Story</div>
+    <div class="phone phone-d">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="icons">▲▲ WiFi 100%</div>
+      </div>
+      <div class="step-indicator">
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+      </div>
+      <div class="hero-area-d">
+        <div class="viz-container">
+          <div class="viz-group">
+            <div class="viz-bar-stack bar1">
+              <div class="viz-segment seg-fat"></div>
+              <div class="viz-segment seg-protein"></div>
+              <div class="viz-segment seg-carbs"></div>
+            </div>
+            <div class="bar-label">Mon</div>
+          </div>
+          <div class="viz-group">
+            <div class="viz-bar-stack bar2">
+              <div class="viz-segment seg-fat"></div>
+              <div class="viz-segment seg-protein"></div>
+              <div class="viz-segment seg-carbs"></div>
+            </div>
+            <div class="bar-label">Tue</div>
+          </div>
+          <div class="viz-group">
+            <div class="viz-bar-stack bar3">
+              <div class="viz-segment seg-fat"></div>
+              <div class="viz-segment seg-protein"></div>
+              <div class="viz-segment seg-carbs"></div>
+            </div>
+            <div class="bar-label">Wed</div>
+          </div>
+          <div class="viz-group">
+            <div class="viz-bar-stack bar4" style="position:relative;">
+              <div style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:#7078df;border-radius:6px;padding:3px 6px;white-space:nowrap;">
+                <span style="font-size:10px;font-weight:600;color:#fff;">2,340 cal</span>
+              </div>
+              <div class="viz-segment seg-fat"></div>
+              <div class="viz-segment seg-protein"></div>
+              <div class="viz-segment seg-carbs"></div>
+            </div>
+            <div class="bar-label active">Thu</div>
+          </div>
+        </div>
+        <div class="viz-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#60a5fa"></div>Carbs</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#a78bfa"></div>Protein</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div>Fat</div>
+        </div>
+      </div>
+      <div class="card-d">
+        <div class="overline-d">Welcome to</div>
+        <div class="headline-d">Track. Train.<br><span>Hone.</span></div>
+        <div class="body-d">Log your meals, build your workouts, and watch your data tell your story.</div>
+        <div class="btn-d">Get Started</div>
+        <div class="step-indicator-d">
+          <div class="step-dot active" style="background:#7078df"></div>
+          <div class="step-dot" style="background:#e2e8f0"></div>
+          <div class="step-dot" style="background:#e2e8f0"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

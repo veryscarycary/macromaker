@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hone — Card Icon v2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #94a3b8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 40px;
+      gap: 64px;
+    }
+
+    h1 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    .row {
+      display: flex;
+      gap: 56px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .icon-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .col-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    .sizes {
+      display: flex;
+      gap: 16px;
+      align-items: flex-end;
+    }
+
+    .size-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #64748b;
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    .icon-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .icon {
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #0f172a;
+      box-shadow:
+        0 16px 48px rgba(0,0,0,0.4),
+        0 3px 10px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .icon.lg { width: 200px; height: 200px; border-radius: 45px; }
+    .icon.sm { width:  80px; height:  80px; border-radius: 18px; }
+    .icon.xs { width:  44px; height:  44px; border-radius: 10px; }
+    .icon.hs { width:  60px; height:  60px; border-radius: 14px; }
+
+    /* shared card style */
+    .card {
+      position: absolute;
+      background: #7078df;
+      transform-origin: center;
+    }
+
+    /* shared letter */
+    .letter {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      z-index: 4;
+    }
+    .icon.lg .letter { font-size: 112px; letter-spacing: -5px; }
+    .icon.sm .letter { font-size:  45px; letter-spacing: -2px; }
+    .icon.xs .letter { font-size:  25px; letter-spacing: -1px; }
+    .icon.hs .letter { font-size:  34px; letter-spacing: -1px; }
+
+    /* homescreen */
+    .homescreen {
+      background: linear-gradient(160deg, #1e3a5f, #0f172a);
+      border-radius: 24px;
+      padding: 28px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    .hs-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* ══════════════════════════════════════════
+       V1 — Upper-left anchor
+       Card rides into the top-left corner, dark
+       triangle opens up in the bottom-right.
+    ══════════════════════════════════════════ */
+
+    /* lg */
+    .v1.lg .card   { width: 195px; height: 195px; border-radius: 0; top: -28px; left: -28px; transform: rotate(-15deg); }
+    .v1.sm .card   { width:  78px; height:  78px; border-radius: 0; top: -11px; left: -11px; transform: rotate(-15deg); }
+    .v1.xs .card   { width:  43px; height:  43px; border-radius: 0; top:  -6px; left:  -6px; transform: rotate(-15deg); }
+    .v1.hs .card   { width:  58px; height:  58px; border-radius: 0; top:  -8px; left:  -8px; transform: rotate(-15deg); }
+
+    /* ══════════════════════════════════════════
+       V2 — Lower-right anchor
+       Card is pushed into the bottom-right corner,
+       dark opens up in the top-left.
+    ══════════════════════════════════════════ */
+    .v2.lg .card   { width: 195px; height: 195px; border-radius: 36px; bottom: -28px; right: -28px; top: auto; left: auto; transform: rotate(-15deg); }
+    .v2.sm .card   { width:  78px; height:  78px; border-radius: 14px; bottom: -11px; right: -11px; top: auto; left: auto; transform: rotate(-15deg); }
+    .v2.xs .card   { width:  43px; height:  43px; border-radius:  8px; bottom:  -6px; right:  -6px; top: auto; left: auto; transform: rotate(-15deg); }
+    .v2.hs .card   { width:  58px; height:  58px; border-radius: 11px; bottom:  -8px; right:  -8px; top: auto; left: auto; transform: rotate(-15deg); }
+
+    /* ══════════════════════════════════════════
+       V3 — Dead center, shallower angle
+       Card is centered, rotated only -10deg so
+       all four dark corners are equal. Calm,
+       symmetrical, architectural.
+    ══════════════════════════════════════════ */
+    .v3.lg .card   { width: 190px; height: 190px; border-radius: 36px; top: 5px; left: 5px; transform: rotate(-10deg); }
+    .v3.sm .card   { width:  76px; height:  76px; border-radius: 14px; top: 2px; left: 2px; transform: rotate(-10deg); }
+    .v3.xs .card   { width:  42px; height:  42px; border-radius:  8px; top: 1px; left: 1px; transform: rotate(-10deg); }
+    .v3.hs .card   { width:  57px; height:  57px; border-radius: 11px; top: 1.5px; left: 1.5px; transform: rotate(-10deg); }
+
+    /* ══════════════════════════════════════════
+       V4 — Steep angle, center-weighted
+       Card centered but rotated aggressively at
+       -25deg. More dynamic — the dark corners are
+       deep triangles pointing diagonally.
+    ══════════════════════════════════════════ */
+    .v4.lg .card   { width: 188px; height: 188px; border-radius: 36px; top: 6px; left: 6px; transform: rotate(-25deg); }
+    .v4.sm .card   { width:  75px; height:  75px; border-radius: 14px; top: 2.5px; left: 2.5px; transform: rotate(-25deg); }
+    .v4.xs .card   { width:  41px; height:  41px; border-radius:  8px; top: 1.5px; left: 1.5px; transform: rotate(-25deg); }
+    .v4.hs .card   { width:  56px; height:  56px; border-radius: 11px; top: 2px; left: 2px; transform: rotate(-25deg); }
+
+  </style>
+</head>
+<body>
+
+  <h1>Hone · Card Icon — Positions</h1>
+
+  <div class="row">
+
+    <!-- V1: Upper-left -->
+    <div class="icon-col">
+      <div class="col-label">V1 — Upper Left</div>
+      <div class="icon v1 lg"><div class="card"></div><div class="letter">H</div></div>
+      <div class="sizes">
+        <div class="icon-wrap">
+          <div class="icon v1 sm"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">80</div>
+        </div>
+        <div class="icon-wrap">
+          <div class="icon v1 xs"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">44</div>
+        </div>
+      </div>
+      <div class="homescreen">
+        <div class="icon v1 hs"><div class="card"></div><div class="letter">H</div></div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- V2: Lower-right -->
+    <div class="icon-col">
+      <div class="col-label">V2 — Lower Right</div>
+      <div class="icon v2 lg"><div class="card"></div><div class="letter">H</div></div>
+      <div class="sizes">
+        <div class="icon-wrap">
+          <div class="icon v2 sm"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">80</div>
+        </div>
+        <div class="icon-wrap">
+          <div class="icon v2 xs"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">44</div>
+        </div>
+      </div>
+      <div class="homescreen">
+        <div class="icon v2 hs"><div class="card"></div><div class="letter">H</div></div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- V3: Centered, shallow -->
+    <div class="icon-col">
+      <div class="col-label">V3 — Centered, −10°</div>
+      <div class="icon v3 lg"><div class="card"></div><div class="letter">H</div></div>
+      <div class="sizes">
+        <div class="icon-wrap">
+          <div class="icon v3 sm"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">80</div>
+        </div>
+        <div class="icon-wrap">
+          <div class="icon v3 xs"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">44</div>
+        </div>
+      </div>
+      <div class="homescreen">
+        <div class="icon v3 hs"><div class="card"></div><div class="letter">H</div></div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+    <!-- V4: Centered, steep -->
+    <div class="icon-col">
+      <div class="col-label">V4 — Centered, −25°</div>
+      <div class="icon v4 lg"><div class="card"></div><div class="letter">H</div></div>
+      <div class="sizes">
+        <div class="icon-wrap">
+          <div class="icon v4 sm"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">80</div>
+        </div>
+        <div class="icon-wrap">
+          <div class="icon v4 xs"><div class="card"></div><div class="letter">H</div></div>
+          <div class="size-label">44</div>
+        </div>
+      </div>
+      <div class="homescreen">
+        <div class="icon v4 hs"><div class="card"></div><div class="letter">H</div></div>
+        <div class="hs-label">Hone</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

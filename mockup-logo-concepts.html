@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hone — Logo Concepts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 40px;
+      gap: 72px;
+    }
+
+    h1 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #475569;
+    }
+
+    .row {
+      display: flex;
+      gap: 64px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .concept {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .concept-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #475569;
+      text-align: center;
+    }
+
+    .concept-desc {
+      font-size: 12px;
+      color: #94a3b8;
+      text-align: center;
+      max-width: 160px;
+      line-height: 1.6;
+      margin-top: -20px;
+    }
+
+    /* ── Icon shell ── */
+    .icon {
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #0f172a;
+      box-shadow:
+        0 20px 56px rgba(0,0,0,0.38),
+        0 4px 12px rgba(0,0,0,0.22);
+    }
+    .icon.xl { width: 240px; height: 240px; border-radius: 54px; }
+    .icon.sm { width:  80px; height:  80px; border-radius: 18px; }
+    .icon.xs { width:  44px; height:  44px; border-radius: 10px; }
+    .icon.hs { width:  60px; height:  60px; border-radius: 14px; }
+
+    .sizes { display: flex; gap: 16px; align-items: flex-end; }
+
+    .homescreen {
+      background: linear-gradient(160deg, #1e3a5f, #0f172a);
+      border-radius: 20px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+    }
+    .hs-label {
+      font-size: 11px; font-weight: 500;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* wordmark lockup below icon */
+    .lockup {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 28px;
+      background: #0f172a;
+      border-radius: 16px;
+    }
+    .lockup-mark {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .lockup-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .lockup-name {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+    .lockup-sub {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+
+    /* ════════════════════════════════════════════════════════
+       CONCEPT 1 — THE BLADE
+       A sharp upward-pointing wedge — like a blade being
+       honed to a point. Pure geometric precision.
+       References the literal meaning of "hone."
+    ════════════════════════════════════════════════════════ */
+
+    /* SVG-drawn in each size */
+    .blade-mark svg { display: block; }
+
+
+    /* ════════════════════════════════════════════════════════
+       CONCEPT 2 — THE DIAL
+       A thin arc (270°) with a crisp needle mark at the
+       top-right. Like a gauge being dialed in to peak.
+       "Dial in your nutrition. Lock in your training."
+    ════════════════════════════════════════════════════════ */
+
+
+    /* ════════════════════════════════════════════════════════
+       CONCEPT 3 — ASCENDING MARKS
+       Three vertical bars increasing in height left→right,
+       each leaning at a slight diagonal. Simple, readable,
+       references both a data chart and upward momentum.
+    ════════════════════════════════════════════════════════ */
+
+
+    /* ════════════════════════════════════════════════════════
+       CONCEPT 4 — THE WHETSTONE
+       Two sharp diagonal lines converging to a point —
+       like drawing a blade across a whetstone. The angle
+       also echoes the welcome screen's purple slash.
+    ════════════════════════════════════════════════════════ */
+
+  </style>
+</head>
+<body>
+
+  <h1>Hone · Logo Concepts</h1>
+
+  <div class="row">
+
+    <!-- ════ CONCEPT 1: THE BLADE ════ -->
+    <div class="concept">
+      <div class="concept-label">1 — The Blade</div>
+      <div class="concept-desc">A sharp upward wedge. References the literal meaning of hone — sharpening to a fine point.</div>
+
+      <!-- XL icon -->
+      <div class="icon xl">
+        <!-- Purple card background, V1 position -->
+        <div style="position:absolute;width:260px;height:260px;top:-34px;left:-34px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+        <!-- Blade mark: a sharp upward triangle / chevron -->
+        <svg style="position:absolute;inset:0;z-index:3;" width="240" height="240" viewBox="0 0 240 240">
+          <!-- outer chevron -->
+          <polygon points="120,52  172,152  120,128  68,152" fill="white" opacity="1"/>
+          <!-- inner cutout to make it a chevron outline feel -->
+          <polygon points="120,74  155,148  120,130  85,148" fill="#7078df"/>
+        </svg>
+      </div>
+
+      <!-- Small sizes -->
+      <div class="sizes">
+        <div class="icon sm">
+          <div style="position:absolute;width:104px;height:104px;top:-14px;left:-14px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="80" height="80" viewBox="0 0 240 240">
+            <polygon points="120,52  172,152  120,128  68,152" fill="white"/>
+            <polygon points="120,74  155,148  120,130  85,148" fill="#7078df"/>
+          </svg>
+        </div>
+        <div class="icon xs">
+          <div style="position:absolute;width:57px;height:57px;top:-7px;left:-7px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="44" height="44" viewBox="0 0 240 240">
+            <polygon points="120,52  172,152  120,128  68,152" fill="white"/>
+            <polygon points="120,74  155,148  120,130  85,148" fill="#7078df"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Homescreen -->
+      <div class="homescreen">
+        <div class="icon hs">
+          <div style="position:absolute;width:78px;height:78px;top:-10px;left:-10px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="60" height="60" viewBox="0 0 240 240">
+            <polygon points="120,52  172,152  120,128  68,152" fill="white"/>
+            <polygon points="120,74  155,148  120,130  85,148" fill="#7078df"/>
+          </svg>
+        </div>
+        <div class="hs-label">Hone</div>
+      </div>
+
+      <!-- Wordmark lockup -->
+      <div class="lockup">
+        <div class="lockup-mark">
+          <svg width="32" height="32" viewBox="0 0 240 240">
+            <polygon points="120,52  172,152  120,128  68,152" fill="#7078df"/>
+            <polygon points="120,74  155,148  120,130  85,148" fill="#0f172a"/>
+          </svg>
+        </div>
+        <div class="lockup-text">
+          <div class="lockup-name">Hone</div>
+          <div class="lockup-sub">Nutrition · Training</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ════ CONCEPT 2: THE DIAL ════ -->
+    <div class="concept">
+      <div class="concept-label">2 — The Dial</div>
+      <div class="concept-desc">A gauge needle at peak. Precision, calibration — dialing everything in.</div>
+
+      <div class="icon xl">
+        <div style="position:absolute;width:260px;height:260px;top:-34px;left:-34px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+        <svg style="position:absolute;inset:0;z-index:3;" width="240" height="240" viewBox="0 0 240 240">
+          <!-- Arc: 225deg sweep, from bottom-left to bottom-right -->
+          <path d="M 54 168 A 74 74 0 1 1 186 168"
+                fill="none" stroke="white" stroke-width="10"
+                stroke-linecap="round" opacity="0.3"/>
+          <!-- Active portion of arc -->
+          <path d="M 54 168 A 74 74 0 1 1 176 108"
+                fill="none" stroke="white" stroke-width="10"
+                stroke-linecap="round"/>
+          <!-- Needle -->
+          <line x1="120" y1="120" x2="176" y2="72"
+                stroke="white" stroke-width="7" stroke-linecap="round"/>
+          <!-- Center dot -->
+          <circle cx="120" cy="120" r="8" fill="white"/>
+          <!-- Needle tip dot -->
+          <circle cx="176" cy="72" r="5" fill="white"/>
+          <!-- tick marks -->
+          <line x1="54" y1="168" x2="61" y2="162" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+          <line x1="186" y1="168" x2="179" y2="162" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+          <line x1="46" y1="120" x2="54" y2="120" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </div>
+
+      <div class="sizes">
+        <div class="icon sm">
+          <div style="position:absolute;width:104px;height:104px;top:-14px;left:-14px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="80" height="80" viewBox="0 0 240 240">
+            <path d="M 54 168 A 74 74 0 1 1 186 168" fill="none" stroke="white" stroke-width="10" stroke-linecap="round" opacity="0.3"/>
+            <path d="M 54 168 A 74 74 0 1 1 176 108" fill="none" stroke="white" stroke-width="10" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="176" y2="72" stroke="white" stroke-width="7" stroke-linecap="round"/>
+            <circle cx="120" cy="120" r="8" fill="white"/>
+          </svg>
+        </div>
+        <div class="icon xs">
+          <div style="position:absolute;width:57px;height:57px;top:-7px;left:-7px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="44" height="44" viewBox="0 0 240 240">
+            <path d="M 54 168 A 74 74 0 1 1 186 168" fill="none" stroke="white" stroke-width="10" stroke-linecap="round" opacity="0.3"/>
+            <path d="M 54 168 A 74 74 0 1 1 176 108" fill="none" stroke="white" stroke-width="10" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="176" y2="72" stroke="white" stroke-width="7" stroke-linecap="round"/>
+            <circle cx="120" cy="120" r="8" fill="white"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="homescreen">
+        <div class="icon hs">
+          <div style="position:absolute;width:78px;height:78px;top:-10px;left:-10px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="60" height="60" viewBox="0 0 240 240">
+            <path d="M 54 168 A 74 74 0 1 1 186 168" fill="none" stroke="white" stroke-width="10" stroke-linecap="round" opacity="0.3"/>
+            <path d="M 54 168 A 74 74 0 1 1 176 108" fill="none" stroke="white" stroke-width="10" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="176" y2="72" stroke="white" stroke-width="7" stroke-linecap="round"/>
+            <circle cx="120" cy="120" r="8" fill="white"/>
+          </svg>
+        </div>
+        <div class="hs-label">Hone</div>
+      </div>
+
+      <div class="lockup">
+        <div class="lockup-mark">
+          <svg width="32" height="32" viewBox="0 0 240 240">
+            <path d="M 54 168 A 74 74 0 1 1 186 168" fill="none" stroke="#7078df" stroke-width="16" stroke-linecap="round" opacity="0.3"/>
+            <path d="M 54 168 A 74 74 0 1 1 176 108" fill="none" stroke="#7078df" stroke-width="16" stroke-linecap="round"/>
+            <line x1="120" y1="120" x2="176" y2="72" stroke="#7078df" stroke-width="14" stroke-linecap="round"/>
+            <circle cx="120" cy="120" r="10" fill="#7078df"/>
+          </svg>
+        </div>
+        <div class="lockup-text">
+          <div class="lockup-name">Hone</div>
+          <div class="lockup-sub">Nutrition · Training</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ════ CONCEPT 3: ASCENDING MARKS ════ -->
+    <div class="concept">
+      <div class="concept-label">3 — Ascending</div>
+      <div class="concept-desc">Three bars, rising. Progress over time — clean enough to work as a pure data mark.</div>
+
+      <div class="icon xl">
+        <div style="position:absolute;width:260px;height:260px;top:-34px;left:-34px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+        <svg style="position:absolute;inset:0;z-index:3;" width="240" height="240" viewBox="0 0 240 240">
+          <!-- three ascending bars, each leaning slightly -->
+          <!-- bar 1: short -->
+          <rect x="62" y="138" width="28" height="52" rx="6" fill="white" opacity="0.45"/>
+          <!-- bar 2: medium -->
+          <rect x="106" y="106" width="28" height="84" rx="6" fill="white" opacity="0.7"/>
+          <!-- bar 3: tall — brightest -->
+          <rect x="150" y="70" width="28" height="120" rx="6" fill="white"/>
+        </svg>
+      </div>
+
+      <div class="sizes">
+        <div class="icon sm">
+          <div style="position:absolute;width:104px;height:104px;top:-14px;left:-14px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="80" height="80" viewBox="0 0 240 240">
+            <rect x="62" y="138" width="28" height="52" rx="6" fill="white" opacity="0.45"/>
+            <rect x="106" y="106" width="28" height="84" rx="6" fill="white" opacity="0.7"/>
+            <rect x="150" y="70" width="28" height="120" rx="6" fill="white"/>
+          </svg>
+        </div>
+        <div class="icon xs">
+          <div style="position:absolute;width:57px;height:57px;top:-7px;left:-7px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="44" height="44" viewBox="0 0 240 240">
+            <rect x="62" y="138" width="28" height="52" rx="6" fill="white" opacity="0.45"/>
+            <rect x="106" y="106" width="28" height="84" rx="6" fill="white" opacity="0.7"/>
+            <rect x="150" y="70" width="28" height="120" rx="6" fill="white"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="homescreen">
+        <div class="icon hs">
+          <div style="position:absolute;width:78px;height:78px;top:-10px;left:-10px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="60" height="60" viewBox="0 0 240 240">
+            <rect x="62" y="138" width="28" height="52" rx="6" fill="white" opacity="0.45"/>
+            <rect x="106" y="106" width="28" height="84" rx="6" fill="white" opacity="0.7"/>
+            <rect x="150" y="70" width="28" height="120" rx="6" fill="white"/>
+          </svg>
+        </div>
+        <div class="hs-label">Hone</div>
+      </div>
+
+      <div class="lockup">
+        <div class="lockup-mark">
+          <svg width="32" height="32" viewBox="0 0 240 240">
+            <rect x="62" y="138" width="28" height="52" rx="6" fill="#7078df" opacity="0.45"/>
+            <rect x="106" y="106" width="28" height="84" rx="6" fill="#7078df" opacity="0.7"/>
+            <rect x="150" y="70" width="28" height="120" rx="6" fill="#7078df"/>
+          </svg>
+        </div>
+        <div class="lockup-text">
+          <div class="lockup-name">Hone</div>
+          <div class="lockup-sub">Nutrition · Training</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ════ CONCEPT 4: THE WHETSTONE ════ -->
+    <div class="concept">
+      <div class="concept-label">4 — The Whetstone</div>
+      <div class="concept-desc">Two lines converging to a sharp point — the motion of honing a blade. Minimal, precise.</div>
+
+      <div class="icon xl">
+        <div style="position:absolute;width:260px;height:260px;top:-34px;left:-34px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+        <svg style="position:absolute;inset:0;z-index:3;" width="240" height="240" viewBox="0 0 240 240">
+          <!-- Two lines converging to a sharp tip at bottom-center -->
+          <!-- Upper line (left side) -->
+          <line x1="66" y1="72" x2="140" y2="172" stroke="white" stroke-width="12" stroke-linecap="round"/>
+          <!-- Upper line (right side) -->
+          <line x1="174" y1="72" x2="140" y2="172" stroke="white" stroke-width="12" stroke-linecap="round"/>
+          <!-- Cross-stroke at top — the whetstone itself -->
+          <line x1="60" y1="72" x2="180" y2="72" stroke="white" stroke-width="12" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="sizes">
+        <div class="icon sm">
+          <div style="position:absolute;width:104px;height:104px;top:-14px;left:-14px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="80" height="80" viewBox="0 0 240 240">
+            <line x1="66" y1="72" x2="140" y2="172" stroke="white" stroke-width="12" stroke-linecap="round"/>
+            <line x1="174" y1="72" x2="140" y2="172" stroke="white" stroke-width="12" stroke-linecap="round"/>
+            <line x1="60" y1="72" x2="180" y2="72" stroke="white" stroke-width="12" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="icon xs">
+          <div style="position:absolute;width:57px;height:57px;top:-7px;left:-7px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="44" height="44" viewBox="0 0 240 240">
+            <line x1="66" y1="72" x2="140" y2="172" stroke="white" stroke-width="12" stroke-linecap="round"/>
+            <line x1="174" y1="72" x2="140" y2="172" stroke="white" stroke-width="12" stroke-linecap="round"/>
+            <line x1="60" y1="72" x2="180" y2="72" stroke="white" stroke-width="12" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="homescreen">
+        <div class="icon hs">
+          <div style="position:absolute;width:78px;height:78px;top:-10px;left:-10px;transform:rotate(-15deg);background:#7078df;z-index:1;"></div>
+          <svg style="position:absolute;inset:0;z-index:3;" width="60" height="60" viewBox="0 0 240 240">
+            <line x1="66" y1="72" x2="140" y2="172" stroke="white" stroke-width="12" stroke-linecap="round"/>
+            <line x1="174" y1="72" x2="140" y2="172" stroke="white" stroke-width="12" stroke-linecap="round"/>
+            <line x1="60" y1="72" x2="180" y2="72" stroke="white" stroke-width="12" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="hs-label">Hone</div>
+      </div>
+
+      <div class="lockup">
+        <div class="lockup-mark">
+          <svg width="32" height="32" viewBox="0 0 240 240">
+            <line x1="66" y1="72" x2="140" y2="172" stroke="#7078df" stroke-width="18" stroke-linecap="round"/>
+            <line x1="174" y1="72" x2="140" y2="172" stroke="#7078df" stroke-width="18" stroke-linecap="round"/>
+            <line x1="60" y1="72" x2="180" y2="72" stroke="#7078df" stroke-width="18" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="lockup-text">
+          <div class="lockup-name">Hone</div>
+          <div class="lockup-sub">Nutrition · Training</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
