@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { scaleLinear } from 'd3-scale';
 import Svg, { G, Path, Text } from 'react-native-svg';
+import { colors } from '../../design/tokens/colors';
 
 const generateGridPoints = (amount: number) => {
   let points: number[] = [];
@@ -43,13 +44,13 @@ const XAxis = ({ width, height }: Props) => {
         <G key={index} x={0} y={-20}>
           <Path
             d={getScaleTicks(index, gridPoints, width, height)}
-            fill="#121212"
-            stroke="#121212"
+            fill={colors.text.primary}
+            stroke={colors.text.primary}
             strokeWidth={1}
           />
           <G x={10}>
             <Text
-              fill="#717171"
+              fill={colors.text.secondary}
               x={40}
               y={getScalePosition(index, gridPoints, height)}
               fontSize={14}

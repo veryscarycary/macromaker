@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, View } from '../../../../../components/Themed';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { deleteMeal, getMealData } from '../../../../../context/MealContext';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { DietScreenNavigationProp, Meal } from '../../../../../types';
+import { Text } from '../../../../../design/components';
 import { colors } from '../../../../../design/tokens/colors';
-import { fontFamilies } from '../../../../../design/tokens/typography';
+import { spacing } from '../../../../../design/tokens/spacing';
 
 type Props = {
   date: string;
@@ -29,27 +29,50 @@ const MealSection = ({
     <View style={styles.container}>
       <View style={styles.mealData}>
         <View style={[styles.row, styles.marginBottom8]}>
-          <Text style={[styles.label, styles.mealTitle]}>Meal #{mealNumber}:</Text>
-          <Text style={styles.value}>{mealName}</Text>
+          <Text variant="bodyMedium" style={styles.label}>
+            Meal #{mealNumber}:
+          </Text>
+          <Text variant="body" style={styles.value}>
+            {mealName}
+          </Text>
         </View>
 
         <View style={[styles.row, styles.marginBottom8]}>
-          <Text style={styles.label}>Calories:</Text>
-          <Text style={styles.value}>{Math.round(calories)}</Text>
+          <Text variant="bodyMedium" style={styles.label}>
+            Calories:
+          </Text>
+          <Text variant="body" style={styles.value}>
+            {Math.round(calories)}
+          </Text>
         </View>
 
         <View style={[styles.row, styles.spaceBetween]}>
           <View style={styles.row}>
-            <Text style={styles.label}>Carbs:</Text>
-            <Text style={styles.value}>{carbs}{carbsUnit}</Text>
+            <Text variant="bodyMedium" style={styles.label}>
+              Carbs:
+            </Text>
+            <Text variant="body" style={styles.value}>
+              {carbs}
+              {carbsUnit}
+            </Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>Protein:</Text>
-            <Text style={styles.value}>{protein}{proteinUnit}</Text>
+            <Text variant="bodyMedium" style={styles.label}>
+              Protein:
+            </Text>
+            <Text variant="body" style={styles.value}>
+              {protein}
+              {proteinUnit}
+            </Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>Fat:</Text>
-            <Text style={styles.value}>{fat}{fatUnit}</Text>
+            <Text variant="bodyMedium" style={styles.label}>
+              Fat:
+            </Text>
+            <Text variant="body" style={styles.value}>
+              {fat}
+              {fatUnit}
+            </Text>
           </View>
         </View>
       </View>
@@ -83,30 +106,25 @@ const MealSection = ({
 
 const styles = StyleSheet.create({
   container: {
-    margin: 16,
-    borderRadius: 12,
-    backgroundColor: colors.surface.default,
+    margin: spacing.lg,
+    borderRadius: spacing.md,
+    backgroundColor: colors.neutral[50],
     borderWidth: 1,
-    borderColor: colors.surface.border,
+    borderColor: colors.neutral[200],
     overflow: 'hidden',
   },
   mealData: {
-    padding: 12,
+    padding: spacing.md,
   },
   label: {
-    fontFamily: fontFamilies.medium,
     color: colors.text.primary,
   },
-  mealTitle: {
-    fontSize: 16,
-  },
   value: {
-    fontFamily: fontFamilies.regular,
-    marginLeft: 8,
+    marginLeft: spacing.sm,
     color: colors.text.secondary,
   },
   marginBottom8: {
-    marginBottom: 16,
+    marginBottom: spacing.lg,
   },
   row: {
     flexDirection: 'row',
@@ -118,8 +136,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: colors.surface.border,
-    height: 40,
+    borderTopColor: colors.neutral[200],
+    height: spacing.xl + spacing.md + spacing.xs,
   },
   button: {
     flex: 1,

@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 
+import { colors } from '../../design/tokens/colors';
 import { paperTheme } from '../../design/theme/paperTheme';
 
 const THEME_FILE = path.resolve(__dirname, '../../design/theme/paperTheme.ts');
@@ -27,36 +28,36 @@ const MD3_TYPESCALE_KEYS = [
 ] as const;
 
 describe('PAPR-01: paperTheme color token wiring', () => {
-  it('paperTheme.colors.primary equals #7078df', () => {
-    expect(paperTheme.colors.primary).toBe('#7078df');
+  it('paperTheme.colors.primary equals colors.brand.primary', () => {
+    expect(paperTheme.colors.primary).toBe(colors.brand.primary);
   });
 
-  it('paperTheme.colors.onPrimary equals #ffffff', () => {
-    expect(paperTheme.colors.onPrimary).toBe('#ffffff');
+  it('paperTheme.colors.onPrimary equals colors.text.inverse', () => {
+    expect(paperTheme.colors.onPrimary).toBe(colors.text.inverse);
   });
 
-  it('paperTheme.colors.secondary equals #475569', () => {
-    expect(paperTheme.colors.secondary).toBe('#475569');
+  it('paperTheme.colors.secondary equals colors.accent.teal', () => {
+    expect(paperTheme.colors.secondary).toBe(colors.accent.teal);
   });
 
-  it('paperTheme.colors.surface equals #ffffff', () => {
-    expect(paperTheme.colors.surface).toBe('#ffffff');
+  it('paperTheme.colors.surface equals colors.surface.default', () => {
+    expect(paperTheme.colors.surface).toBe(colors.surface.default);
   });
 
-  it('paperTheme.colors.background equals #ffffff', () => {
-    expect(paperTheme.colors.background).toBe('#ffffff');
+  it('paperTheme.colors.background equals colors.surface.default', () => {
+    expect(paperTheme.colors.background).toBe(colors.surface.default);
   });
 
-  it('paperTheme.colors.onSurface equals #0f172a', () => {
-    expect(paperTheme.colors.onSurface).toBe('#0f172a');
+  it('paperTheme.colors.onSurface equals colors.text.primary', () => {
+    expect(paperTheme.colors.onSurface).toBe(colors.text.primary);
   });
 
-  it('paperTheme.colors.onSurfaceVariant equals #475569', () => {
-    expect(paperTheme.colors.onSurfaceVariant).toBe('#475569');
+  it('paperTheme.colors.onSurfaceVariant equals colors.text.secondary', () => {
+    expect(paperTheme.colors.onSurfaceVariant).toBe(colors.text.secondary);
   });
 
-  it('paperTheme.colors.outline equals #e2e8f0', () => {
-    expect(paperTheme.colors.outline).toBe('#e2e8f0');
+  it('paperTheme.colors.outline equals colors.surface.border', () => {
+    expect(paperTheme.colors.outline).toBe(colors.surface.border);
   });
 
   it('design/theme/paperTheme.ts exists on disk', () => {

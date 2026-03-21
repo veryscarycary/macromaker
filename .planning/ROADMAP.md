@@ -92,11 +92,11 @@ Plans:
 
 Plans:
 - [ ] 08-01-PLAN.md — Wave 0 test scaffolds: AddFoodScreen, DietTodayScreen, FitnessScreen test stubs
-- [ ] 08-02-PLAN.md — Onboarding screen migration: WelcomeScreen, BasicInfoScreen, MoreInfoScreen (MIGR-01)
-- [ ] 08-03-PLAN.md — AddFood screen migration: AddFoodScreen + MacroInput (MIGR-02)
-- [ ] 08-04-PLAN.md — Diet screen migration: DietTodayScreen macro colors + DietHistoryScreen + DailyDietScreen (MIGR-03, MIGR-04)
-- [ ] 08-05-PLAN.md — Remaining screens: FitnessScreen, NotFoundScreen, MacroScreen, NoDataMacroGraph (MIGR-05)
-- [ ] 08-06-PLAN.md — Graph component token migration: MacroGraph, MealTimeGraph, BarGraph, TotalCaloriesGraph, PercentageSlider (MIGR-06)
+- [x] 08-02-PLAN.md — Onboarding screen migration: WelcomeScreen, BasicInfoScreen, MoreInfoScreen (MIGR-01)
+- [x] 08-03-PLAN.md — AddFood screen migration: AddFoodScreen + MacroInput (MIGR-02)
+- [x] 08-04-PLAN.md — Diet screen migration: DietTodayScreen macro colors + DietHistoryScreen + DailyDietScreen (MIGR-03, MIGR-04)
+- [x] 08-05-PLAN.md — Remaining screens: FitnessScreen, NotFoundScreen, MacroScreen, NoDataMacroGraph (MIGR-05)
+- [x] 08-06-PLAN.md — Graph component token migration: MacroGraph, MealTimeGraph, BarGraph, TotalCaloriesGraph, PercentageSlider (MIGR-06)
 - [ ] 08-07-PLAN.md — Shim deletion: BottomTabNavigator + delete Themed.tsx + delete Colors.ts + final hex audit (MIGR-07)
 
 ### Phase 9: Brand Identity
@@ -127,5 +127,5 @@ Phases execute in numeric order: 5 → 6 → 7 → 8, with Phase 9 executable af
 | 5. Token Foundation + Font Integration | 3/3 | Complete   | 2026-03-15 | - |
 | 6. Paper Theme Integration | 1/2 | In Progress|  | - |
 | 7. Component Library | 4/4 | Complete   | 2026-03-20 | - |
-| 8. Screen Migration | v1.1 | 0/7 | Not started | - |
+| 8. Screen Migration | v1.1 | 5/7 | In Progress | - |
 | 9. Brand Identity | v1.1 | 0/? | Not started | - |

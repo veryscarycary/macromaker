@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-import { Text, View } from '../components/Themed';
+import { StyleSheet, View } from 'react-native';
+
+import { Text } from '../design/components';
 
 export default function FitnessScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Fitness</Text>
+      <Text variant="heading">Fitness</Text>
     </View>
   );
 }
@@ -15,9 +16,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
   },
 });

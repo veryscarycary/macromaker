@@ -1,8 +1,10 @@
 import React from 'react';
-import { Text, View } from '../../components/Themed';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Text } from '../../design/components';
+import { colors } from '../../design/tokens/colors';
+import { radius } from '../../design/tokens/radius';
+import { spacing } from '../../design/tokens/spacing';
 
 type Props = {
   children: string;
@@ -20,8 +22,10 @@ const ModalButton = ({
   return (
     <>
       <TouchableOpacity style={styles.container} onPress={onPress}>
-        <Ionicons size={32} name={icon} />
-        <Text style={styles.label}>{children}</Text>
+        <Ionicons size={32} name={icon} color={colors.text.primary} />
+        <Text variant="subheading" style={styles.label}>
+          {children}
+        </Text>
       </TouchableOpacity>
 
       {hasBottomBorder ? (
@@ -38,15 +42,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
-    borderRadius: 16,
-    backgroundColor: '#dedede',
+    padding: spacing.lg,
+    borderRadius: radius.lg,
+    backgroundColor: colors.neutral[50],
     overflow: 'hidden',
-    fontSize: 42,
   },
   label: {
-    fontSize: 20,
-    marginLeft: 12,
+    marginLeft: spacing.md,
   },
   bottomBorderContainer: {
     justifyContent: 'center',
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
   bottomBorder: {
     width: '90%',
     height: 1,
-    backgroundColor: '#000',
+    backgroundColor: colors.neutral[200],
   },
 });
 

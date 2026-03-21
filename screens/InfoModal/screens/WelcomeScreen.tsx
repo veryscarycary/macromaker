@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
-import { Text } from '../../../components/Themed';
+import Svg, { Polygon } from 'react-native-svg';
+import { Text } from '../../../design/components';
 import { ModalStackNavigationProp } from '../../../types';
 import { colors } from '../../../design/tokens/colors';
 import { fontFamilies, typeScale } from '../../../design/tokens/typography';
@@ -22,9 +23,9 @@ const FEATURES: { icon: React.ComponentProps<typeof Feather>['name']; label: str
 const WelcomeScreen = ({ navigation }: Props) => {
   return (
     <View style={styles.root}>
-      {/* ── Diagonal slash ─────────────────────────────── */}
-      <View style={styles.slashGlow} />
-      <View style={styles.slash} />
+      <Svg style={styles.slash} viewBox="0 0 520 760" preserveAspectRatio="none">
+        <Polygon points="0,0 285,0 445,760 135,760" fill={colors.accent.teal} />
+      </Svg>
 
       <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
         {/* Step indicator — centered */}
@@ -36,9 +37,9 @@ const WelcomeScreen = ({ navigation }: Props) => {
 
         {/* ── Top content ──────────────────────────────── */}
         <View style={styles.topContent}>
-          <Text style={styles.eyebrow}>Welcome to</Text>
-          <Text style={styles.wordmark}>Hone</Text>
-          <Text style={styles.tagline}>
+          <Text variant="overline" style={styles.eyebrow}>Welcome to</Text>
+          <Text variant="display" style={styles.wordmark}>Hone</Text>
+          <Text variant="body" style={styles.tagline}>
             Dial in your nutrition.{'\n'}Lock in your training.
           </Text>
         </View>
@@ -49,8 +50,8 @@ const WelcomeScreen = ({ navigation }: Props) => {
           <View style={styles.pillRow}>
             {FEATURES.map(f => (
               <View key={f.label} style={styles.pill}>
-                <Feather name={f.icon} size={20} color="rgba(255,255,255,0.85)" />
-                <Text style={styles.pillLabel}>{f.label}</Text>
+                <Feather name={f.icon} size={20} color={colors.accent.aqua} />
+                <Text variant="label" style={styles.pillLabel}>{f.label}</Text>
               </View>
             ))}
           </View>
@@ -61,11 +62,11 @@ const WelcomeScreen = ({ navigation }: Props) => {
             onPress={() => navigation.navigate('BasicInfo')}
             activeOpacity={0.9}
           >
-            <Text style={styles.btnPrimaryText}>Get Started</Text>
+            <Text variant="body" style={styles.btnPrimaryText}>Get Started</Text>
           </TouchableOpacity>
 
           <TouchableOpacity activeOpacity={0.6}>
-            <Text style={styles.btnGhost}>Sign in to existing account</Text>
+            <Text variant="bodySmall" style={styles.btnGhost}>Sign in to existing account</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -76,31 +77,16 @@ const WelcomeScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.text.primary, // slate900
+    backgroundColor: colors.brand.primaryDark,
   },
 
   // ── Slash ──────────────────────────────────────────────
   slash: {
     position: 'absolute',
-    width: 420,
-    height: 700,
-    top: -120,
-    left: -80,
-    backgroundColor: colors.brand.primary,
-    transform: [{ rotate: '-12deg' }],
-  },
-  slashGlow: {
-    position: 'absolute',
-    width: 420,
-    height: 700,
-    top: -120,
-    left: -80,
-    backgroundColor: colors.brand.primaryLight,
-    transform: [{ rotate: '-12deg' }],
-    opacity: 0.25,
-    // slightly larger to bleed past the slash edge
-    marginLeft: -20,
-    marginTop: -20,
+    width: 520,
+    height: 760,
+    top: -170,
+    left: -140,
   },
 
   // ── Layout ─────────────────────────────────────────────
@@ -122,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.25)',
   },
   stepDotActive: {
-    backgroundColor: colors.text.inverse,
+    backgroundColor: colors.accent.rose,
   },
 
   topContent: {
@@ -132,7 +118,7 @@ const styles = StyleSheet.create({
   },
   eyebrow: {
     ...typeScale.overline,
-    color: 'rgba(255,255,255,0.55)',
+    color: colors.accent.aqua,
   },
   wordmark: {
     fontFamily: fontFamilies.bold,
@@ -170,7 +156,7 @@ const styles = StyleSheet.create({
   },
   pillLabel: {
     ...typeScale.label,
-    color: 'rgba(255,255,255,0.5)',
+    color: colors.text.inverse,
   },
 
   btnPrimary: {
@@ -182,7 +168,7 @@ const styles = StyleSheet.create({
   btnPrimaryText: {
     fontFamily: fontFamilies.bold,
     fontSize: 16,
-    color: colors.brand.primaryDark,
+    color: colors.brand.primary,
   },
 
   btnGhost: {

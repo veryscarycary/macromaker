@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react';
-import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, View } from '../../../components/Themed';
+import { Text } from '../../../design/components';
 import { ModalStackNavigationProp } from '../../../types';
 import DismissKeyboardView from '../../../components/DismissKeyboardView';
 import { Context as InfoContext } from '../../../context/InfoContext';
 import StepIndicator from '../components/StepIndicator';
 import { colors } from '../../../design/tokens/colors';
 import { fontFamilies } from '../../../design/tokens/typography';
+import { spacing } from '../../../design/tokens/spacing';
 
 type Props = {
   navigation: ModalStackNavigationProp;
@@ -67,6 +68,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
       onPress={() => onPress(value)}
     >
       <Text
+        variant="label"
         style={[
           styles.optionButtonText,
           selectedValue === value ? styles.optionButtonTextSelected : null,
@@ -106,7 +108,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
             <View style={styles.content}>
               <View style={styles.inputSection}>
                 <View style={styles.inputWrap}>
-                  <Text style={styles.fieldLabel}>Name</Text>
+                  <Text variant="label" style={styles.fieldLabel}>Name</Text>
                   <TextInput
                     style={[styles.textInput, { borderBottomColor: getInputBorderColor(nameFocused, nameError) }]}
                     onChangeText={(val: string) => {
@@ -120,12 +122,12 @@ const BasicInfoScreen = ({ navigation }: Props) => {
                     onBlur={() => setNameFocused(false)}
                   />
                   {nameError && (
-                    <Text style={styles.errorText}>Name is required</Text>
+                    <Text variant="caption" style={styles.errorText}>Name is required</Text>
                   )}
                 </View>
 
                 <View style={styles.inputWrap}>
-                  <Text style={styles.fieldLabel}>Age</Text>
+                  <Text variant="label" style={styles.fieldLabel}>Age</Text>
                   <TextInput
                     style={[styles.textInput, { borderBottomColor: getInputBorderColor(ageFocused) }]}
                     onChangeText={(val: string) =>
@@ -141,7 +143,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
                 </View>
 
                 <View style={styles.inputWrap}>
-                  <Text style={styles.fieldLabel}>Weight</Text>
+                  <Text variant="label" style={styles.fieldLabel}>Weight</Text>
                   <View style={styles.inputRow}>
                     <TextInput
                       style={[styles.textInput, styles.textInputFlex, { borderBottomColor: getInputBorderColor(weightFocused) }]}
@@ -156,17 +158,17 @@ const BasicInfoScreen = ({ navigation }: Props) => {
                       onBlur={() => setWeightFocused(false)}
                     />
                     <View style={styles.unitPill}>
-                      <Text style={styles.unitText}>lbs</Text>
+                      <Text variant="caption" style={styles.unitText}>lbs</Text>
                     </View>
                   </View>
                 </View>
               </View>
 
               <View style={[styles.inputSection, styles.pickerSection]}>
-                <Text style={styles.fieldLabel}>Height</Text>
+                <Text variant="label" style={styles.fieldLabel}>Height</Text>
                 <View style={styles.heightSelector}>
                   <View style={styles.optionGroup}>
-                    <Text style={styles.optionGroupLabel}>Feet</Text>
+                    <Text variant="caption" style={styles.optionGroupLabel}>Feet</Text>
                     <View style={styles.optionRow}>
                       {HEIGHT_FEET_OPTIONS.map((value) =>
                         renderOptionButton(`${value}`, value, heightFeet, (nextValue) =>
@@ -176,7 +178,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
                     </View>
                   </View>
                   <View style={styles.optionGroup}>
-                    <Text style={styles.optionGroupLabel}>Inches</Text>
+                    <Text variant="caption" style={styles.optionGroupLabel}>Inches</Text>
                     <View style={styles.optionRow}>
                       {HEIGHT_INCH_OPTIONS.map((value) =>
                         renderOptionButton(`${value}`, value, heightInches, (nextValue) =>
@@ -189,7 +191,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
               </View>
 
               <View style={[styles.inputSection, styles.pickerSection]}>
-                <Text style={styles.fieldLabel}>Gender</Text>
+                <Text variant="label" style={styles.fieldLabel}>Gender</Text>
                 <View style={styles.optionSelector}>
                   {GENDER_OPTIONS.map(({ label, value }) =>
                     renderOptionButton(label, value, gender, (nextValue) =>
@@ -200,7 +202,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
               </View>
 
               <View style={[styles.inputSection, styles.pickerSection]}>
-                <Text style={styles.fieldLabel}>Activity Level</Text>
+                <Text variant="label" style={styles.fieldLabel}>Activity Level</Text>
                 <View style={styles.optionSelector}>
                   {ACTIVITY_LEVEL_OPTIONS.map(({ label, value }) =>
                     renderOptionButton(label, value, activityLevel, (nextValue) =>
@@ -224,7 +226,10 @@ const BasicInfoScreen = ({ navigation }: Props) => {
                 navigation.navigate('MoreInfo');
               }}
             >
-              <Text style={!isBasicInfoComplete ? styles.buttonTextDisabled : styles.buttonText}>
+              <Text
+                variant="body"
+                style={!isBasicInfoComplete ? styles.buttonTextDisabled : styles.buttonText}
+              >
                 Continue
               </Text>
             </TouchableOpacity>
@@ -238,15 +243,16 @@ const BasicInfoScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: colors.neutral[50],
   },
   form: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 8,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.sm,
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 12,
+    paddingBottom: spacing.md,
   },
   content: {
     flex: 1,
@@ -268,13 +274,18 @@ const styles = StyleSheet.create({
     height: 72,
   },
   inputSection: {
-    marginBottom: 24,
+    marginBottom: spacing.xl,
+    backgroundColor: colors.surface.default,
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
+    borderRadius: spacing.md,
+    padding: spacing.md,
   },
   pickerSection: {
     alignItems: 'flex-start',
   },
   inputWrap: {
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   fieldLabel: {
     fontFamily: fontFamilies.medium,
@@ -286,11 +297,11 @@ const styles = StyleSheet.create({
     fontFamily: fontFamilies.regular,
     fontSize: 14,
     color: colors.text.primary,
-    backgroundColor: colors.surface.subtle,
+    backgroundColor: colors.neutral[50],
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderBottomWidth: 2,
-    borderBottomColor: colors.surface.border,
+    borderBottomColor: colors.neutral[200],
   },
   textInputFlex: {
     flex: 1,
@@ -298,14 +309,14 @@ const styles = StyleSheet.create({
   inputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: spacing.sm,
   },
   unitPill: {
-    backgroundColor: colors.surface.muted,
+    backgroundColor: colors.neutral[100],
     borderWidth: 1,
-    borderColor: colors.surface.border,
+    borderColor: colors.neutral[200],
     borderRadius: 4,
-    paddingHorizontal: 8,
+    paddingHorizontal: spacing.sm,
     paddingVertical: 6,
   },
   unitText: {
@@ -328,7 +339,7 @@ const styles = StyleSheet.create({
   optionRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: spacing.sm,
   },
   optionSelector: {
     flexDirection: 'row',
@@ -339,11 +350,11 @@ const styles = StyleSheet.create({
   },
   optionButton: {
     borderWidth: 1,
-    borderColor: colors.surface.border,
+    borderColor: colors.neutral[200],
     borderRadius: 4,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    backgroundColor: colors.surface.muted,
+    backgroundColor: colors.neutral[100],
   },
   optionButtonSelected: {
     backgroundColor: colors.brand.primary,
@@ -366,6 +377,8 @@ const styles = StyleSheet.create({
   footer: {
     paddingTop: 6,
     paddingBottom: 12,
+    borderTopWidth: 1,
+    borderTopColor: colors.neutral[200],
   },
   button: {
     backgroundColor: colors.brand.primary,

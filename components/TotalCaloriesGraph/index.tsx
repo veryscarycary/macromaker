@@ -1,9 +1,11 @@
 import React from 'react';
-import { Text, View } from '../Themed';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, View } from 'react-native';
 
 import MultipleMacroBarWithContainer from './components/MultipleMacroBarWithContainer';
 import { BarGraphData } from '../BarGraph/types';
+import { Text } from '../../design/components';
+import { colors } from '../../design/tokens/colors';
+import { fontFamilies } from '../../design/tokens/typography';
 
 type Props = {
   data: BarGraphData[];
@@ -43,12 +45,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 0,
   },
   totalCalories: {
-    fontFamily: 'helvetica',
+    fontFamily: fontFamilies.regular,
     fontSize: 20,
-    fontWeight: 'bold',
     fontStyle: 'italic',
     textAlign: 'center',
-    color: '#6a6a6a',
+    color: colors.text.secondary,
     padding: 18,
   },
 });

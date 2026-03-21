@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import MacroGraph from '../../components/MacroGraph';
-import { Text, View } from '../../components/Themed';
 import { getAllMealData } from '../../context/MealContext';
 import { DietDay, DietScreenNavigationProp } from '../../types';
 import { getAveragesFromDietDays } from '../../utils';
 import DietHistoryList from './components/DietHistoryList';
+import { Text } from '../../design/components';
 import { colors } from '../../design/tokens/colors';
-import { fontFamilies } from '../../design/tokens/typography';
+import { spacing } from '../../design/tokens/spacing';
 
 type Props = {
   navigation: DietScreenNavigationProp;
@@ -43,10 +43,12 @@ const DietHistoryScreen = ({ navigation }: Props) => {
   return (
     <>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>7-Day Average</Text>
+        <Text variant="subheading" style={styles.title}>
+          7-Day Average
+        </Text>
       </View>
       <View style={styles.otherNutrientsContainer}>
-        <Text style={styles.data}>
+        <Text variant="body" style={styles.data}>
           Calories: {Math.round(averageCalories) || 0}
         </Text>
       </View>
@@ -67,25 +69,20 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 100,
     borderRadius: 10,
-    padding: 7,
+    padding: spacing.sm,
   },
   title: {
-    fontFamily: fontFamilies.semiBold,
-    fontSize: 18,
     textAlign: 'center',
-    color: colors.text.primary,
   },
   otherNutrientsContainer: {
     marginTop: 10,
-    marginHorizontal: 20,
+    marginHorizontal: spacing.lg,
     borderRadius: 10,
-    padding: 7,
+    padding: spacing.sm,
     backgroundColor: 'transparent',
   },
   data: {
-    fontFamily: fontFamilies.regular,
     color: colors.text.secondary,
-    fontSize: 16,
   },
   graphContainer: {
     backgroundColor: 'transparent',

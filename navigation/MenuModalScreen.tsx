@@ -1,9 +1,11 @@
 import React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
-import { View } from '../components/Themed';
 import { Navigation } from '../types';
 import ModalButton from './components/ModalButton';
+import { colors } from '../design/tokens/colors';
+import { radius } from '../design/tokens/radius';
+import { spacing } from '../design/tokens/spacing';
 
 const TopNotch = () => (
   <View style={styles.topNotchContainer}>
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
   topBar: {
     alignItems: 'flex-end',
     paddingTop: 56,
-    paddingHorizontal: 18,
+    paddingHorizontal: spacing.lg + 2,
     backgroundColor: 'transparent',
   },
   closeButton: {
@@ -88,11 +90,11 @@ const styles = StyleSheet.create({
     height: 38,
   },
   sheet: {
-    backgroundColor: '#dfdfdf',
+    backgroundColor: colors.neutral[100],
     justifyContent: 'center',
     paddingBottom: 24,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderTopLeftRadius: radius.md,
+    borderTopRightRadius: radius.md,
   },
   topNotchContainer: {
     marginVertical: 10,
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
   topNotch: {
     width: '10%',
     height: 4,
-    backgroundColor: '#b1b1b1',
+    backgroundColor: colors.neutral[300],
     borderRadius: 20,
   },
 });

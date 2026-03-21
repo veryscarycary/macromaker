@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, View } from '../../../components/Themed';
+import { Text } from '../../../design/components';
 import StepIndicator from '../components/StepIndicator';
 import { ModalStackNavigationProp } from '../../../types';
 import { Context as InfoContext } from '../../../context/InfoContext';
@@ -11,6 +11,7 @@ import PercentageSlider from '../../../components/PercentageSlider';
 import { getInfoWithCalculatedMetrics, storeBasicInfo } from '../../../context/InfoContext';
 import { colors } from '../../../design/tokens/colors';
 import { fontFamilies } from '../../../design/tokens/typography';
+import { spacing } from '../../../design/tokens/spacing';
 
 type Props = {
   navigation: ModalStackNavigationProp;
@@ -60,16 +61,16 @@ const MoreInfoScreen = ({ navigation }: Props) => {
             />
           </View>
           <View style={[styles.metricsSection, isCompact ? styles.metricsSectionCompact : null]}>
-            <Text style={[styles.title, isCompact ? styles.titleCompact : null]}>BMI: {calculatedBmi.toFixed(1)}</Text>
-            <Text style={[styles.title, isCompact ? styles.titleCompact : null]}>BMR: {Math.round(calculatedBmr)}</Text>
-            <Text style={[styles.title, isCompact ? styles.titleCompact : null]}>TDEE: {Math.round(calculatedTdee)}</Text>
+            <Text variant="subheading" style={[styles.title, isCompact ? styles.titleCompact : null]}>BMI: {calculatedBmi.toFixed(1)}</Text>
+            <Text variant="subheading" style={[styles.title, isCompact ? styles.titleCompact : null]}>BMR: {Math.round(calculatedBmr)}</Text>
+            <Text variant="subheading" style={[styles.title, isCompact ? styles.titleCompact : null]}>TDEE: {Math.round(calculatedTdee)}</Text>
           </View>
           <View style={[styles.descriptionSection, isCompact ? styles.descriptionSectionCompact : null]}>
-            <Text style={[styles.description, isCompact ? styles.descriptionCompact : null]}>
+            <Text variant="caption" style={[styles.description, isCompact ? styles.descriptionCompact : null]}>
               Based on your body and activity level, you should aim for a target of{' '}
-              <Text style={styles.descriptionHighlight}>{Math.round(calculatedTdee)}</Text> calories per day.
+              <Text variant="caption" style={styles.descriptionHighlight}>{Math.round(calculatedTdee)}</Text> calories per day.
             </Text>
-            <Text style={[styles.description, isCompact ? styles.descriptionCompact : null]}>
+            <Text variant="caption" style={[styles.description, isCompact ? styles.descriptionCompact : null]}>
               We recommend following these macro proportions in order to reach your
               goal. If you'd like to adjust them, you can do so now.
             </Text>
@@ -99,7 +100,7 @@ const MoreInfoScreen = ({ navigation }: Props) => {
               value={targetFatPercentage}
             />
             {macroError && (
-              <Text style={styles.macroErrorText}>
+              <Text variant="caption" style={styles.macroErrorText}>
                 Percentages must add up to 100% (currently {macroSum}%)
               </Text>
             )}
@@ -119,7 +120,7 @@ const MoreInfoScreen = ({ navigation }: Props) => {
               );
             }}
           >
-            <Text style={styles.buttonText}>Get Started</Text>
+            <Text variant="body" style={styles.buttonText}>Get Started</Text>
           </TouchableOpacity>
         </View>
       </DismissKeyboardView>
@@ -133,12 +134,12 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 8,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.sm,
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 12,
+    paddingBottom: spacing.md,
   },
   image: {
     width: 88,
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   metricsSection: {
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   metricsSectionCompact: {
     marginBottom: 6,
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   descriptionSectionCompact: {
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   descriptionHighlight: {
     fontFamily: fontFamilies.bold,
@@ -208,7 +209,7 @@ const styles = StyleSheet.create({
     fontFamily: fontFamilies.regular,
     color: colors.status.error,
     fontSize: 12,
-    marginTop: 8,
+    marginTop: spacing.sm,
     textAlign: 'center',
   },
   titleCompact: {

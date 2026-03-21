@@ -18,6 +18,7 @@ import TotalCaloriesGraph from '../../../../components/TotalCaloriesGraph';
 import D3Rectangle from '../../../../components/MealTimeGraph/components/D3Rectangle';
 import MealTimeGraph from '../../../../components/MealTimeGraph';
 import { getMealTimeMealsWithColor } from '../../../../components/MealTimeGraph/utils';
+import { colors } from '../../../../design/tokens/colors';
 
 type Props = {
   navigation: DietScreenNavigationProp;
@@ -72,19 +73,19 @@ const DietTodayScreen = ({}: Props) => {
       label: 'Carbs',
       amount: convertCarbsToCalories(totalCarbs),
       targetAmount: targetCarbsCalories,
-      color: '#1854bd',
+      color: colors.macro.carbs,
     },
     {
       label: 'Protein',
       amount: convertProteinToCalories(totalProtein),
       targetAmount: targetProteinCalories,
-      color: '#982f2f',
+      color: colors.macro.protein,
     },
     {
       label: 'Fat',
       amount: convertFatToCalories(totalFat),
       targetAmount: targetFatCalories,
-      color: '#b59b46',
+      color: colors.macro.fat,
     },
   ];
   const mealTimeData = {

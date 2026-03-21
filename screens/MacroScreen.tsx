@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, ImageBackground } from 'react-native';
 import { useContext } from 'react';
 
-import { Text } from '../components/Themed';
+import { Text } from '../design/components';
 import { Context as InfoContext } from '../context/InfoContext';
 import PercentageSlider from '../components/PercentageSlider';
 
@@ -18,7 +18,8 @@ const MacroScreen = () => {
       resizeMode="cover"
       style={styles.container}
     >
-      <Text style={styles.title}>Macros</Text>
+      {/* Note: MacroScreen not found in current navigation stack; migrated for completeness. */}
+      <Text variant="display">Macros</Text>
 
       <PercentageSlider label="Carbs" style={styles.marginTop} value={targetCarbsPercentage} setValue={(v) => setInfoState({ targetCarbsPercentage: v })} />
       <PercentageSlider label="Protein" style={styles.marginTop} value={targetProteinPercentage} setValue={(v) => setInfoState({ targetProteinPercentage: v })} />
@@ -33,11 +34,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     marginBottom: 200,
-  },
-  title: {
-    fontSize: 32,
-    fontFamily: 'helvetica',
-    fontWeight: 'bold',
   },
   marginTop: {
     marginTop: 15,

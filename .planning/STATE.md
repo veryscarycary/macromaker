@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Design System & Branding
-status: planning
-stopped_at: Completed 07-component-library-03-PLAN.md
-last_updated: "2026-03-20T17:12:52.864Z"
-last_activity: 2026-03-15 — Phase 5 complete and verified (design tokens + Inter font)
+status: executing
+stopped_at: Completed 08-06-PLAN.md
+last_updated: "2026-03-20T18:21:06.001Z"
+last_activity: 2026-03-20 — Plan 06 executed for graph token migration across MacroGraph, MealTimeGraph, BarGraph, TotalCaloriesGraph, and PercentageSlider
 progress:
   total_phases: 5
   completed_phases: 3
-  total_plans: 9
-  completed_plans: 9
-  percent: 20
+  total_plans: 16
+  completed_plans: 14
+  percent: 88
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-14)
 
 **Core value:** A fast, offline-first macro tracker where adding a meal and seeing your day's intake takes under 10 seconds.
-**Current focus:** Phase 6 — Paper Theme Integration
+**Current focus:** Phase 8 — Screen Migration
 
 ## Current Position
 
-Phase: 6 of 9 (Paper Theme Integration)
-Plan: — (not yet planned)
-Status: Ready to plan
-Last activity: 2026-03-15 — Phase 5 complete and verified (design tokens + Inter font)
+Phase: 8 of 9 (Screen Migration)
+Plan: 07 next
+Status: In progress
+Last activity: 2026-03-20 — Plan 06 executed for graph token migration across MacroGraph, MealTimeGraph, BarGraph, TotalCaloriesGraph, and PercentageSlider
 
-Progress: [██░░░░░░░░] 20%
+Progress: [█████████░] 88%
 
 ## Accumulated Context
 
@@ -60,6 +60,11 @@ Active decisions for v1.1:
 - [Phase 07-component-library]: Card bordered={false} default uses falsy short-circuit so borderWidth/borderColor never appear in style object when false
 - [Phase 07-component-library]: MacroProgressBar barrel index.ts was already complete from 07-02 fix commit — no additional changes needed
 - [Phase 07-component-library]: MacroProgressBar overflow fill: logged > target AND target > 0 condition prevents false overflow on zero-target segments
+- [Phase 08-screen-migration]: WelcomeScreen keeps rgba white overlay values as a documented carve-out because there is no opacity token equivalent.
+- [Phase 08-screen-migration]: Nested onboarding layout views now use plain react-native View; no replacement background color was added unless already explicit.
+- [Phase 08-screen-migration]: Diet screens use DS Text variants for hierarchy and plain react-native View for layout; transparent containers stay explicit rather than reintroducing themed wrappers.
+- [Phase 08-screen-migration]: DietTodayScreen graph data is the single source of macro colors and must pass `colors.macro.*` tokens so BarGraph and TotalCaloriesGraph stay aligned.
+- [Phase 08-screen-migration]: Graph chrome and slider UI now map legacy hex values to semantic brand, surface, and text tokens instead of one-off literals.
 
 ### Pending Todos
 
@@ -67,10 +72,10 @@ None yet.
 
 ### Blockers/Concerns
 
-None active. (Phase 5 blockers resolved — UIAppFonts intact, physical device verified.)
+- Git writes are blocked in the current sandbox (`.git/index.lock` denied), so required task commits and docs commit could not be created during plan execution.
 
 ## Session Continuity
 
-Last session: 2026-03-20T17:10:21.367Z
-Stopped at: Completed 07-component-library-03-PLAN.md
+Last session: 2026-03-20T18:21:05.996Z
+Stopped at: Completed 08-06-PLAN.md
 Resume file: None

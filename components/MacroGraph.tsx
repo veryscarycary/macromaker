@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import Svg, { Circle, Path, G, Text as SvgText } from 'react-native-svg';
 import { pie as d3pie, arc as d3arc } from 'd3-shape';
+import { colors } from '../design/tokens/colors';
 import {
   convertCarbsToCalories,
   convertFatToCalories,
@@ -11,9 +12,9 @@ import {
 const PIE_RADIUS = 90;
 
 const MACRO_CONFIG = [
-  { name: 'Carbs', color: '#2b4af5' },
-  { name: 'Protein', color: '#bd2020' },
-  { name: 'Fat', color: '#d7dc73' },
+  { name: 'Carbs', color: colors.macro.carbs },
+  { name: 'Protein', color: colors.macro.protein },
+  { name: 'Fat', color: colors.macro.fat },
 ];
 
 type Props = {
@@ -43,9 +44,9 @@ const MacroGraph = ({
   const fatPercentage = totalCalories > 0 ? fatCalories / totalCalories : 0;
 
   const pieData = [
-    { name: 'Carbs', percentage: carbsPercentage, color: '#2b4af5' },
-    { name: 'Protein', percentage: proteinPercentage, color: '#bd2020' },
-    { name: 'Fat', percentage: fatPercentage, color: '#d7dc73' },
+    { name: 'Carbs', percentage: carbsPercentage, color: colors.macro.carbs },
+    { name: 'Protein', percentage: proteinPercentage, color: colors.macro.protein },
+    { name: 'Fat', percentage: fatPercentage, color: colors.macro.fat },
   ];
 
   const pieGenerator = d3pie<{ name: string; percentage: number; color: string }>()
@@ -67,12 +68,12 @@ const MacroGraph = ({
         <G transform={`translate(${center}, ${center})`}>
           {totalCalories === 0 ? (
             <>
-              <Circle r={PIE_RADIUS} fill="#e0e0e0" />
+              <Circle r={PIE_RADIUS} fill={colors.surface.muted} />
               <SvgText
                 x={0}
                 y={5}
                 textAnchor="middle"
-                fill="#888"
+                fill={colors.text.tertiary}
                 fontSize={14}
               >
                 No Data
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   legendText: {
-    color: '#7F7F7F',
+    color: colors.text.tertiary,
     fontSize: 13,
   },
 });

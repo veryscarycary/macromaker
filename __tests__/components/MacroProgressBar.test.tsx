@@ -32,14 +32,12 @@ import fs from 'fs';
 import path from 'path';
 import React from 'react';
 import { render } from '@testing-library/react-native';
+import { colors } from '../../design/tokens/colors';
 // This import will fail until Plan 07-02 creates design/components/ barrel — expected RED behavior
 import { MacroProgressBar } from '../../design/components';
 
-// Token values asserted in tests (from design/tokens/colors.ts)
-const CARBS_COLOR = '#60a5fa';
-const PROTEIN_COLOR = '#a78bfa';
-const FAT_COLOR = '#fbbf24';
-const ERROR_COLOR = '#ef4444';
+const CARBS_COLOR = colors.macro.carbs;
+const ERROR_COLOR = colors.status.error;
 
 describe('MacroProgressBar', () => {
   it('renders without crash when all targets are 0 (zero-target guard, equal thirds fallback)', () => {

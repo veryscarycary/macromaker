@@ -2,6 +2,7 @@ import React from 'react';
 import Svg, { G, Rect, Line, Text } from 'react-native-svg';
 import { scaleLinear } from 'd3-scale';
 import { BarGraphData } from '../../BarGraph/types';
+import { colors } from '../../../design/tokens/colors';
 
 const createX = (calories: number, width: number) =>
   scaleLinear().domain([0, calories]).range([0, width]);
@@ -58,11 +59,40 @@ const MultipleMacroBarWithContainer = ({
     <Svg width={width} height={height}>
       <G x={x} y={y + 10}>
         {/* Container outline */}
-        <Rect x={0} y={0} width={barWidth} height={thickness} stroke="#000000" strokeWidth={3} fill="none" />
+        <Rect
+          x={0}
+          y={0}
+          width={barWidth}
+          height={thickness}
+          stroke={colors.text.primary}
+          strokeWidth={3}
+          fill="none"
+        />
         {/* Macro bars */}
-        <Rect x={0} y={0} width={firstLength} height={thickness} fill={color1} stroke="#000000" />
-        <Rect x={firstLength} y={0} width={secondLength} height={thickness} fill={color2} stroke="#000000" />
-        <Rect x={firstLength + secondLength} y={0} width={thirdLength} height={thickness} fill={color3} stroke="#000000" />
+        <Rect
+          x={0}
+          y={0}
+          width={firstLength}
+          height={thickness}
+          fill={color1}
+          stroke={colors.text.primary}
+        />
+        <Rect
+          x={firstLength}
+          y={0}
+          width={secondLength}
+          height={thickness}
+          fill={color2}
+          stroke={colors.text.primary}
+        />
+        <Rect
+          x={firstLength + secondLength}
+          y={0}
+          width={thirdLength}
+          height={thickness}
+          fill={color3}
+          stroke={colors.text.primary}
+        />
       </G>
 
       <G x={x} y={y + 45}>
@@ -72,15 +102,29 @@ const MultipleMacroBarWithContainer = ({
             y1={-2}
             x2={targetLineX}
             y2={-thickness - 9}
-            stroke="#ffb85b"
+            stroke={colors.macro.fat}
             strokeWidth={5}
           />
         )}
-        <Text fill="#717171" x={targetCaloriesLabelXPos} y={0} fontSize={14} fontFamily="Arial" textAnchor="end">
+        <Text
+          fill={colors.text.secondary}
+          x={targetCaloriesLabelXPos}
+          y={0}
+          fontSize={14}
+          fontFamily="Arial"
+          textAnchor="end"
+        >
           {targetCalories.toString()}
         </Text>
         {currentCalories > targetCalories && targetCalories > 0 && (
-          <Text fill="#db0000" x={barWidth + 10} y={0} fontSize={14} fontFamily="Arial" textAnchor="end">
+          <Text
+            fill={colors.status.error}
+            x={barWidth + 10}
+            y={0}
+            fontSize={14}
+            fontFamily="Arial"
+            textAnchor="end"
+          >
             {currentCalories.toString()}
           </Text>
         )}

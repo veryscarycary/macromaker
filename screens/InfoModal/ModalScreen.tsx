@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { Button, StyleSheet } from 'react-native';
-import { Text, View } from '../../components/Themed';
+import React from 'react';
 import { ModalStackParamList, Navigation } from '../../types';
 import { createStackNavigator } from '@react-navigation/stack';
 import BasicInfoScreen from './screens/BasicInfoScreen';
@@ -25,8 +23,5 @@ const ModalScreen = ({ navigation }: Props) => {
     </InfoProvider>
   );
 };
-
-const styles = StyleSheet.create({
-});
 
 export default ModalScreen;

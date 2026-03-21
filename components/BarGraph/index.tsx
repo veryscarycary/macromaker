@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from '../Themed';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, View } from 'react-native';
 
 import HorizontalBars from './HorizontalBars';
 import XAxis from './XAxis';

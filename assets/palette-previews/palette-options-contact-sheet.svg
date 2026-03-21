@@ -1,0 +1,35 @@
+<svg width="1500" height="980" viewBox="0 0 1500 980" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="980" fill="#F1F5F9"/>
+  <text x="64" y="86" fill="#0F172A" font-family="Helvetica, Arial, sans-serif" font-size="42" font-weight="700">MacroMaker Supporting Palette Options</text>
+  <text x="64" y="122" fill="#475569" font-family="Helvetica, Arial, sans-serif" font-size="20">Brand purple stays in the same family. Macro/support colors change.</text>
+
+  <rect x="64" y="170" width="1372" height="232" rx="28" fill="#FFFFFF"/>
+  <text x="100" y="222" fill="#0F172A" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700">1. Sport / Performance</text>
+  <rect x="100" y="248" width="176" height="116" rx="18" fill="#A7ABF2"/><text x="122" y="316" fill="#0F172A" font-family="Helvetica, Arial, sans-serif" font-size="24">Light</text>
+  <rect x="296" y="248" width="176" height="116" rx="18" fill="#6D73E0"/><text x="318" y="316" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Primary</text>
+  <rect x="492" y="248" width="176" height="116" rx="18" fill="#4B54BE"/><text x="514" y="316" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Dark</text>
+  <rect x="734" y="248" width="176" height="116" rx="18" fill="#2563EB"/><text x="756" y="316" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Carbs</text>
+  <rect x="930" y="248" width="176" height="116" rx="18" fill="#7C3AED"/><text x="952" y="316" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Protein</text>
+  <rect x="1126" y="248" width="176" height="116" rx="18" fill="#C2410C"/><text x="1148" y="316" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Fat</text>
+  <text x="100" y="388" fill="#475569" font-family="Helvetica, Arial, sans-serif" font-size="20">Best if you want energy, clarity, and a stronger fitness feel.</text>
+
+  <rect x="64" y="434" width="1372" height="232" rx="28" fill="#FFFFFF"/>
+  <text x="100" y="486" fill="#0F172A" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700">2. Premium / Editorial</text>
+  <rect x="100" y="512" width="176" height="116" rx="18" fill="#AEB1F0"/><text x="122" y="580" fill="#0F172A" font-family="Helvetica, Arial, sans-serif" font-size="24">Light</text>
+  <rect x="296" y="512" width="176" height="116" rx="18" fill="#696FD2"/><text x="318" y="580" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Primary</text>
+  <rect x="492" y="512" width="176" height="116" rx="18" fill="#484EAF"/><text x="514" y="580" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Dark</text>
+  <rect x="734" y="512" width="176" height="116" rx="18" fill="#1D4ED8"/><text x="756" y="580" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Carbs</text>
+  <rect x="930" y="512" width="176" height="116" rx="18" fill="#6D28D9"/><text x="952" y="580" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Protein</text>
+  <rect x="1126" y="512" width="176" height="116" rx="18" fill="#B45309"/><text x="1148" y="580" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Fat</text>
+  <text x="100" y="652" fill="#475569" font-family="Helvetica, Arial, sans-serif" font-size="20">Best if you want the app to feel a little more polished and premium.</text>
+
+  <rect x="64" y="698" width="1372" height="232" rx="28" fill="#FFFFFF"/>
+  <text x="100" y="750" fill="#0F172A" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700">3. Earth / Strength</text>
+  <rect x="100" y="776" width="176" height="116" rx="18" fill="#B4A8F2"/><text x="122" y="844" fill="#0F172A" font-family="Helvetica, Arial, sans-serif" font-size="24">Light</text>
+  <rect x="296" y="776" width="176" height="116" rx="18" fill="#7569D4"/><text x="318" y="844" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Primary</text>
+  <rect x="492" y="776" width="176" height="116" rx="18" fill="#5445B3"/><text x="514" y="844" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Dark</text>
+  <rect x="734" y="776" width="176" height="116" rx="18" fill="#0F766E"/><text x="756" y="844" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Carbs</text>
+  <rect x="930" y="776" width="176" height="116" rx="18" fill="#7C2D12"/><text x="952" y="844" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Protein</text>
+  <rect x="1126" y="776" width="176" height="116" rx="18" fill="#A16207"/><text x="1148" y="844" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24">Fat</text>
+  <text x="100" y="916" fill="#475569" font-family="Helvetica, Arial, sans-serif" font-size="20">Best if you want the strongest break away from any pastel or Easter association.</text>
+</svg>

@@ -41,12 +41,12 @@ Requirements for this milestone: design system, branding, and app rename to Hone
 
 ### Screen Migration
 
-- [ ] **MIGR-01**: Onboarding screens (WelcomeScreen, BasicInfoScreen, MoreInfoScreen) migrated to design system tokens and components
+- [x] **MIGR-01**: Onboarding screens (WelcomeScreen, BasicInfoScreen, MoreInfoScreen) migrated to design system tokens and components
 - [ ] **MIGR-02**: AddFoodScreen and EditFoodScreen migrated to design system tokens and components
-- [ ] **MIGR-03**: DietTodayScreen migrated to design system tokens and components
-- [ ] **MIGR-04**: DietHistoryScreen and DailyDietScreen migrated to design system tokens and components
+- [x] **MIGR-03**: DietTodayScreen migrated to design system tokens and components
+- [x] **MIGR-04**: DietHistoryScreen and DailyDietScreen migrated to design system tokens and components
 - [ ] **MIGR-05**: FitnessScreen migrated to design system tokens and components
-- [ ] **MIGR-06**: D3 graph components (BarGraph, MealTimeGraph, TotalCaloriesGraph) updated to use `colors.macro.*` tokens for fills; SVG `<Text>` stays on system fonts (documented carve-out)
+- [x] **MIGR-06**: D3 graph components (BarGraph, MealTimeGraph, TotalCaloriesGraph) updated to use `colors.macro.*` tokens for fills; SVG `<Text>` stays on system fonts (documented carve-out)
 - [ ] **MIGR-07**: `constants/Colors.ts` shim deleted; no hardcoded hex values remain in any screen or component file
 
 ### Brand Identity
@@ -119,12 +119,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMP-03 | Phase 7 | Complete |
 | COMP-04 | Phase 7 | Complete |
 | COMP-05 | Phase 7 | Complete |
-| MIGR-01 | Phase 8 | Pending |
+| MIGR-01 | Phase 8 | Complete |
 | MIGR-02 | Phase 8 | Pending |
-| MIGR-03 | Phase 8 | Pending |
-| MIGR-04 | Phase 8 | Pending |
+| MIGR-03 | Phase 8 | Complete |
+| MIGR-04 | Phase 8 | Complete |
 | MIGR-05 | Phase 8 | Pending |
-| MIGR-06 | Phase 8 | Pending |
+| MIGR-06 | Phase 8 | Complete |
 | MIGR-07 | Phase 8 | Pending |
 | BRAND-01 | Phase 9 | Pending |
 | BRAND-02 | Phase 9 | Pending |

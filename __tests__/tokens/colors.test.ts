@@ -14,6 +14,19 @@ describe('TOKS-01: Color tokens', () => {
     expect(colors.brand.primaryLight).toMatch(/#[0-9a-fA-F]{6}/);
   });
 
+  it('colors.neutral exports the full slate scale as hex strings', () => {
+    expect(colors.neutral[50]).toMatch(/#[0-9a-fA-F]{6}/);
+    expect(colors.neutral[100]).toMatch(/#[0-9a-fA-F]{6}/);
+    expect(colors.neutral[200]).toMatch(/#[0-9a-fA-F]{6}/);
+    expect(colors.neutral[300]).toMatch(/#[0-9a-fA-F]{6}/);
+    expect(colors.neutral[400]).toMatch(/#[0-9a-fA-F]{6}/);
+    expect(colors.neutral[500]).toMatch(/#[0-9a-fA-F]{6}/);
+    expect(colors.neutral[600]).toMatch(/#[0-9a-fA-F]{6}/);
+    expect(colors.neutral[700]).toMatch(/#[0-9a-fA-F]{6}/);
+    expect(colors.neutral[800]).toMatch(/#[0-9a-fA-F]{6}/);
+    expect(colors.neutral[900]).toMatch(/#[0-9a-fA-F]{6}/);
+  });
+
   it('colors.surface has keys: default, subtle, muted, border — all hex strings', () => {
     expect(colors.surface.default).toMatch(/#[0-9a-fA-F]{6}/);
     expect(colors.surface.subtle).toMatch(/#[0-9a-fA-F]{6}/);

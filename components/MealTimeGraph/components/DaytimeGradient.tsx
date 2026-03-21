@@ -1,5 +1,6 @@
 import React from 'react';
 import { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
+import { colors } from '../../../design/tokens/colors';
 
 type Props = {
   startingXPos: number;
@@ -21,10 +22,10 @@ const DaytimeGradient = ({ startingXPos, startingYPos, endingXPos, width, height
           y2="0"
           gradientUnits="userSpaceOnUse"
         >
-          <Stop offset="0" stopColor="#002d8d" />
-          <Stop offset="0.3" stopColor="white" />
-          <Stop offset="0.7" stopColor="white" />
-          <Stop offset="1" stopColor="#002d8d" />
+          <Stop offset="0" stopColor={colors.brand.primaryDark} />
+          <Stop offset="0.3" stopColor={colors.surface.default} />
+          <Stop offset="0.7" stopColor={colors.surface.default} />
+          <Stop offset="1" stopColor={colors.brand.primaryDark} />
         </LinearGradient>
       </Defs>
       <Rect

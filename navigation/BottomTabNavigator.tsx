@@ -3,9 +3,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
 import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/native';
+import { View } from 'react-native';
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import { colors } from '../design/tokens/colors';
 import DietHistoryScreen from '../screens/Diet/DietHistoryScreen';
 import FitnessScreen from '../screens/FitnessScreen';
 import {
@@ -18,7 +18,6 @@ import {
 import AddFoodHeaderButton from '../screens/Diet/components/AddFoodHeaderButton';
 import AddFoodScreen from '../screens/AddFood/AddFoodScreen';
 import MenuButton from '../screens/Diet/components/MenuButton';
-import { View } from '../components/Themed';
 import DailyDietScreen from '../screens/Diet/screens/DailyDiet/DailyDietScreen';
 import DietTodayScreen from '../screens/Diet/screens/Today/DietTodayScreen';
 import { getStoredData } from '../utils';
@@ -30,8 +29,6 @@ type Props = {
 };
 
 export default function BottomTabNavigator({ navigation }: Props) {
-  const colorScheme = useColorScheme();
-
   useEffect(
     () =>
       navigation.addListener('focus', async () => {
@@ -44,7 +41,7 @@ export default function BottomTabNavigator({ navigation }: Props) {
   return (
     <BottomTab.Navigator
       initialRouteName="Diet"
-      screenOptions={{ tabBarActiveTintColor: Colors[colorScheme].tint }}
+      screenOptions={{ tabBarActiveTintColor: colors.brand.primary }}
     >
       <BottomTab.Screen
         name="Diet"

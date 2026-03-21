@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Text, View } from '../../components/Themed';
-import { TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text } from '../../design/components';
+import { TextInput, TouchableOpacity, StyleSheet, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../design/tokens/colors';
 import { fontFamilies } from '../../design/tokens/typography';
@@ -93,9 +93,9 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
 
       <DismissKeyboardView style={styles.form}>
 
-        <Text style={styles.sectionHeader}>Meal Details</Text>
+        <Text variant="label" style={styles.sectionHeader}>Meal Details</Text>
         <View style={styles.mealNameWrap}>
-          <Text style={styles.fieldLabel}>Name</Text>
+          <Text variant="label" style={styles.fieldLabel}>Name</Text>
           <TextInput
             style={[styles.mealNameInput, mealNameFocused && styles.mealNameInputFocused]}
             onChangeText={setMealName}
@@ -107,7 +107,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
           />
         </View>
 
-        <Text style={styles.sectionHeader}>Macros</Text>
+        <Text variant="label" style={styles.sectionHeader}>Macros</Text>
         <MacroInput
           type="Carbs"
           unit={carbsUnit}
@@ -137,12 +137,13 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
         />
 
         <View style={styles.caloriesRow}>
-          <Text style={styles.caloriesLabel}>Total Calories</Text>
-          <Text style={styles.caloriesValue}>{Math.round(calories)}</Text>
+          <Text variant="body" style={styles.caloriesLabel}>Total Calories</Text>
+          <Text variant="subheading" style={styles.caloriesValue}>{Math.round(calories)}</Text>
         </View>
 
         {calories > 0 && (
           <View style={styles.macroBar}>
+            {/* Proportion-only bar; not replaced with MacroProgressBar because it has no target/logged semantics. */}
             {carbsCalories > 0 && (
               <View style={[styles.macroBarSeg, { flex: carbsCalories, backgroundColor: colors.macro.carbs }]} />
             )}
@@ -203,7 +204,10 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
             navigation.pop();
           }}
         >
-          <Text style={[styles.addMealText, isDisabled && styles.disabledAddMealText]}>
+          <Text
+            variant="body"
+            style={[styles.addMealText, isDisabled && styles.disabledAddMealText]}
+          >
             {get(meal, 'id') ? 'Edit' : 'Add'} Meal
           </Text>
         </TouchableOpacity>
@@ -216,12 +220,12 @@ const styles = StyleSheet.create({
   searchbar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.surface.muted,
+    backgroundColor: colors.neutral[100],
     paddingHorizontal: 12,
     paddingVertical: 8,
     gap: 10,
     borderBottomWidth: 2,
-    borderBottomColor: 'transparent',
+    borderBottomColor: colors.neutral[200],
   },
   searchbarFocused: {
     borderBottomColor: colors.brand.primary,
@@ -237,6 +241,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: 14,
+    backgroundColor: colors.neutral[50],
   },
   sectionHeader: {
     fontFamily: fontFamilies.semiBold,
@@ -259,11 +264,11 @@ const styles = StyleSheet.create({
     fontFamily: fontFamilies.regular,
     fontSize: 14,
     color: colors.text.primary,
-    backgroundColor: colors.surface.subtle,
+    backgroundColor: colors.neutral[50],
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderWidth: 1,
-    borderColor: colors.surface.border,
+    borderColor: colors.neutral[200],
     borderRadius: 6,
   },
   mealNameInputFocused: {
@@ -276,7 +281,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     marginTop: 2,
     borderTopWidth: 1,
-    borderTopColor: colors.surface.border,
+    borderTopColor: colors.neutral[200],
   },
   caloriesLabel: {
     fontFamily: fontFamilies.semiBold,
@@ -310,7 +315,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   disabledAddMealButton: {
-    backgroundColor: colors.surface.border,
+    backgroundColor: colors.neutral[200],
   },
   addMealText: {
     fontFamily: fontFamilies.semiBold,

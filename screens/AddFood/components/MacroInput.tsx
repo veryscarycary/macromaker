@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { Text, View } from '../../../components/Themed';
+import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text } from '../../../design/components';
 import { colors } from '../../../design/tokens/colors';
 import { fontFamilies } from '../../../design/tokens/typography';
 
@@ -20,7 +20,7 @@ const MacroInput = ({ type, value, unit, macroColor, kcal, setValue, setUnit }: 
   return (
     <View style={styles.card}>
       <View style={[styles.accent, { backgroundColor: macroColor }]} />
-      <Text style={styles.label}>{type}</Text>
+      <Text variant="label" style={styles.label}>{type}</Text>
       <View style={styles.inputContainer}>
         <TextInput
           style={[styles.input, focused && { borderBottomColor: macroColor }]}
@@ -42,7 +42,10 @@ const MacroInput = ({ type, value, unit, macroColor, kcal, setValue, setUnit }: 
               ]}
               onPress={() => setUnit(unitOption)}
             >
-              <Text style={[styles.unitText, unit === unitOption && styles.unitTextSelected]}>
+              <Text
+                variant="caption"
+                style={[styles.unitText, unit === unitOption && styles.unitTextSelected]}
+              >
                 {unitOption}
               </Text>
             </TouchableOpacity>
@@ -50,8 +53,8 @@ const MacroInput = ({ type, value, unit, macroColor, kcal, setValue, setUnit }: 
         </View>
       </View>
       <View style={styles.kcalCol}>
-        <Text style={styles.kcalNum}>{Math.round(kcal)}</Text>
-        <Text style={styles.kcalLabel}>kcal</Text>
+        <Text variant="body" style={styles.kcalNum}>{Math.round(kcal)}</Text>
+        <Text variant="caption" style={styles.kcalLabel}>kcal</Text>
       </View>
     </View>
   );

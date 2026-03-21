@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   dotFilled: {
-    backgroundColor: colors.brand.primary,
+    backgroundColor: colors.accent.rose,
   },
   dotEmpty: {
     backgroundColor: colors.surface.border,

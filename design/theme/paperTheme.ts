@@ -31,7 +31,7 @@ export const paperTheme = {
     ...MD3LightTheme.colors,
     primary:          colors.brand.primary,
     onPrimary:        colors.text.inverse,
-    secondary:        colors.text.secondary,
+    secondary:        colors.accent.teal,
     onSecondary:      colors.text.inverse,
     surface:          colors.surface.default,
     background:       colors.surface.default,

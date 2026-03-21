@@ -5,6 +5,7 @@ import HorizontalBar from './components/HorizontalBar';
 import HorizontalBarTop from './components/HorizontalBarTop';
 import HorizontalBarContainer from './components/HorizontalBarContainer';
 import HorizontalBarWithHook from './components/HorizontalBarWithHook';
+import { colors } from '../../design/tokens/colors';
 
 type Props = {
   data: BarGraphData[];
@@ -21,8 +22,8 @@ const Bars = ({ data, width, height, thickness }: Props) => {
           <HorizontalBarContainer
             width={width * 0.88}
             height={height / 3.3}
-            fill="#d7d7d7"
-            stroke="#a0a0a0"
+            fill={colors.surface.muted}
+            stroke={colors.text.tertiary}
             borderRadius={10}
             x={-10}
             y={-22 + (height / data.length) * index}
@@ -34,7 +35,7 @@ const Bars = ({ data, width, height, thickness }: Props) => {
             width={width * 0.83}
             height={height}
             thickness={4}
-            color="#fa8e00"
+            color={colors.brand.primary}
             hookDirection="bottom"
             y={-10}
           />
@@ -54,7 +55,7 @@ const Bars = ({ data, width, height, thickness }: Props) => {
             width={width * 0.84}
             height={height}
             thickness={thickness}
-            color="#FFC77D"
+            color={colors.surface.muted}
           />
 
           <G x={width * 0.1} y={0}>
@@ -63,7 +64,7 @@ const Bars = ({ data, width, height, thickness }: Props) => {
               fontSize={20}
               fontWeight="bold"
               fontStyle="italic"
-              fill="#939393"
+              fill={colors.text.tertiary}
               textAnchor="start"
               x={-40}
               y={40 + (height / data.length) * index}

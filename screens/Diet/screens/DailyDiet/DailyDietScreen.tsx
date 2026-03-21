@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import MealList from './components/MealList';
 import MacroGraph from '../../../../components/MacroGraph';
-import { Text, View } from '../../../../components/Themed';
 import { getMealData } from '../../../../context/MealContext';
 import { getDay, getMacrosFromMeals } from '../../../../utils';
 import { DietScreenNavigationProp, DietTabParamList, Meal } from '../../../../types';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
+import { Text } from '../../../../design/components';
 import { colors } from '../../../../design/tokens/colors';
-import { fontFamilies } from '../../../../design/tokens/typography';
+import { spacing } from '../../../../design/tokens/spacing';
 
 type Props = {
   route: RouteProp<DietTabParamList, 'DailyDietScreen'>;
@@ -49,10 +49,14 @@ const DailyDietScreen = ({ route, navigation }: Props) => {
   return (
     <>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{getDay(date)}</Text>
+        <Text variant="subheading" style={styles.title}>
+          {getDay(date)}
+        </Text>
       </View>
       <View style={styles.otherNutrientsContainer}>
-        <Text style={styles.data}>Calories: {Math.round(totalCalories)}</Text>
+        <Text variant="body" style={styles.data}>
+          Calories: {Math.round(totalCalories)}
+        </Text>
       </View>
       <View style={styles.graphContainer}>
         <MacroGraph carbs={totalCarbs} protein={totalProtein} fat={totalFat} />
@@ -67,25 +71,20 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 100,
     borderRadius: 10,
-    padding: 7,
+    padding: spacing.sm,
   },
   title: {
-    fontFamily: fontFamilies.semiBold,
-    fontSize: 18,
     textAlign: 'center',
-    color: colors.text.primary,
   },
   otherNutrientsContainer: {
     marginTop: 10,
-    marginHorizontal: 20,
+    marginHorizontal: spacing.lg,
     borderRadius: 10,
-    padding: 7,
+    padding: spacing.sm,
     backgroundColor: 'transparent',
   },
   data: {
-    fontFamily: fontFamilies.regular,
     color: colors.text.secondary,
-    fontSize: 16,
   },
   graphContainer: {
     position: 'relative',

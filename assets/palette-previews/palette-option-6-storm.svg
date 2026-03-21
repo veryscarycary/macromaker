@@ -1,0 +1,35 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" fill="#F8FAFC"/>
+  <rect x="48" y="48" width="1104" height="624" rx="28" fill="#FFFFFF"/>
+  <text x="88" y="118" fill="#0F172A" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="700">Option 6: Storm Indigo</text>
+  <text x="88" y="154" fill="#475569" font-family="Helvetica, Arial, sans-serif" font-size="20">A colder, darker indigo with slate in the mix. Feels more product-focused than decorative.</text>
+
+  <text x="88" y="220" fill="#0F172A" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">Brand</text>
+  <rect x="88" y="244" width="300" height="120" rx="22" fill="#B8C0D9"/>
+  <text x="112" y="292" fill="#0F172A" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700">Primary Light</text>
+  <text x="112" y="324" fill="#334155" font-family="Helvetica, Arial, sans-serif" font-size="24">Storm mist</text>
+
+  <rect x="450" y="244" width="300" height="120" rx="22" fill="#4C566E"/>
+  <text x="474" y="292" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700">Primary</text>
+  <text x="474" y="324" fill="#E2E8F0" font-family="Helvetica, Arial, sans-serif" font-size="24">Storm indigo</text>
+
+  <rect x="812" y="244" width="300" height="120" rx="22" fill="#2F3A4F"/>
+  <text x="836" y="292" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700">Primary Dark</text>
+  <text x="836" y="324" fill="#E2E8F0" font-family="Helvetica, Arial, sans-serif" font-size="24">Dense, quiet depth</text>
+
+  <text x="88" y="434" fill="#0F172A" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">Macro / Supporting Colors</text>
+  <rect x="88" y="458" width="300" height="156" rx="22" fill="#0284C7"/>
+  <text x="112" y="512" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">Carbs</text>
+  <text x="112" y="548" fill="#E0F2FE" font-family="Helvetica, Arial, sans-serif" font-size="28">Cold blue</text>
+  <text x="112" y="582" fill="#E0F2FE" font-family="Helvetica, Arial, sans-serif" font-size="18">Technical, clean, bright</text>
+
+  <rect x="450" y="458" width="300" height="156" rx="22" fill="#4338CA"/>
+  <text x="474" y="512" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">Protein</text>
+  <text x="474" y="548" fill="#E0E7FF" font-family="Helvetica, Arial, sans-serif" font-size="28">Dense indigo</text>
+  <text x="474" y="582" fill="#E0E7FF" font-family="Helvetica, Arial, sans-serif" font-size="18">Cool and firm, not floral</text>
+
+  <rect x="812" y="458" width="300" height="156" rx="22" fill="#CA8A04"/>
+  <text x="836" y="512" fill="#FFFFFF" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700">Fat</text>
+  <text x="836" y="548" fill="#FEF3C7" font-family="Helvetica, Arial, sans-serif" font-size="28">Dark gold</text>
+  <text x="836" y="582" fill="#FEF3C7" font-family="Helvetica, Arial, sans-serif" font-size="18">Warm anchor, not pastel yellow</text>
+</svg>

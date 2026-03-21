@@ -1,6 +1,8 @@
 import React from 'react';
-import { Pressable, StyleSheet, ViewStyle } from 'react-native';
-import { Text, View } from './Themed';
+import { Pressable, StyleSheet, View, ViewStyle } from 'react-native';
+import { Text } from '../design/components';
+import { colors } from '../design/tokens/colors';
+import { fontFamilies } from '../design/tokens/typography';
 
 const STEP = 0.05;
 const SEGMENT_COUNT = 10;
@@ -24,9 +26,9 @@ const PercentageSlider = ({
   style,
   value,
   setValue,
-  minTrackColor = '#7078df',
-  maxTrackColor = '#d8dcf7',
-  thumbColor = '#9091b4',
+  minTrackColor = colors.brand.primary,
+  maxTrackColor = colors.surface.muted,
+  thumbColor = colors.brand.primaryLight,
 }: Props) => {
   const steppedValue = roundToStep(value);
   const activeSegments = Math.round(steppedValue * SEGMENT_COUNT);
@@ -95,8 +97,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontFamily: 'Helvetica',
-    fontWeight: 'bold',
+    fontFamily: fontFamilies.medium,
   },
   controls: {
     backgroundColor: 'transparent',
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
   },
   stepButton: {
     alignItems: 'center',
-    backgroundColor: '#eceffd',
+    backgroundColor: colors.surface.subtle,
     borderRadius: 999,
     height: 28,
     justifyContent: 'center',
@@ -121,20 +122,20 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   stepButtonLabel: {
-    color: '#5560b8',
+    color: colors.brand.primaryDark,
     fontSize: 18,
     fontWeight: 'bold',
     lineHeight: 20,
   },
   valuePill: {
-    backgroundColor: '#7078df',
+    backgroundColor: colors.brand.primary,
     borderRadius: 999,
     minWidth: 58,
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
   valueText: {
-    color: '#fff',
+    color: colors.text.inverse,
     fontSize: 13,
     fontWeight: '700',
     textAlign: 'center',

@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from '../Themed';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, View } from 'react-native';
 import Svg from 'react-native-svg';
 import D3Rectangle from './components/D3Rectangle';
 import DaytimeGradient from './components/DaytimeGradient';
@@ -9,6 +8,7 @@ import D3Circle from './components/D3Circle';
 import { MealTimeData } from './types';
 import CaloriesYAxis from './components/CaloriesYAxis';
 import { getCircleRadius } from './utils';
+import { colors } from '../../design/tokens/colors';
 
 type Props = {
   data: MealTimeData;
@@ -37,7 +37,7 @@ const MealTimeGraph = ({ data }: Props) => {
           startingYPos={height - 2}
           height={2}
           width={width}
-          color="#a0a0a0"
+          color={colors.text.tertiary}
         />
         <TimeXAxis
           startingXPos={startingXPos}

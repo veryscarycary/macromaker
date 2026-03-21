@@ -1,0 +1,1 @@
+- `__tests__/tokens/fonts.test.ts` fails in the full Jest suite because `react-native.config.js` no longer contains the expected `react-native-vector-icons` `ios: null` guard. This is pre-existing and out of scope for `08-02`.

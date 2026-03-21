@@ -1,6 +1,5 @@
 import React from 'react';
-import { TouchableWithoutFeedback, Keyboard, ViewStyle } from 'react-native';
-import { View } from './Themed';
+import { TouchableWithoutFeedback, Keyboard, View, ViewStyle } from 'react-native';
 
 type Props = {
   children: React.ReactNode;

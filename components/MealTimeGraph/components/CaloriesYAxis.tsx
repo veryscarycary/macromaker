@@ -1,6 +1,7 @@
 import React from 'react';
 import { G, Text } from 'react-native-svg';
 import { getYPos } from '../utils';
+import { colors } from '../../../design/tokens/colors';
 
 type Props = {
   startingXPos: number;
@@ -20,7 +21,7 @@ const CaloriesYAxis = ({ startingXPos, startingYPos, height, tdee, interval = 50
       {Array.from(Array(numIntervals)).map((_, i) => (
         <Text
           key={i}
-          fill="#717171"
+          fill={colors.text.secondary}
           x={0}
           y={height - getYPos(interval * (i + 1), tdee, height) - centerTextOffset}
           fontSize={12}

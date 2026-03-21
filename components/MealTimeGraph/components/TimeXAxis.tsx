@@ -1,6 +1,7 @@
 import React from 'react';
 import { G, Text } from 'react-native-svg';
 import VerticalTick from './VerticalTick';
+import { colors } from '../../../design/tokens/colors';
 
 type Props = {
   startingXPos: number;
@@ -25,10 +26,10 @@ const TimeXAxis = ({ startingXPos, startingYPos, width }: Props) => {
           <VerticalTick
             startingXPos={widthBetweenTicks * i}
             startingYPos={-5}
-            color="#717171"
+            color={colors.text.secondary}
           />
           <Text
-            fill="#717171"
+            fill={colors.text.secondary}
             x={widthBetweenTicks * i}
             y={14}
             fontSize={14}
