@@ -30,7 +30,7 @@ jest.mock('../../components/MealTimeGraph/utils', () => ({
   getMealTimeMealsWithColor: jest.fn(() => []),
 }));
 jest.mock('../../context/MealContext', () => ({
-  getMealData: jest.fn(() => Promise.resolve({ meals: [] })),
+  getAllMealData: jest.fn(() => Promise.resolve([])),
 }));
 jest.mock('../../utils', () => {
   const actual = jest.requireActual('../../utils');

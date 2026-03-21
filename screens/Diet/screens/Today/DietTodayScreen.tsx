@@ -1,16 +1,28 @@
-import React, { useCallback, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Dimensions,
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { defaultValues as defaultBasicInfo } from '../../../../context/InfoContext';
-import { getMealData } from '../../../../context/MealContext';
+import { getAllMealData } from '../../../../context/MealContext';
 import { DietDay, DietScreenNavigationProp, Info, Meal } from '../../../../types';
 import {
   convertCarbsToCalories,
   convertFatToCalories,
   convertProteinToCalories,
+  formatStoredDate,
   getMacrosFromMeals,
+  getDay,
   getStoredData,
   getTodaysDate,
+  parseStoredDate,
 } from '../../../../utils';
 import BarGraph from '../../../../components/BarGraph';
 import { BarGraphData } from '../../../../components/BarGraph/types';
@@ -28,6 +40,21 @@ type Props = {
 
 const SIGNIFICANT_OVERFLOW_RATIO = 0.1;
 const MAX_OVERFLOW_VISUAL_RATIO = 0.25;
+const DAY_WINDOW = 15;
+const DAY_RAIL_ITEM_WIDTH = 52;
+const DAY_RAIL_SIDE_PADDING =
+  (Dimensions.get('window').width / 2) - (DAY_RAIL_ITEM_WIDTH / 2) - spacing.lg;
+
+type DayCircleFill = 'empty' | 'half' | 'full';
+
+type DayRailItem = {
+  date: Date;
+  key: string;
+  label: string;
+  dayLetter: string;
+  fill: DayCircleFill;
+  isAlert: boolean;
+};
 
 function alpha(color: string, opacity: number): string {
   const normalized = color.replace('#', '');
@@ -43,9 +70,74 @@ function alpha(color: string, opacity: number): string {
   return `rgba(${red}, ${green}, ${blue}, ${opacity})`;
 }
 
+function addDays(date: Date, days: number): Date {
+  const nextDate = new Date(date);
+  nextDate.setDate(nextDate.getDate() + days);
+  return nextDate;
+}
+
+function getSelectedDateTitle(dateKey: string, todayKey: string): string {
+  const selectedDate = parseStoredDate(dateKey);
+  const prefix = dateKey === todayKey ? 'Today' : getDay(dateKey);
+
+  return `${prefix}, ${selectedDate.toLocaleDateString('en-us', {
+    month: 'long',
+    day: 'numeric',
+  })}`;
+}
+
+function getMacroHitCountAndAlert(
+  meals: Meal[],
+  targets: { carbs: number; protein: number; fat: number }
+) {
+  const { totalCarbs, totalProtein, totalFat, totalCalories } = getMacrosFromMeals(meals);
+  const macros = [
+    { logged: totalCarbs, target: targets.carbs },
+    { logged: totalProtein, target: targets.protein },
+    { logged: totalFat, target: targets.fat },
+  ];
+
+  let isAlert = false;
+
+  macros.forEach(({ logged, target }) => {
+    if (target <= 0) {
+      return;
+    }
+
+    const progress = logged / target;
+
+    if (progress >= 1 + SIGNIFICANT_OVERFLOW_RATIO) {
+      isAlert = true;
+    }
+  });
+
+  return { totalCalories, isAlert };
+}
+
+function getDayCircleState(
+  meals: Meal[],
+  targets: { carbs: number; protein: number; fat: number },
+  calorieTarget: number
+): { fill: DayCircleFill; isAlert: boolean } {
+  const { totalCalories, isAlert } = getMacroHitCountAndAlert(meals, targets);
+
+  if (totalCalories >= calorieTarget && totalCalories > 0) {
+    return { fill: 'full', isAlert };
+  }
+
+  if (totalCalories > 0) {
+    return { fill: 'half', isAlert };
+  }
+
+  return { fill: 'empty', isAlert };
+}
+
 const DietTodayScreen = ({}: Props) => {
   const [basicInfo, setBasicInfo] = useState<Info>(defaultBasicInfo);
-  const [todaysMeals, setTodaysMeals] = useState<Meal[]>([]);
+  const todayKey = getTodaysDate();
+  const [selectedDateKey, setSelectedDateKey] = useState(todayKey);
+  const [dietDays, setDietDays] = useState<DietDay[]>([]);
+  const railRef = useRef<FlatList<DayRailItem>>(null);
   const {
     tdee,
     targetProteinPercentage,
@@ -59,9 +151,44 @@ const DietTodayScreen = ({}: Props) => {
   const targetCarbsGrams = targetCarbsCalories / 4;
   const targetProteinGrams = targetProteinCalories / 4;
   const targetFatGrams = targetFatCalories / 9;
-
+  const macroTargets = useMemo(
+    () => ({
+      carbs: targetCarbsGrams,
+      protein: targetProteinGrams,
+      fat: targetFatGrams,
+    }),
+    [targetCarbsGrams, targetProteinGrams, targetFatGrams]
+  );
+  const mealsByDate = useMemo(
+    () =>
+      dietDays.reduce<Record<string, Meal[]>>((acc, dietDay) => {
+        acc[dietDay.date] = dietDay.meals;
+        return acc;
+      }, {}),
+    [dietDays]
+  );
+  const selectedMeals = mealsByDate[selectedDateKey] || [];
   const { totalCarbs, totalProtein, totalFat } =
-    getMacrosFromMeals(todaysMeals);
+    getMacrosFromMeals(selectedMeals);
+  const dayRailData = useMemo(() => {
+    const today = parseStoredDate(todayKey);
+    const middleIndex = Math.floor(DAY_WINDOW / 2);
+
+    return Array.from({ length: DAY_WINDOW }, (_, index) => {
+      const date = addDays(today, index - middleIndex);
+      const key = formatStoredDate(date);
+      const status = getDayCircleState(mealsByDate[key] || [], macroTargets, tdee);
+
+      return {
+        date,
+        key,
+        label: date.toLocaleDateString('en-us', { weekday: 'short' }).slice(0, 1),
+        dayLetter: date.toLocaleDateString('en-us', { weekday: 'short' }).slice(0, 1),
+        fill: status.fill,
+        isAlert: status.isAlert,
+      };
+    });
+  }, [todayKey, mealsByDate, macroTargets]);
 
   useFocusEffect(
     useCallback(() => {
@@ -69,7 +196,7 @@ const DietTodayScreen = ({}: Props) => {
 
       const loadToday = async () => {
         const basicInfo = (await getStoredData('basicInfo')) as Info;
-        const dietDay = (await getMealData(getTodaysDate())) as DietDay;
+        const allDietDays = await getAllMealData();
 
         if (!isActive) {
           return;
@@ -79,7 +206,7 @@ const DietTodayScreen = ({}: Props) => {
           setBasicInfo(basicInfo);
         }
 
-        setTodaysMeals(dietDay ? dietDay.meals : []);
+        setDietDays(allDietDays || []);
       };
 
       loadToday();
@@ -89,6 +216,27 @@ const DietTodayScreen = ({}: Props) => {
       };
     }, [])
   );
+
+  useEffect(() => {
+    const middleIndex = Math.floor(DAY_WINDOW / 2);
+
+    requestAnimationFrame(() => {
+      railRef.current?.scrollToOffset({
+        offset: middleIndex * DAY_RAIL_ITEM_WIDTH,
+        animated: false,
+      });
+    });
+  }, []);
+
+  const handleDayRailMomentumEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const rawIndex = event.nativeEvent.contentOffset.x / DAY_RAIL_ITEM_WIDTH;
+    const nextIndex = Math.min(
+      Math.max(Math.round(rawIndex), 0),
+      dayRailData.length - 1
+    );
+
+    setSelectedDateKey(dayRailData[nextIndex].key);
+  };
 
   const data: BarGraphData[] = [
     {
@@ -111,7 +259,7 @@ const DietTodayScreen = ({}: Props) => {
     },
   ];
   const mealTimeData = {
-    meals: getMealTimeMealsWithColor(todaysMeals),
+    meals: getMealTimeMealsWithColor(selectedMeals),
     tdee,
   };
   const totalCalories = Math.round(data.reduce((acc, curr) => acc + curr.amount, 0));
@@ -149,11 +297,83 @@ const DietTodayScreen = ({}: Props) => {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
+      <View style={styles.dayRailCard}>
+        <Text variant="subheading" style={styles.dayRailTitle}>
+          {getSelectedDateTitle(selectedDateKey, todayKey)}
+        </Text>
+        <FlatList
+          ref={railRef}
+          data={dayRailData}
+          keyExtractor={(item) => item.key}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          bounces={false}
+          snapToInterval={DAY_RAIL_ITEM_WIDTH}
+          decelerationRate="fast"
+          contentContainerStyle={styles.dayRailContent}
+          onMomentumScrollEnd={handleDayRailMomentumEnd}
+          getItemLayout={(_, index) => ({
+            length: DAY_RAIL_ITEM_WIDTH,
+            offset: DAY_RAIL_ITEM_WIDTH * index,
+            index,
+          })}
+          renderItem={({ item, index }) => {
+            const isSelected = item.key === selectedDateKey;
+            const circleColor = item.isAlert
+              ? colors.status.error
+              : colors.accent.aqua;
+
+            return (
+              <TouchableOpacity
+                style={styles.dayRailItem}
+                activeOpacity={0.85}
+                onPress={() => {
+                  setSelectedDateKey(item.key);
+                  railRef.current?.scrollToOffset({
+                    offset: index * DAY_RAIL_ITEM_WIDTH,
+                    animated: true,
+                  });
+                }}
+              >
+                <Text
+                  variant="caption"
+                  style={[
+                    styles.dayRailLabel,
+                    isSelected && styles.dayRailLabelSelected,
+                  ]}
+                >
+                  {item.dayLetter}
+                </Text>
+                <View
+                  style={[
+                    styles.dayCircleOuter,
+                    isSelected && styles.dayCircleOuterSelected,
+                    item.fill === 'empty' && styles.dayCircleOuterEmpty,
+                  ]}
+                >
+                  {item.fill !== 'empty' ? (
+                    <View
+                      style={[
+                        styles.dayCircleFill,
+                        item.fill === 'half'
+                          ? styles.dayCircleFillHalf
+                          : styles.dayCircleFillFull,
+                        { backgroundColor: circleColor },
+                      ]}
+                    />
+                  ) : null}
+                </View>
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
+
       <View style={styles.calorieCard}>
         <View style={styles.cardHeader}>
           <View>
             <Text variant="label" style={styles.eyebrow}>
-              Today&apos;s Intake
+              Daily Intake
             </Text>
             <Text variant="subheading" style={styles.cardTitle}>
               Calories over time
@@ -353,6 +573,61 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.lg,
     gap: spacing.md,
+  },
+  dayRailCard: {
+    paddingTop: spacing.lg,
+    paddingBottom: spacing.md,
+    borderRadius: spacing.md,
+    backgroundColor: colors.surface.default,
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
+    overflow: 'hidden',
+  },
+  dayRailTitle: {
+    color: colors.text.primary,
+    paddingHorizontal: spacing.lg,
+    marginBottom: spacing.md,
+    textAlign: 'center',
+  },
+  dayRailContent: {
+    paddingHorizontal: DAY_RAIL_SIDE_PADDING,
+  },
+  dayRailItem: {
+    width: DAY_RAIL_ITEM_WIDTH,
+    alignItems: 'center',
+  },
+  dayRailLabel: {
+    color: colors.text.tertiary,
+    marginBottom: spacing.xs,
+  },
+  dayRailLabelSelected: {
+    color: colors.text.secondary,
+  },
+  dayCircleOuter: {
+    width: 34,
+    height: 34,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
+    backgroundColor: colors.surface.default,
+    overflow: 'hidden',
+    justifyContent: 'flex-end',
+  },
+  dayCircleOuterSelected: {
+    borderColor: colors.neutral[900],
+    borderWidth: 2,
+  },
+  dayCircleOuterEmpty: {
+    backgroundColor: colors.neutral[100],
+  },
+  dayCircleFill: {
+    width: '100%',
+  },
+  dayCircleFillHalf: {
+    height: '50%',
+  },
+  dayCircleFillFull: {
+    height: '100%',
   },
   calorieCard: {
     backgroundColor: colors.surface.default,
