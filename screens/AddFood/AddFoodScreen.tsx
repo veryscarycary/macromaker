@@ -176,186 +176,184 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
+          <Text variant="label" style={styles.sectionHeader}>Meal Details</Text>
+          <View style={styles.mealNameWrap}>
+            <Text variant="label" style={styles.fieldLabel}>Name</Text>
+            <TextInput
+              style={[styles.mealNameInput, mealNameFocused && styles.mealNameInputFocused]}
+              onChangeText={setMealName}
+              value={mealName}
+              placeholder="e.g. Chicken breast"
+              placeholderTextColor={colors.text.tertiary}
+              onFocus={() => setMealNameFocused(true)}
+              onBlur={() => setMealNameFocused(false)}
+            />
+          </View>
 
-        <Text variant="label" style={styles.sectionHeader}>Meal Details</Text>
-        <View style={styles.mealNameWrap}>
-          <Text variant="label" style={styles.fieldLabel}>Name</Text>
-          <TextInput
-            style={[styles.mealNameInput, mealNameFocused && styles.mealNameInputFocused]}
-            onChangeText={setMealName}
-            value={mealName}
-            placeholder="e.g. Chicken breast"
-            placeholderTextColor={colors.text.tertiary}
-            onFocus={() => setMealNameFocused(true)}
-            onBlur={() => setMealNameFocused(false)}
+          <View style={styles.logTimeCard}>
+            <Text variant="label" style={styles.sectionHeader}>Log Timing</Text>
+            <Text variant="caption" style={styles.logTimeHelper}>
+              Choose when this meal was eaten so it lands in the right day and time slot.
+            </Text>
+
+            <View style={styles.dateTimeRow}>
+              <View style={styles.dateTimeField}>
+                <Text variant="label" style={styles.fieldLabel}>Day</Text>
+                <TextInput
+                  style={[styles.dateTimeInput, mealDateFocused && styles.dateTimeInputFocused]}
+                  value={mealDateInput}
+                  onChangeText={setMealDateInput}
+                  placeholder="MM/DD/YYYY"
+                  placeholderTextColor={colors.text.tertiary}
+                  keyboardType="numbers-and-punctuation"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  onFocus={() => setMealDateFocused(true)}
+                  onBlur={() => setMealDateFocused(false)}
+                />
+              </View>
+              <View style={styles.dateTimeField}>
+                <Text variant="label" style={styles.fieldLabel}>Time</Text>
+                <TextInput
+                  style={[styles.dateTimeInput, mealTimeFocused && styles.dateTimeInputFocused]}
+                  value={mealTimeInput}
+                  onChangeText={setMealTimeInput}
+                  placeholder="8:30 PM"
+                  placeholderTextColor={colors.text.tertiary}
+                  keyboardType="numbers-and-punctuation"
+                  autoCapitalize="characters"
+                  autoCorrect={false}
+                  onFocus={() => setMealTimeFocused(true)}
+                  onBlur={() => setMealTimeFocused(false)}
+                />
+              </View>
+            </View>
+
+            {selectedMealDate ? (
+              <Text variant="caption" style={styles.logTimePreview}>
+                Logging for {selectedMealDate.toLocaleDateString('en-us', {
+                  weekday: 'long',
+                  month: 'short',
+                  day: 'numeric',
+                })} at {selectedMealDate.toLocaleTimeString('en-us', {
+                  hour: 'numeric',
+                  minute: '2-digit',
+                })}
+              </Text>
+            ) : (
+              <Text variant="caption" style={styles.logTimeError}>
+                Enter a valid date like 03/21/2026 and a time like 8:30 PM.
+              </Text>
+            )}
+          </View>
+
+          <Text variant="label" style={styles.sectionHeader}>Macros</Text>
+          <MacroInput
+            type="Carbs"
+            unit={carbsUnit}
+            value={carbs}
+            macroColor={colors.macro.carbs}
+            kcal={carbsCalories}
+            setValue={setCarbs}
+            setUnit={setCarbsUnit}
           />
-        </View>
+          <MacroInput
+            type="Protein"
+            unit={proteinUnit}
+            value={protein}
+            macroColor={colors.macro.protein}
+            kcal={proteinCalories}
+            setValue={setProtein}
+            setUnit={setProteinUnit}
+          />
+          <MacroInput
+            type="Fat"
+            unit={fatUnit}
+            value={fat}
+            macroColor={colors.macro.fat}
+            kcal={fatCalories}
+            setValue={setFat}
+            setUnit={setFatUnit}
+          />
 
-        <View style={styles.logTimeCard}>
-          <Text variant="label" style={styles.sectionHeader}>Log Timing</Text>
-          <Text variant="caption" style={styles.logTimeHelper}>
-            Choose when this meal was eaten so it lands in the right day and time slot.
-          </Text>
-
-          <View style={styles.dateTimeRow}>
-            <View style={styles.dateTimeField}>
-              <Text variant="label" style={styles.fieldLabel}>Day</Text>
-              <TextInput
-                style={[styles.dateTimeInput, mealDateFocused && styles.dateTimeInputFocused]}
-                value={mealDateInput}
-                onChangeText={setMealDateInput}
-                placeholder="MM/DD/YYYY"
-                placeholderTextColor={colors.text.tertiary}
-                keyboardType="numbers-and-punctuation"
-                autoCapitalize="none"
-                autoCorrect={false}
-                onFocus={() => setMealDateFocused(true)}
-                onBlur={() => setMealDateFocused(false)}
-              />
-            </View>
-            <View style={styles.dateTimeField}>
-              <Text variant="label" style={styles.fieldLabel}>Time</Text>
-              <TextInput
-                style={[styles.dateTimeInput, mealTimeFocused && styles.dateTimeInputFocused]}
-                value={mealTimeInput}
-                onChangeText={setMealTimeInput}
-                placeholder="8:30 PM"
-                placeholderTextColor={colors.text.tertiary}
-                keyboardType="numbers-and-punctuation"
-                autoCapitalize="characters"
-                autoCorrect={false}
-                onFocus={() => setMealTimeFocused(true)}
-                onBlur={() => setMealTimeFocused(false)}
-              />
-            </View>
+          <View style={styles.caloriesRow}>
+            <Text variant="body" style={styles.caloriesLabel}>Total Calories</Text>
+            <Text variant="subheading" style={styles.caloriesValue}>{Math.round(calories)}</Text>
           </View>
 
-          {selectedMealDate ? (
-            <Text variant="caption" style={styles.logTimePreview}>
-              Logging for {selectedMealDate.toLocaleDateString('en-us', {
-                weekday: 'long',
-                month: 'short',
-                day: 'numeric',
-              })} at {selectedMealDate.toLocaleTimeString('en-us', {
-                hour: 'numeric',
-                minute: '2-digit',
-              })}
-            </Text>
-          ) : (
-            <Text variant="caption" style={styles.logTimeError}>
-              Enter a valid date like 03/21/2026 and a time like 8:30 PM.
-            </Text>
+          {calories > 0 && (
+            <View style={styles.macroBar}>
+              {carbsCalories > 0 && (
+                <View style={[styles.macroBarSeg, { flex: carbsCalories, backgroundColor: colors.macro.carbs }]} />
+              )}
+              {proteinCalories > 0 && (
+                <View style={[styles.macroBarSeg, { flex: proteinCalories, backgroundColor: colors.macro.protein }]} />
+              )}
+              {fatCalories > 0 && (
+                <View style={[styles.macroBarSeg, { flex: fatCalories, backgroundColor: colors.macro.fat }]} />
+              )}
+            </View>
           )}
-        </View>
 
-        <Text variant="label" style={styles.sectionHeader}>Macros</Text>
-        <MacroInput
-          type="Carbs"
-          unit={carbsUnit}
-          value={carbs}
-          macroColor={colors.macro.carbs}
-          kcal={carbsCalories}
-          setValue={setCarbs}
-          setUnit={setCarbsUnit}
-        />
-        <MacroInput
-          type="Protein"
-          unit={proteinUnit}
-          value={protein}
-          macroColor={colors.macro.protein}
-          kcal={proteinCalories}
-          setValue={setProtein}
-          setUnit={setProteinUnit}
-        />
-        <MacroInput
-          type="Fat"
-          unit={fatUnit}
-          value={fat}
-          macroColor={colors.macro.fat}
-          kcal={fatCalories}
-          setValue={setFat}
-          setUnit={setFatUnit}
-        />
+          <TouchableOpacity
+            style={[styles.addMealButton, isDisabled && styles.disabledAddMealButton]}
+            disabled={isDisabled}
+            onPress={async () => {
+              if (!selectedMealDate || !selectedDateKey) {
+                return;
+              }
 
-        <View style={styles.caloriesRow}>
-          <Text variant="body" style={styles.caloriesLabel}>Total Calories</Text>
-          <Text variant="subheading" style={styles.caloriesValue}>{Math.round(calories)}</Text>
-        </View>
+              const mealPayload = {
+                mealName,
+                carbsUnit,
+                proteinUnit,
+                fatUnit,
+                carbs: carbsNum,
+                protein: proteinNum,
+                fat: fatNum,
+                carbsCalories,
+                proteinCalories,
+                fatCalories,
+                calories,
+                date: selectedMealDate,
+              };
 
-        {calories > 0 && (
-          <View style={styles.macroBar}>
-            {/* Proportion-only bar; not replaced with MacroProgressBar because it has no target/logged semantics. */}
-            {carbsCalories > 0 && (
-              <View style={[styles.macroBarSeg, { flex: carbsCalories, backgroundColor: colors.macro.carbs }]} />
-            )}
-            {proteinCalories > 0 && (
-              <View style={[styles.macroBarSeg, { flex: proteinCalories, backgroundColor: colors.macro.protein }]} />
-            )}
-            {fatCalories > 0 && (
-              <View style={[styles.macroBarSeg, { flex: fatCalories, backgroundColor: colors.macro.fat }]} />
-            )}
-          </View>
-        )}
+              if (get(meal, 'id')) {
+                try {
+                  const updatedMeal = {
+                    ...mealPayload,
+                    id: get(meal, 'id') as string,
+                  };
 
-        <TouchableOpacity
-          style={[styles.addMealButton, isDisabled && styles.disabledAddMealButton]}
-          disabled={isDisabled}
-          onPress={async () => {
-            if (!selectedMealDate || !selectedDateKey) {
-              return;
-            }
-
-            const mealPayload = {
-              mealName,
-              carbsUnit,
-              proteinUnit,
-              fatUnit,
-              carbs: carbsNum,
-              protein: proteinNum,
-              fat: fatNum,
-              carbsCalories,
-              proteinCalories,
-              fatCalories,
-              calories,
-              date: selectedMealDate,
-            };
-
-            if (get(meal, 'id')) {
-              try {
-                const updatedMeal = {
-                  ...mealPayload,
-                  id: get(meal, 'id') as string,
-                };
-
-                if (selectedDateKey === originalDateKey) {
-                  await updateMeal(originalDateKey, updatedMeal);
-                } else {
-                  await deleteMeal(get(meal, 'id') as string, originalDateKey);
-                  await storeMeal(selectedDateKey, updatedMeal);
+                  if (selectedDateKey === originalDateKey) {
+                    await updateMeal(originalDateKey, updatedMeal);
+                  } else {
+                    await deleteMeal(get(meal, 'id') as string, originalDateKey);
+                    await storeMeal(selectedDateKey, updatedMeal);
+                  }
+                } catch (e) {
+                  console.error(`Error: ${e}. Could not update meal of id ${get(meal, 'id')}!`);
                 }
-              } catch (e) {
-                console.error(`Error: ${e}. Could not update meal of id ${get(meal, 'id')}!`);
+              } else {
+                try {
+                  await storeMeal(selectedDateKey, {
+                    ...mealPayload,
+                    id: uuidv4(),
+                  });
+                } catch (e) {
+                  console.error(`Error: ${e}. Could not store meal!`);
+                }
               }
-            } else {
-              try {
-                await storeMeal(selectedDateKey, {
-                  ...mealPayload,
-                  id: uuidv4(),
-                });
-              } catch (e) {
-                console.error(`Error: ${e}. Could not store meal!`);
-              }
-            }
-            navigation.pop();
-          }}
-        >
-          <Text
-            variant="body"
-            style={[styles.addMealText, isDisabled && styles.disabledAddMealText]}
+              navigation.pop();
+            }}
           >
-            {get(meal, 'id') ? 'Edit' : 'Add'} Meal
-          </Text>
-        </TouchableOpacity>
+            <Text
+              variant="body"
+              style={[styles.addMealText, isDisabled && styles.disabledAddMealText]}
+            >
+              {get(meal, 'id') ? 'Edit' : 'Add'} Meal
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </DismissKeyboardView>
     </>
@@ -401,7 +399,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   mealNameWrap: {
-    marginBottom: 16,
+    marginBottom: 18,
   },
   logTimeCard: {
     backgroundColor: colors.neutral[100],
@@ -409,7 +407,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.neutral[200],
     padding: 12,
-    marginBottom: 16,
+    marginBottom: 18,
   },
   logTimeHelper: {
     color: colors.text.secondary,
@@ -469,7 +467,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 12,
-    marginTop: 2,
+    marginTop: 6,
     borderTopWidth: 1,
     borderTopColor: colors.neutral[200],
   },
@@ -490,7 +488,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     overflow: 'hidden',
     gap: 2,
-    marginBottom: 16,
+    marginBottom: 18,
   },
   macroBarSeg: {
     height: '100%',
@@ -499,9 +497,9 @@ const styles = StyleSheet.create({
   addMealButton: {
     backgroundColor: colors.brand.primary,
     alignItems: 'center',
-    borderRadius: 6,
+    borderRadius: 8,
     padding: 14,
-    marginTop: 16,
+    marginTop: 10,
     marginBottom: 20,
   },
   disabledAddMealButton: {
