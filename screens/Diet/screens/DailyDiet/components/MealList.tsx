@@ -3,6 +3,7 @@ import MealSection from './MealSection';
 import { DietScreenNavigationProp, Meal } from '../../../../../types';
 import { ScrollView, StyleSheet } from 'react-native';
 import AddMealSectionButton from './AddMealSectionButton';
+import { spacing } from '../../../../../design/tokens/spacing';
 
 type Props = {
   meals: Meal[];
@@ -37,6 +38,7 @@ const MealList = ({ date, meals, setMeals, navigation }: Props) => {
 const styles = StyleSheet.create({
   list: {
     backgroundColor: 'transparent',
+    paddingTop: spacing.md,
   },
 });
 

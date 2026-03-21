@@ -20,6 +20,7 @@ const palette = {
   blueMoon:  '#012353',
   blueMoonDark: '#011a3d',
   red500:    '#ef4444',
+  red700:    '#b91c1c',
   white:     '#ffffff',
   black:     '#000000',
 } as const;
@@ -66,6 +67,7 @@ export const colors = {
   },
   status: {
     error: palette.red500,
+    errorStrong: palette.red700,
   },
 } as const;
 

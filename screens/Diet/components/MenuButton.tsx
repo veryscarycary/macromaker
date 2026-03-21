@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { colors } from '../../../design/tokens/colors';
 
 const MenuButton = () => {
   const navigation = useNavigation();
@@ -24,7 +25,7 @@ const MenuButton = () => {
       style={styles.button}
       onPress={toggleMenu}
     >
-      <Ionicons size={30} style={{ marginBottom: -3 }} name="reorder-three" />
+      <Ionicons size={24} color={colors.brand.primary} name="reorder-three" />
     </TouchableOpacity>
   );
 };
@@ -32,7 +33,10 @@ const MenuButton = () => {
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    marginLeft: 5,
+    justifyContent: 'center',
+    paddingHorizontal: 4,
+    paddingVertical: 4,
+    marginLeft: 4,
   },
 });
 

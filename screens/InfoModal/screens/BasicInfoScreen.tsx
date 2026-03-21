@@ -3,7 +3,6 @@ import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInpu
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text } from '../../../design/components';
 import { ModalStackNavigationProp } from '../../../types';
-import DismissKeyboardView from '../../../components/DismissKeyboardView';
 import { Context as InfoContext } from '../../../context/InfoContext';
 import StepIndicator from '../components/StepIndicator';
 import { colors } from '../../../design/tokens/colors';
@@ -92,10 +91,12 @@ const BasicInfoScreen = ({ navigation }: Props) => {
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <DismissKeyboardView style={styles.form}>
+        <View style={styles.form}>
           <ScrollView
+            style={styles.scroll}
             bounces={false}
             contentContainerStyle={styles.scrollContent}
+            keyboardDismissMode="on-drag"
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
@@ -234,7 +235,7 @@ const BasicInfoScreen = ({ navigation }: Props) => {
               </Text>
             </TouchableOpacity>
           </View>
-        </DismissKeyboardView>
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -247,15 +248,18 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.sm,
+  },
+  scroll: {
+    flex: 1,
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: spacing.md,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.xl * 2,
   },
   content: {
-    flex: 1,
+    gap: spacing.xs,
   },
   imageContainer: {
     flexDirection: 'row',
@@ -375,8 +379,10 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   footer: {
-    paddingTop: 6,
-    paddingBottom: 12,
+    backgroundColor: colors.neutral[50],
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.md,
+    paddingBottom: spacing.lg,
     borderTopWidth: 1,
     borderTopColor: colors.neutral[200],
   },

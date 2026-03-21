@@ -12,6 +12,20 @@ export interface MacroProgressBarProps {
   style?: StyleProp<ViewStyle>;
 }
 
+function alpha(color: string, opacity: number): string {
+  const normalized = color.replace('#', '');
+
+  if (normalized.length !== 6) {
+    return color;
+  }
+
+  const red = parseInt(normalized.slice(0, 2), 16);
+  const green = parseInt(normalized.slice(2, 4), 16);
+  const blue = parseInt(normalized.slice(4, 6), 16);
+
+  return `rgba(${red}, ${green}, ${blue}, ${opacity})`;
+}
+
 function segmentFlex(target: number, total: number): number {
   return total > 0 ? target / total : 1 / 3;
 }
@@ -43,7 +57,13 @@ export function MacroProgressBar({
     >
       <View
         testID="macro-segment-carbs"
-        style={[styles.segment, { flex: segmentFlex(carbsTarget, total) }]}
+        style={[
+          styles.segment,
+          {
+            flex: segmentFlex(carbsTarget, total),
+            backgroundColor: alpha(colors.macro.carbs, 0.16),
+          },
+        ]}
       >
         <View
           testID="macro-fill-carbs"
@@ -58,7 +78,13 @@ export function MacroProgressBar({
       </View>
       <View
         testID="macro-segment-protein"
-        style={[styles.segment, { flex: segmentFlex(proteinTarget, total) }]}
+        style={[
+          styles.segment,
+          {
+            flex: segmentFlex(proteinTarget, total),
+            backgroundColor: alpha(colors.macro.protein, 0.16),
+          },
+        ]}
       >
         <View
           testID="macro-fill-protein"
@@ -73,7 +99,13 @@ export function MacroProgressBar({
       </View>
       <View
         testID="macro-segment-fat"
-        style={[styles.segment, { flex: segmentFlex(fatTarget, total) }]}
+        style={[
+          styles.segment,
+          {
+            flex: segmentFlex(fatTarget, total),
+            backgroundColor: alpha(colors.macro.fat, 0.16),
+          },
+        ]}
       >
         <View
           testID="macro-fill-fat"
@@ -97,6 +129,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     overflow: 'hidden',
     backgroundColor: colors.surface.muted,
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
   },
   segment: {
     height: '100%',

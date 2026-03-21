@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
     margin: spacing.lg,
     borderRadius: spacing.sm,
     backgroundColor: colors.brand.primary,
+    borderWidth: 1,
+    borderColor: colors.brand.primaryDark,
     overflow: 'hidden',
   },
   label: {

@@ -6,6 +6,8 @@ import { getFocusedRouteNameFromRoute, RouteProp } from '@react-navigation/nativ
 import { View } from 'react-native';
 
 import { colors } from '../design/tokens/colors';
+import { fontFamilies } from '../design/tokens/typography';
+import { spacing } from '../design/tokens/spacing';
 import DietHistoryScreen from '../screens/Diet/DietHistoryScreen';
 import FitnessScreen from '../screens/FitnessScreen';
 import {
@@ -87,16 +89,54 @@ const getDietTabBarStyle = (
 
 const DietTabStack = createStackNavigator<DietTabParamList>();
 
+const sharedStackScreenOptions = {
+  headerStyle: {
+    backgroundColor: colors.neutral[50],
+    shadowColor: colors.neutral[200],
+    elevation: 0,
+  },
+  headerTitleStyle: {
+    color: colors.text.primary,
+    fontFamily: fontFamilies.semiBold,
+    fontSize: 18,
+  },
+  headerTintColor: colors.brand.primary,
+  headerBackTitleStyle: {
+    color: colors.brand.primary,
+  },
+  headerBackTitleVisible: false,
+  headerBackImage: () => (
+    <Ionicons
+      name="chevron-back"
+      size={19}
+      color={colors.brand.primary}
+      style={{ marginLeft: spacing.xs }}
+    />
+  ),
+  headerTitleAlign: 'center',
+  headerLeftContainerStyle: {
+    paddingLeft: spacing.sm,
+  },
+  headerRightContainerStyle: {
+    paddingRight: spacing.sm,
+  },
+  headerTitleContainerStyle: {
+    paddingHorizontal: spacing.xl,
+  },
+  headerShadowVisible: true,
+} as const;
+
 function DietNavigator() {
   return (
     <DietTabStack.Navigator
       screenOptions={({ navigation }: { navigation: any; route: any }) => ({
+        ...sharedStackScreenOptions,
         headerRight: () => (
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'flex-start',
-              marginRight: 15,
+              alignItems: 'center',
             }}
           >
             <AddFoodHeaderButton navigation={navigation} />
@@ -134,7 +174,7 @@ const FitnessTabStack = createStackNavigator<FitnessTabParamList>();
 
 function FitnessNavigator() {
   return (
-    <FitnessTabStack.Navigator>
+    <FitnessTabStack.Navigator screenOptions={sharedStackScreenOptions}>
       <FitnessTabStack.Screen
         name="FitnessScreen"
         component={FitnessScreen}

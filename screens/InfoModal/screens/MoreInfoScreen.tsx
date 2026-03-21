@@ -131,6 +131,7 @@ const MoreInfoScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: colors.neutral[50],
   },
   form: {
     flex: 1,
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: spacing.md,
+    paddingBottom: spacing.xl,
   },
   image: {
     width: 88,
@@ -175,23 +176,39 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   metricsSection: {
-    marginBottom: spacing.sm,
+    marginBottom: spacing.md,
+    backgroundColor: colors.surface.default,
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
+    borderRadius: spacing.md,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
   },
   metricsSectionCompact: {
     marginBottom: 6,
   },
   descriptionSection: {
-    marginBottom: 10,
+    marginBottom: spacing.md,
+    backgroundColor: colors.neutral[100],
+    borderRadius: spacing.md,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
   },
   descriptionSectionCompact: {
     marginBottom: spacing.sm,
   },
   descriptionHighlight: {
     fontFamily: fontFamilies.bold,
+    color: colors.accent.rose,
   },
   sliderSection: {
     gap: 0,
-    marginTop: 'auto',
+    backgroundColor: colors.surface.default,
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
+    borderRadius: spacing.md,
+    padding: spacing.md,
+    marginTop: spacing.sm,
   },
   sliderSectionCompact: {
     marginTop: 0,
@@ -222,8 +239,10 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   footer: {
-    paddingTop: 6,
+    paddingTop: spacing.md,
     paddingBottom: 12,
+    borderTopWidth: 1,
+    borderTopColor: colors.neutral[200],
   },
   button: {
     backgroundColor: colors.brand.primary,

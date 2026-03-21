@@ -22,7 +22,9 @@ const ModalButton = ({
   return (
     <>
       <TouchableOpacity style={styles.container} onPress={onPress}>
-        <Ionicons size={32} name={icon} color={colors.text.primary} />
+        <View style={styles.iconWrap}>
+          <Ionicons size={24} name={icon} color={colors.brand.primary} />
+        </View>
         <Text variant="subheading" style={styles.label}>
           {children}
         </Text>
@@ -40,15 +42,28 @@ const ModalButton = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     padding: spacing.lg,
     borderRadius: radius.lg,
     backgroundColor: colors.neutral[50],
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
     overflow: 'hidden',
+  },
+  iconWrap: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.surface.default,
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
   },
   label: {
     marginLeft: spacing.md,
+    color: colors.text.primary,
   },
   bottomBorderContainer: {
     justifyContent: 'center',

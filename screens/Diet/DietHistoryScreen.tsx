@@ -41,18 +41,21 @@ const DietHistoryScreen = ({ navigation }: Props) => {
   );
 
   return (
-    <>
-      <View style={styles.titleContainer}>
+    <View style={styles.screen}>
+      <View style={styles.heroCard}>
+        <Text variant="label" style={styles.eyebrow}>
+          Weekly Snapshot
+        </Text>
         <Text variant="subheading" style={styles.title}>
           7-Day Average
         </Text>
+        <View style={styles.statPill}>
+          <Text variant="body" style={styles.data}>
+            Calories: {Math.round(averageCalories) || 0}
+          </Text>
+        </View>
       </View>
-      <View style={styles.otherNutrientsContainer}>
-        <Text variant="body" style={styles.data}>
-          Calories: {Math.round(averageCalories) || 0}
-        </Text>
-      </View>
-      <View style={styles.graphContainer}>
+      <View style={styles.graphCard}>
         <MacroGraph
           carbs={averageCarbs}
           protein={averageProtein}
@@ -60,32 +63,50 @@ const DietHistoryScreen = ({ navigation }: Props) => {
         />
       </View>
       <DietHistoryList dietHistory={dietHistory} navigation={navigation} />
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    marginTop: 10,
-    marginHorizontal: 100,
-    borderRadius: 10,
-    padding: spacing.sm,
+  screen: {
+    flex: 1,
+    backgroundColor: colors.neutral[50],
+  },
+  heroCard: {
+    marginTop: spacing.md,
+    marginHorizontal: spacing.lg,
+    padding: spacing.lg,
+    borderRadius: spacing.md,
+    backgroundColor: colors.surface.default,
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
+  },
+  eyebrow: {
+    color: colors.accent.teal,
+    marginBottom: spacing.xs,
   },
   title: {
-    textAlign: 'center',
+    color: colors.text.primary,
   },
-  otherNutrientsContainer: {
-    marginTop: 10,
-    marginHorizontal: spacing.lg,
-    borderRadius: 10,
+  statPill: {
+    alignSelf: 'flex-start',
+    marginTop: spacing.md,
     padding: spacing.sm,
-    backgroundColor: 'transparent',
+    paddingHorizontal: spacing.md,
+    borderRadius: 999,
+    backgroundColor: colors.neutral[100],
   },
   data: {
     color: colors.text.secondary,
   },
-  graphContainer: {
-    backgroundColor: 'transparent',
+  graphCard: {
+    marginTop: spacing.md,
+    marginHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+    borderRadius: spacing.md,
+    backgroundColor: colors.surface.default,
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
     alignItems: 'center',
   },
 });
