@@ -472,13 +472,14 @@ const styles = StyleSheet.create({
   },
   macroLabelGroup: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: spacing.sm,
   },
   macroDot: {
     width: 10,
     height: 10,
     borderRadius: 999,
+    marginTop: 5,
   },
   macroName: {
     color: colors.text.primary,

@@ -11,6 +11,9 @@ import * as CONSTANTS from './constants';
 export const getTodaysDate = (): string =>
   new Date().toLocaleDateString('en-us');
 
+export const formatStoredDate = (date: Date): string =>
+  date.toLocaleDateString('en-us');
+
 export const parseStoredDate = (dateString: string): Date => {
   const [month, day, year] = dateString.split('/').map(Number);
   return new Date(year, month - 1, day);

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Text } from '../../design/components';
-import { TextInput, TouchableOpacity, StyleSheet, View } from 'react-native';
+import { TextInput, TouchableOpacity, StyleSheet, View, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../design/tokens/colors';
 import { fontFamilies } from '../../design/tokens/typography';
 import {
+  deleteMeal,
   storeMeal,
   updateMeal,
 } from '../../context/MealContext';
@@ -18,6 +19,7 @@ import {
   convertCarbsToCalories,
   convertFatToCalories,
   convertProteinToCalories,
+  formatStoredDate,
   getTodaysDate,
 } from '../../utils';
 import { DietScreenNavigationProp, DietTabParamList } from '../../types';
@@ -36,6 +38,70 @@ const areFieldsValid = (carbs: string, protein: string, fat: string) => {
 
 const getDefaultMacroState = (state: string | number | undefined): string | number =>
   !state && typeof state !== 'number' ? '' : state!;
+
+const DATE_INPUT_REGEX = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+const TIME_INPUT_REGEX = /^(\d{1,2}):(\d{2})\s*([AaPp][Mm])$/;
+
+const normalizeMealDate = (value?: string | Date): Date => {
+  if (!value) {
+    return new Date();
+  }
+
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+};
+
+const formatTimeInput = (date: Date): string => {
+  const hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const meridiem = hours >= 12 ? 'PM' : 'AM';
+  const twelveHour = hours % 12 || 12;
+
+  return `${twelveHour}:${minutes} ${meridiem}`;
+};
+
+const parseMealDateTime = (dateInput: string, timeInput: string): Date | null => {
+  const trimmedDate = dateInput.trim();
+  const trimmedTime = timeInput.trim().toUpperCase();
+
+  if (!DATE_INPUT_REGEX.test(trimmedDate)) {
+    return null;
+  }
+
+  const [month, day, year] = trimmedDate.split('/').map(Number);
+  const date = new Date(year, month - 1, day);
+
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    return null;
+  }
+
+  const timeMatch = trimmedTime.match(TIME_INPUT_REGEX);
+
+  if (!timeMatch) {
+    return null;
+  }
+
+  const parsedHours = Number(timeMatch[1]);
+  const minutes = Number(timeMatch[2]);
+  const meridiem = timeMatch[3];
+
+  if (parsedHours < 1 || parsedHours > 12 || minutes > 59) {
+    return null;
+  }
+
+  let hours = parsedHours % 12;
+
+  if (meridiem === 'PM') {
+    hours += 12;
+  }
+
+  date.setHours(hours, minutes, 0, 0);
+  return date;
+};
 
 const AddFoodScreen = ({ route, navigation }: Props) => {
   const meal = get(route, 'params.meal');
@@ -58,9 +124,15 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
   const [proteinUnit, setProteinUnit] = useState(defaultProteinUnit || 'g');
   const [fatUnit, setFatUnit] = useState(defaultFatUnit || 'g');
   const [mealName, setMealName] = useState(defaultMealName || '');
+  const initialMealDate = normalizeMealDate(defaultDate);
+  const initialStoredDate = shortDate || formatStoredDate(initialMealDate);
+  const [mealDateInput, setMealDateInput] = useState(initialStoredDate);
+  const [mealTimeInput, setMealTimeInput] = useState(formatTimeInput(initialMealDate));
 
   const [searchFocused, setSearchFocused] = useState(false);
   const [mealNameFocused, setMealNameFocused] = useState(false);
+  const [mealDateFocused, setMealDateFocused] = useState(false);
+  const [mealTimeFocused, setMealTimeFocused] = useState(false);
 
   const carbsNum = carbs ? Number(carbs) : 0;
   const proteinNum = protein ? Number(protein) : 0;
@@ -72,9 +144,16 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
 
   const calories = carbsCalories + proteinCalories + fatCalories;
 
-  const date = defaultDate || new Date();
+  const selectedMealDate = parseMealDateTime(mealDateInput, mealTimeInput);
+  const selectedDateKey = selectedMealDate ? formatStoredDate(selectedMealDate) : null;
+  const originalDateKey = defaultDate
+    ? formatStoredDate(normalizeMealDate(defaultDate))
+    : shortDate || getTodaysDate();
 
-  const isDisabled = !areFieldsValid(String(carbs), String(protein), String(fat));
+  const isDisabled = (
+    !areFieldsValid(String(carbs), String(protein), String(fat)) ||
+    !selectedMealDate
+  );
 
   return (
     <>
@@ -92,6 +171,11 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
       </View>
 
       <DismissKeyboardView style={styles.form}>
+        <ScrollView
+          contentContainerStyle={styles.formContent}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
 
         <Text variant="label" style={styles.sectionHeader}>Meal Details</Text>
         <View style={styles.mealNameWrap}>
@@ -105,6 +189,63 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
             onFocus={() => setMealNameFocused(true)}
             onBlur={() => setMealNameFocused(false)}
           />
+        </View>
+
+        <View style={styles.logTimeCard}>
+          <Text variant="label" style={styles.sectionHeader}>Log Timing</Text>
+          <Text variant="caption" style={styles.logTimeHelper}>
+            Choose when this meal was eaten so it lands in the right day and time slot.
+          </Text>
+
+          <View style={styles.dateTimeRow}>
+            <View style={styles.dateTimeField}>
+              <Text variant="label" style={styles.fieldLabel}>Day</Text>
+              <TextInput
+                style={[styles.dateTimeInput, mealDateFocused && styles.dateTimeInputFocused]}
+                value={mealDateInput}
+                onChangeText={setMealDateInput}
+                placeholder="MM/DD/YYYY"
+                placeholderTextColor={colors.text.tertiary}
+                keyboardType="numbers-and-punctuation"
+                autoCapitalize="none"
+                autoCorrect={false}
+                onFocus={() => setMealDateFocused(true)}
+                onBlur={() => setMealDateFocused(false)}
+              />
+            </View>
+            <View style={styles.dateTimeField}>
+              <Text variant="label" style={styles.fieldLabel}>Time</Text>
+              <TextInput
+                style={[styles.dateTimeInput, mealTimeFocused && styles.dateTimeInputFocused]}
+                value={mealTimeInput}
+                onChangeText={setMealTimeInput}
+                placeholder="8:30 PM"
+                placeholderTextColor={colors.text.tertiary}
+                keyboardType="numbers-and-punctuation"
+                autoCapitalize="characters"
+                autoCorrect={false}
+                onFocus={() => setMealTimeFocused(true)}
+                onBlur={() => setMealTimeFocused(false)}
+              />
+            </View>
+          </View>
+
+          {selectedMealDate ? (
+            <Text variant="caption" style={styles.logTimePreview}>
+              Logging for {selectedMealDate.toLocaleDateString('en-us', {
+                weekday: 'long',
+                month: 'short',
+                day: 'numeric',
+              })} at {selectedMealDate.toLocaleTimeString('en-us', {
+                hour: 'numeric',
+                minute: '2-digit',
+              })}
+            </Text>
+          ) : (
+            <Text variant="caption" style={styles.logTimeError}>
+              Enter a valid date like 03/21/2026 and a time like 8:30 PM.
+            </Text>
+          )}
         </View>
 
         <Text variant="label" style={styles.sectionHeader}>Macros</Text>
@@ -160,41 +301,45 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
           style={[styles.addMealButton, isDisabled && styles.disabledAddMealButton]}
           disabled={isDisabled}
           onPress={async () => {
+            if (!selectedMealDate || !selectedDateKey) {
+              return;
+            }
+
+            const mealPayload = {
+              mealName,
+              carbsUnit,
+              proteinUnit,
+              fatUnit,
+              carbs: carbsNum,
+              protein: proteinNum,
+              fat: fatNum,
+              carbsCalories,
+              proteinCalories,
+              fatCalories,
+              calories,
+              date: selectedMealDate,
+            };
+
             if (get(meal, 'id')) {
               try {
-                updateMeal(getTodaysDate(), {
-                  mealName,
-                  carbsUnit,
-                  proteinUnit,
-                  fatUnit,
-                  carbs: carbsNum,
-                  protein: proteinNum,
-                  fat: fatNum,
-                  carbsCalories,
-                  proteinCalories,
-                  fatCalories,
-                  calories,
-                  date: defaultDate!,
+                const updatedMeal = {
+                  ...mealPayload,
                   id: get(meal, 'id') as string,
-                });
+                };
+
+                if (selectedDateKey === originalDateKey) {
+                  await updateMeal(originalDateKey, updatedMeal);
+                } else {
+                  await deleteMeal(get(meal, 'id') as string, originalDateKey);
+                  await storeMeal(selectedDateKey, updatedMeal);
+                }
               } catch (e) {
                 console.error(`Error: ${e}. Could not update meal of id ${get(meal, 'id')}!`);
               }
             } else {
               try {
-                await storeMeal(shortDate || getTodaysDate(), {
-                  mealName,
-                  carbsUnit,
-                  proteinUnit,
-                  fatUnit,
-                  carbs: carbsNum,
-                  protein: proteinNum,
-                  fat: fatNum,
-                  carbsCalories,
-                  proteinCalories,
-                  fatCalories,
-                  calories,
-                  date,
+                await storeMeal(selectedDateKey, {
+                  ...mealPayload,
                   id: uuidv4(),
                 });
               } catch (e) {
@@ -211,6 +356,7 @@ const AddFoodScreen = ({ route, navigation }: Props) => {
             {get(meal, 'id') ? 'Edit' : 'Add'} Meal
           </Text>
         </TouchableOpacity>
+        </ScrollView>
       </DismissKeyboardView>
     </>
   );
@@ -239,9 +385,12 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
+    backgroundColor: colors.neutral[50],
+  },
+  formContent: {
     paddingHorizontal: 20,
     paddingTop: 14,
-    backgroundColor: colors.neutral[50],
+    paddingBottom: 20,
   },
   sectionHeader: {
     fontFamily: fontFamilies.semiBold,
@@ -253,6 +402,47 @@ const styles = StyleSheet.create({
   },
   mealNameWrap: {
     marginBottom: 16,
+  },
+  logTimeCard: {
+    backgroundColor: colors.neutral[100],
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
+    padding: 12,
+    marginBottom: 16,
+  },
+  logTimeHelper: {
+    color: colors.text.secondary,
+    marginBottom: 12,
+  },
+  dateTimeRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  dateTimeField: {
+    flex: 1,
+  },
+  dateTimeInput: {
+    fontFamily: fontFamilies.regular,
+    fontSize: 14,
+    color: colors.text.primary,
+    backgroundColor: colors.surface.default,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: colors.neutral[200],
+    borderRadius: 6,
+  },
+  dateTimeInputFocused: {
+    borderColor: colors.brand.primary,
+  },
+  logTimePreview: {
+    color: colors.text.secondary,
+    marginTop: 10,
+  },
+  logTimeError: {
+    color: colors.status.error,
+    marginTop: 10,
   },
   fieldLabel: {
     fontFamily: fontFamilies.medium,
