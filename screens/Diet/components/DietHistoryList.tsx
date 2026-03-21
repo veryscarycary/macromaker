@@ -32,30 +32,21 @@ const DietHistoryListItem = ({ dietHistoryDay, onPress }: GenericObject) => {
             {dietHistoryDay.date}
           </Text>
         </View>
+        <View style={styles.rowMeta}>
+          <Text variant="caption" style={styles.rowMetaText}>
+            {mealCount} meals
+          </Text>
+          <View style={styles.rowMetaDot} />
+          <Text variant="caption" style={styles.rowMetaText}>
+            {Math.round(totalCalories)} cal
+          </Text>
+        </View>
         <Ionicons
           size={22}
           color={colors.accent.teal}
           name="chevron-forward"
           style={styles.chevron}
         />
-      </View>
-      <View style={styles.rowMetrics}>
-        <View style={styles.metricPill}>
-          <Text variant="caption" style={styles.metricLabel}>
-            Meals
-          </Text>
-          <Text variant="bodySmall" style={styles.metricValue}>
-            {mealCount}
-          </Text>
-        </View>
-        <View style={styles.metricPill}>
-          <Text variant="caption" style={styles.metricLabel}>
-            Calories
-          </Text>
-          <Text variant="bodySmall" style={styles.metricValue}>
-            {Math.round(totalCalories)}
-          </Text>
-        </View>
       </View>
     </TouchableOpacity>
   );
@@ -129,26 +120,22 @@ const styles = StyleSheet.create({
   chevron: {
     alignSelf: 'center',
   },
-  rowMetrics: {
+  rowMeta: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: spacing.sm,
-    marginTop: spacing.md,
-  },
-  metricPill: {
     flex: 1,
+    marginHorizontal: spacing.sm,
+  },
+  rowMetaText: {
+    color: colors.text.secondary,
+  },
+  rowMetaDot: {
+    width: 4,
+    height: 4,
     borderRadius: 999,
-    borderWidth: 1,
-    borderColor: colors.neutral[200],
-    backgroundColor: colors.neutral[50],
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-  },
-  metricLabel: {
-    color: colors.text.tertiary,
-    marginBottom: 2,
-  },
-  metricValue: {
-    color: colors.text.primary,
+    backgroundColor: colors.neutral[300],
   },
   emptyState: {
     marginHorizontal: spacing.lg,
